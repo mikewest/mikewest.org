@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>{% if page.title %}&ldquo;{{ page.title }}&rdquo; &mdash; {% endif %}Mike West</title>
+    <title>
+        {% if page.tag %}
+        Posts tagged &ldquo;{{ page.tag }}&rdquo; &mdash; 
+        {% elsif page.title %}
+        &ldquo;{{ page.title }}&rdquo; &mdash; 
+        {% endif %}
+        Mike West
+    </title>
 {% include document_head.html %}
 </head>
 <body>
