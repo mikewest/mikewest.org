@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/33
 Modified: '2006-09-23T09:23:05Z'
-Tags:
-- HOWTO
 Teaser: '`leave` is a brilliant little utility that annoys you at a pre-specified
     time until you log out.'
 Title: 'You heard me: `leave`!'
 layout: post
+tags:
+- HOWTO
 ---
 Normally, I'd foist this off into a sidebar link, but this discovery deserves a little more: it's that brilliant.
 

@@ -2,11 +2,11 @@
 Alias:
 - http://mikewest.org/blog/id/1
 Modified: '2006-03-31T20:26:59Z'
-Tags:
-- JavaScript
 Teaser: The PerfectTime JavaScript class gets updated to support the hCalendar format.
 Title: 'Son of PerfectTime: The Validationator!'
 layout: post
+tags:
+- JavaScript
 ---
 By far, the biggest bit of feedback I've gotten on ["Showing Perfect Time"][1] is the glaringly invalid attribute (`gmt_time`) in the structure I chose to use (from [Johan Sundström][2], for example).  I don't think that the attribute by itself is a huge deal, and [Peter-Paul Koch][3] makes [a convincing argument][4] for that position at [A List Apart][5].
 

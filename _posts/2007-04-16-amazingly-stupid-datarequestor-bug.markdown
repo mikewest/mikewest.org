@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/58
 Modified: '2007-04-16T20:01:24Z'
-Tags:
-- DataRequestor
-- JavaScript
 Teaser: James Moberg pointed out that I'm a complete idiot, and shipped DataRequestor
     1.6 with some debug code left in.
 Title: Amazingly Stupid DataRequestor Bug
 layout: post
+tags:
+- DataRequestor
+- JavaScript
 ---
 Wow.
 

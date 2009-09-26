@@ -2,14 +2,14 @@
 Alias:
 - http://mikewest.org/blog/id/35
 Modified: '2006-09-28T14:24:44Z'
-Tags:
-- HOWTO
-- Subversion
 Teaser: You don't _need_ a powerful SVN server in order to reap the benifits of version
     control.  This article explains how to set up repositories on any machine you
     have SSH access into.
 Title: Serverless SVN Repositories
 layout: post
+tags:
+- HOWTO
+- Subversion
 ---
 A little known fact about Subversion is that you don't need a special server to get running.  You can actually host Subversion repositories locally on your own computer, or on any remote machine you've got SSH access into.
 

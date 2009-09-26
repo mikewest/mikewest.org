@@ -2,7 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/36
 Modified: '2006-09-29T13:20:04Z'
-Tags: null
 Teaser: ''
 Title: 'Anatomy of a Technical Interview: Part I'
 layout: post

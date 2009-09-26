@@ -2,13 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/92
 Modified: '2008-11-01T19:27:36Z'
-Tags:
-- personal
-- mikewest.org
-- projects
-- fallow
-- webdev
-- development
 Teaser: It's been quite some time since I put any serious effort into mikewest.org.  I've
     had tons of work, I've been burnt out, I've been complacent... the excuses pile
     on top of each other, each valid, each sufficient, none satisfactory.  For the
@@ -17,6 +10,13 @@ Teaser: It's been quite some time since I put any serious effort into mikewest.o
     to be the second.
 Title: Fallow fields and new beginnings
 layout: post
+tags:
+- personal
+- mikewest.org
+- projects
+- fallow
+- webdev
+- development
 ---
 It's been quite some time since I put any serious effort into mikewest.org.  I've had tons of work, I've been burnt out, I've been complacent... the excuses pile on top of each other, each valid, each sufficient, none satisfactory.  For the sake of my own sanity, I need to start working on personal projects again.  Last week's [GitHub dump][dump] was the first step in that direction.  Consider this relaunch to be the second.
 

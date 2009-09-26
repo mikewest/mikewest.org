@@ -2,7 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/7
 Modified: '2007-01-08T21:25:50Z'
-Tags: null
 Teaser: ''
 Title: "Mike West is\u2026"
 layout: post

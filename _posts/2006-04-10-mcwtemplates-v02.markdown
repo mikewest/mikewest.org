@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/11
 Modified: '2006-06-16T09:49:51Z'
-Tags:
-- TextPattern
 Teaser: '`mcw_templates` is a TextPattern admin plugin, enabling the trivial export
     of pages, forms, and CSS rules to a specified folder for convenient editing, and
     the subsequent import of new and updated files.'
 Title: "mcw_templates \u2014 v.0.2"
 layout: post
+tags:
+- TextPattern
 ---
 `mcw_templates` is a TextPattern admin plugin, enabling the trivial export of pages, forms, and CSS rules to a specified folder for convenient editing, and the subsequent import of new and updated files.
 

@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/5
 Modified: '2006-03-29T20:48:02Z'
-Tags:
-- JavaScript
 Teaser: Attaching behaviors to the semantic elements in your HTML document isn't nearly
     so hard as it sounds.
 Title: Event Handlers and Other Distractions
 layout: post
+tags:
+- JavaScript
 ---
 A few things are vigorously jumping around in my head, which is making it incredibly hard to sleep. So, I’ll blog in a futile attempt to exorcise the little beasties from my brain for the night.
 

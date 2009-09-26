@@ -2,11 +2,11 @@
 Alias:
 - http://mikewest.org/blog/id/47
 Modified: '2007-01-12T16:02:46Z'
-Tags:
-- HOWTO
 Teaser: ''
 Title: Setting Up an OpenID Server with phpMyID
 layout: post
+tags:
+- HOWTO
 ---
 Sam Ruby's "[OpenID for non-SuperUsers][sam_openID]" distills the process of
 [setting up one's own OpenID server][setup] with [phpMyID][] in such a clear and

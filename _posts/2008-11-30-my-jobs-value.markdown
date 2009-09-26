@@ -2,7 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/100
 Modified: '2008-11-30T15:50:24Z'
-Tags:
+Teaser: Recently, I wrote a short article on the effect a team's sense of ownership
+    in it's projects can have on the finished product.  The surprising twist in my
+    professional life last week has led me back onto the same train of thought, but
+    I'm coming to it from a slightly different angle.
+Title: My job's value
+layout: post
+tags:
 - mikewest.org
 - personal
 - layoff
@@ -16,12 +22,6 @@ Tags:
 - jobhunt
 - thaler
 - richardthaler
-Teaser: Recently, I wrote a short article on the effect a team's sense of ownership
-    in it's projects can have on the finished product.  The surprising twist in my
-    professional life last week has led me back onto the same train of thought, but
-    I'm coming to it from a slightly different angle.
-Title: My job's value
-layout: post
 ---
 Recently, I wrote a [short article][ownership] on the effect a team's sense of ownership in it's projects can have on the finished product.  The [surprising twist][layoff] in my professional life last week has led me back onto the same train of thought, but I'm coming to it from a slightly different angle.  I discussed "ownership" in a narrow sense, relating to a team's involvement with and responsibility for decisions made about a project's vision and direction.  This isn't the only way in which the word has impact; one also has "ownership" of a project in the broader sense of pure possession.
 

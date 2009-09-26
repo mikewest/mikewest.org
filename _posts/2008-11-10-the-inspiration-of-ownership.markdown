@@ -2,7 +2,15 @@
 Alias:
 - http://mikewest.org/blog/id/96
 Modified: '2008-11-10T20:50:28Z'
-Tags:
+Teaser: 'On the bus home from work, I was listening to this week''s On the Media.
+    In particular, I was struck by a great interview with the man who designed the
+    field-organizer and volunteer training programs for Barack Obama''s campaign:
+    Marshall Ganz.  If you''re at all interested in the political angle, I''d suggest
+    you listen.  If you''re at all interested in how I''m planning to apply this seemingly
+    unrelated topic to the technical field of web development (et al), keep reading.'
+Title: The Inspiration of Ownership
+layout: post
+tags:
 - mikewest.org
 - personal
 - inspiration
@@ -13,14 +21,6 @@ Tags:
 - management
 - webdev
 - development
-Teaser: 'On the bus home from work, I was listening to this week''s On the Media.
-    In particular, I was struck by a great interview with the man who designed the
-    field-organizer and volunteer training programs for Barack Obama''s campaign:
-    Marshall Ganz.  If you''re at all interested in the political angle, I''d suggest
-    you listen.  If you''re at all interested in how I''m planning to apply this seemingly
-    unrelated topic to the technical field of web development (et al), keep reading.'
-Title: The Inspiration of Ownership
-layout: post
 ---
 On the bus home from work, I was listening to this week's [On the Media][otm]. In particular, I was struck by a [great interview][interview] with the man who designed the field-organizer and volunteer training programs for Barack Obama's campaign: [Marshall Ganz][ganz].  If you're at all interested in the political angle, I'd suggest you [listen][interview].  If you're at all interested in how I'm planning to apply this seemingly unrelated topic to the technical field of web development (et al), keep reading.
 

@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/83
 Modified: '2007-12-12T16:08:41Z'
-Tags:
-- Personal
 Teaser: My jealousy of Adriano's pretty `bash` prompt has been assuaged by the construction
     of my own, _prettier_ and _more functional_ prompt.  So there!
 Title: Now I have a colourful `bash` prompt
 layout: post
+tags:
+- Personal
 ---
 After seeing [Adriano Castro's][adriano] presentation last week on [R3][], I was inspired both to play a little bit with R3 itself (cool!), and just as importantly, to finally taking a few minutes to customize my bash prompt.  His brightly coloured prompt was full of information and life, mine not; I'd just done an entire presentation on [loving the terminal][love], so this deficit was particularly shameful.
 

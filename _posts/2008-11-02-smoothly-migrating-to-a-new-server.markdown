@@ -2,7 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/93
 Modified: '2008-11-02T11:34:15Z'
-Tags:
+Teaser: Hopefully, you didn't notice a thing yesterday when I moved the site off my
+    shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That
+    was very much the goal.  Briefly, I'll go through the steps I took to make the
+    transition as smooth as possible both before the launch and directly afterwards.
+Title: Smoothly Migrating to a New Server
+layout: post
+tags:
 - mikewest.org
 - projects
 - migrations
@@ -16,12 +22,6 @@ Tags:
 - performance
 - sysadmin
 - logfiles
-Teaser: Hopefully, you didn't notice a thing yesterday when I moved the site off my
-    shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That
-    was very much the goal.  Briefly, I'll go through the steps I took to make the
-    transition as smooth as possible both before the launch and directly afterwards.
-Title: Smoothly Migrating to a New Server
-layout: post
 ---
 Hopefully, you didn't notice a thing yesterday when I moved the site off my shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That was very much the goal.  Briefly, I'll go through the steps I took to make the transition as smooth as possible both before the launch and directly afterwards.
 

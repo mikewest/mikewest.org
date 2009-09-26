@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/67
 Modified: '2007-05-18T09:32:28Z'
-Tags:
-- Yahoo
-- JavaScript
 Teaser: Unit testing seems like an unqualified good, I'm just not sure how to apply
     the concepts to my work.
 Title: How do I unit test a website?
 layout: post
+tags:
+- Yahoo
+- JavaScript
 ---
 I've been spending a lot of time recently attempting to puzzle out a _good_
 way of testing the work I'm been doing.  I'm enamoured with the idea of unit

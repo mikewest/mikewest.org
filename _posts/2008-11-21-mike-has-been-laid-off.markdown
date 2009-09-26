@@ -2,7 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/99
 Modified: '2008-11-21T17:13:13Z'
-Tags:
+Teaser: Yahoo! decided to stop doing development work in it's German offices, which
+    leaves me in a bit of a bind.  I'm suddenly _incredibly_ motivated to look for
+    new work.  If you've got leads for me, please [drop an email (mike@mikewest.org)][mailto:mike@mikewest.org]
+Title: Has Mike been laid off?  Yes.  Yes he has.
+layout: post
+tags:
 - mikewest.org
 - personal
 - layoff
@@ -10,11 +15,6 @@ Tags:
 - Y!
 - laidoff
 - redundant
-Teaser: Yahoo! decided to stop doing development work in it's German offices, which
-    leaves me in a bit of a bind.  I'm suddenly _incredibly_ motivated to look for
-    new work.  If you've got leads for me, please [drop an email (mike@mikewest.org)](mailto:mike@mikewest.org)
-Title: Has Mike been laid off?  Yes.  Yes he has.
-layout: post
 ---
 Yahoo! has decided to close down the engineering team in it's German office, of which I am (er... [was][hmblo]) a part.  I'm suddenly _incredibly_ motivated to look for new work.
 

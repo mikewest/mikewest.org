@@ -2,7 +2,15 @@
 Alias:
 - http://mikewest.org/blog/id/102
 Modified: '2009-01-10T19:32:15Z'
-Tags:
+Teaser: 'I liked many things about working at Yahoo.  I''m coming to realize that
+    what I (in hindsight) like _most_ is probably the piece of software I thought
+    about the _least_ positively, namely Yahoo''s mostly centralized and completely
+    open bug tracking system: Bugzilla.  We abused it more than a bit, attempting
+    to layer task and project management on top of a system that wasn''t really designed
+    to support it, but all told, Bugzilla made my work life better.'
+Title: Centralized Bug Tracking
+layout: post
+tags:
 - mikewest.org
 - yahoo!
 - y!
@@ -18,14 +26,6 @@ Tags:
 - corporateculture
 - work
 - bestpractice
-Teaser: 'I liked many things about working at Yahoo.  I''m coming to realize that
-    what I (in hindsight) like _most_ is probably the piece of software I thought
-    about the _least_ positively, namely Yahoo''s mostly centralized and completely
-    open bug tracking system: Bugzilla.  We abused it more than a bit, attempting
-    to layer task and project management on top of a system that wasn''t really designed
-    to support it, but all told, Bugzilla made my work life better.'
-Title: Centralized Bug Tracking
-layout: post
 ---
 I liked many things about working at Yahoo.  I'm coming to realize that what I (in hindsight) like _most_ is probably the piece of software I thought about the _least_ positively, namely Yahoo's mostly centralized and completely open bug tracking system: Bugzilla.  We abused it more than a bit, attempting to layer task and project management on top of a system that wasn't really designed to support it, but all told, Bugzilla made my work life better.
 

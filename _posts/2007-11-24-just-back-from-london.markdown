@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/80
 Modified: '2007-11-24T21:23:40Z'
-Tags:
-- Personal
-- JavaScript
 Teaser: I'm back from London after @media Ajax with some security papers for you to
     read, and not much else yet.
 Title: Just back from London
 layout: post
+tags:
+- Personal
+- JavaScript
 ---
 [@media Ajax][atmedia] was interesting.  I have more than "interesting" to say
 about it, as you might expect, but I'm tired and lazy, and I'll get to a

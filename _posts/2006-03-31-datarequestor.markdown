@@ -2,15 +2,15 @@
 Alias:
 - http://mikewest.org/blog/id/8
 Modified: '2008-10-18T13:34:09Z'
-Tags:
-- DataRequestor
-- JavaScript
 Teaser: DataRequestor is a JavaScript wrapper for the `XMLHttpRequest` object that
     enables the trivial implementation of dynamic interfaces without the painful necessity
     for a complete page-refresh to talk to the server. It's Ajax without the confusing
     API.
 Title: "DataRequestor 1.6.1 \u2014 Ajax without the confusing API"
 layout: post
+tags:
+- DataRequestor
+- JavaScript
 ---
 DataRequestor is a JavaScript wrapper for the `XMLHttpRequest` object that enables the trivial implementation of dynamic interfaces without the painful necessity for a complete page-refresh to talk to the server. In other words: Ajax without the confusing API.
 

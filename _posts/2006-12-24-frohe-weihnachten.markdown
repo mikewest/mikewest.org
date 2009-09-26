@@ -2,11 +2,11 @@
 Alias:
 - http://mikewest.org/blog/id/43
 Modified: '2006-12-24T10:48:26Z'
-Tags:
-- Personal
 Teaser: ''
 Title: Frohe Weihnachten!
 layout: post
+tags:
+- Personal
 ---
 I'll be at Elisabeth's parents' house for the next few days, celebrating Christmas in the Black Forest.  I hope your holidays are relaxing and fun, and maybe white too, if you're into the whole snow thing.  I think I got enough of that last year to last a lifetime...  :)
 

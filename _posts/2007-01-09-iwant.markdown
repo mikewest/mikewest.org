@@ -2,7 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/46
 Modified: '2007-01-09T20:19:45Z'
-Tags: null
 Teaser: I want an iPhone.  Just like everyone else.
 Title: iWant.
 layout: post

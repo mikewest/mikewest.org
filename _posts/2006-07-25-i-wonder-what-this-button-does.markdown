@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/26
 Modified: '2006-07-25T06:09:32Z'
-Tags:
-- Subversion
-- Personal
 Teaser: 'I''ve got an article up on A List Apart, introducing my favourite behind-the-scenes
     development tool: Subversion.'
 Title: I Wonder What This Button Does
 layout: post
+tags:
+- Subversion
+- Personal
 ---
 This morning, I can happily announce the publication of my latest article, ["I Wonder What This Button Does"][article], in the 220th issue of [A List Apart][ala].
 

@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/13
 Modified: '2006-06-17T15:41:46Z'
-Tags:
-- TextPattern
 Teaser: '`mcw_ma_gnolia` is a TextPattern plugin that generates a customizable Ma.gnolia
     link roll for use on your website.'
 Title: mcw_ma_gnolia
 layout: post
+tags:
+- TextPattern
 ---
 `mcw_ma_gnolia` is a TextPattern plugin that generates a customizable Ma.gnolia link roll for use on your website.  [Download it now][download], and start playing! 
 

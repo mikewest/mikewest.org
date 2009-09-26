@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/63
 Modified: '2007-05-06T15:59:12Z'
-Tags:
-- Yahoo
-- Personal
 Teaser: We launched the Yahoo! News site in Spain today.  Finally!
 Title: "\xA1Es vivo!"
 layout: post
+tags:
+- Yahoo
+- Personal
 ---
 The [Spanish Yahoo! News site][es] is live.  This was a slightly less messy launch than last month's [launch][] in the UK, and we're looking ahead to the launches in Italy, Germany, and France in the coming weeks.
 

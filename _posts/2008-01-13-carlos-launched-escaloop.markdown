@@ -2,11 +2,11 @@
 Alias:
 - http://mikewest.org/blog/id/87
 Modified: '2008-01-13T21:30:05Z'
-Tags:
-- Personal
 Teaser: 'Carlo''s just launched his latest lifestream-badge-making project: Escaloop.'
 Title: "Carlo\u2019s launched Escaloop "
 layout: post
+tags:
+- Personal
 ---
 [Carlo][] just launched his latest project, [Escaloop][].  It's a nicely structured way of creating a [lifestream][] that pulls in your content from external sites (flickr, last.fm, etc), binding them together into a nicely presented, embedable "badge."
 

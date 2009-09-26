@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/3
 Modified: '2007-05-18T18:49:04Z'
-Tags:
-- JavaScript
 Teaser: An introduction to using classes in JavaScript in order to avoid namespace
     conflicts and gain interesting object-oriented functionality.
 Title: Component encapsulation using Object-Oriented JavaScript
 layout: post
+tags:
+- JavaScript
 ---
 Yesterday, I talked a little bit about the ways in which events could be handled across browsers in order to pave the way for a more in-depth discussion of the various methods by which we can enable a true behavioral layer on a website without corrupting the pristine semantic layer we’ve already perfected. So now we’ve got a strategy in place for hooking into our DOM tree: we add event handlers to elements on the page, and use those triggers to generate new and interesting behaviors. Simple enough. But we need at least one more basic concept before we can really start making leaps forward in terms of interesting behaviors: encapsulation.
 

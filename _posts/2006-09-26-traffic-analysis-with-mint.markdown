@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/34
 Modified: '2006-09-26T17:13:36Z'
-Tags:
-- Personal
 Teaser: I use Mint to analyze the traffic on this website.  It's a powerful tool,
     made more powerful with some excellent plugins.
 Title: Traffic Analysis with Mint
 layout: post
+tags:
+- Personal
 ---
 Like most people with personal websites, I'm hugely interested in my stats.  This is fairly laughable, given the hugely unimpressive number of hits I get a day, but I'm interested regardless.
 

@@ -2,7 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/37
 Modified: '2006-10-01T11:26:14Z'
-Tags: null
 Teaser: Rui Carmo wrote a great python script to backup e-mail from an IMAP server.
 Title: Backing Up E-Mail
 layout: post

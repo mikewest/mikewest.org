@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/19
 Modified: '2006-06-17T15:49:32Z'
-Tags:
-- TextPattern
 Teaser: A new version of `mcw_ma_gnolia` fixes an issue with parsing Ma.gnolia's new
     linkroll format.
 Title: '`mcw_ma_gnolia` version 0.4 is out'
 layout: post
+tags:
+- TextPattern
 ---
 I've just updated [`mcw_ma_gnolia`][project] to 0.4, tweaking the plugin to work with Ma.gnolia’s new linkroll JavaScript. This, of course, is a good reason to start working on something that actually uses the Ma.gnolia API instead of parsing through a linkroll JavaScript file. I’ll be starting on that soon.
 

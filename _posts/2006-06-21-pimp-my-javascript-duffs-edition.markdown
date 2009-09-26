@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/21
 Modified: '2006-06-21T20:08:24Z'
-Tags:
-- HOWTO
-- JavaScript
 Teaser: Your code can be faster!  Here are a few tips to help you speed up the toughest
     pieces of your JavaScript.
 Title: Pimp My JavaScript &#8212; Duff&#8217;s Edition
 layout: post
+tags:
+- HOWTO
+- JavaScript
 ---
 I think we can all agree that JavaScript isn't exactly a speed demon.  It's wonderful at what it does (really), but it simply doesn't perform like we might want it to.  This is never more true than when we're trying to gather and process a lot of information from the DOM in the pursuit of some unobtrusive improvements to a website's UI.
 

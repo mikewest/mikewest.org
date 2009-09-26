@@ -2,14 +2,14 @@
 Alias:
 - http://mikewest.org/blog/id/89
 Modified: '2008-03-08T11:02:14Z'
-Tags:
-- Personal
-- Yahoo
 Teaser: Mike Davies, who has more accessibility knowledge in his little finger than
     most developers I know, has started a new site to share his wisdom with the rest
     of us.  I'm looking forward to seeing what he puts out there.
 Title: Accessibility Tips from Mike Davies
 layout: post
+tags:
+- Personal
+- Yahoo
 ---
 One of the supreme pleasures of my job is the simple chance to work with real experts in the field on a daily basis.  [Mike Davies][], for example, knows an incredible amount about building accessible websites, and never hesitates to share his opinions with the rest of us.  He's an innovative developer in many other ways, but this is a particular area of expertise.
 

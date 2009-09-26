@@ -2,14 +2,14 @@
 Alias:
 - http://mikewest.org/blog/id/40
 Modified: '2006-10-22T11:06:41Z'
-Tags:
-- HOWTO
-- Subversion
 Teaser: SVK is a version control system that sits on top of a Subsverion, CVS, Perforce,
     etc. repository, and provides the promise of a common interface.  Here's how to
     install it on OS X.
 Title: Starting out with the SVK Version Control System
 layout: post
+tags:
+- HOWTO
+- Subversion
 ---
 I have the distinct impression that I'm going to be playing with a lot of CVS repositories in the near future, and I'm not exactly thrilled about the idea.  I've been almost exclusively using SVN for the last year or two, and it's going to be a bit of a leap to "revert" to CVS for version control.  I'm hoping that [SVK][] will be able to help me bridge the conceptual gap.
 

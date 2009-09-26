@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/66
 Modified: '2007-05-17T16:44:03Z'
-Tags:
-- Personal
 Teaser: I'm bored, and even though I should be overflowing with things to write about,
     I'm not.
 Title: Words Escape Me
 layout: post
+tags:
+- Personal
 ---
 I have writer's block.  Or writers' block.  A block that effects writers.  Writers, that group of which I am currently not part.  So maybe it's just a block.
 

@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/23
 Modified: '2006-07-06T09:17:51Z'
-Tags:
-- Subversion
 Teaser: A wayward `mod_rewrite` rule broke my Subversion commits with 403 ("Forbidden")
     errors.  Here's how I fixed it.
 Title: '&#8220;Forbidden&#8221; Errors and Subversion Commits'
 layout: post
+tags:
+- Subversion
 ---
 So, I got pretty clever with my [`mod_rewrite` rules][rewrite] to deal with some of the programs out there that nefarious types use to find vulnerable targets for exploits.  At least, I thought I was being clever.  As it turns out, I ended up shooting myself in the foot with the following rule:
 

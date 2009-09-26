@@ -2,15 +2,15 @@
 Alias:
 - http://mikewest.org/blog/id/91
 Modified: '2008-10-18T13:25:43Z'
-Tags:
-- DataRequestor
-- Personal
 Teaser: I've had a few bits of code floating around on the site for 2-3 years now
     without any serious investment of effort on my part.  It's time to throw in the
     towel, admit that I'm never actually going to touch them again, and set those
     loose.
 Title: Gently abandoning dead (to me) projects
 layout: post
+tags:
+- DataRequestor
+- Personal
 ---
 I've had a few bits of code floating around on the site for 2-3 years now without any serious investment of effort on my part.  It's time to throw in the towel, admit that I'm never actually going to touch them again, and set those loose under a liberal license.
 

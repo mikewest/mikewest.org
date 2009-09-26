@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/32
 Modified: '2006-09-12T08:30:04Z'
-Tags:
-- JavaScript
-- Digital-Web
 Teaser: My latest article for Digital Web, 'Scope In JavaScript', is up and waiting
     for you to read it.
 Title: Scope in JavaScript
 layout: post
+tags:
+- JavaScript
+- Digital-Web
 ---
 I've got [a new article][scope] in the latest issue of [Digital Web][], diving deeply into JavaScript's concepts of scope and execution context.  
 

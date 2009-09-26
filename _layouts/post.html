@@ -11,12 +11,12 @@ layout: default
             </div>
             <div class="meta">
                 <p>
-                    This entry was published on <span class="published">{{ post.date | date: "%A, %B %d, %Y" }}</span>.
+                    This entry was published on <span class="published">{{ page.date | date: "%A, %B %d, %Y" }}</span>.
                     Articles published around the same time can be found <a href="/archive">in the archive</a>.</p>
                 <p>I've tagged the article with the following exceptional keywords: 
 {% for tag in page.tags %}
 <!-- TODO: 1) URL encode `tag`.  2) Fix the tag root. -->
-<a href="/tags/{{ tag | cgi_encode }}" rel="tag" title="View other entries tagged '{{ tag }}'">{{ tag }}</a>
+<a href="/tags/{{ tag | cgi_encode }}" rel="tag" title="View other entries tagged '{{ tag }}'">{{ tag }}</a>{% if forloop.last %}.{% else %}, {% endif %}
 {% endfor %}
                 </p>
             </div>

@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/90
 Modified: '2008-03-28T08:48:15Z'
-Tags:
-- Yahoo
 Teaser: Ben Ward has a post up on YDN discussing the massive addition of microformats
     to the Kelkoo shopping site.  Interesting read.
 Title: Microformats on Kelkoo
 layout: post
+tags:
+- Yahoo
 ---
 [Ben Ward][ben] has a [great post up on YDN][ydn] discussing the massive
 addition of [microformats][] to the latest refresh of the [Kelkoo][].  ~27

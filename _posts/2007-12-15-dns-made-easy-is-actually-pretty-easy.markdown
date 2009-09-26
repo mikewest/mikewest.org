@@ -2,15 +2,15 @@
 Alias:
 - http://mikewest.org/blog/id/85
 Modified: '2007-12-15T14:09:56Z'
-Tags:
-- Personal
-- DNS
-- DNSMadeEasy
 Teaser: In a spontaneous burst of productivity, spawned mostly by my complete and
     utter failure as a sysadmin, I moved my parent's email account off my server.  DNS
     Made Easy made this a trivial task.
 Title: DNS Made Easy is actually pretty easy
 layout: post
+tags:
+- Personal
+- DNS
+- DNSMadeEasy
 ---
 In a spontaneous burst of productivity, spawned mostly by my complete and utter failure as a sysadmin, I moved my parent's email account off my server, and onto Google's [Apps for your Domain][apps] platform.
 

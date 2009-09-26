@@ -2,11 +2,11 @@
 Alias:
 - http://mikewest.org/blog/id/30
 Modified: '2006-09-29T12:50:33Z'
-Tags:
-- Personal
 Teaser: A short list of articles worth reading for interviewers or interviewees.
 Title: Articles about Interviewing
 layout: post
+tags:
+- Personal
 ---
 I'm currently boning up on interview lore in preparation for one I've got coming up in a few weeks (speaking of which, if you'll be in Munich on the 13th, drop me a line; First beer's on me!).  I'm ignoring the "big name" interview advice sites today (though [techinterview][] looks like a promising avenue for tomorrow...), instead using the magic of [NetNewsWire][] to dive back through my RSS feeds to find articles and essays that were written by people I read and respect.  A little research has yielded the following (very) short list of interview essays that I think are worth reading, whether you're prepping for an interview, or trying to figure out _how to_ interview: 
 

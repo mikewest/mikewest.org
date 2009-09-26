@@ -2,11 +2,11 @@
 Alias:
 - http://mikewest.org/blog/id/52
 Modified: '2007-01-26T11:40:51Z'
-Tags:
-- Subversion
 Teaser: ''
 Title: Subversion 1.4.3
 layout: post
+tags:
+- Subversion
 ---
 [Subversion 1.4.3 was released][svn_143]
 ([Release Notes][release_143]) on Jan 25th, 2007, fixing some crashes I never saw, and now never will see.  I've updated my [SVN build instructions][build_143] accordingly, so if you're the compile-it-yourself type, you're covered.

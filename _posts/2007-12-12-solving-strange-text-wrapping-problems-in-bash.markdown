@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/84
 Modified: '2007-12-12T16:01:38Z'
-Tags:
-- Personal
 Teaser: I started having strange text wrapping problems after implementing implementing
     the beautifully colored bash prompt I discussed on Monday.  After fidgeting around
     a bit, I think I've come up with a solution.
 Title: Solving strange text wrapping problems in `bash`
 layout: post
+tags:
+- Personal
 ---
 I started having strange text wrapping problems after implementing implementing the beautifully colored bash prompt I discussed on Monday.  After fidgeting around a bit, I think I've come up with a solution.  In short, I changed two things:
 

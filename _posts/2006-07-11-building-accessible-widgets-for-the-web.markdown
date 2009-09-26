@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/24
 Modified: '2006-07-11T07:00:10Z'
-Tags:
-- Digital-Web
-- JavaScript
 Teaser: I've got an article up on Digital Web, outlining the processes I use to build
     accessible UI controls for web applications.
 Title: Building Accessible Widgets for the Web
 layout: post
+tags:
+- Digital-Web
+- JavaScript
 ---
 Building interfaces for web applications is hard work, and it's not made any easier by the dearth of [widgets][] available in modern browsers.  We've got the basics -- `SELECT` dropdowns, `INPUT` text boxes -- but native applications have a much wider selection of controls to choose from.  This lack can be mitigated with clever JavaScripting and CSS techniques; we can build them, we have the technology!
 

@@ -2,7 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/54
 Modified: '2007-01-29T20:00:32Z'
-Tags: null
 Teaser: It's great to see that SSHKeychain isn't dead.
 Title: Signs of Life
 layout: post

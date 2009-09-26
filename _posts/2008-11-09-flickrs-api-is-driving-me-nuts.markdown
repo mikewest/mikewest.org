@@ -2,14 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/95
 Modified: '2008-11-09T17:00:13Z'
-Tags:
-- mikewest.org
-- projects
-- fallow
-- flickr
-- api
-- webdev
-- development
 Teaser: I'm trying to do something with the Flickr API that I consider to be relatively
     trivial. I have the impression that the API is fighting me every step of the way.
     Why, oh why, can't the wonderful people who designed Del.icio.us's new API hop
@@ -17,6 +9,14 @@ Teaser: I'm trying to do something with the Flickr API that I consider to be rel
     of the end user?
 Title: Flickr's API is driving me nuts
 layout: post
+tags:
+- mikewest.org
+- projects
+- fallow
+- flickr
+- api
+- webdev
+- development
 ---
 I'm trying to do something with the Flickr API that I consider to be relatively trivial. I have the impression that the API is fighting me every step of the way. Why, oh why, can't the wonderful people who designed Del.icio.us's new API hop over to Flickr and slap together something that makes sense from the perspective of the end user?
 

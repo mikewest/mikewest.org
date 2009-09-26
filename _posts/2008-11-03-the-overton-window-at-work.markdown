@@ -2,18 +2,18 @@
 Alias:
 - http://mikewest.org/blog/id/94
 Modified: '2008-11-03T21:27:46Z'
-Tags:
-- Personal
-- Yahoo!
-- Y!
-- workplace
-- rant
 Teaser: The 'Overton window' is a bit of political jargon that describes how politicians
     influence the perceptions and debates that go on among the voting public.  In
     this thinly veiled (but mercifully short) rant, I argue that it's equally applicable
     to my workplace.
 Title: The Overton Window at Work
 layout: post
+tags:
+- Personal
+- Yahoo!
+- Y!
+- workplace
+- rant
 ---
 This election "year" has gone on longer than I thought possible, and each time I pop open NetNewsWire to sift through my vaguely-political set of feeds, I'm stunned that we're still disagreeing about some things, and equally stunned that we've _begun_ to disagree about other things as if they were reasonable topics of debate.  Obama as communist socialist fascist terrorist?  Really?  How did we get there?
 

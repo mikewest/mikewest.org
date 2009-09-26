@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/31
 Modified: '2006-09-04T10:47:55Z'
-Tags:
-- Personal
 Teaser: 'The interview articles I found yesterday had more than a few common "phone
     screen" questions that I decided to make sure I could answer:  here''s what I
     came up with.'
 Title: Answers to Common Technical Interview Questions
 layout: post
+tags:
+- Personal
 ---
 In an effort to convince myself that I really do know what I'm doing with this "web" thing, I've walked through some of the example interview questions from the articles I [mentioned yesterday][yesterday].  A few were simply inapplicable to the work I'd be doing, but actually doing the few minutes of work for the questions that matter is so much more worthwhile than simply looking at them and thinking "Yup.  I could do that."  I'm posting JavaScript implementations and explanations here in the hopes that someone out there is in a similar position and could use the help, or that a genius passing through will point out some silly mistake or cool optimization I missed.  So, here goes:
 

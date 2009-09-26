@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/59
 Modified: '2007-04-24T18:40:12Z'
-Tags:
-- Personal
 Teaser: A List Apart is running a survey to gather demographic info from web professionals;
     I think it could be a worthwhile enterprise.
 Title: Just the stats
 layout: post
+tags:
+- Personal
 ---
 [A List Apart][ala] is currently running a [survey][] to gather statistical information about the web design/development community.  This certainly could be a cheap ploy to enhance their advertising through targeting a demographic or two, but I have great confidence in intentions of the people behind it.  Especially in the context of Jeffery Zeldman's article ["Women in web design: just the stats"][women], I have the feeling that this survey is a continuation of the fact-finding mission to which the "A(n) X Apart" venture has recently dedicated itself.
 

@@ -2,15 +2,15 @@
 Alias:
 - http://mikewest.org/blog/id/41
 Modified: '2007-01-26T11:34:00Z'
-Tags:
-- Subversion
-- HOWTO
 Teaser: Metissian's pre-build Subversion binaries are out of date, and Dan Benjamin's
     excellent guide to building Subversion yourself runs into a wall for 1.4+.  You,
     however, are an impatient pioneer.  You want to build the latest stable (impatient,
     not _imprude
 Title: Building Subversion 1.4.3 for OS X
 layout: post
+tags:
+- Subversion
+- HOWTO
 ---
 __UPDATE__: _[Subversion 1.4.3 was released][svn_143]
 ([Release Notes][release_143]) on Jan 25th, 2007.  I've updated the

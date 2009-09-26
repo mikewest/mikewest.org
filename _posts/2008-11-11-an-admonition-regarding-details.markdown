@@ -2,7 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/97
 Modified: '2008-11-11T22:33:41Z'
-Tags:
+Teaser: Details are everything, but worrying about details at the expense of progress
+    puts the cart before the horse, misses the forest for the trees, makes perfect
+    the enemy of the good, and can be described by many other metaphors with similar
+    meaning.
+Title: An Admonition Regarding Details
+layout: post
+tags:
 - mikewest.org
 - personal
 - inspiration
@@ -16,12 +22,6 @@ Tags:
 - robgoodlatte
 - baskerville
 - details
-Teaser: Details are everything, but worrying about details at the expense of progress
-    puts the cart before the horse, misses the forest for the trees, makes perfect
-    the enemy of the good, and can be described by many other metaphors with similar
-    meaning.
-Title: An Admonition Regarding Details
-layout: post
 ---
 If Apple's taught me anything about design, it's that details are everything.  The overall product might be brilliant, but it's the tiny bits of _perfection_ that really bring things together and imbue an experience with a sense of wonder and care.  When I noticed that [Rob Goodlatte][rob] (who has gone dark, apparently?) replaces the ampersands on his Lucida Grande dominated page with lovely, lovely Baskerville, I was thrilled.  The first time I saw the little bit of bounce-back at the end of an iPhone's scrolled list, I was hooked.  These almost insignificant changes have an effect on the overall experience far out of proportion to their apparent importance.
 

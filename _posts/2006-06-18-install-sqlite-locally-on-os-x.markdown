@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/20
 Modified: '2006-06-18T10:27:57Z'
-Tags:
-- HOWTO
 Teaser: SQLite is a nice little database engine that can be incredibly fast as a website
     backend.  Installing it on OS X is equally quick.
 Title: Install SQLite Locally on OS X
 layout: post
+tags:
+- HOWTO
 ---
 SQLite is a self-contained, embeddable, zero-configuration SQL database engine that performs admirably in a variety of applications. 
 

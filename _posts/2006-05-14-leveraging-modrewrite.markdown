@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/14
 Modified: '2007-05-09T06:49:28Z'
-Tags:
-- HOWTO
 Teaser: I have three kinds of `mod_rewrite` rules in my `.htaccess` file, this article
     explains each, and lays out best practices for managing your site's URL scheme.
 Title: Leveraging `mod_rewrite`
 layout: post
+tags:
+- HOWTO
 ---
 I have three kinds of `mod_rewrite` rules in my `.htaccess` file:
 

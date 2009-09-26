@@ -2,7 +2,6 @@
 Alias:
 - http://mikewest.org/blog/id/39
 Modified: '2006-10-09T13:04:39Z'
-Tags: null
 Teaser: Jack Slocum's new comment system is really inspirational.
 Title: Comments With Specificity
 layout: post

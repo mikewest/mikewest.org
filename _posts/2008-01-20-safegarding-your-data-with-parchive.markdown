@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/88
 Modified: '2008-01-20T20:47:35Z'
-Tags:
-- Personal
 Teaser: After a brief mishap with a hard drive, I've gone backup-crazy.  This article
     looks how I'm using Parchive to give myself an extra bit of confidence in my backups.
 Title: Safegarding your data with Parchive
 layout: post
+tags:
+- Personal
 ---
 So, the disk on which I keep the main copy of my Aperture library started
 making strange clicking noises when plugged into my powerbook.  It makes these

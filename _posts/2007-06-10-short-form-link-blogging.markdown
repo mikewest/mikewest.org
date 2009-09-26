@@ -2,14 +2,14 @@
 Alias:
 - http://mikewest.org/blog/id/70
 Modified: '2007-06-10T10:25:19Z'
-Tags:
-- Personal
-- Yahoo
 Teaser: Blogging is hard for me, mostly because I have an irrational desire to make
     each of my posts "important" and "interesting".  I'm working out ways to solve
     that problem for myself...
 Title: Short-form Link Blogging
 layout: post
+tags:
+- Personal
+- Yahoo
 ---
 Blogging is hard for me, mostly because I have an irrational desire to make
 each of my posts _important_ and _interesting_.  In my head, these terms

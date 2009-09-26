@@ -2,12 +2,12 @@
 Alias:
 - http://mikewest.org/blog/id/29
 Modified: '2006-09-04T00:41:47Z'
-Tags:
-- JavaScript
 Teaser: DOM calls are expensive; this article walks through one quick way to optimize
     them out of your code.
 Title: Quick Optimization
 layout: post
+tags:
+- JavaScript
 ---
 Accessing and manipulating the DOM is slow.  The speed of your JavaScript execution will very often depend entirely on the number, and the nature, of DOM calls that you make.  
 

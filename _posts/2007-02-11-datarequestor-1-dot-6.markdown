@@ -2,13 +2,13 @@
 Alias:
 - http://mikewest.org/blog/id/55
 Modified: '2007-04-16T20:01:40Z'
-Tags:
-- DataRequestor
-- JavaScript
 Teaser: After a brief (ha!) hiatus, DataRequestor's 1.6 release fixes many outstanding
     bugs.  Grab it now!
 Title: "DataRequestor \u2014 Version 1.6"
 layout: post
+tags:
+- DataRequestor
+- JavaScript
 ---
 I took some time tonight to fix some long-outstanding bugs in the [DataRequestor Ajax library][datarequestor].  No new features have been added since 1.5, but some significant bugs have been taken care of in [this 1.6 release][download].
 
