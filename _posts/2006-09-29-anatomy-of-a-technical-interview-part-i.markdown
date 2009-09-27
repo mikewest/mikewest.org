@@ -3,8 +3,8 @@ Alias:
 - http://mikewest.org/blog/id/36
 Modified: '2006-09-29T13:20:04Z'
 Teaser: ''
-Title: 'Anatomy of a Technical Interview: Part I'
 layout: post
+title: 'Anatomy of a Technical Interview: Part I'
 ---
 Interviews for technical positions are tough, both for the interviewer and the interviewee.  The interviewer has the impossible task of evaluating someone's competence on a wide range of complex subjects in just a few hours.  The interviewee has the equally impossible task of proving that she's smarter than the average bear within the same tight time constraints.  Really, it's a wonder anyone ever gets hired at all.
 

@@ -3,10 +3,10 @@ Alias:
 - http://mikewest.org/blog/id/38
 Modified: '2007-01-21T01:00:14Z'
 Teaser: Help me find an apartment, please?
-Title: Apartments in Munich
 layout: post
 tags:
 - Personal
+title: Apartments in Munich
 ---
 So.  I'm looking for an apartment in Munich.  The "why" will have to wait a week or so to make sure everything's solid, but the apartment-looking cannot.
 

@@ -6,7 +6,6 @@ Teaser: Hopefully, you didn't notice a thing yesterday when I moved the site off
     shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That
     was very much the goal.  Briefly, I'll go through the steps I took to make the
     transition as smooth as possible both before the launch and directly afterwards.
-Title: Smoothly Migrating to a New Server
 layout: post
 tags:
 - mikewest.org
@@ -22,6 +21,7 @@ tags:
 - performance
 - sysadmin
 - logfiles
+title: Smoothly Migrating to a New Server
 ---
 Hopefully, you didn't notice a thing yesterday when I moved the site off my shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That was very much the goal.  Briefly, I'll go through the steps I took to make the transition as smooth as possible both before the launch and directly afterwards.
 

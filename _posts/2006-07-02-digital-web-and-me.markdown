@@ -3,10 +3,10 @@ Alias:
 - http://mikewest.org/blog/id/22
 Modified: '2006-07-04T08:31:37Z'
 Teaser: I've joined Digital Web Magazine's editorial team.  Yay!
-Title: Digital Web and Me
 layout: post
 tags:
 - Personal
+title: Digital Web and Me
 ---
 If we were at a party together, you and I, I'd be single-mindedly focused on finding the chance to casually drop some news into our conversation.  You'd be impressed both by my announcement, but also by the coolness of my demeanor, as though I myself was unimpressed by this tidbit, as though opportunities like this one fell into my lap on a bi-weekly basis.  Your opinion of me would certainly improve.  Sadly, we're not at a party together, and I doubt that the fawningly ecstatic blog-post I'm writing will convince you that I'm not _terribly excited_ about the fact that I'm [now][introducing] a part of [Digital Web Magazine's][digital_web] editorial team.
 

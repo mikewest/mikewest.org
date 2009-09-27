@@ -5,7 +5,6 @@ Modified: '2009-03-22T20:37:07Z'
 Teaser: I think I've _read_ more articles with Instapaper in the last two days than
     I have in the last two weeks with NNW alone.  It's an absolutely brilliant tool,
     and I'm excited about how much simpler it's made my internet-related reading life.
-Title: Instapaper is Amazing
 layout: post
 tags:
 - mikewest.org
@@ -18,6 +17,7 @@ tags:
 - advice
 - iphone
 - reading
+title: Instapaper is Amazing
 ---
 I'm subscribed to a slowly-expanding list of something like 230 RSS feeds (I
 take the firehose approach to news-gathering, apparently), and for all

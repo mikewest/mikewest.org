@@ -4,10 +4,10 @@ Alias:
 Modified: '2006-06-12T19:38:09Z'
 Teaser: Describes the easy process of setting up a mac for resale (patches, etc) while
     keeping the Setup Assistant experience for the new owner.
-Title: Preparing a Mac for Resale
 layout: post
 tags:
 - HOWTO
+title: Preparing a Mac for Resale
 ---
 I'm loaning an old TiBook to a friend to tide him over until he can replace an iBook whose hard drive just crashed.  I wanted to load OS X and push in the various software updates that are out there so he can just get going, but I didn't particularly want to leave a user account sitting there.
 

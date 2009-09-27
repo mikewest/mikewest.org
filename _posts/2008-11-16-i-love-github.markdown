@@ -9,7 +9,6 @@ Teaser: Over the last two or three weeks, a substantial subset of my friends and
     and mine visible to them.  This doesn't sound like much, but it's simply transformative;
     If this is how "normal" people feel about Facebook, then I can start to understand
     how it's captured so much mindshare.
-Title: I &hearts; GitHub
 layout: post
 tags:
 - mikewest.org
@@ -26,6 +25,7 @@ tags:
 - opensource
 - gtd
 - justdoit
+title: I &hearts; GitHub
 ---
 Over the last two or three weeks, a substantial subset of my friends and colleagues have started using [GitHub][] to host some of their personal projects.  I'm really enjoying this influx, and it's inspiring in a way I didn't really expect.  GitHub has done nothing less than to make my friend's coding activity _visible_ to me, and mine visible to them.  This doesn't sound like much, but it's simply transformative; If this is how "normal" people feel about Facebook, then I can start to understand how it's captured so much mindshare.
 

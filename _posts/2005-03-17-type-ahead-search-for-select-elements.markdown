@@ -4,10 +4,10 @@ Alias:
 Modified: '2006-04-14T10:50:11Z'
 Teaser: 'An expansion of earlier unobtrusive JavaScript articles: this time we''re
     adding type-ahead search functionality to SELECT elements.'
-Title: Type-Ahead search for select elements
 layout: post
 tags:
 - JavaScript
+title: Type-Ahead search for select elements
 ---
 In the previous [two][1] [articles][2] on the topic, we’ve outlined methods for hooking JavaScript behaviors onto events on your pages, and ways of encapsulating those behaviors so that they don’t interfere with any other JavaScript goodness your site may be sporting. We’ve been careful to ensure that the added behaviors are just that: additions or enhancements that don’t effect the usability or accessibility of the page for those browsing without the benefit of JavaScript. But let’s be honest, the examples have been a bit boring thus far. We changed the colours of some table rows.
 

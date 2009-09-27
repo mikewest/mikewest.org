@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-05-17T16:44:03Z'
 Teaser: I'm bored, and even though I should be overflowing with things to write about,
     I'm not.
-Title: Words Escape Me
 layout: post
 tags:
 - Personal
+title: Words Escape Me
 ---
 I have writer's block.  Or writers' block.  A block that effects writers.  Writers, that group of which I am currently not part.  So maybe it's just a block.
 

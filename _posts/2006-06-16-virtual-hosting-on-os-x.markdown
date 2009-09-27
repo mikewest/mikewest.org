@@ -4,10 +4,10 @@ Alias:
 Modified: '2006-06-16T17:11:32Z'
 Teaser: Setting up virtual domains on your local OS X Apache installation is pretty
     easy.  Here's a quick description of the process.
-Title: Virtual Hosting on OS X
 layout: post
 tags:
 - HOWTO
+title: Virtual Hosting on OS X
 ---
 [Headdress][1] looks like a nice little app for configuring virtual hosting on the local installation of Apache that comes with OS X.  If you like doing things via a GUI, it's probably right up your alley.
 

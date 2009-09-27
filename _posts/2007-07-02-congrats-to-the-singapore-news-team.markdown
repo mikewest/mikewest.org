@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-07-02T09:58:41Z'
 Teaser: Singapore launched their News site today using the code we've been working
     on here in Munich as a base.  Nice work!
-Title: Congrats to the Singapore News Team!
 layout: post
 tags:
 - Yahoo
+title: Congrats to the Singapore News Team!
 ---
 Congratulations to the Singapore news team for today's [successful relaunch][sg] of their news site!  They were able to take the code that the team here in Munich put together, modify it to meet their needs, and get the site launched on a very tight schedule.
 

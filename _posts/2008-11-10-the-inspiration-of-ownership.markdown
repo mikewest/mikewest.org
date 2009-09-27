@@ -8,7 +8,6 @@ Teaser: 'On the bus home from work, I was listening to this week''s On the Media
     Marshall Ganz.  If you''re at all interested in the political angle, I''d suggest
     you listen.  If you''re at all interested in how I''m planning to apply this seemingly
     unrelated topic to the technical field of web development (et al), keep reading.'
-Title: The Inspiration of Ownership
 layout: post
 tags:
 - mikewest.org
@@ -21,6 +20,7 @@ tags:
 - management
 - webdev
 - development
+title: The Inspiration of Ownership
 ---
 On the bus home from work, I was listening to this week's [On the Media][otm]. In particular, I was struck by a [great interview][interview] with the man who designed the field-organizer and volunteer training programs for Barack Obama's campaign: [Marshall Ganz][ganz].  If you're at all interested in the political angle, I'd suggest you [listen][interview].  If you're at all interested in how I'm planning to apply this seemingly unrelated topic to the technical field of web development (et al), keep reading.
 

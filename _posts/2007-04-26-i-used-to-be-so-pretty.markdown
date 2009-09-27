@@ -3,10 +3,10 @@ Alias:
 - http://mikewest.org/blog/id/61
 Modified: '2007-04-26T14:02:24Z'
 Teaser: A few days ago, my landlord asked me if I was losing hair.  *sigh*
-Title: I used to be so pretty.
 layout: post
 tags:
 - Personal
+title: I used to be so pretty.
 ---
 A few days ago, my landlord asked me if I was losing hair.
 

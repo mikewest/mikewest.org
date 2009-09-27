@@ -3,8 +3,8 @@ Alias:
 - http://mikewest.org/blog/id/37
 Modified: '2006-10-01T11:26:14Z'
 Teaser: Rui Carmo wrote a great python script to backup e-mail from an IMAP server.
-Title: Backing Up E-Mail
 layout: post
+title: Backing Up E-Mail
 ---
 [Rui Carmo][rui] has put together a [great Python script][imapbackup] to pull e-mail from an IMAP server down into `mbox` formatted files that can be backed-up and imported into practically any e-mail program in existance.
 

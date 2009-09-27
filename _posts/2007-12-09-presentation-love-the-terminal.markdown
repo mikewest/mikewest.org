@@ -5,11 +5,11 @@ Modified: '2007-12-09T16:46:54Z'
 Teaser: When Murray and Norm solicited talks earlier in the year for the Yahoo! Frontend
     Summit, they somehow neglected to mention that the presentations would end up
     being hour-long blocks.  :)
-Title: 'Presentation: Love the Terminal'
 layout: post
 tags:
 - Yahoo
 - Personal
+title: 'Presentation: Love the Terminal'
 ---
 When Murray and Norm solicited talks earlier in the year for the Yahoo! Frontend Summit, they somehow neglected to mention that the presentations would end up being hour-long blocks.  :)
 

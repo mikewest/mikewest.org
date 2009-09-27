@@ -3,10 +3,10 @@ Alias:
 - http://mikewest.org/blog/id/64
 Modified: '2007-05-06T15:58:36Z'
 Teaser: I'm (finally) hopping off GoDaddy and onto Gandi.  Hopefully nothing explodes...
-Title: Domain Transfer
 layout: post
 tags:
 - Personal
+title: Domain Transfer
 ---
 I'm in the process of transferring [mikewest.org][mwo] away from [GoDaddy][gd].  They're crazy-cheap, but I just feel a tiny bit dirty every time I visit the website.  I don't want to click through 3 tricky pages of upselling every time I touch a domain, I'm not particularly fond of the [guy running the place][bp], and the ads... oh the ads.
 

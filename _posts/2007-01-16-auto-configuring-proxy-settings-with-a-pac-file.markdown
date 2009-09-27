@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-01-21T00:23:54Z'
 Teaser: Configuring a browser's proxy settings manually is inflexible; proxy auto-config
     (PAC) files are much more flexible.
-Title: Auto-configuring Proxy Settings with a PAC File
 layout: post
 tags:
 - HOWTO
+title: Auto-configuring Proxy Settings with a PAC File
 ---
 At work, resources meant only for super-secret internal use are locked away
 behind a homegrown authentication system.  To get at, for example, a piece of 

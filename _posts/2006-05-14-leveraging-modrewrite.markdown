@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-05-09T06:49:28Z'
 Teaser: I have three kinds of `mod_rewrite` rules in my `.htaccess` file, this article
     explains each, and lays out best practices for managing your site's URL scheme.
-Title: Leveraging `mod_rewrite`
 layout: post
 tags:
 - HOWTO
+title: Leveraging `mod_rewrite`
 ---
 I have three kinds of `mod_rewrite` rules in my `.htaccess` file:
 

@@ -6,7 +6,6 @@ Teaser: 'Nginx is a brilliant little HTTP server that I''m using on this website
     quickly serve static content.  It bothers me a (very) little that it doesn''t
     correctly generate Etag headers for static content, however.  I''m attempting
     to remedy that oversight by releasing an Nginx module: `nginx-static-etags`.'
-Title: Generating Etags for static content using Nginx
 layout: post
 tags:
 - mikewest.org
@@ -26,6 +25,7 @@ tags:
 - server
 - module
 - nginx-static-etags
+title: Generating Etags for static content using Nginx
 ---
 [Nginx][] is a brilliant little HTTP server that I'm using on this website to quickly serve static content, and quickly proxy traffic through to the [ruby backend][fallow] when static content just won't do.  It's been a breeze to set up, and quite stable in my (limited) experience.  There's just one thing bothering me about it at the moment: it doesn't completely support the content-based cache headers I'd like to see.  Specifically, it doesn't do `Etag`s for content it serves, and it [doesn't look like Igor's going to implement it][igor].
 

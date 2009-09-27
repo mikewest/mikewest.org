@@ -5,11 +5,11 @@ Modified: '2007-06-10T10:25:19Z'
 Teaser: Blogging is hard for me, mostly because I have an irrational desire to make
     each of my posts "important" and "interesting".  I'm working out ways to solve
     that problem for myself...
-Title: Short-form Link Blogging
 layout: post
 tags:
 - Personal
 - Yahoo
+title: Short-form Link Blogging
 ---
 Blogging is hard for me, mostly because I have an irrational desire to make
 each of my posts _important_ and _interesting_.  In my head, these terms

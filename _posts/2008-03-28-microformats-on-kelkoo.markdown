@@ -4,10 +4,10 @@ Alias:
 Modified: '2008-03-28T08:48:15Z'
 Teaser: Ben Ward has a post up on YDN discussing the massive addition of microformats
     to the Kelkoo shopping site.  Interesting read.
-Title: Microformats on Kelkoo
 layout: post
 tags:
 - Yahoo
+title: Microformats on Kelkoo
 ---
 [Ben Ward][ben] has a [great post up on YDN][ydn] discussing the massive
 addition of [microformats][] to the latest refresh of the [Kelkoo][].  ~27

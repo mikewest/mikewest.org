@@ -7,7 +7,6 @@ Teaser: I'm trying to do something with the Flickr API that I consider to be rel
     Why, oh why, can't the wonderful people who designed Del.icio.us's new API hop
     over to Flickr and slap together something that makes sense from the perspective
     of the end user?
-Title: Flickr's API is driving me nuts
 layout: post
 tags:
 - mikewest.org
@@ -17,6 +16,7 @@ tags:
 - api
 - webdev
 - development
+title: Flickr's API is driving me nuts
 ---
 I'm trying to do something with the Flickr API that I consider to be relatively trivial. I have the impression that the API is fighting me every step of the way. Why, oh why, can't the wonderful people who designed Del.icio.us's new API hop over to Flickr and slap together something that makes sense from the perspective of the end user?
 

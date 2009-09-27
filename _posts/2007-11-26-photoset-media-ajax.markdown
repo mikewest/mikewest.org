@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-11-26T21:18:21Z'
 Teaser: I still haven't written anything useful about the @media Ajax conference,
     but here are some lovely pictures.  Should be worth about 64,000 words, right?
-Title: 'Photoset: @media Ajax'
 layout: post
 tags:
 - Personal
+title: 'Photoset: @media Ajax'
 ---
 I said I'd write something about the @media Ajax conference, and I still plan to.  However, I've had other things on my mind the last day or two...  I work in interesting times.  Long story short, I'll get to it.
 

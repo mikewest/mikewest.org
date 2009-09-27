@@ -4,11 +4,11 @@ Alias:
 Modified: '2007-01-21T00:46:45Z'
 Teaser: This site is built on top of the Textpattern engine, running Markdown instead
     of Textile.  Here's how to make that happen.
-Title: Installing Textpattern 4.0.4 with Markdown
 layout: post
 tags:
 - HOWTO
 - TextPattern
+title: Installing Textpattern 4.0.4 with Markdown
 ---
 [Textpattern][] is a brilliant blogging tool, one which seems completely
 dedicated to the task of putting words on a page.  It has a great plugin

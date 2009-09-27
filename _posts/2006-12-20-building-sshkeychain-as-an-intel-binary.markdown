@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-01-29T19:37:22Z'
 Teaser: I've seen a few Universal Binary builds of SSHKeychain floating around, but
     I'm paranoid, so I built my own.  It's easier than I expected.
-Title: Building SSHKeychain as an Intel Binary
 layout: post
 tags:
 - HOWTO
+title: Building SSHKeychain as an Intel Binary
 ---
 I've seen a few Universal Binary builds of [SSHKeychain][] floating around,
 which is a wonderful thing, since SSHKeychain is one of the few apps I use on 

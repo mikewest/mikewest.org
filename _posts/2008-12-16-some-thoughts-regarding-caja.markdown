@@ -2,12 +2,11 @@
 Alias:
 - http://mikewest.org/blog/id/101
 Modified: '2008-12-16T20:39:27Z'
-Teaser: "Yesterday, Yahoo! made some announcements regarding The Future&trade; of many
+Teaser: Yesterday, Yahoo! made some announcements regarding The Future&trade; of many
     of their high profile properties.  Specifically, they're (slowly) opening up,
     enabling third-party developers to build applications that can be seen on and
-    interact with your My Yahoo! page, or your mailbox.  I think this is a great
-    step, and one I wish they'd made _before_ they laid me off."
-Title: Some Thoughts Regarding Caja
+    interact with your My Yahoo! page, or your mailbox.  I think this is a great step,
+    and one I wish they'd made _before_ they laid me off.
 layout: post
 tags:
 - mikewest.org
@@ -28,6 +27,7 @@ tags:
 - progressiveenhancement
 - ugly
 - google
+title: Some Thoughts Regarding Caja
 ---
 Yesterday, Yahoo! made some announcements regarding The Future&trade; of many of their high profile properties.  Specifically, they're (slowly) opening up, enabling third-party developers to build applications that can be seen on and interact with your [My Yahoo!][my] page, or your [mailbox][mail].  I think this is a great step, and one I wish they'd made _before_ they laid me off. 
 

@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-04-16T12:18:31Z'
 Teaser: '`libgd` is a pain in the ass to install from source.  Here''s a step by step
     guide in case I ever have to do it again.'
-Title: Installing `libgd` from source on OS X
 layout: post
 tags:
 - HOWTO
+title: Installing `libgd` from source on OS X
 ---
 Using Matías Giovannini's [great instructions][instructions], I was (finally)
 able to get the GD library installed on OS X so I can build some charts in

@@ -3,8 +3,8 @@ Alias:
 - http://mikewest.org/blog/id/79
 Modified: '2007-11-17T18:53:22Z'
 Teaser: I'm looking forward to @media Ajax
-Title: 'Looking forward to @media '
 layout: post
+title: 'Looking forward to @media '
 ---
 Hello, Internet...  It's been a while.
 

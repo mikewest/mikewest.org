@@ -3,11 +3,11 @@ Alias:
 - http://mikewest.org/blog/id/73
 Modified: '2007-06-25T16:16:32Z'
 Teaser: ''
-Title: I am a Super Early Bird.  Are you?
 layout: post
 tags:
 - Personal
 - Yahoo
+title: I am a Super Early Bird.  Are you?
 ---
 I just got a verification e-mail from [Vivabit][], confirming that they were successfully able to remove money from my bank account in exchange for lovely tickets to the [@media Ajax][conf] conference in London this November.  I'm excited.
 

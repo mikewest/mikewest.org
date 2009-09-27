@@ -3,8 +3,8 @@ Alias:
 - http://mikewest.org/blog/id/39
 Modified: '2006-10-09T13:04:39Z'
 Teaser: Jack Slocum's new comment system is really inspirational.
-Title: Comments With Specificity
 layout: post
+title: Comments With Specificity
 ---
 For a long time now, I've wanted to implement Flickr-style notes as a comment system for a [peer-review system][case_exchange] I put together a while back, but ran into so many cross-browser positioning issues that I more or less gave it up for dead.  [Jack Slocum][jack] might just have changed that.
 

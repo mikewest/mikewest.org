@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-05-03T10:16:39Z'
 Teaser: I bought a Treo 600 on Ebay.  And it's huge.  HUGE!  But also very powerful
     and nice.
-Title: Stopgap Solution
 layout: post
 tags:
 - Personal
+title: Stopgap Solution
 ---
 I have purchased the largest phone ever.
 

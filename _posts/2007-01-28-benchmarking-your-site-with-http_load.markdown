@@ -5,10 +5,10 @@ Modified: '2008-04-07T16:48:44Z'
 Teaser: http_load is a great benchmarking utility that gives you a quick overview
     of your web server's performance.  This article describes how to install and use
     it.
-Title: Benchmarking Your Site with `http_load`
 layout: post
 tags:
 - HOWTO
+title: Benchmarking Your Site with `http_load`
 ---
 [`http_load`][http_load] is a stunningly useful HTTP benchmarking utility that gives you a rough idea of how many hits per second a server is capable of serving.  You simply tell it what pages to grab, and how many "clients" it should run in parallel; it gives you back useful information about the average fetches per second and the average, minimum, and maximum response times.  It's no substitute for a solid profiler to dig into the hows and whys of your application's performance, but it's great at telling you when you're "good enough" to launch.
 

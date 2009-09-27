@@ -8,7 +8,6 @@ Teaser: Last year, I jumped on the opportunity to sit down and write some articl
     the second slowly, the third _very_ slowly, and then completely failed to deal
     with the rest.  Regardless, those were released along with the rest of the JavaScript
     bits to complete the curriculum.
-Title: 'Opera Web Standards Curriculum: The JavaScript Bits'
 layout: post
 tags:
 - mikewest.org
@@ -19,6 +18,7 @@ tags:
 - webstandards
 - webstandardscurriculum
 - chrismills
+title: 'Opera Web Standards Curriculum: The JavaScript Bits'
 ---
 Last year, I jumped on the opportunity to sit down and write some articles for Opera's [Web Standards Curriculum][wsc].  I bit off a bit more than I could chew, and Chris Mills exhibited the patience of a saint as I finished the first quickly, the second slowly, the third _very_ slowly, and then completely failed to deal with the rest.  Regardless, those were released along with the rest of the JavaScript bits to complete the curriculum.
 

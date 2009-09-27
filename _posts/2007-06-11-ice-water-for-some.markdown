@@ -3,11 +3,11 @@ Alias:
 - http://mikewest.org/blog/id/71
 Modified: '2007-06-11T18:28:11Z'
 Teaser: Safari's coming to Windows.  Welcome to the party...
-Title: Ice Water for Some&#8230;
 layout: post
 tags:
 - JavaScript
 - Yahoo
+title: Ice Water for Some&#8230;
 ---
 Gruber [prophetically linked][winsaf] to a [ZDNet article from January][zdnet] this morning before Steve Jobs' WWDC keynote.  Safari is, indeed, coming to windows.
 

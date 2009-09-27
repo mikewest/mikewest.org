@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-01-03T19:47:57Z'
 Teaser: Carlo Zottman has a great article out on Yahoo's User Interface blog.  Nice
     work!
-Title: Using YUI in Greasemonkey Scripts
 layout: post
 tags:
 - JavaScript
+title: Using YUI in Greasemonkey Scripts
 ---
 [Carlo Zottmann][carlo] has a [great article][article] on Yahoo's User Interface blog, outlining the mechanism he's come up with for loading elements of the [YUI library][yui] into his Greasemonkey scripts.  It's a powerful combination, and he's done some hard work to make the two play together in a fairly transparent manner.  With his code in hand, [using YUI in Greasemonkey user scripts] is simply a no-brainer.
 

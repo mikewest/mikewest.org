@@ -3,8 +3,8 @@ Alias:
 - http://mikewest.org/blog/id/7
 Modified: '2007-01-08T21:25:50Z'
 Teaser: ''
-Title: "Mike West is\u2026"
 layout: post
+title: "Mike West is\u2026"
 ---
 <img src='/images/mike_big.jpg' alt='Mike West, circa 2004' id='me' />
 

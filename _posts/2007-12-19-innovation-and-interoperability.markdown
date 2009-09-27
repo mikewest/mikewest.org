@@ -3,10 +3,10 @@ Alias:
 - http://mikewest.org/blog/id/86
 Modified: '2007-12-19T17:01:45Z'
 Teaser: Briefly, my thoughts on the current dustup over the W3C's CSS Working Group.
-Title: Innovation and Interoperability
 layout: post
 tags:
 - Personal
+title: Innovation and Interoperability
 ---
 Jeremy Keith is a bright guy, but more than that, he's a _good writer_.  Brilliance doesn't matter much if you're not able to express it in a way that inspires and teaches others; Jeremy's periodic knack for extended metaphor and clever turn of phrase makes his ideas seem palatable and exciting.
 

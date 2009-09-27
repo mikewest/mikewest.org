@@ -4,10 +4,10 @@ Alias:
 Modified: '2006-06-16T09:37:39Z'
 Teaser: A quick note about a TextMate language bundle for Textpattern that integrates
     with `mcw_templates`.
-Title: TextMate bundle for TextPattern
 layout: post
 tags:
 - TextPattern
+title: TextMate bundle for TextPattern
 ---
 [Marios][marios] has put together a [TextMate][textmate] language bundle for [Textpattern][textpattern] that provides a slew of nice features for building Textpattern templates.
 

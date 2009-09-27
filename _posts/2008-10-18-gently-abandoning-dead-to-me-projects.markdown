@@ -6,11 +6,11 @@ Teaser: I've had a few bits of code floating around on the site for 2-3 years no
     without any serious investment of effort on my part.  It's time to throw in the
     towel, admit that I'm never actually going to touch them again, and set those
     loose.
-Title: Gently abandoning dead (to me) projects
 layout: post
 tags:
 - DataRequestor
 - Personal
+title: Gently abandoning dead (to me) projects
 ---
 I've had a few bits of code floating around on the site for 2-3 years now without any serious investment of effort on my part.  It's time to throw in the towel, admit that I'm never actually going to touch them again, and set those loose under a liberal license.
 

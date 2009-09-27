@@ -4,10 +4,10 @@ Alias:
 Modified: '2007-01-21T00:22:38Z'
 Teaser: My coworkers love playing pranks on poor, unlocked computers. This is the
     method I've decided on to quickly and securely walk away from my Mac.
-Title: Locking Your Mac
 layout: post
 tags:
 - HOWTO
+title: Locking Your Mac
 ---
 I've tried a few different methods to walk away from my Mac without worrying about jackass coworkers sending e-mails and IM messages on my behalf, and after a bit of experimentation with various screensavers and applescripts, finally hit upon a solution that I'm happy with. It's pretty simple, and leverages the power of [Quicksilver triggers][triggers] to make the process of locking my computer absolutely second-nature.
 

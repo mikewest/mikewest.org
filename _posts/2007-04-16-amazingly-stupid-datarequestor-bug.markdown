@@ -4,11 +4,11 @@ Alias:
 Modified: '2007-04-16T20:01:24Z'
 Teaser: James Moberg pointed out that I'm a complete idiot, and shipped DataRequestor
     1.6 with some debug code left in.
-Title: Amazingly Stupid DataRequestor Bug
 layout: post
 tags:
 - DataRequestor
 - JavaScript
+title: Amazingly Stupid DataRequestor Bug
 ---
 Wow.
 

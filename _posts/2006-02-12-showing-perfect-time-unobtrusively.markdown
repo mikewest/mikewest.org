@@ -4,10 +4,10 @@ Alias:
 Modified: '2006-03-29T21:20:15Z'
 Teaser: We can use JavaScript to deal with the nasty annoyance of displaying times
     in a user's local time-zone.
-Title: Showing Perfect Time (Unobtrusively)
 layout: post
 tags:
 - JavaScript
+title: Showing Perfect Time (Unobtrusively)
 ---
 Via [Simon Willison][1]'s [Blogmarks][2], I came across an interesting idea 
 regarding the display of timestamps on web pages, and how the nasty annoyance of

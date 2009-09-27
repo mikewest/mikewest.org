@@ -4,10 +4,10 @@ Alias:
 Modified: '2006-06-27T10:12:44Z'
 Teaser: A walkthrough of the process I used to make an accessible slider widget from
     a SELECT element.
-Title: Slidable Select Widgets Explained
 layout: post
 tags:
 - JavaScript
+title: Slidable Select Widgets Explained
 ---
 When designing a web-based application, we’re working with a hugely impoverished set of widgets as compared to what might be available in a native app. Dropdowns, text-input fields, and a variety of buttons more or less define the boundaries within which we need to work. Despite this, we’ve managed to make some truly interesting user interfaces, and the possibilities are only expanding as we start to explore some newly rediscovered technologies like XMLHttpRequest.
 

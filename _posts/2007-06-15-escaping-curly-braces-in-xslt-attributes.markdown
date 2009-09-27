@@ -4,11 +4,11 @@ Alias:
 Modified: '2007-06-15T12:54:54Z'
 Teaser: Curly braces in the attributes of XSLT document's elements are interpreted
     as XPATH expressions to be evaluated.  This sometimes causes problems...
-Title: Escaping Curly Braces in XSLT Attributes
 layout: post
 tags:
 - JavaScript
 - Yahoo
+title: Escaping Curly Braces in XSLT Attributes
 ---
 For future reference:
 
