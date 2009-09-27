@@ -302,7 +302,15 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
             width:  auto;
             margin: 1em 11em;
         }
-
+    
+    .article blockquote {
+        margin: 0 auto;
+        width:  41.286em;
+    }
+    .article blockquote p {
+        font-style: italic;
+        width:39.286em;
+    }
     /*****************************************************************************
      *  Images in articles
      */
@@ -389,7 +397,7 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
         display:    inline;
     }
         .tag-cloud ol li a {
-            padding:    0.5em;
+            padding:    0 0.5em;
         }
     .tag-cloud .not-popular     { font-size: 1em; }
     .tag-cloud .popular         { font-size: 1.5em; }
