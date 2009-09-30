@@ -5,7 +5,11 @@ aliases:
     - http://blog.mikewest.org/post/102662931
     - http://blog.mikewest.org/post/102662931/static-ips-in-vmware-fusion-guests
 tags: 
-
+    - vmware
+    - virtualization
+    - networking
+    - staticip
+    - dhcp
 ---
 Generally speaking, your guests will pick up the same IP from VMWare every time.  You write some scripts assuming that those IPs will remain stable, and everything's good.  Then, for whatever reason, VMWare's DHCP server decides that your VM really ought to sit on 192.168.65.131 instead of 192.168.65.135, where it had been happy and comfortable for _weeks_.  Annoying.
 

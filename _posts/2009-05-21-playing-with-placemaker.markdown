@@ -5,7 +5,12 @@ aliases:
     - http://blog.mikewest.org/post/110959538
     - http://blog.mikewest.org/post/110959538/playing-with-placemaker
 tags: 
-
+    - yahoo
+    - placemaker
+    - api
+    - geolocation
+    - xml
+    - curl
 ---
 Yahoo's latest API is really quite cool: [Placemaker][] takes your unstructured data (e.g. any HTML page, RSS feed, etc), and extracts a nice list of _locations_ that your data refers to.  It's a brilliant tool, and I can think of quite a few ways I'd like to use it in the future.  Along with their release of a _ton_ of [WhereOnEarth ID codes][woe] that allows you to make use of Yahoo's various geo-services, this is a really good day to play with geocoding unstructured data.
 

@@ -5,7 +5,9 @@ aliases:
     - http://blog.mikewest.org/post/102353505
     - http://blog.mikewest.org/post/102353505/mildly-improving-google-analytics-js-embed
 tags: 
-
+    - googleanalytics
+    - google
+    - javascript
 ---
 Celebrity that I am, I use Google Analytics to figure out exactly how many
 times I've visited my own website in a given day.  The interface is

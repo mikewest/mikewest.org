@@ -5,7 +5,9 @@ aliases:
     - http://blog.mikewest.org/post/108618244
     - http://blog.mikewest.org/post/108618244/well-that-was-easy
 tags: 
-
+    - spidermonkey
+    - python
+    - jslint
 ---
 Getting [JSLint running inside Spidermonkey][that] was much simpler than I expected it to be:
 
