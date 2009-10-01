@@ -17,7 +17,7 @@ __Updated 26. April, 2006:__ Version _0.3_ is out, adding the ability to filter 
 
 __Updated 25. April, 2006:__ Version _0.2_ is out, and corrects a small bug with the `mcw_ma_gnolia_uri` tag.
 
-### What is it? ###
+## What is it? ##
 
 [Ma.gnolia][mag] is a social bookmarking site (somewhat like [del.icio.us][del]) that I use to keep track of interesting websites I come across.  It provides the built in ability to display your most recent bookmarks on your personal website (a 'link roll'), but I don't like the mechanism it uses to make that happen.
 
@@ -25,7 +25,7 @@ __Updated 25. April, 2006:__ Version _0.2_ is out, and corrects a small bug with
 
 In a nutshell, the plugin downloads and caches the JavaScript file server-side on a quasi-hourly basis, extracts the link information, and makes the data available for you via a series of TextPattern tags that you can use in your `forms` and `pages`.
 
-### How Do I Use `mcw_ma_gnolia`? (e.g. quickstart) ###
+## How Do I Use `mcw_ma_gnolia`? (e.g. quickstart) ##
 
 Start by [downloading the plugin][download] and installing it like you would any other.  Once you've gotten the plugin installed, `edit` it, and enter your ma.gnolia username and the number of links you'd like displayed into the public config section of the PHP code (should be lines 6 and 7 or so).  If you don't do this, you'll be seeing my links.  That's a fine way to test, but you'll probably want to make this change before you go live.
 
@@ -33,7 +33,7 @@ Next, click on the `extensions` tab, and then on the `Ma.gnolia Linkroll` subtab
 
 Finally, edit a `page` to include the `<txp:mcw_ma_gnolia />` tag.  Viola, ma.gnolia links on your page.  Astounding!
 
-### How do I configure the output? ###
+## How do I configure the output? ##
 
 Excellent question.  Here's brief documentation of each of the tags this plugin enables:
 

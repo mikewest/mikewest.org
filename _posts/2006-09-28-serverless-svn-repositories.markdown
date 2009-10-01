@@ -13,7 +13,7 @@ title: Serverless SVN Repositories
 ---
 A little known fact about Subversion is that you don't need a special server to get running.  You can actually host Subversion repositories locally on your own computer, or on any remote machine you've got SSH access into.
 
-### Localhosting
+## Localhosting
 
 You can easily create a local repository on your machine with the `svnadmin` command.  To set up a repository in my home directory, I'd just drop to the command line, and type:
 
@@ -25,7 +25,7 @@ That would create the `new_repository` directory under my home, and initialize i
     
 Easy!
 
-### Remotehosting
+## Remotehosting
 
 If you don't have a dedicated SVN server, or a [decent web host][textdrive], you can gain some of the advantages of a remote repository by creating a local repository, and then uploading it to a server where you have SSH access.  This trick works wonderfully on services like [Strongspace][] where you have nothing more than SSH access, with no opportunity to log in and run `svnadmin`.  
 
@@ -45,7 +45,7 @@ And there you go.  Easy, straightforward SVN access without any server setup wha
 
 You lose a little bit of functionality, and it feels a little duct-taped together, but it's a great first-step into the world of SVN, and you can easily migrate to a "real" SVN server when you're ready to use the additional features that enables.
 
-### Resources
+## Resources
 
 *   [Andrew Ho][ho] pointed this technique out on the Strongspace forums, I
     hadn't thought about it at all before his post.

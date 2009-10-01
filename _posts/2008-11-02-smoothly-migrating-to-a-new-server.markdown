@@ -25,7 +25,7 @@ title: Smoothly Migrating to a New Server
 ---
 Hopefully, you didn't notice a thing yesterday when I moved the site off my shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That was very much the goal.  Briefly, I'll go through the steps I took to make the transition as smooth as possible both before the launch and directly afterwards.
 
-### DNS and TTL ###
+## DNS and TTL ##
 
 I read in a cookbook once that the first step in _any_ recipe is to boil water.  It doesn't really matter what you're making; there's a very high probability that you'll need boiling water at some point in the process, and since it takes _forever_ to boil, you'll want to get it started as soon as possible.  So, when you find yourself mildly hungry, just walk into the kitchen, fill a pot with water, set it on the stove, and then start thinking about what you want to eat.  Worst case, you can make yourself some tea afterwards.
 
@@ -43,7 +43,7 @@ For yesterday's migration, I dropped `mikewest.org`'s TTL down to an hour about 
 [iseasy]:       /2007/12/dns-made-easy-is-actually-pretty-easy  "Mike West: 'DNS Made Easy is actually pretty easy'"
 [dnsperformance]: http://developer.yahoo.com/performance/rules.html#dns_lookups
 
-### Staging ###
+## Staging ##
 
 A big advantage of moving to a new server is that you simply don't have to worry about breaking anything on the live site while you're rolling out changes.  I'm using a completely different stack on the new slice than I was on Joyent's box, and getting that running on the same machine as the old site would have been... interesting to say the least.  A new server gives you the opportunity to stage your work somewhere, get it tested and running on the production hardware, and then make the cutover when you're reasonably confident that things will go well.
 
@@ -51,7 +51,7 @@ Make sure you take advantage of this opportunity by pointing a domain at the ser
 
 Just before launch, however, it's a good idea to adjust your hosts file to point the "live" domain at the new server to make sure that you've set things up correctly.  It's easy during development to create an environment that works perfectly under the test domain, but fails spectacularly under the live domain.  Setting your hosts file and hitting the site that way gives you assurance that you haven't made that sort of mistake.
 
-### Content Feeds ###
+## Content Feeds ##
 
 The vast majority of people who read this site do so through RSS feeds.  There's simply no reason to type `mikewest.org` into a browser every day when you can get the content pushed to you.
 
@@ -64,13 +64,13 @@ When I made the cutover yesterday, I simply changed the location at which each o
 [bothfeed]: http://feeds.mikewest.org/omg_everything_ever
 [feedburner]: http://www.feedburner.com/
 
-### Redirects for old content ###
+## Redirects for old content ##
 
 It's important to maintain consistency for your users, especially if you're changing URL structure as part of your migration.  I've [written about this problem][modrewrite], way back in 2006 when I last made major changes to mikewest.org, and I think the advice there has held up really quite well.  In a nutshell, set up redirects for your old content that cleanly map to the new page structures, and make sure that you pay attention to your access logs to get an understanding for the way your content is being linked to from the outside world.  If you haven't read ['Leveraging mod_rewrite'][modrewrite] yet, I think that it's worth a few minutes of your time.
 
 [modrewrite]: /2006/05/leveraging-modrewrite
 
-### `tail -f` your access log ###
+## `tail -f` your access log ##
 
 Directly after the launch, it's important to keep an eye on the access log to identify issues that you missed in your own testing.  For example, I haven't gotten around to building an archive overview page yet, so the `/archive` link currently ends up as a redirect to the current yearly overview: `/2008`.  This worked perfectly in the tests I did, so I was happy.
 

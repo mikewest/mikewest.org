@@ -12,7 +12,7 @@ title: Benchmarking Your Site with `http_load`
 ---
 [`http_load`][http_load] is a stunningly useful HTTP benchmarking utility that gives you a rough idea of how many hits per second a server is capable of serving.  You simply tell it what pages to grab, and how many "clients" it should run in parallel; it gives you back useful information about the average fetches per second and the average, minimum, and maximum response times.  It's no substitute for a solid profiler to dig into the hows and whys of your application's performance, but it's great at telling you when you're "good enough" to launch.
 
-### Installing `http_load` on OS X ###
+## Installing `http_load` on OS X ##
 
 Installation is not tough, it's the typical `make`, then `make install` process that you'll use just about any time you install a *nix application from source.  It even defaults to `/usr/local/bin`, perfect.
 
@@ -34,7 +34,7 @@ You'll end up with the application installed at `/usr/local/bin/http_load`, and 
 [http_load]: http://www.acme.com/software/http_load/
 [path]: http://hivelogic.com/narrative/articles/using_usr_local "Using /usr/local"
 
-### Using `http_load` to Benchmark Your Site ###
+## Using `http_load` to Benchmark Your Site ##
 
 Once installed, using `http_load` for quick benchmarking is really quite straightforward.  You call the program, tell it how many requests to make concurrently, and how long to run (either in number of seconds, or total fetches), and finally pass in a file full of URLs to request.
 
@@ -56,7 +56,7 @@ The numbers you'll want to look at in more detail are "fetches/sec" and "msecs/f
 
 It's important to note the difference between "benchmarking" and "profiling".  What we're doing here with `http_load` is the former: we're getting a feel for a specific page's overall performance.  We know that it serves X pages per second, and generally takes about Y milliseconds to response.  What we don't know yet is __why__ either of these is the case.  You'll have to dig in more detail into your PHP code and server configuration to determine _what to tweak_ to bring up your site's performance to an acceptable level.  `http_load` doesn't, and can't, do that for you.  
 
-### A Tip for Shell Scripters ###
+## A Tip for Shell Scripters ##
 
 Generally speaking, I'm only testing one URL at a time to determine the performance of a specific script on a site.  For this case, creating a file with a single URL inside is a little annoying, so I whipped up a quick bash script to make it happen for me.  Add the following function to your `.bash_profile`, and you can simply type "httpload [url] [clients] [seconds]" to run a quick benchmark.
 
@@ -69,7 +69,7 @@ Generally speaking, I'm only testing one URL at a time to determine the performa
     
 Hooray for bash scripting!
 
-### Troubleshooting ###
+## Troubleshooting ##
 
 It looks like Leopard introduces some quirks to the process.  If you're getting an error like:
 

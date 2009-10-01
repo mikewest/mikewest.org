@@ -32,25 +32,25 @@ Ganz's greatest accomplishment in this race was to empower a lower tier of volun
 
 The thing is, this isn't at all limited to the political sphere: software projects work exactly the same way.  In particular, and regardless of the relative "objective" value, I'll work harder on _my_ features or fixes than I will on _yours_.
 
-### Fostering Ownership
+## Fostering Ownership
 
 Especially in a large company working on large projects with many layers of indirection, the importance of a particular bug or task to a project's leadership is almost guaranteed to diverge in some (hopefully small) way from the dreams and desires of the team actually implementing the changes.  Personal buy-in is simply hard to come by when tasks are handed down from on high, but that personal involvement is absolutely critical to a project's success.  What to do?
 
 I have a few suggestions from my perspective, primarily as an implementor looking upwards:
 
-### Influence
+## Influence
 
 **Reduce the distance between decision and implementation**. The more layers a task has to go through to reach it's eventual executor, the less likely that it has any potential to inspire. Flattening the decision structure such that the implementing team feels like it has a hand in the project's direction is one way to increase personal involvement, and to make the team feel that the project is somehow, for each of them, individually "_mine_".
 
 Moreover, bringing the decisions about priorities, and the _rationale_ for the decisions, out from shadowy backrooms and into the harsh light of (probable) criticism is the single best way to make sure that the project is going in the right direction.  If the product vision can't stand up solidly in front of the team that's meant to implement it, it's not going to go anywhere in the market, even if it's perfect in every way.  The development team has to believe in what they're building; they have to be in on decisions that they feel _they_ are making.
 
-### Information
+## Information
 
 **Share information, even if you don't think it's relevant**. You'd probably be surprised to learn exactly what your development team actually cares about.  Good (and bad) feedback from users or new data from Comscore isn't something that you should talk about once a quarter in planning meetings, but could instead be a source of inspiration and innovation for the entire team, every day.
 
 Campaign volunteers are closer to the voters than the campaign leadership,    and look at the raw voter data differently.  Unforeseeable (or simply _unseen_) trends might be easily explainable with the application of their  local expertise.  Likewise, engineers and web developers work right at the heart of a site or application.  Flood them with up-to-the-minute information you consider relevant _and_ irrelevant.  They will draw connections you couldn't anticipate, and fill gaps you didn't see, and that creates visible success that inspires.
 
-### Innovation
+## Innovation
 
 **Allow room for surprise and innovation**.  The products and applications that the development team builds are pure thought-stuff, forged and hammered through will alone. This has a few impacts on the project's process, the most important of which is that the solution to a problem can almost never be specified at the same time the problem _itself_ is confronted and documented, because the statement of the problem is _never_ complete enough to illuminate a complete solution.  Experimentation and innovation, and the feeling that both are _allowed_ and _encouraged_ are critical.
     
@@ -58,6 +58,6 @@ Obama probably didn't tell each of his volunteers individually how they should c
 
 The code written must be based on _their_ expertise, _their_ choices, and _their_ understanding of that problem. This personal involvement in the problem solving inspires a sense of ownership that can't be created by mandate.  If the final solution that's written doesn't address the issue at hand in a way that's _somehow_ surprising or innovative, then the development team is bored, uninspired, and _uninvolved_.
 
-### In a nutshell...
+## In a nutshell...
 
 If you make me _believe_ that a product, or a feature, or a fix is _mine_ by giving me **influence**, **information**, and **room to innovate**, I'll move mountains to accomplish more than you expect.  If, however, my paycheck alone is supposed to inspire me to greatness on _your_ project, then I'll slowly stumble over every molehill on the path to mediocrity.

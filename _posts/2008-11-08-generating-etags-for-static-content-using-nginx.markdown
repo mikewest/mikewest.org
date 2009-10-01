@@ -33,7 +33,7 @@ I see the complete lack of `Etag` support as an oversight.  It's more granular t
 
 That said, it isn't catastrophic to rely entirely on `Last-Modified` when serving truly static content.  If you set `Cache-Control` and `Expires` headers correctly, your users' browsers and upstream proxies should cache the static content correctly.  You'll all be seeing the right thing at more or less the right time.  It's not optimal, however, and I'm using that as an excuse to play around with C again.
 
-### Introducing `nginx-static-etags`
+## Introducing `nginx-static-etags`
 
 It appears that the only way to add the functionality I'd like to see is to write an Nginx module (in C) and compile it into the server.  I'm in the process of doing that now, and I'm making relatively good progress on [`nginx-static-etags`][module] over on GitHub.  It's been much harder than I expected, actually.  [Evan Miller][evan] has put together an [epic Nginx module-building tutorial][module] that I've had up constantly all week, but it turns out that I remember less C than I thought I did (and that the "C" that I remember is generally C++, which isn't quite the same).
 
@@ -41,7 +41,7 @@ I certainly wouldn't recommend that anyone run this in production yet, as, let's
 
 It's been a good learning experience for me, and it's [keeping me sane][sanity] (as side projects are wont to do).  [Follow along on GitHub][github] if you're interested.
 
-### Installation
+## Installation
 
 Download the module however you like.  I'd recommend pulling it down with Git by simply cloning this repository:
 
@@ -62,7 +62,7 @@ To use the module, you'll have to compile it into Nginx.  So, download the Nginx
     
 And you're done!
 
-### Configuration
+## Configuration
 
 Add `FileEtag` to the relevant `location` blocks in your `nginx.conf` file:
 
@@ -72,7 +72,7 @@ Add `FileEtag` to the relevant `location` blocks in your `nginx.conf` file:
         ...
     }
 
-### Caveat
+## Caveat
 
 [Brad's][intranation] kinda right to [question the value][comment] of implementing `Etag`s at all: if you don't generate them correctly you'll do more harm than good.  Yahoo!'s Exceptional Performance team [explicitly recommends against using the `Etag` header][yahoo] unless you know what you're doing (which really boils down to ensuring that Apache doesn't use the file's `inode` to generate the key).  I think they've painted with a _really_ broad brush, though, as YSlow's admonitions against `Etag`s really only apply to the default configurations of Apache and IIS.  `Etag` can be a very valuable addition to the caching arsenal if you think about them; Yahoo!'s throwing the baby out with the bathwater. 
 

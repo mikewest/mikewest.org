@@ -40,7 +40,7 @@ We can bump up the speed with 3 specific improvements:
 2.  Use reversed `do...while` loops instead of `for` loops.
 3.  Unroll the loops.
 
-### Replace Repeated DOM Queries ###
+## Replace Repeated DOM Queries ##
 
 The first rule of optimizing your code is to work "globally to locally", meaning that you should examine your overall architecture before you dive into loop unrolling and bit-shifting.   The most supercharged, pimped-out Pinto in the world is going to get beaten by a stock Ferrari, so make sure you've chosen the right vehicle before getting under the hood.
 
@@ -108,7 +108,7 @@ So our new algorithm looks like:
     
 Let's see what else we can tweak...
 
-### Reversed `for` Loops ###
+## Reversed `for` Loops ##
 
 Generally speaking, counting _down_ from the end of your loop is faster than counting _up_ from zero.  Apparently, comparing a number to zero is quicker than comparing a number to any other number, so this:
 
@@ -124,7 +124,7 @@ is generally going to execute faster than:
     
 It's a trivial change, but it can make a real difference in a long-running loop.
 
-### Unrolling Loops ###
+## Unrolling Loops ##
 
 We can reduce the overhead of running through a loop by executing our code multiple times in one loop execution instead of just once, or [unrolling the loop][unroll].  A trivial example is something like:
 

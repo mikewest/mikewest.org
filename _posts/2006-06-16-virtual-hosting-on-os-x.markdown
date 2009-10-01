@@ -15,7 +15,7 @@ I don't, and luckily, this sort of thing is really not that hard at all to do on
 
 [1]:    http://headdress.twinsparc.com/ "Headdress"
 
-### Map a domain to your local machine ###
+## Map a domain to your local machine ##
 
 First, you'll need to tell your computer what domains should point to the local web server.  I generally use '.dev' to distinguish these from the real, live domains.  `mikewest.org` is hosted on my machine locally as `mikewest.dev`, `lddebate.org` is `lddebate.dev`, etc.
 
@@ -46,7 +46,7 @@ You'll almost certainly have to restart your web browser in order to clear it's 
 
     lookupd -flushcache
 
-###    Tell Apache what to do with the domain ###
+##    Tell Apache what to do with the domain ##
 
 Now you've gotten your development domain set up to point to your machine, but Apache doesn't know anything about it; We'll need to set up some virtual hosts by editing the Apache configuration.
 
@@ -86,7 +86,7 @@ Once you've added in all the virtual host definitions that you need, save the co
 
 It should pop right back up, and you'll be ready to go!
 
-### Additional Resources ###
+## Additional Resources ##
 
 *   If you'd like to test PHP/MySQL driven projects locally, the simplest way
     to get set up is to install [MySQL's binary package][mysql] and Marc

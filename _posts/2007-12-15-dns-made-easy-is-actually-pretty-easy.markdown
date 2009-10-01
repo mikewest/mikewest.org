@@ -22,7 +22,7 @@ I've moved my parent's domain over, as well as `mikewest.org`.  While moving the
 
 So, two thumbs up for [DNS Made Easy][dns].  They're absolutely living up to their name's promise.
 
-### Potentially Useful Technical Note ###
+## Potentially Useful Technical Note ##
 
 
 Relatedly, the `lookupd` command is gone in Leopard.  If you want to clear your DNS cache under 10.5, you need to use `dscacheutil`.  I've added a quick alias to my `~/.bash_login` file, because I'm sure I'm going to forget this in about 10 minutes.

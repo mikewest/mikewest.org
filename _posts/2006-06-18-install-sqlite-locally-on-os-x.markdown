@@ -22,7 +22,7 @@ Of course, there's a [nice binary distribution][binary] that you can install, bu
 
 Other configuration options are spelled out [at the SQLite website][compilation].  I don't think any are very relevant to your locally-hosted development copy of SQLite, but if you're curious, there they are.
 
-### Using SQLite with PHP 5.1.X ###
+## Using SQLite with PHP 5.1.X ##
 
 SQLite is built into php 5.1.X, so you can simply install [Marc Liyanage's excellent PHP distribution][entropy], and start going with code like:
 
@@ -43,7 +43,7 @@ Unfortunately, my [PHP distribution of choice][entropy] seems to have dropped th
 
 Reverting to the [5.1.2 release][entropy_5_1_2] gives me back my the precious PDO support, but I'm still looking around for a simple way of bringing the PDO drivers to the party in a more recent release of PHP.  I'll update this post as soon as I figure something out.
 
-### Further Reading ###
+## Further Reading ##
 
 *   [The SQLite website][sqlite] is, of course, a great resource for SQLite
     development in general.

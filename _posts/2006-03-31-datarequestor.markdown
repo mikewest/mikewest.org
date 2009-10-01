@@ -14,7 +14,7 @@ title: "DataRequestor 1.6.1 \u2014 Ajax without the confusing API"
 ---
 DataRequestor is a JavaScript wrapper for the `XMLHttpRequest` object that enables the trivial implementation of dynamic interfaces without the painful necessity for a complete page-refresh to talk to the server. In other words: Ajax without the confusing API.
 
-### How can you use DataRequestor? ###
+## How can you use DataRequestor? ##
 
 When building applications, the most typical Ajaxy sort of thing I find myself doing is sending off data to a server-side script, and then sticking the resulting HTML directly into some element on the page. DataRequestor makes this process absolutely trivial, and enables quite a bit more functionality with minimal effort.
 
@@ -32,11 +32,11 @@ What if we wanted to do something else when the data’s loaded? Instead of repl
 
 DataRequestor is a solid, stable, and event-driven JavaScript class that you can simply drop into a page and start running with. It makes `XMLHTTPRequest`'s functionality available in a way that doesn’t make my brain hurt, and hopefully it will do the same for you.  [Download DataRequestor.js][datarequestor] and browse through the code.  It's well commented; use cases and instructions abound.
 
-### How can I get it? ###
+## How can I get it? ##
 
 You may download the [current stable version (1.6) of DataRequestor.js **right here**][download].  How's that for convenience?
 
-### Future Plans ###
+## Future Plans ##
 
 __Update, 2008-10-18__: Despite well intentioned promises in the past, there are no future plans.  I've released this project under the MIT license, and [placed the code on GitHub][github] for you to fork at your leisure.
 
@@ -48,12 +48,12 @@ __Update, 2008-10-18__: Despite well intentioned promises in the past, there are
 
 [github]: http://github.com/mikewest/datarequestor/tree/master
 
-### Release Notes ###
+## Release Notes ##
 
-#### Changes in Version 1.6.1 ####
+### Changes in Version 1.6.1 ###
 *   Removed _debug code_ that broke the whole library in every browser that didn't have Firebug installed.  I hate being a moron.  :)
 
-#### Changes in Version 1.6 ####
+### Changes in Version 1.6 ###
 *   Fixed major bug with `addArgsFromForm`; it now properly reads form variables anywhere under a `FORM` element's DOM tree, instead of simply those that are the `FORM`'s direct children.
 *   Changed the internal handling of get and post variables to avoid some spurious get and post variables caused by other scripts' overzealous addition of methods via `.prototype`.
 *   Better handling of certain error situations (calling `onfail` to handle unexpected exceptions, etc.)

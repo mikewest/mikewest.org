@@ -19,7 +19,7 @@ While I agree fully with many of the conclusions Lukas Mathis draws in an [excel
 [fn]: http://ignorethecode.net/blog/2009/05/10/measuring-the-user-interface/#fn:google
 [mtui]: http://ignorethecode.net/blog/2009/05/10/measuring-the-user-interface/ "Lukas Mathis: 'Measuring the User Interface'"
 
-### What do A/B tests test? ###
+## What do A/B tests test? ##
 
 "41 shades of blue" has become a catchphrase for those who see Google's approach as flawed; this seemingly mindless insistence on A/B testing as the sole arbiter of a design's "value" seems to me to be the point Bowman most objected to.  I have a good amount of sympathy for that viewpoint.
 
@@ -29,7 +29,7 @@ Especially with an audience the size of Google's, you'd have to be crazy to writ
 
 I absolutely stand behind the core of Lukas' essay: "Design is not held back by data, design is refined and perfected by data."
 
-### The Downside ###
+## The Downside ##
 
 A/B testing is appealing because it's obvious.  It's absolutely clear what needs to be done, the results are generally clear in the direction they lead (it's either "A" or "B"), and if you have the tooling in place to make it easy (Google does), it's easy to see how it can become a central part of the way you work.
 
@@ -43,7 +43,7 @@ I believe that Bowman is right to worry about missing "truly great" designs by g
 
 Lukas quickly notes one answer in passing.  I think it deserves more attention.
 
-### Usability Testing and Prototypes ###
+## Usability Testing and Prototypes ##
 
 In an [interview with Salon in 2008][salon], Leander Kahney said:
 

@@ -54,7 +54,6 @@ I ran into a snag or two while getting up and running on JeOS (my [dev environme
     fails in a way that sucks up all your resources and leaves you in an
     infinite loop.  Yay!
     
-[fail]: http://davisp.lighthouseapp.com/projects/26898-python-spidermonkey/tickets/15-test_exceed_time-fails-on-jeos
 
 6.  Install:  Even though the max time test fails (spectacularly), the bridge
     seems to work pretty well.  Install the package anyway, just don't rely on
@@ -64,4 +63,5 @@ I ran into a snag or two while getting up and running on JeOS (my [dev environme
 
 Now, to see about getting [JSLint][] running in this environment... Fun!
 
+[fail]: http://davisp.lighthouseapp.com/projects/26898-python-spidermonkey/tickets/15-test_exceed_time-fails-on-jeos
 [JSLint]: http://jslint.com/

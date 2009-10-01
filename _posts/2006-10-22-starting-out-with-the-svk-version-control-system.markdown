@@ -17,7 +17,7 @@ I have the distinct impression that I'm going to be playing with a lot of CVS re
 
 SVK is a decentralized version control system, based on Subversion.  The piece that interests me is it's ability to sit on top of a variety of repositories, providing a single interface to all of them regardless of server.  The ability to map SVN-like commands to a CVS repository, for example, is very interesting.  I have no idea if it will work, and I haven't found a whole lot of material online about others' success or failure, so I'll just play around with it myself and see if I can get it going anywhere.  
 
-### Installing SVK on OS X ###
+## Installing SVK on OS X ##
 
 There's a [packaged SVK installer for OS X][svkdmg] that you can download and run.  I generally prefer to compile things myself, but the package is probably the best option; the command line install for SVK is more annoying than usual.
 
@@ -35,7 +35,7 @@ If you're a nut, and want to install from the command line, then type:
     
 `build.sh` uses CPAN to install some required Perl modules.  It'll ask for confirmation before pulling them down, so you'll have to babysit the installation a bit to hit enter at the appropriate times.  That's more than a little annoying.  I hope that gets cleaned up in the future, because it's driving me nuts.  :)
     
-### References ###
+## References ##
 
 I'll continue populating this section as I read more about SVK.  For now, I'm starting with:
 

@@ -11,7 +11,7 @@ title: Locking Your Mac
 ---
 I've tried a few different methods to walk away from my Mac without worrying about jackass coworkers sending e-mails and IM messages on my behalf, and after a bit of experimentation with various screensavers and applescripts, finally hit upon a solution that I'm happy with. It's pretty simple, and leverages the power of [Quicksilver triggers][triggers] to make the process of locking my computer absolutely second-nature.
 
-### Terminal Magic
+## Terminal Magic
 
 First, open up a terminal window, and copy and paste the following line:
 
@@ -19,7 +19,7 @@ First, open up a terminal window, and copy and paste the following line:
 
 This adds an alias to your bash profile that gives you the ability to simply type lock at the command line to securely suspend your current session. I always have a terminal window open, so this was a good first step for me, and might reasonably be enough for you if you're also a terminal geek. However, adding [Quicksilver][] into the mix makes the process more flexible.
 
-### Triggers
+## Triggers
 
 We can create a trigger to bind a hotkey to the terminal command we've just created. Whenever I hit ???\, my computer locks itself down; it's trivial.
 

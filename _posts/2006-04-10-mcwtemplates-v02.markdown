@@ -14,7 +14,7 @@ title: "mcw_templates \u2014 v.0.2"
 
 The new version adds the ability to hold multiple exports and imports, instead of being limited to a single template set.
 
-### Download Version 0.2 ###
+## Download Version 0.2 ##
 
 [Version 0.2 is ready][1] for you to play with.  
 

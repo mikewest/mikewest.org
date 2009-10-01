@@ -31,7 +31,7 @@ Over the last two or three weeks, a substantial subset of my friends and colleag
 
 [GitHub]: http://github.com/
 
-### Coding in the Open
+## Coding in the Open
 
 Visibility is inspiration and accountability.  Watching talented developers Get Things Done™ around me gives me impetus to start putting something together of my own.  [Neil][] was creating a new repository every day at one point, and [Norm][]'s potential set of projects is great to see.  The whole group of Londoners are setting an example I'd like to live up to, and at the same time generating gentle social pressure for me to build something exciting of my own.  Watching practically everyone I know fork [Norm's `homedir`][homedir] immediately after he put it online is simply brilliant.  I want that to happen to _my_ projects.  You couldn't ask for better, more constructive peer pressure.
 

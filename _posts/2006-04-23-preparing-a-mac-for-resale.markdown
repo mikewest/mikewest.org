@@ -15,7 +15,7 @@ Luckily, after a bit of digging around in [asr man pages][asr] and googling, I'v
 
 [asr]: http://www.hmug.org/man/8/asr.php  "Apple Software Restore: manual pages"
 
-### Prepare the Mac ###
+## Prepare the Mac ##
 
 First, simply install OS X, just as you always would.  Watch the pretty OS X intro movie, run through the setup screens, and you'll end up logged into the machine as an admin-level user.  We'll use this account to update the machine, and then we'll remove all traces of it's existence.  Make sure you write down the 'short name' you used when creating your user.  We'll need it later.
 
@@ -23,7 +23,7 @@ While logged in, run `System Update` to download all the latest patches to the O
 
 To proceed, you can either follow the instructions [on this page][no-single-user] (which I don't recommend because they advocate removing your account while you're still logged into the machine, which is more than a little dangerous), or continue reading below.
 
-### Remove your account ###
+## Remove your account ##
 
 Reboot the machine, and hold `command-s` to boot into single-user mode.  This is vaguely risky business, as you have complete access to your mac as root, so be careful about what you type.
 
@@ -39,7 +39,7 @@ Now it's time to kill off the user we created.  We need to do two things: remove
     rm -r /Users/[user's short name]
     nicl -raw /var/db/netinfo/local.nidb delete /users/[user's short name]
 
-### Cleanup ###
+## Cleanup ##
 
 We've removed our account, and now we just need to trick the system into running the Startup Assistant again.  This is straightforward:
 

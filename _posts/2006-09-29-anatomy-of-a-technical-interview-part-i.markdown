@@ -19,7 +19,7 @@ Interviews are tough, especially interviews for technical positions.  The interv
 
 The first task focuses on JavaScript and the DOM, here it is: "__Write a function that returns an array containing all the elements on a page having a specified attribute.__"  Given that, where do you start?
 
-### Prove That You're an Expert ###
+## Prove That You're an Expert ##
 
 The first thing to realize when you've in a good technical interview is that the answer you come up with probably matters less than you think.  It's important that you end up with some code that works, but the interviewer is typically more concerned with _how_ you get to the answer, and _why_ you went that route.  
 
@@ -34,6 +34,6 @@ From there, we need to come up with a plan of attack, so start discussing the al
 [recursion]: http://en.wikipedia.org/wiki/Recursion "Wikipedia: 'Recursion'"
 [Steve Yegge]: http://steve-yegge.blogspot.com/ "Steve Yegge: 'Stevey's Blog Rants'"
 
-### Apply Your Expertise ###
+## Apply Your Expertise ##
 
 At this point, we've established that we more or less know what we're talking about, and outlined the general process by which we'll attack the problem.  Now we need to turn that general algorithm into a specific solution for our problem.

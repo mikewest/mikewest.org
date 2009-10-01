@@ -14,7 +14,7 @@ I took some time tonight to fix some long-outstanding bugs in the [DataRequestor
 
 [Download DataRequestor 1.6][download] and get started.
 
-### Release Notes ###
+## Release Notes ##
 
 *   Fixed major bug with `addArgsFromForm`; it now properly reads form variables anywhere under a `FORM` element's DOM tree, instead of simply those that are the `FORM`'s direct children.
 *   Changed the internal handling of get and post variables to avoid some spurious get and post variables caused by other scripts' overzealous addition of methods via `.prototype`.
@@ -23,7 +23,7 @@ I took some time tonight to fix some long-outstanding bugs in the [DataRequestor
 *   Add ability to deal with Mozilla-based browser's `NS_ERROR_NOT_AVAILABLE` error.
 *   Trigger an `onfail` event, or throw an error if the browser is disconnected from the internet when a request is made.
 
-### Future Plans ###
+## Future Plans ##
 
 The landscape has changed a lot since I released DataRequestor in March, 2005.  Frameworks have appeared that do everything DataRequestor does, and I certainly don't have the time or desire to compete with them on a feature-for-feature basis.  Happily, I think that's a feature, not a bug.  :)
 

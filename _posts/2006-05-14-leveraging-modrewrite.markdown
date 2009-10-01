@@ -17,7 +17,7 @@ I have three kinds of `mod_rewrite` rules in my `.htaccess` file:
 
 Through judicious application of these `mod_rewrite` rules, I have more or less complete control over the URLs people use to visit my site, and moreover, control over the way search engines deal with my old (and at times obsolete) content.
 
-### "This Doesn't Exist Anymore" Rules ###
+## "This Doesn't Exist Anymore" Rules ##
 
 Once upon a time, I uploaded some mp3's to a _super secret_ directory on my webserver so that I could download them at the office and enjoy some tunes on my horridly locked-down work machine.  As you might guess, the _super secret_ directory name was neither particularly super, nor spectacularly secret.  MP3 search engines tracked down the directory within hours, and I realized my mistake after my bandwidth usage for the week skyrocketed.
 
@@ -39,7 +39,7 @@ In fact, I have a whole series of rules that return 410 errors.  The relevant se
     
 The `OR` at the end of each `RewriteCond` chains them together in exactly the way you might imagine.  If _any_ of the conditions matches, then the rule triggers, and a 410 error code is returned.  Brilliant!
 
-### "Go Away" Rules ###
+## "Go Away" Rules ##
 
 Along with 410 error codes, you'll probably also find some use for 403 ('Forbidden') errors.  For example, if you deploy content with CVS or SVN, then you've got files sitting around in your public document root that contain information you'd probably prefer not to share with everyone in the world (see [Dan Benjamin's explanation][hive] for discussion of this very issue with Ruby on Rails' [Capistrano][capistrano]).  The files exist, so you shouldn't send a 404 ('Not Found') or a 410 ('Gone') error, but do you want to forbid access via the web.  The following rules solve the problem:
 
@@ -52,7 +52,7 @@ The first line tests to see whether or not the requested `CVS` or `.svn` file ac
 
 It's also worth noting here that the `OR` binds more tightly than the implicit `AND` in the first line.  The rules therefore evaluate to something like "If the file exists AND (it's a `CVS` OR `.svn` file)", which makes sense for this application.
 
-### "Fixing Other People's Links" Rules ###
+## "Fixing Other People's Links" Rules ##
 
 I've used a few domains over the lifetime of this blog, and search engines have links to files on all of them.  Since I want all my URLs to refer to the same domain (to reduce confusion, and accumulate Page Rank correctly), I use `mod_rewrite` to map all requests to those other domains to my domain of choice.  [John Gruber's recent `.htaccess` article][gruber] does a brilliant job explaining this sort of redirection, so I'll just note the syntax I use here (I like to explicitly note that the error code is 301 ('Moved Permanently') instead of using the full name, but that's simply personal preference; both work fine):
 
@@ -79,7 +79,7 @@ This practice is actually a good ongoing maintenance idea.  In his recent [Djang
     RewriteCond %{REQUEST_URI}  ^/bio.php               [NC]
     RewriteRule ^(.*)           http://mikewest.org/is/ [R=301,L]
 
-### Resources ###
+## Resources ##
 
 * Dave Child's "[`mod_rewrite` Cheat Sheet][cheat]" is a great one-stop reference, including a list of the flags for `RewriteRule` that I continually mix up in my head.
 * John Gruber's "[Using .htaccess Redirection to Standardize Web Server Addresses][gruber]" is an excellent resource for (very) basic explanations of the regular expressions that drive his `mod_rewrite` domain name redirections.

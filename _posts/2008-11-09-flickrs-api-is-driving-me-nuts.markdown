@@ -20,7 +20,7 @@ title: Flickr's API is driving me nuts
 ---
 I'm trying to do something with the Flickr API that I consider to be relatively trivial. I have the impression that the API is fighting me every step of the way. Why, oh why, can't the wonderful people who designed Del.icio.us's new API hop over to Flickr and slap together something that makes sense from the perspective of the end user?
 
-### Basics
+## Basics
 
 I'd like to have a list of my flickr sets as a block on my homepage, displaying the most recent sets in the order they were published, along with some simple metainformation and a thumbnail.  I'd also like to display photosets in my [archive pages][archive], interspersed throughout the rest of the content at the proper point in the timeline.
 
@@ -54,7 +54,7 @@ Leaving aside the strange change of [timestamp format][time], and the nonsensica
 
 But now I have all the information I need, so putting the code together is straightforward.  Straightforward, that is, until I start thinking about the necessity to automatically update this data periodically.
 
-### Updates
+## Updates
 
 The [Del.icio.us API][delicious] is really good about handling this scenario:
 [`posts/all`][posts_all] returns all the your bookmarks, and allows you to _filter_ the list by tag or date range.  If I know, for instance, that I last polled for changes at 10:00 this morning, I can ask Del.icio.us to send me only the bookmarks that came in _after_ that point in time.  This makes the update-handling code on my end quite simple: I ask for all the updates since the last bookmark I've stored locally, and when I get a response, I treat the whole thing as new.

@@ -13,7 +13,7 @@ title: "mcw_templates \u2014 Import/Export Textpattern Templates"
 
 The plugin supports multiple sets of templates, so you can rapidly import a new template, or export your current template for external editing without disturbing templates you've exported in the past.
 
-### Download ###
+## Download ##
 
 [Download the current version of the plugin (__0.2__)][1].
 
@@ -22,13 +22,13 @@ __Update, 2008-10-18__: I’ve abandoned this project, and released the code und
 [code]: http://github.com/mikewest/mcw_templates/tree/master
 [1]: http://github.com/mikewest/mcw_templates/tree/master
 
-### Requirements ###
+## Requirements ##
 
 This plugin is __beta__ in every sense of the word, as it's only been tested on my <strong>4.03</strong> installation.  It might work on other version, but no promises!
 
 Regardless of where it's been tested, this plugin messes around with your database.  _Do not use it without backing up your database_.
 
-### Setup ###
+## Setup ##
 
 By default, the plugin looks for a directory named `_templates`
 in your `textpattern` directory.  If the directory doesn't exist, the plugin will attempt to create it the first time you export your templates. This creation will almost certainly fail, since the`textpattern` directory usually isn't writable.  In that case, you'll need to create this  directory, and ensure that the web server has write access.  If your site is hosted at `/users/home/myuser/web/public/`, then the following commands    could be used:
@@ -37,7 +37,7 @@ in your `textpattern` directory.  If the directory doesn't exist, the plugin wil
     mkdir ./textpattern/_templates
     chmod 777 ./textpattern/_templates
 
-### Usage ###
+## Usage ##
 
 To use the plugin, simply select 'import' or 'export' from the dropdown on the plugin's tab (e.g. `extensions` -> `Template Files`).
 
@@ -45,7 +45,7 @@ When exporting, you're asked for an export set name, which is used as the subdir
 
 Couldn't be simpler.
 
-### Credits ###
+## Credits ##
 
 This plugin is more or less a total rewrite of [Scott Woods' Link Template 2 File][2].  His idea was brilliant, I just reworked everything so that it fit into a TextPattern admin plugin, and added a lot of error checking and documentation.  Kudos, Scott!
 

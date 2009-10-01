@@ -20,7 +20,7 @@ title: Fallow fields and new beginnings
 ---
 It's been quite some time since I put any serious effort into mikewest.org.  I've had tons of work, I've been burnt out, I've been complacent... the excuses pile on top of each other, each valid, each sufficient, none satisfactory.  For the sake of my own sanity, I need to start working on personal projects again.  Last week's [GitHub dump][dump] was the first step in that direction.  Consider this relaunch to be the second.
 
-### A Brief History ###
+## A Brief History ##
 
 The design has been sitting in my head and strewn across my hard drive in a few overlapping HTML files for months now.  The site as it stands today is most clearly influenced (both in form and function) by [Ryan Tomayko][tomayko], and his [stark interpretation][debris] of Tufte's admonitions against "administrative debris".  I couldn't bring myself to go quite as clean as Ryan, mostly because I was rapidly becoming enthralled with [Jon Tan][tan] and his absolutely [gorgeous site][tangerine].  I owe my current obsession with Baskerville to him.
 
@@ -30,13 +30,13 @@ TextPattern wasn't the CMS I wanted to use going forward, but I had neither the 
 
 So mikewest.org sat, empty, alone, partially broken, and unmaintained.  A sad website indeed.
 
-### And then... ###
+## And then... ##
 
 A month or two ago, [Carlo][] re-introduced me to [GitHub][], and something clicked.  If I simply sat down and _wrote_ myself a _new_ blogging engine I could solve the problems I saw with my TextPattern installation.  Moreover, I could experiment with [git][] and teach myself [ruby][] at the same time.  After a few guys at the office convinced me of the beauty of setting _everything_ up myself at [slicehost][], I was on my way. This was really just what I needed: a quick `git init` later, and [Fallow][] was born.
 
 As experiments go, this has been terrifically successful.  I've built myself a new blog from scratch in a little under a month, using a distributed version control system I'd never touched, and a language I knew nothing about.  I sincerely doubt anyone in the world will touch any of the code I've put out, but putting it out _feels good_.
 
-### Fallow in a nutshell ###
+## Fallow in a nutshell ##
 
 [Fallow][] is firmly grounded in three principles:
 
