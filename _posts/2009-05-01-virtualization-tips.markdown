@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Virtualization Tips"
 slug:       "virtualization-tips"
 aliases:

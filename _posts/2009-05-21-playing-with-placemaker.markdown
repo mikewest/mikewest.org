@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Playing with Placemaker"
 slug:       "playing-with-placemaker"
 aliases:

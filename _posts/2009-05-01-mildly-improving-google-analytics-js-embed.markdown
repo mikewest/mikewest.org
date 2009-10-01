@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "(Mildly) improving Google Analytics' JS Embed"
 slug:       "mildly-improving-google-analytics-js-embed"
 aliases:

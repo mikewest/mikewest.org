@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "I think I've bricked my iPhone"
 slug:       "i-think-ive-bricked-my-iphone"
 aliases:

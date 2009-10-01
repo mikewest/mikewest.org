@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "DSL Woes"
 slug:       "dsl-woes"
 aliases:

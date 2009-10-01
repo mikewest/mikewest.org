@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Well.  That was easy."
 slug:       "well-that-was-easy"
 aliases:

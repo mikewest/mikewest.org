@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Asynchronous Execution, JavaScript, and You"
 slug:       "asynchronous-execution-javascript-and-you"
 aliases:

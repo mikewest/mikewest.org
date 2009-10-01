@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Static IPs in VMWare Fusion Guests"
 slug:       "static-ips-in-vmware-fusion-guests"
 aliases:

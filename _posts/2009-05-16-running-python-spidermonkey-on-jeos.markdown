@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Running `python-spidermonkey` on JeOS"
 slug:       "running-python-spidermonkey-on-jeos"
 aliases:

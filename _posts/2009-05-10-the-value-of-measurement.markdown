@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "The Value of Measurement"
 slug:       "the-value-of-measurement"
 aliases:

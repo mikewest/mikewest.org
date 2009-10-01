@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Compiling Varnish on a minimal JeOS System"
 slug:       "compiling-varnish-on-a-minimal-jeos-system"
 aliases:

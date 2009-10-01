@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Vimeo's Noncommercial Nature"
 slug:       "vimeos-noncommercial-nature"
 aliases:

@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Installing the W3C HTML Validator on JeOS"
 slug:       "installing-the-w3c-html-validator-on-jeos"
 aliases:

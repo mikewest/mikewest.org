@@ -1,4 +1,5 @@
 ---
+layout:     post
 title:      "Mnot's Redbot"
 slug:       "mnots-redbot"
 aliases:
