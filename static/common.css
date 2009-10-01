@@ -256,10 +256,15 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
             text-align:center;
             color:#999;
         }
-    .article h2, 
+    .article h2 {
+        text-align:     left;
+        border-bottom:  1px solid #CCC;
+        margin:         1em 2em;
+        font:           1.923em/1.25 Baskerville,Times,'Times New Roman',serif;
+    }
     .article h3 {
-        text-align: center;
-        margin:     1em auto;
+        text-align: left;
+        margin:     1em 3em;
         font:       1.923em/1.25 Baskerville,Times,'Times New Roman',serif;
     }
     .article p, .article ul, .article ol {
@@ -290,6 +295,9 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
             width:      53em;
             margin:     0 auto;
         }
+            .article li code {
+                width:  auto;
+            }
     .article sup {
         vertical-align: super;
     }
@@ -308,12 +316,13 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
         }
     
     .article blockquote {
-        margin: 0 auto;
-        width:  41.286em;
+        font-style: italic;
+        margin:     0 auto;
+        width:      41.286em;
     }
     .article blockquote p {
         font-style: italic;
-        width:39.286em;
+        width:      39.286em;
     }
     /*****************************************************************************
      *  Images in articles
