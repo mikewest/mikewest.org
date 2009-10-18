@@ -15,7 +15,7 @@ teaser: "This is the personal site of Mike West, a philosophy student cleverly d
     <div class="recent-posts">
         <h2>Recent <a href='/archive'>Writing</a></h2>
         <ol class="hatom">
-{% for post in site.posts limit:5 %}
+{% for post in site.posts limit:10 %}
             <li class="hentry">
                 <a href="{{ post.url }}" class="entry-title" rel="bookmark">{{ post.title }}</a>
                 <div class="meta">
@@ -26,21 +26,6 @@ teaser: "This is the personal site of Mike West, a philosophy student cleverly d
                 </div>
             </li>
 {% endfor %}
-        </ol>
-    </div>
-    <div class="links">
-        <h2>Links from <a href="http://del.icio.us/mikewest/" rel="me">del.icio.us</a></h2>
-        <ul>
-        </ul>
-    </div>
-    <div class="photos">
-        <h2>Photosets from <a href="http://flickr.com/photos/mikewest/" class="flickr" rel="me">flick<span>r</span></a></h2>
-        <ol>
-        </ol>
-    </div>
-    <div class="twits">
-        <h2>Twits from <a href="http://twitter.com/mikewest/" rel="me">Twitter</a></h2>
-        <ol>
         </ol>
     </div>
 </div>

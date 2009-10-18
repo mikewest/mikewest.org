@@ -12,12 +12,15 @@ layout: default
             <div class="meta">
                 <p>
                     This entry was published on <span class="published">{{ page.date | date: "%A, %B %d, %Y" }}</span>.
-                    Articles published around the same time can be found <a href="/archive">in the archive</a>.</p>
-                <p>I've tagged the article with the following exceptional keywords: 
+                    Articles published around the same time can be found <a href="{{ page.date | date: '/%Y/#month%m' }}">in the archive</a>.
+                </p><p>
+                    I've tagged the article with the following keywords: 
 {% for tag in page.tags %}
 <!-- TODO: 1) URL encode `tag`.  2) Fix the tag root. -->
 <a href="/tags/{{ tag | cgi_encode }}" rel="tag" title="View other entries tagged '{{ tag }}'">{{ tag }}</a>{% if forloop.last %}.{% else %}, {% endif %}
 {% endfor %}
+                    A <a href="/tags/">"cloud" of all the tags</a> I've used on the
+                    site is also available for your viewing pleasure.
                 </p>
             </div>
         </div>
