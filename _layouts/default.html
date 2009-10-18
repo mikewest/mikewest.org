@@ -7,6 +7,10 @@
         Posts tagged &ldquo;{{ page.tag }}&rdquo; &mdash; 
         {% elsif page.title %}
         &ldquo;{{ page.title }}&rdquo; &mdash; 
+        {% elsif page.month %}
+        Archived posts from {{ page.month | to_month }}, {{ page.year }} &mdash;
+        {% elsif page.year %}
+        Archived posts from {{ page.year }} &mdash;
         {% endif %}
         Mike West
     </title>
