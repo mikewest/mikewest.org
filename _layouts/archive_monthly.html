@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<div class="archive">
+    <h1>Archived Posts from {{ page.month | to_month }}, {{ page.year }}</h1>
+    <ol>
+            {% for d in (1..31) reversed %}
+                {% if site.collated_posts[page.year][page.month][d] %}
+                    {% for post in site.collated_posts[page.year][page.month][d] reversed %}
+        <li class="internal">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+            <div class="meta">
+                <span class="published">{{ post.date | date: "%B %d, %Y" }}</span>
+            </div>
+            {{ post.Teaser | markdownize }}
+        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+    </ol>
+</div>
