@@ -268,18 +268,18 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
         font:       1.923em/1.25 Baskerville,Times,'Times New Roman',serif;
     }
     .article p, .article ul, .article ol, .article blockquote {
-        width:          43.286em;
-        font:           1.077em/1.5 Georgia,Palatino,'Palatino Linotype',Times,'Times New Roman',serif;
+        width:          37.875em;
+        font:           1.231em/1.5 Georgia,Palatino,'Palatino Linotype',Times,'Times New Roman',serif;
         text-align:     justify;
         margin:         1em auto;
     }
         .article ul p, .article ol p {
             font-size:  1em;
-            width:      42.286em;
+            width:      36.875em;
         }
         .article ul, .article ol {
             padding-left:   1em;
-            width:          42.286em;
+            width:          36.875em;
         }
         .article ul li {
             list-style: disc outside;
@@ -311,16 +311,24 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
         margin:     0 auto;
         border-top: 0.077em dotted #BBB;
     }
-        .article .meta .navigation li {
-            list-style: none;
+        .article .meta .navigation {
+            margin:     0.5em auto 1em;
+            overflow:   hidden;
             padding:    0;
+            width:      auto;
         }
-        .article .meta .older {
-            float:  left;
-        }
-        .article .meta .newer {
-            float:  right;
-        }
+            .article .meta .navigation li {
+                list-style: none;
+                padding:    0;
+                width:      45%;
+            }
+            .article .meta .older {
+                float:  left;
+            }
+            .article .meta .newer {
+                float:      right;
+                text-align: right;
+            }
         .article .meta .published {
             font-style:     italic;
             font-weight:    bold;
