@@ -10,6 +10,14 @@ layout: default
                 {{ content }}
             </div>
             <div class="meta">
+                <ol class="navigation">
+                    {% if page.previous %}
+                    <li class="older"><span>Older: </span><a href="{{ page.previous.url }}">{{ page.previous.title }}</a></li>
+                    {% endif %}
+                    {% if page.next %}
+                    <li class="newer"><span>Newer: </span><a href="{{ page.next.url }}">{{ page.next.title }}</a></li>
+                    {% endif %}
+                </ol>
                 <p>
                     This entry was published on <span class="published">{{ page.date | date: "%A, %B %d, %Y" }}</span>.
                     Articles published around the same time can be found <a href="{{ page.date | date: '/%Y/#month%m' }}">in the archive</a>.

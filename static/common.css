@@ -275,6 +275,7 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
     }
         .article ul p, .article ol p {
             font-size:  1em;
+            width:      42.286em;
         }
         .article ul, .article ol {
             padding-left:   1em;
@@ -310,11 +311,22 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
         margin:     0 auto;
         border-top: 0.077em dotted #BBB;
     }
+        .article .meta .navigation li {
+            list-style: none;
+            padding:    0;
+        }
+        .article .meta .older {
+            float:  left;
+        }
+        .article .meta .newer {
+            float:  right;
+        }
         .article .meta .published {
             font-style:     italic;
             font-weight:    bold;
         }
         .article .meta p {
+            clear:  both;
             width:  auto;
             margin: 1em 11em;
         }
