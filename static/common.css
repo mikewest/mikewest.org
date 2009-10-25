@@ -316,13 +316,13 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
         border-top: 0.077em dotted #BBB;
     }
         .article .meta .navigation {
+            font-size:  1em;
             margin:     0.5em auto 1em;
             overflow:   hidden;
             padding:    0;
             width:      auto;
         }
             .article .meta .navigation li {
-                font-size:  1em;
                 list-style: none;
                 padding:    0;
                 width:      45%;
