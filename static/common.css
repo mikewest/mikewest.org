@@ -322,18 +322,35 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
             width:      auto;
         }
             .article .meta .navigation li {
+                font-size:  1em;
                 list-style: none;
                 padding:    0;
                 width:      45%;
+            }
+            .article .meta .navigation span {
+                left:       -999em;
+                position:   absolute;
+            }
+            .article .meta .navigation a:before {
+                content:    "“";
+            }
+            .article .meta .navigation a:after {
+                content:    "”";
             }
             .article .meta .older {
                 float:      left;
                 text-align: left;
             }
+                .article .meta .older:before {
+                    content: "« ";
+                }
             .article .meta .newer {
                 float:      right;
                 text-align: right;
             }
+                .article .meta .newer:after {
+                    content: " »";
+                }
         .article .meta .published {
             font-style:     italic;
             font-weight:    bold;
