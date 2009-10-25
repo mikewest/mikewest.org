@@ -22,13 +22,14 @@ layout: default
                     This entry was published on <span class="published">{{ page.date | date: "%A, %B %d, %Y" }}</span>.
                     Articles published around the same time can be found <a href="{{ page.date | date: '/%Y/#month%m' }}">in the archive</a>.
                 </p><p>
-                    I've tagged the article with the following keywords: 
+                    <span>Further reading: </span>If you enjoyed this post, you might
+                    like to take a look at some of my other posts about  
 {% for tag in page.tags %}
 <!-- TODO: 1) URL encode `tag`.  2) Fix the tag root. -->
-<a href="/tags/{{ tag | cgi_encode }}" rel="tag" title="View other entries tagged '{{ tag }}'">{{ tag }}</a>{% if forloop.last %}.{% else %}, {% endif %}
+&#145;<a href="/tags/{{ tag | cgi_encode }}" rel="tag" title="View other entries tagged '{{ tag }}'">{{ tag }}</a>&#146;{% if forloop.last %}.{% else %}, {% if forloop.rindex0 == 1 %}or {% endif %}{% endif %}
 {% endfor %}
-                    A <a href="/tags/">"cloud" of all the tags</a> I've used on the
-                    site is also available for your viewing pleasure.
+                    I've also made available a <a href="/tags/">list of all the topics I've written about</a>
+                    if you're interested in my (folkless) folksonomy.
                 </p>
             </div>
         </div>

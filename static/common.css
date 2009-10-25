@@ -339,11 +339,15 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
             font-weight:    bold;
         }
         .article .meta p {
-            clear:  both;
-            width:  auto;
-            margin: 1em 11em;
+            clear:      both;
+            font-size:  1em;
+            width:      auto;
+            margin:     1em 11em;
         }
-    
+        .article .meta p span {
+            font-weight:    700;
+        }
+
     .article blockquote {
         font-style: italic;
         margin:     0 auto;
