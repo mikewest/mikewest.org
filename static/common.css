@@ -488,7 +488,7 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
             color:      #FFF;
             font:       1.231em/1.35 Baskerville,Times,'Times New Roman',serif;
             margin:     0 auto 0.25em;
-            padding:    0 0 0 19.25em;
+            padding:    0 19.25em 0 0;
             width:      28.25em;
         }
         .footer p.license, .footer address {
