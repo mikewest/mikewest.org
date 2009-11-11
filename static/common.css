@@ -273,7 +273,7 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
     .article p, .article ul, .article ol, .article blockquote {
         width:          37.875em;
         font:           1.231em/1.5 Georgia,Palatino,'Palatino Linotype',Times,'Times New Roman',serif;
-        text-align:     justify;
+        /* text-align:     justify; */
         margin:         1em auto;
     }
         .article ul p, .article ol p {
