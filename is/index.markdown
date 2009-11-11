@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: adhoc
 title:  Mike West's brief bio
 teaser: "Who _is_ that Mike West?  He sure is interesting!  I bet he develops websites or something!"
 ---
