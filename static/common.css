@@ -13,9 +13,9 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
     END RESET CODE
 */  
         a, a:visited {
-            text-decoration:    none;
-            letter-spacing:     1px;
             color:              #4281ba;
+            letter-spacing:     1px;
+            text-decoration:    none;
         }
         em {
             font-style:     italic;
@@ -31,18 +31,17 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
  *  HEADER
  */
         .header {
-            width:          100%;
             background:     #000;
             font:           1.539em/1 Baskerville,Times,'Times New Roman',serif;
-            font-variant:       small-caps;
-
-            text-transform: lowercase;
+            font-variant:   small-caps;
             letter-spacing: 0.033em;
+            text-transform: lowercase;
+            width:          100%;
         }
             .header ul {
+                margin:         0 auto;
                 overflow:       hidden;
                 width:          37.987em;
-                margin:         0 auto;
             }
                 .header ul li:last-child a {
                     background:     url('http://static.mikewest.org/twitter.png') no-repeat right 6px;
@@ -54,15 +53,15 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
                     }
             .header a {
                 color:          #FFF;
-                padding:        0.25em 0;
                 display:        block;
                 float:          right;
+                padding:        0.25em 0;
             }
                 .header strong a {
-                    text-transform: none;
                     float:          left;
                     font-weight:    normal;
                     letter-spacing: 0.25em;
+                    text-transform: none;
                 }
 
 .content {
@@ -283,6 +282,10 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
         .article ul, .article ol {
             padding-left:   1em;
             width:          36.875em;
+        }
+        .article ul ol, .article ul ul,
+        .article ol ol, .article ol ul {
+            font-size:  1em;
         }
         .article ul li {
             list-style: disc outside;

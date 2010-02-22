@@ -3,6 +3,6 @@ lsi:            false
 markdown:       rdiscount
 pygments:       true
 permalink:      /:year/:month/:title
-static_root:    "http://static.mikewest.org/20091125"
+static_root:    "http://static.mikewest.org/20100222"
 content_root:   /home/mikewest/Repositories/mgc/
 tag_root:       /tags
