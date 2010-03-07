@@ -11,7 +11,7 @@ under the following conditions:
 1.  You must **attribute** the work to me in a reasonable way (I'd suggest a
     link back to the original source in a way that makes it clear where the
     material originated).
-    
+
 2.  Your use must be **non-commercial**.  If you're _selling_ the content of
     this website, or using it in order to increase your ad-revenue in some way,
     then you're operating outside this license agreement, which isn't good.
@@ -28,7 +28,7 @@ Noted Exceptions
     I'd be the last to claim that everything about this website is original,
     I'm standing on the shoulders of much better designers than I.  But I
     _implemented_ every bit myself, and I expect you to do the same.
-    
+
 2.  I didn't think it needed clarification, but this license explicitly
     excludes the content of my [bio][].  Please write your own [bio][].
 
