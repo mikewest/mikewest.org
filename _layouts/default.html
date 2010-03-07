@@ -12,7 +12,11 @@
         {% elsif page.year %}
         Archived posts from {{ page.year }} &mdash;
         {% endif %}
-        Mike West
+        {% if page.completetitle %}
+            {{ page.completetitle }}
+        {% else %}
+            Mike West
+        {% endif %}
     </title>
 {% include document_head.html %}
 </head>
