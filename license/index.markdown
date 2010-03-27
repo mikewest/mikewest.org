@@ -4,7 +4,7 @@ title:  Copyright, license, etc.
 ---
 The content of `mikewest.org` is licensed under the quite verbosely named
 <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons
-    Attribution-Noncommercial-No Derivative Works 3.0 Unported License</a>.  Among
+Attribution-Noncommercial-No Derivative Works 3.0 Unported License</a>.  Among
 other things, this means that your are free to share bits of this website's content
 under the following conditions:
 
