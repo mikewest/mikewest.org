@@ -1,7 +1,7 @@
 <div class="footer vcard">
     <p class="bio">
         <a href="/is/" class="fn">
-            <img src="http://www.gravatar.com/avatar/3c27881a0d8695811b0fa23bd794e696?s=75" height="75" width="75" alt="">Mike West</a>
+          <img src="{{ site.static_root }}/mikewest_75x75.jpg" height="75" width="75" alt="">Mike West</a>
         works and plays on the internet.  Currently working as part of the Munich-based
         team responsible for <a href="http://sueddeutsche.de/">sueddeutsche.de</a>, he
         develops websites that (on good days) <em>delight</em> and <em>inform</em>.
@@ -14,4 +14,16 @@
     </p>
     <address>Mike West - <a href='mailto:mike@mikewest.org' class="email">mike@mikewest.org</a></address>
 </div>
-<script type="text/javascript" src="{{ site.static_root }}/ga.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6166875-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
