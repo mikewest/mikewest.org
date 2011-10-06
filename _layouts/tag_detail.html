@@ -13,7 +13,7 @@ layout: default
             <div class="meta">
                 <span class="published">{{ p.date | date: "%B %d, %Y" }}</span>
             </div>
-            {% if p.Teaser %}{{ p.Teaser | markdownize }}{% endif %}
+            {% if p.Teaser %}{{ p.Teaser | markdownify }}{% endif %}
         </li>
     {% endfor %}
     </ol>

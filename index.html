@@ -23,7 +23,7 @@ teaser:         "This is the personal website of Mike West, a philosophy student
                     <span class="published">{{ post.date | date: "%B %d, %Y" }}</span>
                 </div>
                 <div class="entry-summary">
-                    {{ post.Teaser | markdownize }}
+                    {{ post.Teaser | markdownify }}
                 </div>
             </li>
 {% endfor %}
