@@ -1,6 +1,6 @@
 destination:    ./_site
 lsi:            false
-markdown:       rdiscount
+markdown:       kramdown
 pygments:       true
 permalink:      /:year/:month/:title
 static_root:    "http://static.mikewest.org/20100307"

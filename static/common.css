@@ -312,8 +312,8 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
     .article sup {
         vertical-align: super;
     }
-    
-    .article .meta {
+   
+    .article .meta, .article .footnotes {
         margin:     0 auto;
         border-top: 0.077em dotted #BBB;
     }
