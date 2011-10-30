@@ -18,7 +18,7 @@ In addition to my in-house work, I've written a variety of articles on developme
 
 A more complete resume is available at [mikewest.org/resume][resume], with a more socially annotated version at [linkedin.com/in/mikewestorg][linkedin].
 
-If you're interested in my work, [follow me on Twitter (@mikewest)][twitter], [fork me on github][github], or [drop an email (mike@mikewest.org][email].
+If you're interested in my work, <a href="https://plus.google.com/104437754419996754779/" rel="me">plus me on Google+</a>, [follow me on Twitter (@mikewest)][twitter], [fork me on github][github], or [drop an email (mike@mikewest.org][email].
 
 Personal Bio
 ------------
