@@ -1,8 +1,8 @@
-destination:    ./_site
+destination:    /home/mkwst/public_html/mikewest.org/public/
 lsi:            false
 markdown:       kramdown
 pygments:       true
 permalink:      /:year/:month/:title
-static_root:    "http://static.mikewest.org/20111011"
+static_root:    "/static"
 content_root:   /home/mikewest/Repositories/mgc/
 tag_root:       /tags
