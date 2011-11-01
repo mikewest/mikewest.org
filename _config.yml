@@ -3,6 +3,6 @@ lsi:            false
 markdown:       kramdown
 pygments:       true
 permalink:      /:year/:month/:title
-static_root:    "/static/20111031"
+static_root:    "/static/20111101"
 content_root:   /home/mikewest/Repositories/mgc/
 tag_root:       /tags
