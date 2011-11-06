@@ -46,7 +46,7 @@ html {
 }
 
 body {
-  padding-top: 25px;
+  padding-top: 30px;
 }
 
 /******************************************************************************
@@ -318,6 +318,10 @@ section article {
   width: 740px;
 }
 
+section article p {
+  margin-top: 0;
+}
+
 section li:last-child article {
   border: 0;
 }
@@ -327,6 +331,47 @@ section .published {
   right: 0;
   top: 8px;
 }
+
+/******************************************************************************
+ * Homepage Styles
+ */
+
+.bio {
+  overflow: hidden;
+  padding: 10px 25px 0;
+  width: 740px;
+}
+
+.bio h1 {
+  border: 0;
+  margin: 0;
+  font: 62px/1 Quattrocento,Georgia,Palatino,Times,Serif;
+}
+
+.bio h1 a,
+.bio p {
+  color: #111;
+}
+
+.bio img {
+  float: left;
+  margin-right: 15px;
+}
+
+.bio p {
+  font: 40px/1.3 Quattrocento,Georgia,Palatino,Times,Serif;
+  letter-spacing: -3px;
+  text-align: justify;
+  margin: 0.1em 0 0;
+}
+
+.bio em {
+  font-size: 41px;
+  letter-spacing: 0;
+  text-shadow: #CCC 2px 2px;
+  line-height: 1.5;
+}
+
 
 /******************************************************************************
  * Tag Cloud Styles
