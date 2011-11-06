@@ -10,7 +10,9 @@ I'm curious, and I enjoy work that challenges me to learn something new and stre
 Professional Bio
 ----------------
 
-Since January 2009, I've been part of the team responsible for the web presence of one of the largest daily newspapers in Germany.  [Sueddeutsche.de][sde] gets something on the order of 150 million (actual) page views a month, and serves over 22 million unique users.  It's a big site, running on a surprisingly antiquated backend; we work hard to keep things running smoothly, and to meet the high expectations of our users.  Generally, we do a pretty good job of it.
+At the moment, I'm a developer advocate on Google's Chrome team in Munich, Germany.
+
+From January 2010 to November 2011, I was part of the team responsible for the web presence of one of the largest daily newspapers in Germany: [Sueddeutsche.de][sde].  It's a big site, running on a surprisingly antiquated backend; we work hard to keep things running smoothly, and to meet the high expectations of our users.  Generally, we did a pretty good job of it.
 
 Before Sueddeutsche, I worked for Yahoo! on their equally massive European news sites.  My team and I took `news.yahoo.com`'s solid codebase, and made it localizable for distinct markets and languages: we were directly responsible for building and maintaining Yahoo!'s news sites in the UK, France, Germany, Spain, and Italy, relaunching all five within a year.  We laid the foundation for further work that expanded the platform's scope to include Singapore and beyond.  We did _good_ work while understaffed and under pressure, and I'm proud of our accomplishments.
 
