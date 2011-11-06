@@ -3,7 +3,7 @@ layout:         default
 completetitle:  Mike West is a Web Developer in Munich
 teaser:         "This is the personal website of Mike West, a philosophy student cleverly disguised as an experienced and successful web developer."
 ---
-<div class="bio">
+<section class="bio">
     <h1><a href='/is'><img src="{{ site.static_root }}/mikewest.jpg" alt="" width="444" height="296">Mike West</a></h1>
     <p>
         is a web developer: he builds websites that <em>delight</em> and
@@ -11,22 +11,21 @@ teaser:         "This is the personal website of Mike West, a philosophy student
         like Yahoo! and Google.<br>Interested?
         <a href="/is">Read on&hellip;</a>
     </p>
-</div>
-<div class="diversions">
-    <div class="recent-posts">
-        <h2>Recent <a href='/2009'>Writing</a></h2>
-        <ol class="hatom">
+</section>
+<section role="main" class="recent">
+  <h2>Recent <a href="/2011" rel="archive">Writing</a></h2>
+  <ol class="hatom">
 {% for post in site.posts limit:10 %}
-            <li class="hentry">
-                <a href="{{ post.url }}" class="entry-title" rel="bookmark">{{ post.title }}</a>
-                <div class="meta">
-                    <span class="published">{{ post.date | date: "%B %d, %Y" }}</span>
-                </div>
-                <div class="entry-summary">
-                    {{ post.Teaser | markdownify }}
-                </div>
-            </li>
+    <li class="hentry"><article>
+      <a href="{{ post.url }}" class="entry-title" rel="bookmark">{{ post.title }}</a>
+      <div class="meta">
+        <time class="published updated"
+              datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%B %d, %Y" }}</time>
+      </div>
+      <div class="entry-summary">
+        {{ post.Teaser | markdownify }}
+      </div>
+    </article></li>
 {% endfor %}
-        </ol>
-    </div>
-</div>
+  </ol>
+</section>
