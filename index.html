@@ -22,7 +22,8 @@ teaser:         "This is the personal website of Mike West, a philosophy student
       <a href="{{ post.url }}" class="entry-title" rel="bookmark">{{ post.title }}</a>
       <div class="meta">
         <time class="published updated"
-              datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%B %d, %Y" }}</time>
+              datetime="{{ post.date | date: "%Y-%m-%d" }}"
+              pubdate>{{ post.date | date: "%B %d, %Y" }}</time>
       </div>
       <div class="entry-summary">
         {{ post.Teaser | markdownify }}

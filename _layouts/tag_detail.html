@@ -7,10 +7,9 @@ layout: default
 {% for post in site.tags[page.tag] %}
     <li class="hentry"><article>
       <a href="{{ post.url }}" class="entry-title" rel="bookmark">{{ post.title }}</a>
-      <div class="meta">
-        <time class="published updated"
-              datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%B %d, %Y" }}</time>
-      </div>
+      <time class="published updated"
+            datetime="{{ post.date | date: "%Y-%m-%d" }}"
+            pubdate>{{ post.date | date: "%B %d, %Y" }}</time>
       <div class="entry-summary">
         {{ post.Teaser | markdownify }}
       </div>
