@@ -356,6 +356,7 @@ section .published {
 .bio img {
   float: left;
   margin-right: 15px;
+  margin-top: 2px;
 }
 
 .bio p {
