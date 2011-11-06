@@ -329,6 +329,31 @@ section .published {
 }
 
 /******************************************************************************
+ * Tag Cloud Styles
+ */
+
+.tag-cloud {
+  overflow: hidden;
+}
+
+.tag-cloud ol {
+  padding: 0;
+  margin: 0;
+}
+
+.tag-cloud li {
+  list-style: none inside;
+  float: left;
+  margin: 5px 5px 0 0;
+  line-height: 35px;
+}
+
+.not-popular { font-size: 1em; }
+.popular { font-size: 1.3em; }
+.very-popular { font-size: 1.6em; }
+.ultra-popular { font-size: 2.1em; }
+
+/******************************************************************************
  * Footer Styles
  */
 

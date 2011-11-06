@@ -2,10 +2,9 @@
 layout: default
 ---
 <section class="archive">
-  <h1>Archived Posts from {{ page.year }}</h1>
   {% for m in (1..12) reversed %}
     {% if page.posts_by_month[page.year][m] %}
-      <h2 id="month{{m}}">{{ m | to_month }}</h2>
+      <h2 id="month{{m}}">{{ m | to_month }} {{ page.year }}</h2>
       <ol class="hatom">
       {% for post in page.posts_by_month[page.year][m]  %}
         <li class="hentry"><article>

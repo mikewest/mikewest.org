@@ -1,8 +1,9 @@
 ---
 layout: default
 teaser: "My personal folksonomy: all mikewest.org tags, arranged alphabetically in quasi-cloud form."
+completetitle: "Popular tags on mikewest.org"
 ---
-<div class="tag-cloud">
+<section class="tag-cloud">
     <h1>Popular tags on mikewest.org</h1>
     <ol>
 {% for tag in site.tags %}
@@ -20,4 +21,4 @@ teaser: "My personal folksonomy: all mikewest.org tags, arranged alphabetically 
         <li class="{{ class }}"><a href="{{ site.tag_root }}/{{ tag[0] | cgi_escape }}/" title="View entries tagged '{{ tag[0] }}'">{{ tag[0] }}</a></li>
 {% endfor %}
     </ol>
-</div>
+</section>
