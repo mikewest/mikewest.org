@@ -1,22 +1,23 @@
 ---
 layout: default
 ---
-<div class="archive">
-    <h1>Archived Posts from {{ page.year }}</h1>
-    {% for m in (1..12) reversed %}
-        {% if page.posts_by_month[page.year][m] %}
-    <h2 id="month{{m}}">{{ m | to_month }}</h2>
-    <ol>
-          {% for post in page.posts_by_month[page.year][m]  %}
-        <li class="internal">
-            <a href="{{ post.url }}">{{ post.title }}</a>
-            <div class="meta">
-                <span class="published">{{ post.date | date: "%B %d, %Y" }}</span>
-            </div>
+<section class="archive">
+  {% for m in (1..12) reversed %}
+    {% if page.posts_by_month[page.year][m] %}
+      <h2 id="month{{m}}">{{ m | to_month }} {{ page.year }}</h2>
+      <ol class="hatom">
+      {% for post in page.posts_by_month[page.year][m]  %}
+        <li class="hentry"><article>
+          <a href="{{ post.url }}" class="entry-title" rel="bookmark">{{ post.title }}</a>
+          <time class="published updated"
+                datetime="{{ post.date | date: "%Y-%m-%d" }}"
+                pubdate>{{ post.date | date: "%B %d, %Y" }}</time>
+          <div class="entry-summary">
             {{ post.Teaser | markdownify }}
-        </li>
-          {% endfor %}
-    </ol>
-        {% endif %}
-    {% endfor %}
-</div>
+          </div>
+        </article></li>
+      {% endfor %}
+      </ol>
+    {% endif %}
+  {% endfor %}
+</section>

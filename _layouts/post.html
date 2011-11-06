@@ -1,35 +1,35 @@
 ---
 layout: default
 ---
-        <div class="article">
-            <div class="head">
-                <h1>{{ page.title }}</h1>
-                <p class="published">{{ page.date | date: "%A, %B %d, %Y" }}</p>
-            </div>
-            <div class="body">
-                {{ content }}
-            </div>
-            <div class="meta">
-                <ol class="navigation">
-                    {% if page.previous %}
-                    <li class="older"><span>Older post: </span><a href="{{ page.previous.url }}">{{ page.previous.title }}</a></li>
-                    {% endif %}
-                    {% if page.next %}
-                    <li class="newer"><span>Newer post: </span><a href="{{ page.next.url }}">{{ page.next.title }}</a></li>
-                    {% endif %}
-                </ol>
-                <p>
-                    This entry was published on <span class="published">{{ page.date | date: "%A, %B %d, %Y" }}</span>.
-                    Articles published around the same time can be found <a href="{{ page.date | date: '/%Y/#month%m' }}">in the archive</a>.
-                </p><p>
-                    <span>Further reading: </span>If you enjoyed this post, you might
-                    like to take a look at some of my other posts about  
-{% for tag in page.tags %}
-<!-- TODO: 1) URL encode `tag`.  2) Fix the tag root. -->
-&#145;<a href="/tags/{{ tag | cgi_encode }}" rel="tag" title="View other entries tagged '{{ tag }}'">{{ tag }}</a>&#146;{% if forloop.last %}.{% else %}, {% if forloop.rindex0 == 1 %}or {% endif %}{% endif %}
-{% endfor %}
-                    I've also made available a <a href="/tags/">list of all the topics I've written about</a>
-                    if you're interested in my (folkless) folksonomy.
-                </p>
-            </div>
-        </div>
+<article class="hentry" role="main">
+  <h1 class="entry-title">{{ page.title }}</h1>
+  <time class="published" pubdate datetime="{{ page.date | date: %Y-%m-%d }}">
+    {{ page.date | date: "%A, %B %d, %Y" }}
+  </time>
+
+  {{ content }}
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      {% if page.suggestions %}
+      take a look at
+        {% for suggestion in page.suggestions %}
+          &ldquo;<a href="{{ suggestion.url }}">{{ suggestion.title }}</a>&rdquo;
+          {% if forloop.last %}. {% else %}, {% if forloop.rindex0 == 1 %}and {% endif %}{% endif %}
+        {% endfor %}
+      </p><p>
+      You might also be interested in perusing lists of other posts tagged
+      {% else %}
+      you might also be interested in perusing lists of other posts tagged
+      {% endif %}
+      {% for tag in page.tags %}
+        &#145;<a href="/tags/{{ tag | cgi_encode }}"
+                 rel="category tag"
+                 title="View other entries tagged '{{ tag }}'">{{ tag }}</a>&#146;{% if forloop.last %}.{% else %}, {% if forloop.rindex0 == 1 %}or {% endif %}{% endif %}
+      {% endfor %}
+    </p>
+  </aside>
+</article>
