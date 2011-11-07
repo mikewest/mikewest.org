@@ -7,6 +7,7 @@
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-6166875-1']);
 _gaq.push(['_trackPageview']);
+_gaq.push(['_trackPageLoadTime']);
 
 (function() {
   var ga = document.createElement('script');
