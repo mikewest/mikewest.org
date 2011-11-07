@@ -1,0 +1,49 @@
+/* TEAM */
+
+You'll be shocked (shocked!) to learn that `mikewest.org` was lovingly
+hand-built by Mike West, who you can reach via email at mike@mikewest.org,
+on Twitter @mikewest, or on Google+ at https://mkw.st/+.
+
+/* THANKS */
+
+Ever so much thanks goes to IconDock for their clever [set of social media
+icons][icondock] that I'm using on the site, and to FontSquirrel's wonderful
+[@font-face kits][ff], through which I'm serving [Quattrocento][q] and
+[Inconsolata][i]. Thanks to [Pablo Impallari][impallari] and [Raph
+Levien][levien], respectively, for those typefaces, which are lovely.
+
+Tangentially, thanks to [Henning Hoefer][hh] for suggesting that I write a
+humans.txt, which ended up being more interesting than I expected it to be.
+
+[icondock]: http://icondock.com/free/vector-social-media-icons
+[ff]: http://www.fontsquirrel.com/fontface
+[q]: http://www.fontsquirrel.com/fonts/quattrocento-roman
+[i]: http://www.fontsquirrel.com/fonts/Inconsolata
+[impallari]: http://www.impallari.com/
+[levien]: http://www.levien.com/type/myfonts/
+[hh]: https://plus.google.com/102316960407970860981/about
+
+/* SITE */
+
+This is a straightforward site, built with HTML5 and CSS3 (but there's nothing
+fancy here, other than some background gradients). The site's source is open
+and available [on Github][1], as is the site's [content][2].
+
+The site is prerendered into static HTML files via the wonderful, wonderful
+[Jekyll][3], with a few plugins I wrote for tag and archive pages. Those static
+pages are served to you quickly and easily by Nginx (whose configuration is
+also available [on Github][4]). The domain and SSL certificate were purchased
+through the lovely folks at Gandi.net, and the site is hosted via the equally
+lovely people at Linode.
+
+All the code was written, of course, in Vim (that configuration is also
+available [on Github][5]). Pixels were pushed around in [Acorn][6], 
+
+[1]: https://github.com/mikewest/mikewest.org
+[2]: https://github.com/mikewest/mgc
+[3]: http://jekyllrb.com/
+[4]: https://github.com/mikewest/mikewest.org/tree/master/_nginx
+[5]: https://github.com/mikewest/homedir/tree/master/.vim
+[6]: http://flyingmeat.com/acorn/
+
+Want to button this up? ... I love you.
