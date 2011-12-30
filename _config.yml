@@ -3,6 +3,6 @@ lsi:            false
 markdown:       kramdown
 pygments:       false
 permalink:      /:year/:month/:title
-static_root:    "https://mikewestdotorg.hasacdn.net/20111230"
+static_root:    "https://mikewestdotorg.hasacdn.net/20111231"
 content_root:   /home/mikewest/Repositories/mgc/
 tag_root:       /tags
