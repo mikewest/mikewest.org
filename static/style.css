@@ -7,20 +7,20 @@
  */
 @font-face {
     font-family: 'Quattrocento';
-    src: url('/static/fonts/Quattrocento-Regular-webfont.eot');
-    src: url('/static/fonts/Quattrocento-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/fonts/Quattrocento-Regular-webfont.woff') format('woff'),
-         url('/static/fonts/Quattrocento-Regular-webfont.ttf') format('truetype');
+    src: url('./fonts/Quattrocento-Regular-webfont.eot');
+    src: url('./fonts/Quattrocento-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/Quattrocento-Regular-webfont.woff') format('woff'),
+         url('./fonts/Quattrocento-Regular-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Inconsolata';
-    src: url('/static/fonts/Inconsolata-webfont.eot');
-    src: url('/static/fonts/Inconsolata-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/fonts/Inconsolata-webfont.woff') format('woff'),
-         url('/static/fonts/Inconsolata-webfont.ttf') format('truetype');
+    src: url('./fonts/Inconsolata-webfont.eot');
+    src: url('./fonts/Inconsolata-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/Inconsolata-webfont.woff') format('woff'),
+         url('./fonts/Inconsolata-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -42,7 +42,7 @@ a {
 }
 
 html {
-  background: #DDD url(/static/images/background.png);
+  background: #DDD url(./images/background.png);
 }
 
 body {
@@ -107,11 +107,11 @@ address > p > span {
 }
 
 .email {
-  background: url(/static/icons/email.png);
+  background: url(./icons/email.png);
 }
 
 .twitter {
-  background: url(/static/icons/twitter.png);
+  background: url(./icons/twitter.png);
 }
 
 .twitter:hover, .twitter:focus {
@@ -119,7 +119,7 @@ address > p > span {
 }
 
 .plus {
-  background: url(/static/icons/g+.png);
+  background: url(./icons/g+.png);
 }
 
 .plus:hover, .plus:focus {
