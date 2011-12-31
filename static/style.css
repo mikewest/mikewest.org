@@ -7,7 +7,6 @@
  */
 @font-face {
     font-family: 'Quattrocento';
-    src: url('./fonts/Quattrocento-Regular-webfont.eot');
     src: url('./fonts/Quattrocento-Regular-webfont.eot?#iefix') format('embedded-opentype'),
          url('./fonts/Quattrocento-Regular-webfont.woff') format('woff'),
          url('./fonts/Quattrocento-Regular-webfont.ttf') format('truetype');
@@ -17,7 +16,6 @@
 
 @font-face {
     font-family: 'Inconsolata';
-    src: url('./fonts/Inconsolata-webfont.eot');
     src: url('./fonts/Inconsolata-webfont.eot?#iefix') format('embedded-opentype'),
          url('./fonts/Inconsolata-webfont.woff') format('woff'),
          url('./fonts/Inconsolata-webfont.ttf') format('truetype');
