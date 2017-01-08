@@ -1,8 +1,7 @@
-destination:    /home/mkwst/public_html/mikewest.org/public/
+destination:    ./_site
 lsi:            false
 markdown:       kramdown
-pygments:       false
+highlighter:    null
 permalink:      /:year/:month/:title
-static_root:    "https://mikewestdotorg.hasacdn.net/20111231"
-content_root:   /home/mikewest/Repositories/mgc/
 tag_root:       /tags
+static_root:    "/static"

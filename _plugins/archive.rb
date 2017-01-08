@@ -40,7 +40,7 @@ module Jekyll
     # Given a list of posts, return a hash of posts, collated by date.
     def collate(posts)
       collated = { 'yearly' => {}, 'monthly' => {}, 'daily' => {} }
-      posts.reverse.each do |post|
+      posts.docs.reverse.each do |post|
         y, m, d = post.date.year, post.date.month, post.date.day
         unless collated[ 'yearly' ].key? y
           collated[ 'yearly' ][ y ] = []
