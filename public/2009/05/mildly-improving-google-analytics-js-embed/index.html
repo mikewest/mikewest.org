@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;(Mildly) improving Google Analytics' JS Embed&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Google Analytics' embed JavaScript isn't at all pretty.  A few changes can make it a bit cleaner to implement.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">(Mildly) improving Google Analytics' JS Embed</h1>
+  <time class="published" pubdate datetime="Fri May 01 00:00:00 +0200 2009">
+    Friday, May 01, 2009
+  </time>
+
+  <p>Celebrity that I am, I use Google Analytics to figure out exactly how many
+times I&rsquo;ve visited my own website in a given day.  The interface is
+surprisingly good (given that it&rsquo;s a Google app), and generally I&rsquo;m happy with
+the service.  Also, it&rsquo;s free (assuming that you don&rsquo;t worry about giving
+Google <em>even more</em> of your data).  Yay free.</p>
+
+<p>The JavaScript that Google suggests using to embed their tracking code,
+however, is a bit wasteful.  Take a look:</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+  var gaJsHost = (
+    ( "https:" == document.location.protocol ) ?
+      "https://ssl." :
+      "http://www."
+    );
+  document.write(
+    unescape( "%3Cscript src='"             +
+              gaJsHost                      +
+              "google-analytics.com/ga.js'" +
+              " type='text/javascript'%3E%3C/script%3E"
+    )
+  );
+&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+  try {
+    var pageTracker = _gat._getTracker("[YOUR TRACKING NUMBER]");
+    pageTracker._trackPageview();
+  } catch(err) {}
+&lt;/script&gt;
+</code></pre>
+
+<p>I understand why they need to differentiate SSL requests, but passing a cobbled-together string through <code>unescape</code> before feeding it to <code>document.write</code> is a bit much, don&rsquo;t you think?  Also, injecting <code>pageTracker</code> and <code>gaJsHost</code> as new global variables isn&rsquo;t particularly friendly.</p>
+
+<p>Given that I can make the assumption that this site is unencrypted, let&rsquo;s change the code a bit to fix these two points:</p>
+
+<pre><code>&lt;script
+  type="text/javascript"
+  src="http://www.google-analytics.com/ga.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+  /*globals _gat */
+  try {
+    ( function ( $g ) {
+      $g._getTracker("[YOUR TRACKING NUMBER]")._trackPageview();
+    }( _gat ) );
+  } catch ( err ) {}
+&lt;/script&gt;
+</code></pre>
+
+<p>That&rsquo;s a little better.  And it even <a href="http://jslint.com/">JSLints</a>.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/googleanalytics"
+                 rel="category tag"
+                 title="View other entries tagged 'googleanalytics'">googleanalytics</a>&#146;, 
+      
+        &#145;<a href="/tags/google"
+                 rel="category tag"
+                 title="View other entries tagged 'google'">google</a>&#146;, or 
+      
+        &#145;<a href="/tags/javascript"
+                 rel="category tag"
+                 title="View other entries tagged 'javascript'">javascript</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

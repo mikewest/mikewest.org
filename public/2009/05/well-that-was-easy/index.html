@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Well.  That was easy.&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Getting JSLint running inside Spidermonkey was much simpler than I expected it to be.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Well.  That was easy.</h1>
+  <time class="published" pubdate datetime="Sat May 16 00:00:00 +0200 2009">
+    Saturday, May 16, 2009
+  </time>
+
+  <p>Getting <a href="http://blog.mikewest.org/post/108613427/running-python-spidermonkey-on-jeos">JSLint running inside Spidermonkey</a> was much simpler than I expected it to be:</p>
+
+<pre><code>[14:12] src/jslint $ python
+Python 2.6.2 (release26-maint, Apr 19 2009, 01:58:18) 
+[GCC 4.3.3] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import spidermonkey
+&gt;&gt;&gt; rt = spidermonkey.Runtime()
+&gt;&gt;&gt; cx = rt.new_context()
+&gt;&gt;&gt; text = file( './fulljslint.js' ).read()
+&gt;&gt;&gt; cx.execute( text )
+u'use strict'
+&gt;&gt;&gt; cx.execute( text + 'JSLINT("i++", {})' )
+False
+&gt;&gt;&gt; cx.execute( text + 'JSLINT("i++", {}); JSLINT.report();' )
+u'&lt;div id=errors&gt;&lt;i&gt;Error:&lt;/i&gt;&lt;p&gt;&lt;i&gt;Implied global:&lt;/i&gt; &lt;code&gt;i&lt;/code&gt;&amp;nbsp;&lt;i&gt;1&lt;/i&gt;&lt;/p&gt;&lt;p&gt;Problem at line 1 character 4: Missing semicolon.&lt;/p&gt;&lt;p class=evidence&gt;i++&lt;/p&gt;&lt;/div&gt;&lt;br&gt;&lt;div id=functions&gt;&lt;div&gt;&lt;i&gt;No new global variables introduced.&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;'
+</code></pre>
+
+<p>Yay!</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/spidermonkey"
+                 rel="category tag"
+                 title="View other entries tagged 'spidermonkey'">spidermonkey</a>&#146;, 
+      
+        &#145;<a href="/tags/python"
+                 rel="category tag"
+                 title="View other entries tagged 'python'">python</a>&#146;, or 
+      
+        &#145;<a href="/tags/jslint"
+                 rel="category tag"
+                 title="View other entries tagged 'jslint'">jslint</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

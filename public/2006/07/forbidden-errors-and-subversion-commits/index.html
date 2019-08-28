@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;&#8220;Forbidden&#8221; Errors and Subversion Commits&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="A wayward `mod_rewrite` rule broke my Subversion commits with 403 ("Forbidden") errors.  Here's how I fixed it.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">&#8220;Forbidden&#8221; Errors and Subversion Commits</h1>
+  <time class="published" pubdate datetime="Thu Jul 06 00:00:00 +0200 2006">
+    Thursday, July 06, 2006
+  </time>
+
+  <p>So, I got pretty clever with my <a href="http://mikewest.org/archive/leveraging-modrewrite" title="Leveraging `mod_rewrite`"><code>mod_rewrite</code> rules</a> to deal with some of the programs out there that nefarious types use to find vulnerable targets for exploits.  At least, I thought I was being clever.  As it turns out, I ended up shooting myself in the foot with the following rule:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI}    ^(.*)main.php$  [NC]
+RewriteRule ^(.*)           -               [F,L]
+</code></pre>
+
+<p>It&rsquo;s intention was to stop a bot from hammering me with requests for <code>main.php</code> in a wide variety of directories in the hopes that I had a broken version of <a href="http://www.horde.org/" title="Horde Project">Horde</a> installed.  These requests were generating tons of 404 (&ldquo;Not Found&rdquo;) errors, making my log files pretty much worthless.  Sending 403 (&ldquo;Forbidden&rdquo;) responses solved the immediate problem, but caused me some headaches yesterday when I tried to import a new project into <a href="http://subversion.tigris.org/" title="Subversion">Subversion</a>.  Specifically, I was getting the following error:</p>
+
+<pre><code>svn: Commit failed (details follow):
+subversion/libsvn_ra_dav/util.c:296: (apr_err=175002)
+svn: PUT of '/svn/&lt;snipped long directory string&gt;/lang_main.php': 403 Forbidden (https://mikewest.org)
+</code></pre>
+
+<p>In context, this is obvious.  The file I was trying to import was triggering the <code>mod_rewrite</code> rule, generating a 403 response.  I simply forgot entirely that my <code>mod_rewrite</code> rules were a factor when running Subversion over <a href="http://en.wikipedia.org/wiki/WebDAV" title="Wikipedia: WebDAV">WebDAV</a>.  Once the support staff at <a href="http://textdrive.com/" title="TextDrive">TextDrive</a> pointed out my oversight, fixing the problem was trivial.  </p>
+
+<p>I added the following rule to the top of my <code>.htaccess</code> file&rsquo;s list of <code>mod_rewrite</code> rules:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI}    ^/svn
+RewriteRule    ^(.*)            -        [L]
+</code></pre>
+
+<p>That simply stops the engine from rewriting anything under my <code>/svn/</code> directory, which solved the problem completely.  One more thing to look out for&hellip;</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/Subversion"
+                 rel="category tag"
+                 title="View other entries tagged 'Subversion'">Subversion</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Virtualization Tips&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="In the last three weeks, I've set up something like 6 virtual machines to play with a variety of bits and pieces of things that I come across.  Here are a few lessons learned.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Virtualization Tips</h1>
+  <time class="published" pubdate datetime="Fri May 01 00:00:00 +0200 2009">
+    Friday, May 01, 2009
+  </time>
+
+  <p>In the last three weeks, I&rsquo;ve set up something like 6 virtual machines to play with a variety of bits and pieces of things that I come across.  Virtual machines are a perfect fit for, say, setting up <a href="http://couchdb.apache.org/">CouchDB</a> to see how it works, or for giving <a href="http://varnish.projects.linpro.no/">Varnish</a> a try.  They have the distinct advantage of being more or less throw-away sandboxes, where I simply don&rsquo;t have to worry about accidentally screwing things up.  If I break PHP or PHPUnit on my development laptop, then I&rsquo;ve got real problems; if I break it in a VM, I make a new one.</p>
+
+<p>Off the top of my head, here are a few lessons learned:</p>
+
+<ol>
+  <li>Buy youself a copy of <a href="http://vmware.com/products/fusion/">VMWare Fusion</a>.  In my experience, it&rsquo;s been a
+bit more stable than <a href="http://www.parallels.com/">Parallels</a>, and a <em>lot</em> friendlier than
+<a href="http://www.virtualbox.org/">VirtualBox</a>.  There&rsquo;s a great community around VMWare tools in general,
+and if you end up using virtual machines for anything more than
+development (deploying public applications, for instance), then you&rsquo;ll
+literally be able to copy your VM over to a &ldquo;real&rdquo; server and run it
+without problems.</li>
+</ol>
+
+<ol>
+  <li>
+    <p>Follow Brad&rsquo;s <a href="http://intranation.com/entries/2009/03/development-virtual-machines-os-x-using-vmware-and/" title="Brad Wright: 'Development Virtual Machines on OS X using VMWare and Ubuntu'">excellent Ubuntu setup instructions</a>.  He
+walks through the process of getting a baseline <a href="http://www.ubuntu.com/products/whatisubuntu/serveredition/jeos">JeOS</a> machine up and
+running, which takes something on the order of 10 minutes.</p>
+
+    <p>I&rsquo;ve tried a few distros of Linux and BSD, and in my opinion, JeOS hits
+the sweet spot dead on.  It&rsquo;s a relatively small install (~1GB, all said
+and done), and runs very smoothly indeed with 256MB RAM.  It&rsquo;s chock-full 
+of Ubuntu goodness for package installs, and relatively easy to configure.</p>
+  </li>
+</ol>
+
+<ol>
+  <li>
+    <p>Setup <a href="http://communities.vmware.com/docs/DOC-5611">linked clones</a> to save yourself some disk space, and to make the
+process of spinning off new VMs as frictionless as possible.  In short,
+this will allow you to install JeOS once, and use that install as a clean 
+base for new machines without copying the entire disk.  You&rsquo;ll end up with
+a ~1GB base and ~100MB VMs for each of your applications, which is a huge
+savings indeed (especially if you want to carry a VM or two around with
+you on a USB stick).</p>
+
+    <p>It&rsquo;s a bit of a manual process at this point, but very straightforwardly
+explained, and easy to implement.  Hopefully VMWare will expose the
+functionality via some sort of GUI in a future version, as they already do
+in <a href="http://www.vmware.com/products/ws/">Workstation</a>.</p>
+
+    <p>With linked clones, it&rsquo;s <em>trivial</em> to bring up a new, clean VM to test
+something out, or to install some new component.  It&rsquo;s transformational:
+you&rsquo;ll wonder how you <em>ever</em> got around with just one development
+environment.</p>
+  </li>
+</ol>
+
+<ol>
+  <li>
+    <p>After creating clones of an Ubuntu VM, you&rsquo;ll need to do a tiny bit of
+work to get networking up and running again.  The system will be assigned
+a new MAC address, and get a bit confused about the references to the old
+virtual network card.</p>
+
+    <p>Jamis Buck has <a href="http://weblog.jamisbuck.org/2008/8/15/cloning-ubuntu-hardy-image-in-vmware-fusion" title="Jamis Buck: 'Cloning Ubuntu Hardy image in VMWare Fusion'">described the solution in detail</a>, and I&rsquo;ve codified
+it into a <a href="http://github.com/mikewest/homedir/blob/master/bin/update_copied_vm">small script</a>.  Grab that code, then just run
+<code>update_copied_vm</code> to update the hostname, hosts file, and network
+settings for the new VM.  Piece of cake&hellip;</p>
+  </li>
+</ol>
+
+<ol>
+  <li>For Windows development, browser testing, etc, visit your favourite
+interweb download site, and find yourself a copy of <a href="http://en.wikipedia.org/wiki/TinyXP">TinyXP</a>.  Clever
+folks have ripped all the inessential bits out of XP, meaning that it runs
+ <em>quickly</em> with minimal investment of RAM and disk space.  Combined with
+ the linked clones tip above, you&rsquo;ll have IE6, 7, and 8 test environments
+up and running in no time at all.</li>
+</ol>
+
+<p>Developing your applications on virtual machines really does make your life simpler, and opens up opportunities for you to explore things that would have probably just been a <em>little bit</em> too much work to get running otherwise.  It&rsquo;s very much worth the up-front investment to get yourself set up.</p>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/virtualization"
+                 rel="category tag"
+                 title="View other entries tagged 'virtualization'">virtualization</a>&#146;, 
+      
+        &#145;<a href="/tags/virtual machines"
+                 rel="category tag"
+                 title="View other entries tagged 'virtual machines'">virtual machines</a>&#146;, 
+      
+        &#145;<a href="/tags/vm"
+                 rel="category tag"
+                 title="View other entries tagged 'vm'">vm</a>&#146;, 
+      
+        &#145;<a href="/tags/vmware"
+                 rel="category tag"
+                 title="View other entries tagged 'vmware'">vmware</a>&#146;, 
+      
+        &#145;<a href="/tags/vmwarefusion"
+                 rel="category tag"
+                 title="View other entries tagged 'vmwarefusion'">vmwarefusion</a>&#146;, 
+      
+        &#145;<a href="/tags/fusion"
+                 rel="category tag"
+                 title="View other entries tagged 'fusion'">fusion</a>&#146;, 
+      
+        &#145;<a href="/tags/tinyxp"
+                 rel="category tag"
+                 title="View other entries tagged 'tinyxp'">tinyxp</a>&#146;, 
+      
+        &#145;<a href="/tags/jeos"
+                 rel="category tag"
+                 title="View other entries tagged 'jeos'">jeos</a>&#146;, or 
+      
+        &#145;<a href="/tags/ubuntu"
+                 rel="category tag"
+                 title="View other entries tagged 'ubuntu'">ubuntu</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

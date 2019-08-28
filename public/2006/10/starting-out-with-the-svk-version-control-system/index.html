@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Starting out with the SVK Version Control System&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="SVK is a version control system that sits on top of a Subsverion, CVS, Perforce, etc. repository, and provides the promise of a common interface.  Here's how to install it on OS X.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Starting out with the SVK Version Control System</h1>
+  <time class="published" pubdate datetime="Sun Oct 22 00:00:00 +0200 2006">
+    Sunday, October 22, 2006
+  </time>
+
+  <p>I have the distinct impression that I&rsquo;m going to be playing with a lot of CVS repositories in the near future, and I&rsquo;m not exactly thrilled about the idea.  I&rsquo;ve been almost exclusively using SVN for the last year or two, and it&rsquo;s going to be a bit of a leap to &ldquo;revert&rdquo; to CVS for version control.  I&rsquo;m hoping that <a href="http://svk.elixus.org/" title="SVK Version Control System">SVK</a> will be able to help me bridge the conceptual gap.</p>
+
+<p>SVK is a decentralized version control system, based on Subversion.  The piece that interests me is it&rsquo;s ability to sit on top of a variety of repositories, providing a single interface to all of them regardless of server.  The ability to map SVN-like commands to a CVS repository, for example, is very interesting.  I have no idea if it will work, and I haven&rsquo;t found a whole lot of material online about others&rsquo; success or failure, so I&rsquo;ll just play around with it myself and see if I can get it going anywhere.  </p>
+
+<h2 id="installing-svk-on-os-x">Installing SVK on OS X</h2>
+
+<p>There&rsquo;s a <a href="http://homepage.mac.com/hiirem/SVK-1.07-1.dmg">packaged SVK installer for OS X</a> that you can download and run.  I generally prefer to compile things myself, but the package is probably the best option; the command line install for SVK is more annoying than usual.</p>
+
+<p>If you&rsquo;re a nut, and want to install from the command line, then type:</p>
+
+<pre><code>curl -O http://homepage.mac.com/hiirem/svkbuild-1.07-1.tar.bz2
+bunzip2 ./svkbuild-1.07-1.tar.bz2
+tar -xvf ./svkbuild-1.07-1.tar
+cd svkbuild-1.07-1
+sudo mkdir /usr/local/svk-`cat VERSION`
+sudo chown $USER /usr/local/svk-`cat VERSION`
+./build.sh
+</code></pre>
+
+<p><code>build.sh</code> uses CPAN to install some required Perl modules.  It&rsquo;ll ask for confirmation before pulling them down, so you&rsquo;ll have to babysit the installation a bit to hit enter at the appropriate times.  That&rsquo;s more than a little annoying.  I hope that gets cleaned up in the future, because it&rsquo;s driving me nuts.  :)</p>
+
+<h2 id="references">References</h2>
+
+<p>I&rsquo;ll continue populating this section as I read more about SVK.  For now, I&rsquo;m starting with:</p>
+
+<ul>
+  <li><a href="http://svkbook.elixus.org/" title="Version Control with SVK">Version Control with SVK</a> is <em>the</em> resource for SVK.  It&rsquo;s
+fairly complete, but still very much a work in progress.</li>
+</ul>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/HOWTO"
+                 rel="category tag"
+                 title="View other entries tagged 'HOWTO'">HOWTO</a>&#146;, or 
+      
+        &#145;<a href="/tags/Subversion"
+                 rel="category tag"
+                 title="View other entries tagged 'Subversion'">Subversion</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

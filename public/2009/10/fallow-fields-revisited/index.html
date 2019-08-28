@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Fallow fields, revisited&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="I'm currently in the process of gutting my website, and rebuilding it piece by piece.  I suspect I'm doing this to distract myself from the fact that I don't seem to have anything interesting floating around my head to write about. Rather that catalog the failings of the system I'm replacing (for they are legion), in this article I'd like to touch on the carefully considered bits I'm keeping around.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Fallow fields, revisited</h1>
+  <time class="published" pubdate datetime="Sun Oct 04 00:00:00 +0200 2009">
+    Sunday, October 04, 2009
+  </time>
+
+  <p>I&rsquo;m currently in the process of gutting my website, and rebuilding it piece by piece.  I suspect I&rsquo;m doing this to distract myself from the fact that I don&rsquo;t seem to have anything interesting floating around in my head to write about.  &ldquo;Surely it&rsquo;s the <em>site&rsquo;s</em> fault; raze it to the ground!&rdquo;, the large, simple, and shouty part of my brain tells me.  So I build anew (this is possibly <a href="http://mikewest.org/2009/09/productivity-or-my-lack-thereof">ironic</a>, but I&rsquo;m ignoring that).</p>
+
+<p>Happily, the small, quiet, and generally reasonable portion of my brain agrees with the plan, at least insofar as it&rsquo;s clear that the current system (<a href="http://github.com/mikewest/fallow/">fallow</a>) was a solid idea but poorly implemented.  The system works, and I&rsquo;m happy I wrote it.  It was a good introduction to Ruby and Git, and a good reason to migrate off the almost-as-inefficient-as-wordpress Textpattern.  But it&rsquo;s failing me in a number of ways, the most important being that I literally forgot how to get content onto the site, and it took me 45 minutes of reading through painfully structured Ruby code to figure it out again.  That&rsquo;s the sort of thing that happens when you don&rsquo;t touch a website for 6 months.</p>
+
+<p>Rather that catalog the failings of the system I&rsquo;m replacing (for they are legion), I&rsquo;d like to touch on the carefully considered bits I&rsquo;m keeping:</p>
+
+<ul>
+  <li>
+    <p>URL structure: Posts live at <code>/[year]/[month]/[URLified Title]</code> which
+seems more or less perfect to me.  It&rsquo;s meaningful, while containing just
+enough temporal context to make completely outdated information easy to
+spot.  Moreover, it provides a natural <code>/[year]/</code> and <code>/[year]/[month]/</code>
+for yearly and monthly archive pages.  Tag pages live under <code>/tags/[tag]</code>,
+which makes sense, and ad hoc pages have ad hoc URLs (<code>/is/</code>, for instance).
+This strikes me as a clean setup, one which I can&rsquo;t see any way to improve 
+upon.</p>
+  </li>
+  <li>
+    <p>Content storage: The site&rsquo;s content consists entirely of UTF-8 encoded text
+files on disk.  Text files are simple to work with, and have a more or less
+infinite shelf life.  A site like this one simply doesn&rsquo;t need a database,
+a single flat text file per piece of content is <a href="http://mnmlist.com/a-case-for-storing-all-your-info-in-text-files/">good enough</a>.  Metadata
+(title, tags, etc.) is contained in a YAML block at the top of each file.
+It&rsquo;s a format that is clear, human readable, and easily parsed, and I&rsquo;m
+especially pleased to see that the format I&rsquo;d decided upon for Fallow
+matches up quite well against more widely used systems like <a href="http://jekyllrb.com/">Jekyll</a>.</p>
+  </li>
+  <li>
+    <p>Static HTML: Dynamic content doesn&rsquo;t really exist on this site.  I write an
+article, then post it online.  That&rsquo;s the extent of the processing that
+particular page needs.  The server shouldn&rsquo;t be working to rebuild an
+article from last week (or last year!) every time it&rsquo;s requested, that&rsquo;s
+simply wasteful.  This site, therefore, generates a page once when it&rsquo;s
+created, or when a template changes, and then simply serves that cached copy
+over and over again.  Similarly, overview pages (like tag pages, or current
+archives) are regenerated when a new article is published, then served
+straight from disk.  On a small VPS, I can serve upwards of 300 static 
+requests per second through Nginx with extremely low load.  Textpattern
+would fall over and die at those absurd traffic levels.</p>
+  </li>
+  <li>
+    <p>Historical redirects: The (miserable) <code>/blog/id/[ID]</code> URL structure I
+decided upon in 2005 still works for the content I&rsquo;ve kept from that period.
+The (also bad) <code>/archives/[Title]/</code> structure from 2007-8 works too.  The
+(not so lovely) Tumblr-generated links for content that used to be at
+<code>blog.mikewest.org</code> will redirect nicely.  All these old URLs will continue
+to generate nice, clean permanent redirects
+<a href="http://www.w3.org/Provider/Style/URI">for the foreseeable future</a>: why make the reader jump through hoops
+created by my lack of foresight?</p>
+  </li>
+</ul>
+
+<p>So, those are the good bits I&rsquo;d like to keep going as I rebuild.  With the understanding that I&rsquo;m about to make one of those dangerous &ldquo;forward looking statements&rdquo; that I never seem to follow through on as cleanly as I&rsquo;d like, I expect <code>mikewest.org</code> to be running a new Jekyll-based backend sometime in October.  With luck, no one will notice a thing but me.  With even more luck, I&rsquo;ll squeeze out a post or two about the bits of Jekyll I&rsquo;m adjusting, and the places where it&rsquo;s falling down completely.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/mikewest.org"
+                 rel="category tag"
+                 title="View other entries tagged 'mikewest.org'">mikewest.org</a>&#146;, 
+      
+        &#145;<a href="/tags/jekyll"
+                 rel="category tag"
+                 title="View other entries tagged 'jekyll'">jekyll</a>&#146;, 
+      
+        &#145;<a href="/tags/fallow"
+                 rel="category tag"
+                 title="View other entries tagged 'fallow'">fallow</a>&#146;, 
+      
+        &#145;<a href="/tags/webdev"
+                 rel="category tag"
+                 title="View other entries tagged 'webdev'">webdev</a>&#146;, 
+      
+        &#145;<a href="/tags/url"
+                 rel="category tag"
+                 title="View other entries tagged 'url'">url</a>&#146;, 
+      
+        &#145;<a href="/tags/redirect"
+                 rel="category tag"
+                 title="View other entries tagged 'redirect'">redirect</a>&#146;, 
+      
+        &#145;<a href="/tags/blog"
+                 rel="category tag"
+                 title="View other entries tagged 'blog'">blog</a>&#146;, 
+      
+        &#145;<a href="/tags/blogging"
+                 rel="category tag"
+                 title="View other entries tagged 'blogging'">blogging</a>&#146;, or 
+      
+        &#145;<a href="/tags/architecture"
+                 rel="category tag"
+                 title="View other entries tagged 'architecture'">architecture</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

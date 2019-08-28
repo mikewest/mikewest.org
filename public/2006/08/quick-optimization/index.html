@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Quick Optimization&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="DOM calls are expensive; this article walks through one quick way to optimize them out of your code.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Quick Optimization</h1>
+  <time class="published" pubdate datetime="Thu Aug 31 00:00:00 +0200 2006">
+    Thursday, August 31, 2006
+  </time>
+
+  <p>Accessing and manipulating the DOM is slow.  The speed of your JavaScript execution will very often depend entirely on the number, and the nature, of DOM calls that you make.  </p>
+
+<p>For example, a common problem when writing unobtrusive JavaScript is to loop through a group of elements (say, each cell in a table), doing <em>something interesting</em> to each in turn.  An initial pass at this code might look something like:</p>
+
+<pre><code>var theTable    = document.getElementById('sought_after');
+var rows        = theTable.getElementsByTagName('tr');
+for (var rowNum=0;rowNum&lt;rows.length;rowNum++) {
+    var cells   = rows[rowNum].getElementsByTagName('td');
+    for (var colNum=0;colNum&lt;cells.length;colNum++) {
+        var theValue = cells[colNum].innerHTML;
+        
+        //
+        // do some processing here.
+        //
+    }
+}
+</code></pre>
+
+<p>The code&rsquo;s fine, and on small data sets, it&rsquo;ll run quickly enough.  That said, &ldquo;quickly enough&rdquo; is relative, and if the interesting something that you&rsquo;re doing to each cell takes much time, then you&rsquo;ll quickly find yourself running into performance problems.</p>
+
+<p>One quick way to squeeze a few milliseconds of processing time is to avoid the expensive <code>getElementsByTagName</code> call inside the <code>rows</code> loop.  Instead of grabbing a list of the cells in each row as we pass, we can grab <em>all</em> the cells, and process them as a flat array:</p>
+
+<pre><code>var theTable    = document.getElementById('sought_after');
+var cells       = theTable.getElementsByTagName('td');
+for (var cellNum=0;cellNum&lt;cells.length;cellNum++) {
+    var theValue = cells[cellNum].innerHTML;
+        
+    //
+    // do some processing here.
+    //
+}
+</code></pre>
+
+<p>This code avoids the overhead of the internal <code>for</code> loop, and additionally replaces <code>rows.length</code> DOM calls with a single, larger call.  The performance increase is non-trivial (and it&rsquo;s even faster if you replace the <code>for</code> loop with the native <code>Array.forEach</code> method that newer versions of Firefox provide.  Take a look at Dean Edward&rsquo;s <a href="http://dean.edwards.name/weblog/2006/07/enum/" title="Dean Edwards: 'Enumerating JavaScript Objects'">Enumerating JavaScript Objects</a> for ideas in that regard).  The downside is that we no longer have access to the <code>rowNum</code> and <code>colNum</code> variables that were used in the initial algorithm.  If we want to do some calculations that require knowing where we are in our dataset, we&rsquo;ll run into problems.</p>
+
+<p>Simple arithmetic, however, can give us that information.  In essence, what we&rsquo;ve done to our dataset is a transformation of a table that looks like:</p>
+
+<pre><code>1   2   3   4   5
+6   7   8   9   10
+11  12  13  14  15
+</code></pre>
+
+<p>into an array that looks like:</p>
+
+<pre><code>1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+</code></pre>
+
+<p>If we know how many columns were in the original table (5), then we can use division and modulus to calculate the mapping between the cell array, and the position in the table:</p>
+
+<pre><code>var numCols = 5;
+var colNum  = cellNum % numCols;
+var rowNum  = Math.floor(cellNum / numCols);
+</code></pre>
+
+<p>Of course, that requires a modulus, a division, and a call to <code>Math.floor</code>.  We can drop out the latter two in favour of a less-expensive <code>if</code> by simply incrementing <code>rowNum</code> at loop&rsquo;s end when <code>colNum</code> is equal to <code>numCols - 1</code>.  The whole thing, then, looks like:</p>
+
+<pre><code>var theTable    = document.getElementById('sought_after');
+var numCols     = theTable.getElementsByTagName('tr')[0].childNodes.length;
+var cells       = theTable.getElementsByTagName('td');
+var rowNum      = 0;
+for (var cellNum=0;cellNum&lt;cells.length;cellNum++) {
+    var colNum = cellNum % numCols;
+
+    //
+    // do some processing here.
+    //
+    
+    if (colNum == (numCols-1)) { rowNum++; }
+}
+</code></pre>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/JavaScript"
+                 rel="category tag"
+                 title="View other entries tagged 'JavaScript'">JavaScript</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

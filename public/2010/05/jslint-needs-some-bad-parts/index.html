@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;JSLint needs some Bad Parts&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="One of the few tools that I consider truly indispensable when developing websites is JSLint.  Too bad it's almost impossible to contribute back to the project, and that the project's run by someone who "will hurt your feelings."">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">JSLint needs some Bad Parts</h1>
+  <time class="published" pubdate datetime="Sun May 16 00:00:00 +0200 2010">
+    Sunday, May 16, 2010
+  </time>
+
+  <p>One of the few tools that I consider truly indispensable when developing
+websites is <a href="http://www.jslint.com/">JSLint</a>.  A marvel of applied compiler theory, the program
+has saved me from stupid mistakes more times than I care to remember.  I
+have it set up to automatically sanity-check my code <a href="http://github.com/mikewest/jslint-utils">every time I push a
+commit to SVN</a>, and it&rsquo;s generally my best friend in the whole
+wide world.</p>
+
+<p>JSLint isn&rsquo;t always perfect, however, especially when used to check CSS
+files.  I think <a href="http://www.crockford.com/">Douglas Crockford</a> is a JavaScript wizard, but I&rsquo;m
+somewhat less blindly acquiescent when it comes to his take on the Good
+Parts of style sheets.  For better or worse, browsers are <em>much</em> less
+similar in their interpretation of what I mean when I write a particular
+style, and certain hacks and workarounds are par for the course when
+putting together a layout of any complexity.  JSLint&rsquo;s CSS checks do a
+good job warning about certain types of errors (missing semicolons, for
+instance), but a relatively terrible job when it comes to some of the
+necessary evils of practical development.  In short, JSLint&rsquo;s CSS mode
+needs some <a href="http://github.com/mikewest/jslint/raw/master/CHANGELOG.markdown">Bad Parts</a> to be really <em>usable</em> for me.</p>
+
+<p>In itself, this wouldn&rsquo;t be an issue.  Crockford has kindly released 
+JSLint as open source (under a unique (to say the least) &ldquo;Do no evil&rdquo;
+license), and I&rsquo;m generally able to puzzle out how to go about adding
+support for the features that I believe are necessary.  Getting those
+patches into the mainline JSLint project is, unfortunately, often a
+miserable process.  I have two issues with the current process:</p>
+
+<p>First, there&rsquo;s no public repository (that I&rsquo;ve come across).  Crockford
+is pretty good about announcing changes on <a href="http://tech.groups.yahoo.com/group/jslint_com/">the JSLint mailing list</a>,
+and he keeps a timestamp in the current <code>fulljslint.js</code> file, but that&rsquo;s
+hardly a solid basis for contributing patches.  This isn&rsquo;t a show stopper,
+it just makes things harder to follow than they could be, and more
+difficult to give back to the project than it should be.  I asked about
+this <a href="http://tech.groups.yahoo.com/group/jslint_com/message/476">in May 2009</a>, and was met with silence.  Ah well.</p>
+
+<p>Second, the aforementioned list is easily the most (passive-)aggressive
+I&rsquo;ve been on recently.  The (true) warning that &ldquo;JSLint will hurt your
+feelings&rdquo; goes double for posting questions or suggestions, especially
+as a newbie.  I almost fell off my chair when I saw <a href="http://tech.groups.yahoo.com/group/jslint_com/message/1168">this question</a>
+(&ldquo;I have this problem, and I&rsquo;ve found this workaround.  Why is it a
+problem in the first place?&rdquo;) received <a href="http://tech.groups.yahoo.com/group/jslint_com/message/1170">this response</a> (&ldquo;Thanks for
+the report.  JSLint now no longer accepts your workaround.&rdquo;)  Crockford
+is a <em>smart</em> guy, and he&rsquo;s opinionated in the best possible way, but he
+couples that with a periodic lack of tact that&rsquo;s really influenced the
+way the list as a whole works.  It&rsquo;s simply not a fun place to
+contribute ideas or code, and that&rsquo;s a shame.  <a href="http://tech.groups.yahoo.com/group/jslint_com/message/1280">Arguing about the
+validity of suggestions</a> is simply not something I&rsquo;m willing to do
+<em>every single time</em> I make a suggestion, especially when the suggestions
+are quite often met with silence from the one guy who actually has 
+commit access to the mainline trunk.</p>
+
+<p>So, to resolve these issues for myself, I&rsquo;m forking JSLint.  I fully
+expect this to be of interest to almost exclusively myself, but I&rsquo;ll
+find it useful, and I&rsquo;ll hold out hope that some of the patches will
+eventually make it back into JSLint proper.</p>
+
+<p>To resolve the issue of a base &ldquo;official&rdquo;  repository, I&rsquo;ll pull down
+a copy of the current iteration of JSLint on a daily basis, and
+mirror it on GitHub (<a href="http://github.com/mikewest/jslint/tree/mirror">jslint/mirror</a>).  My patches will be pushed
+to <a href="http://github.com/mikewest/jslint/">jslint/master</a> (along with QUnit-based regression tests), and
+I&rsquo;ll do my best to keep <code>master</code> merged with the latest from <code>mirror</code>,
+and the changes continually rebased on top of <code>mirror</code> into
+<a href="http://github.com/mikewest/jslint/tree/rebased">jslint/rebased</a> for ease of application (in the unlikely event
+that Crockford pays attention :) ).</p>
+
+<p>I&rsquo;ll keep the <a href="http://github.com/mikewest/jslint/raw/master/CHANGELOG.markdown">changelog</a> up to date as I add the functionality
+I find that I need to do my job.  If you find the idea useful, I hope
+you&rsquo;ll help me out.  Reasonable patches most humbly accepted (although
+<em>my</em> arbitration of &ldquo;reasonable&rdquo; might hurt your feelings too).</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/javascript"
+                 rel="category tag"
+                 title="View other entries tagged 'javascript'">javascript</a>&#146;, 
+      
+        &#145;<a href="/tags/bestpractice"
+                 rel="category tag"
+                 title="View other entries tagged 'bestpractice'">bestpractice</a>&#146;, 
+      
+        &#145;<a href="/tags/tooling"
+                 rel="category tag"
+                 title="View other entries tagged 'tooling'">tooling</a>&#146;, 
+      
+        &#145;<a href="/tags/validation"
+                 rel="category tag"
+                 title="View other entries tagged 'validation'">validation</a>&#146;, 
+      
+        &#145;<a href="/tags/jslint"
+                 rel="category tag"
+                 title="View other entries tagged 'jslint'">jslint</a>&#146;, 
+      
+        &#145;<a href="/tags/automatedtesting"
+                 rel="category tag"
+                 title="View other entries tagged 'automatedtesting'">automatedtesting</a>&#146;, 
+      
+        &#145;<a href="/tags/linting"
+                 rel="category tag"
+                 title="View other entries tagged 'linting'">linting</a>&#146;, 
+      
+        &#145;<a href="/tags/webdevelopment"
+                 rel="category tag"
+                 title="View other entries tagged 'webdevelopment'">webdevelopment</a>&#146;, 
+      
+        &#145;<a href="/tags/webdev"
+                 rel="category tag"
+                 title="View other entries tagged 'webdev'">webdev</a>&#146;, 
+      
+        &#145;<a href="/tags/css"
+                 rel="category tag"
+                 title="View other entries tagged 'css'">css</a>&#146;, 
+      
+        &#145;<a href="/tags/crockford"
+                 rel="category tag"
+                 title="View other entries tagged 'crockford'">crockford</a>&#146;, 
+      
+        &#145;<a href="/tags/douglascrockford"
+                 rel="category tag"
+                 title="View other entries tagged 'douglascrockford'">douglascrockford</a>&#146;, 
+      
+        &#145;<a href="/tags/community"
+                 rel="category tag"
+                 title="View other entries tagged 'community'">community</a>&#146;, 
+      
+        &#145;<a href="/tags/opensource"
+                 rel="category tag"
+                 title="View other entries tagged 'opensource'">opensource</a>&#146;, or 
+      
+        &#145;<a href="/tags/fork"
+                 rel="category tag"
+                 title="View other entries tagged 'fork'">fork</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

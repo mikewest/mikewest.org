@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Setting Up an OpenID Server with phpMyID&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Setting Up an OpenID Server with phpMyID</h1>
+  <time class="published" pubdate datetime="Fri Jan 12 00:00:00 +0100 2007">
+    Friday, January 12, 2007
+  </time>
+
+  <p>Sam Ruby&rsquo;s &ldquo;<a href="http://www.intertwingly.net/blog/2007/01/03/OpenID-for-non-SuperUsers" title="Sam Ruby: 'OpenID for non-SuperUsers">OpenID for non-SuperUsers</a>&rdquo; distills the process of
+<a href="http://www.intertwingly.net/blog/2007/01/03/OpenID-for-non-SuperUsers#MasterOfYourDomain">setting up one&rsquo;s own OpenID server</a> with <a href="http://siege.org/projects/phpMyID" title="phpMyID: A standalone, single user, OpenID Identity Provider">phpMyID</a> in such a clear and
+concise manner, that I couldn&rsquo;t help but <a href="https://mikewest.org/open_id/" title="Mike West's OpenID Server">implement it myself</a>.  I&rsquo;ve taken his
+instructions, and turned them into a cut and past operation for anyone whose
+website is hosted on a server with access to Subversion.  When you&rsquo;re
+finished, you&rsquo;ll be the proud owner of a bleeding-edge OpenID server running
+at http://yourdomain.com/open_id/.</p>
+
+<p>To begin, SSH into your server, and change to the document root of your
+website.  For example:</p>
+
+<pre><code>cd ~/web/public/
+</code></pre>
+
+<p>Then run the following (very long) command:</p>
+
+<pre><code>clear;mkdir ./open_id/;cd ./open_id/;read -p "Username: " USER;read -sp "Password: " PASS;echo;echo "Loading up the Files from the remote repository:";echo "t" &gt; ./temp_file_to_accept_cert_non-interactively;svn export -q https://www.siege.org/svn/oss/phpMyID/trunk/MyID.php &lt; ./temp_file_to_accept_cert_non-interactively &gt; /dev/null 2&gt;&amp;1;echo 'Success.';echo 'The username and password you entered will be used to configure the OpenID server:';HASH=`echo -n "$USER:phpMyID:$PASS" | openssl md5`;NICE="\$new='\$profile=array(\"auth_username\"=&gt;\"$USER\",\"auth_password\"=&gt;\"$HASH\");';if (/^\#\\\$profile/) { \$_ = \$new; }";perl -pi.bak -e "$NICE" MyID.php;USER='';PASS='';mv MyID.php index.php;rm temp_file_to_accept_cert_non-interactively;rm MyID.php.bak;echo 'Success.';
+</code></pre>
+
+<p>You&rsquo;ll be prompted for a username, and a password.  Enter each in turn, and then sit back and relax while the script runs.</p>
+
+<p>That&rsquo;s it!</p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>Once you&rsquo;ve got the server installed correctly, <a href="http://www.openidenabled.com/resources/openid-test/checkup" title="Test your OpenID Setup">test it out</a>.  Then
+<a href="http://www.intertwingly.net/blog/2007/01/03/OpenID-for-non-SuperUsers#claimYourBlog">head back over to Sam&rsquo;s article</a> to set up a clean delegation to
+your server from your main blog or homepage URL.  You&rsquo;ll have to edit your
+site&rsquo;s template a bit, which isn&rsquo;t something I can write a generic script for.
+But it&rsquo;s easy, so you&rsquo;ll do fine without me.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<ul>
+  <li>
+    <p><strong>Error</strong>: &ldquo;Missing expected authorization header.&rdquo;  If you get this
+error, you&rsquo;re probably running PHP as a CGI, and not as an Apache module.
+In this case, the authentication headers don&rsquo;t get created correctly, and
+the phpMyID server can&rsquo;t understand the login requests.</p>
+
+    <p>To fix the problem, we&rsquo;ll write a corrective <code>.htaccess</code> file by running
+the following commands in the same directory where your phpMyID server
+lives (<code>~/web/public/open_id/</code> in our example):</p>
+
+    <pre><code>echo 'RewriteEngine on' &gt;&gt; .htaccess
+echo 'RewriteCond %{HTTP:Authorization} !^$' &gt;&gt; .htaccess
+echo 'RewriteCond %{QUERY_STRING} openid.mode=authorize' &gt;&gt; .htaccess
+echo 'RewriteCond %{QUERY_STRING} !auth=' &gt;&gt; .htaccess
+echo 'RewriteCond %{REQUEST_METHOD} =GET' &gt;&gt; .htaccess
+echo 'RewriteRule (.*) %{REQUEST_URI}?%{QUERY_STRING}&amp;auth=%{HTTP:Authorization} [L]' &gt;&gt; .htaccess
+</code></pre>
+  </li>
+</ul>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/HOWTO"
+                 rel="category tag"
+                 title="View other entries tagged 'HOWTO'">HOWTO</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

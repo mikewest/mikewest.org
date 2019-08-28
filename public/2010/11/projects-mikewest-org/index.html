@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;projects.mikewest.org&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="One question you're almost certainly not asking yourself is "What's Mike West been up to?"  That's a shame, really, as I've got some projects floating around that I'm proud of, and that I'd like to share with you. Moreover, I'd like to point out the project documentation pages that I've put together as a meta-project; I think it's worth your time to take a look.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">projects.mikewest.org</h1>
+  <time class="published" pubdate datetime="Tue Nov 02 00:00:00 +0100 2010">
+    Tuesday, November 02, 2010
+  </time>
+
+  <p>&ldquo;What <em>has</em> Mike West been up to recently?&rdquo;  This is one question that you almost certainly haven&rsquo;t been asking yourself recently.  That&rsquo;s a shame, really, as I&rsquo;ve got a few small projects floating around that I think you might be interested in paying attention to.</p>
+
+<p>If you&rsquo;ll indulge me, I&rsquo;ll run through them in no particular order:</p>
+
+<ul>
+  <li><a href="http://projects.mikewest.org/vimroom/">VimRoom</a> is a Vim plugin that replicates the best features of <a href="http://www.hogbaysoftware.com/products/writeroom">WriteRoom</a> in my favorite editor.  I do most of my writing (code and otherwise) in Vim, as the keyboard shortcuts I&rsquo;ve <a href="http://github.com/mikewest/homedir/blob/master/.vimrc">painstakingly assembled</a> are hardwired into my fingers (and, I suppose, because I&rsquo;m a huge nerd).  Combined with <a href="http://sites.google.com/site/iterm2home/">iTerm2</a>&rsquo;s brilliant fullscreen mode, VimRoom offers a great way to shut out the myriad distractions floating around my iMac, and focus on actually getting words onto the screen: I&rsquo;m pretty pleased with how it&rsquo;s turned out, and I hope it might be useful for others.</li>
+</ul>
+
+<ul>
+  <li><a href="http://projects.mikewest.org/static_gettext/"><code>static_gettext</code></a> is a (tiny) internationalization framework that makes it possible to generate arbitrary localizations of static source documents.  Dynamic frameworks like Django or Rails have good systems in place to deal with the tough problems of removing hard-coded strings from source code and templates.  Less complex, static websites aren&rsquo;t going away, however, and <code>static_gettext</code> has solved the problem for me nicely, generating industry-standard <code>*.po</code> files that can be easily handed off to translators.  The framework is currently seeing active use on the <a href="http://html5boilerplate.com/">HTML5 Boilerplate</a> site for the <a href="http://de.html5boilerplate.com/">German translation</a> (which I helped out with), and a few other localizations <a href="http://github.com/nimbupani/html5boilerplate-site/issues#issue/3">are in the pipe</a>.</li>
+</ul>
+
+<ul>
+  <li><a href="http://projects.mikewest.org/jslint_utils/">JSLint Utils</a> is a command-line wrapper for JSLint that makes it possible to quickly lint your JavaScript and CSS files via the magic of either Node.js (fast!) or Rhino (not so fast!).  Lint results can be output as XUnit-style XML files, making it possible to cleanly integrate into a variety of continuous integration systems (<a href="http://hudson-ci.org/">Hudson</a>, for example), meaning that you don&rsquo;t even have to think about it: you just get friendly emails after every commit you screw up.  It&rsquo;s a lifesaver!</li>
+</ul>
+
+<ul>
+  <li><a href="http://projects.mikewest.org/pyplaceholder/">PyPlaceholder</a> is a command-line Python script that generates placeholder PNGs for use in&hellip; well&hellip; wherever you might use placeholder PNGs.  It&rsquo;s made my life a little simpler while putting together mockups, and it has a few tiny features that I didn&rsquo;t see on any of the surprisingly numerous alternatives.  I&rsquo;ve additionally wrapped it up in a <a href="http://flask.pocoo.org/">Flask</a> application, <a href="http://github.com/mikewest/flask-pyplaceholder"><code>flask-pyplaceholder</code></a>, to generate images on the fly via <a href="http://placeholder.mikewest.org/">placeholder.mikewest.org</a>.</li>
+</ul>
+
+<ul>
+  <li><a href="https://chrome.google.com/extensions/detail/liamajdghafnpofaconeimppimbdbhgi/">Send To Instapaper</a> is a stunningly well-named Chrome extension that has no purpose other than to replicate the standard Instapaper-bookmarklet functionality with two small additions: it adds a keyboard shortcut, and it&rsquo;s streamlined, clean, and pretty.</li>
+</ul>
+
+<h2 id="and-now-the-point">And now, the point&hellip;</h2>
+
+<p>I read Jesper&rsquo;s <a href="http://waffle.wootest.net/2010/11/01/doc-robot/">Doc Robot</a> this morning, and found myself nodding vigorously.  I disagree about the inherent valuelessness of <em>all</em> autogenerated documentation (as I&rsquo;ve also been doing a good bit of work on Ryan Tomayko&rsquo;s <a href="http://github.com/rtomayko/rocco">Rocco</a>, which autogenerates lovely documentation if you do the work of coding in a literate fashion), but I think he makes a great point about the way we generally treat documentation as an afterthought.  I&rsquo;d like to share the solution I&rsquo;ve come up with for my code.</p>
+
+<p>You&rsquo;ll notice that these projects that I&rsquo;ve linked to above all have landing pages that more or less clearly explain what the project is, how it works, and what your next steps might be, should you be interested enough to want to try it out for yourself.  Each of those landing pages also has a clear changelog, and an RSS feed that you can subscribe to, should you be interested in keeping yourself up to date.  There&rsquo;s even an <a href="http://projects.mikewest.org/atom.xml">RSS feed for the site</a>, in case you&rsquo;d just like to have a good handle on what it is that I&rsquo;m up to.</p>
+
+<p>I think this is the bare minimum a project needs to offer in order to begin to serve an audience.  I&rsquo;ve put together <a href="http://projects.mikewest.org/">projects.mikewest.org</a> in order to have a clear place to put any and all documentation I generate for the projects I&rsquo;d like to present to the public.  The ever so clever <a href="http://projects.timhuegdon.com">Tim Huegdon</a> has put together a similar project listing with good documentation, and I&rsquo;d like to encourage <em>you</em> to do so as well.</p>
+
+<p>GitHub pages makes the process of putting together a basic website hassle-free, and you can take a look at the <a href="http://github.com/mikewest/mikewest.github.com/">project page repository</a> to see how I&rsquo;ve bent Jekyll to the task of generating RSS feeds and embedded changelogs.  It&rsquo;s not rocket science, but it took a bit of experimenting that you can spare yourself.  Use the repo as a template.  There&rsquo;s nothing there I wouldn&rsquo;t gladly share.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/projects"
+                 rel="category tag"
+                 title="View other entries tagged 'projects'">projects</a>&#146;, 
+      
+        &#145;<a href="/tags/opensource"
+                 rel="category tag"
+                 title="View other entries tagged 'opensource'">opensource</a>&#146;, 
+      
+        &#145;<a href="/tags/webdevelopment"
+                 rel="category tag"
+                 title="View other entries tagged 'webdevelopment'">webdevelopment</a>&#146;, 
+      
+        &#145;<a href="/tags/webdev"
+                 rel="category tag"
+                 title="View other entries tagged 'webdev'">webdev</a>&#146;, 
+      
+        &#145;<a href="/tags/documentation"
+                 rel="category tag"
+                 title="View other entries tagged 'documentation'">documentation</a>&#146;, 
+      
+        &#145;<a href="/tags/bestpractice"
+                 rel="category tag"
+                 title="View other entries tagged 'bestpractice'">bestpractice</a>&#146;, 
+      
+        &#145;<a href="/tags/vimroom"
+                 rel="category tag"
+                 title="View other entries tagged 'vimroom'">vimroom</a>&#146;, 
+      
+        &#145;<a href="/tags/pyplaceholder"
+                 rel="category tag"
+                 title="View other entries tagged 'pyplaceholder'">pyplaceholder</a>&#146;, 
+      
+        &#145;<a href="/tags/staticgettext"
+                 rel="category tag"
+                 title="View other entries tagged 'staticgettext'">staticgettext</a>&#146;, 
+      
+        &#145;<a href="/tags/i18n"
+                 rel="category tag"
+                 title="View other entries tagged 'i18n'">i18n</a>&#146;, 
+      
+        &#145;<a href="/tags/l10n"
+                 rel="category tag"
+                 title="View other entries tagged 'l10n'">l10n</a>&#146;, 
+      
+        &#145;<a href="/tags/jslint"
+                 rel="category tag"
+                 title="View other entries tagged 'jslint'">jslint</a>&#146;, or 
+      
+        &#145;<a href="/tags/hudson"
+                 rel="category tag"
+                 title="View other entries tagged 'hudson'">hudson</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

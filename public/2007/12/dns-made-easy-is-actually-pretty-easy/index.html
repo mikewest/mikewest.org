@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;DNS Made Easy is actually pretty easy&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="In a spontaneous burst of productivity, spawned mostly by my complete and utter failure as a sysadmin, I moved my parent's email account off my server.  DNS Made Easy made this a trivial task.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">DNS Made Easy is actually pretty easy</h1>
+  <time class="published" pubdate datetime="Sat Dec 15 00:00:00 +0100 2007">
+    Saturday, December 15, 2007
+  </time>
+
+  <p>In a spontaneous burst of productivity, spawned mostly by my complete and utter failure as a sysadmin, I moved my parent&rsquo;s email account off my server, and onto Google&rsquo;s <a href="http://www.google.com/a/org/" title="Google Apps">Apps for your Domain</a> platform.</p>
+
+<p>This finally gave me an excuse to move my DNS hosting to <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  The move turned out to be easier than I thought, and stunningly fast.  The dark times of multi-day propagation waiting-periods are (apparently) over: the whole process from account signup to complete and totally successful migration was about an hour.  I&rsquo;m thrilled.  This is the best hosting-related $15 I&rsquo;ve spent all year.</p>
+
+<p>I&rsquo;ve moved my parent&rsquo;s domain over, as well as <code>mikewest.org</code>.  While moving the latter, I had a little fun setting up &ldquo;<a href="https://www.dnsmadeeasy.com/s0306/tuts/vanitydns.html" title="DNS Made Easy: Setting up your own Vanity DNS">Vanity DNS</a>.&rdquo;  I have <em>no</em> need for this feature whatsoever, and it&rsquo;ll probably cause me some pain in the future whenever the nameserver IP addresses change for whatever reason, but it satisfies my inner geek to see <code>ns0.mikewest.org</code> as the canonical name server for my domain:</p>
+
+<p><img src="http://mikewest.org/images/5.png" /></p>
+
+<p>So, two thumbs up for <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  They&rsquo;re absolutely living up to their name&rsquo;s promise.</p>
+
+<h2 id="potentially-useful-technical-note">Potentially Useful Technical Note</h2>
+
+<p>Relatedly, the <code>lookupd</code> command is gone in Leopard.  If you want to clear your DNS cache under 10.5, you need to use <code>dscacheutil</code>.  I&rsquo;ve added a quick alias to my <code>~/.bash_login</code> file, because I&rsquo;m sure I&rsquo;m going to forget this in about 10 minutes.</p>
+
+<pre><code>alias flushcache='sudo dscacheutil -flushcache';
+</code></pre>
+
+<p>I&rsquo;d suggest you do the same, if you plan on mucking about with DNS settings, or editing your hosts file.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/Personal"
+                 rel="category tag"
+                 title="View other entries tagged 'Personal'">Personal</a>&#146;, 
+      
+        &#145;<a href="/tags/DNS"
+                 rel="category tag"
+                 title="View other entries tagged 'DNS'">DNS</a>&#146;, or 
+      
+        &#145;<a href="/tags/DNSMadeEasy"
+                 rel="category tag"
+                 title="View other entries tagged 'DNSMadeEasy'">DNSMadeEasy</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Secure Chrome extensions: Content Security Policy&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Based on the Content Security Policy primer I wrote last week, you should have a good idea of what CSP can offer a website developer. What might not be clear is that the policies can extend beyond HTTP, a bit more deeply into the browser. Chrome offers Content Security Policy support for extensions that substantially reduce the possibility of permission leakage; this article describes how it works, and how you can use it in your extensions.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Secure Chrome extensions: Content Security Policy</h1>
+  <time class="published" pubdate datetime="Sun Oct 30 00:00:00 +0200 2011">
+    Sunday, October 30, 2011
+  </time>
+
+  <p>After reading the <a href="http://mikewest.org/2011/10/content-security-policy-a-primer">Content Security Policy primer</a> that I wrote earlier this month, you should have a good idea of the benefits that CSP can offer a website developer. Whitelisting known-good resource origins, refusing to execute potentially dangerous inline JavaScript, and banning the use of <code>eval</code> are all effective mechanisms for mitigating cross-site scripting attacks. Implementing and enforcing such policies is simply a good idea.</p>
+
+<p>Recognizing these advantages, Chrome&rsquo;s engineers have extended CSP&rsquo;s reach beyond websites into other areas of the browser where policies can serve as a defense against attacks. Most notably, policies can be applied to <a href="http://code.google.com/chrome/extensions/apps.html">packaged applications</a> and <a href="http://code.google.com/chrome/extensions/index.html">extensions</a>. Both can make use of Chrome&rsquo;s powerful and modular set of <a href="http://code.google.com/chrome/extensions/api_index.html">extension APIs</a>, which give developers capabilities above and beyond what it makes sense for the web platform to offer normal websites. To whatever extent possible, therefore, developers need to ensure that those additional capabilities aren&rsquo;t leaked out to the broader web. Content Security Policies mitigate this risk by helping developers ensure that the only code that runs with elevated privileges is their own.</p>
+
+<p>Defining policies for an extension is quite straightforward, and we&rsquo;re working to add them to all the sample extensions in the Chromium project. Walking through one of these samples together should give you a good idea of how it all works.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>The <a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/extensions/mappy/">Mappy</a> sample extension injects a content script into every page a user visits, searches the page for addresses, and passes them back to the extension so that a map can be displayed in the extension&rsquo;s popup. This is exactly the sort of dangerous scenario in which we need to worry about malicious websites exploiting the extension&rsquo;s permissions, perhaps by cleverly embedding JavaScript into the address which might then be executed if we&rsquo;re not careful when it&rsquo;s passed back to the extension&rsquo;s context. A content security policy is absolutely necessary.</p>
+
+<p>The first step towards securing the extension is to define exactly which resources it needs to load. Mappy&rsquo;s needs are pretty simple: it loads CSS and JavaScript from the local extension package, connects to <code>https://maps.googleapis.com</code> to geolocate an address, and finally displays a static map image from <code>https://maps.google.com</code>.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> A sufficiently paranoid policy would use a <code>default-src</code> policy directive to deny access to <em>everything</em> by default, and then specifically whitelist only those resources via <code>style-src</code>, <code>script-src</code>, <code>connect-src</code>, and <code>img-src</code> directives. I&rsquo;ve annotated Mappy&rsquo;s definition (which does exactly that) below:</p>
+
+<pre><code># Block everything, then whitelist from there.
+default-src 'none';
+
+# Accept CSS from the extension's package.
+style-src 'self';
+
+# Accept JavaScript from the extension's package.
+script-src 'self';
+
+# Allow XHR connections over HTTPS to Google Maps APIs.
+connect-src https://maps.googleapis.com; 
+
+# Allow images from Google Maps to load over HTTPS.
+img-src https://maps.google.com;
+</code></pre>
+
+<p>For normal websites, content security policies are delivered via an HTTP header. Chrome extensions use the same policy syntax, but define policies in the package&rsquo;s <a href="http://code.google.com/chrome/extensions/manifest.html">manifest JSON</a> as a simple key-value pair. Simply take the policy you&rsquo;ve defined, and add it to <code>manifest.json</code>: you can see how Mappy&rsquo;s CSP is defined by visiting <a href="http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/extensions/mappy/manifest.json?view=markup">Chromium&rsquo;s source repository</a>.</p>
+
+<p>With the <a href="http://codereview.chromium.org/8311007/diff/9001/chrome/common/extensions/docs/examples/extensions/mappy/manifest.json">manifest changes</a> in place, the next step is to take a close look at the extension&rsquo;s code to make sure we comply with the new restrictions we&rsquo;re defining. Generally speaking, this means ensuring that CSS and JavaScript is moved out from the extension&rsquo;s background page and popup into separate files. Most of the time, this is a straight copy/paste job, simply moving code wholesale from an inline <code>&lt;script&gt;</code> block into a <code>background.js</code> file. For Mappy, the <code>background.html</code> change is <a href="http://codereview.chromium.org/8311007/diff/9001/chrome/common/extensions/docs/examples/extensions/mappy/background.html">captured in this diff</a>, and the <code>popup.html</code> change is <a href="http://codereview.chromium.org/8311007/diff/9001/chrome/common/extensions/docs/examples/extensions/mappy/popup.html">visible in this diff</a>.</p>
+
+<p>That&rsquo;s it! Once you&rsquo;ve defined a policy, and adjusted your extension&rsquo;s code to match it, just test the extension locally, bump the version number, and push the update to your users. They&rsquo;ll be more secure, and the world will be a (slightly) better place.</p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>Your task is clear: update the extensions you own! It&rsquo;s very straightforward work, and a real win for security. Content Security Policy support was added to Mappy in <a href="http://crrev.com/106043">revision 106043</a>; take a look at <a href="http://codereview.chromium.org/8311007">the code review</a> to get some implementation ideas for your own extensions.</p>
+
+<p>At the same time you&rsquo;re working on your extensions, the Chromium team is working to set a better example by updating the 70 or so sample extensions and applications that Chromium makes available to include the new <code>content_security_policy</code> manifest entry. It&rsquo;s easy work &ndash; following the steps listed above takes less than half-hour on average &ndash; but 70 is a big number, so we&rsquo;re a bit behind. You can follow our progress on that effort at <a href="http://crbug.com/92644">crbug.com/92644</a>: star the bug if you&rsquo;re interested in updates, and pitch in if you&rsquo;re interested! <a href="http://www.chromium.org/developers/contributing-code">Patches are welcome</a>: just send any code reviews my way (<code>mkwst@chromium.org</code>).</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Whenever possible, load resources over HTTPS rather than unencrypted HTTP. This has a number of benefits for privacy and security, most importantly (for our current context) a guarantee that the code you&rsquo;re loading hasn&rsquo;t been modified since it left the server. Active network attackers need to do a <em>lot</em> more work to inject code into a HTTPS stream, wheres it&rsquo;s a trivial task via HTTP.<a href="#fnref:1" rev="footnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      take a look at
+        
+          &ldquo;<a href="/2011/10/content-security-policy-a-primer">Content Security Policy: A Primer</a>&rdquo;
+          . 
+        
+      </p><p>
+      You might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/CSP"
+                 rel="category tag"
+                 title="View other entries tagged 'CSP'">CSP</a>&#146;, 
+      
+        &#145;<a href="/tags/contentsecuritypolicy"
+                 rel="category tag"
+                 title="View other entries tagged 'contentsecuritypolicy'">contentsecuritypolicy</a>&#146;, 
+      
+        &#145;<a href="/tags/chrome"
+                 rel="category tag"
+                 title="View other entries tagged 'chrome'">chrome</a>&#146;, 
+      
+        &#145;<a href="/tags/chromium"
+                 rel="category tag"
+                 title="View other entries tagged 'chromium'">chromium</a>&#146;, 
+      
+        &#145;<a href="/tags/extensions"
+                 rel="category tag"
+                 title="View other entries tagged 'extensions'">extensions</a>&#146;, 
+      
+        &#145;<a href="/tags/security"
+                 rel="category tag"
+                 title="View other entries tagged 'security'">security</a>&#146;, 
+      
+        &#145;<a href="/tags/manifest"
+                 rel="category tag"
+                 title="View other entries tagged 'manifest'">manifest</a>&#146;, 
+      
+        &#145;<a href="/tags/introduction"
+                 rel="category tag"
+                 title="View other entries tagged 'introduction'">introduction</a>&#146;, 
+      
+        &#145;<a href="/tags/tutorial"
+                 rel="category tag"
+                 title="View other entries tagged 'tutorial'">tutorial</a>&#146;, 
+      
+        &#145;<a href="/tags/header"
+                 rel="category tag"
+                 title="View other entries tagged 'header'">header</a>&#146;, 
+      
+        &#145;<a href="/tags/x-content-security-policy"
+                 rel="category tag"
+                 title="View other entries tagged 'x-content-security-policy'">x-content-security-policy</a>&#146;, or 
+      
+        &#145;<a href="/tags/x-webkit-csp"
+                 rel="category tag"
+                 title="View other entries tagged 'x-webkit-csp'">x-webkit-csp</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

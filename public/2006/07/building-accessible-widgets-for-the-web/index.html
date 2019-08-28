@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Building Accessible Widgets for the Web&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="I've got an article up on Digital Web, outlining the processes I use to build accessible UI controls for web applications.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Building Accessible Widgets for the Web</h1>
+  <time class="published" pubdate datetime="Tue Jul 11 00:00:00 +0200 2006">
+    Tuesday, July 11, 2006
+  </time>
+
+  <p>Building interfaces for web applications is hard work, and it&rsquo;s not made any easier by the dearth of <a href="http://en.wikipedia.org/wiki/Widget_%28computing%29" title="Wikipedia: 'Widgets'">widgets</a> available in modern browsers.  We&rsquo;ve got the basics &ndash; <code>SELECT</code> dropdowns, <code>INPUT</code> text boxes &ndash; but native applications have a much wider selection of controls to choose from.  This lack can be mitigated with clever JavaScripting and CSS techniques; we can build them, we have the technology!</p>
+
+<p>However, it&rsquo;s critical to ensure that we don&rsquo;t leave accessibility by the wayside when creating new UI controls for our applications.  I&rsquo;ve got an article up on <a href="http://digital-web.com/" title="Digital Web Magazine: The web professional's online magazine of choice">Digital Web</a> that describes the basic guideline I adhere to when constructing widgets, cleverly entitled <a href="http://digital-web.com/articles/building_accessible_widgets_for_the_web/" title="Digital Web Magazine: 'Building Accessible Widgets for the Web'">&ldquo;Building Accessible Widgets for the Web&rdquo;</a>.  I&rsquo;ve put together a working combo-box as an example of the technique, and I&rsquo;m looking forward to <a href="http://digital-web.com/articles/building_accessible_widgets_for_the_web/comments/" title="Comment on the article">your feedback</a>.</p>
+
+<p>Something that I gloss over in <a href="http://digital-web.com/articles/building_accessible_widgets_for_the_web/" title="Digital Web Magazine: 'Building Accessible Widgets for the Web'">the article</a> is the decision-making process that leads up to building a new widget, and I want to address that here, since it&rsquo;s an important piece of the puzzle.  In short, <em>think about what you&rsquo;re doing</em> when you decide to go with a custom piece of UI design.  <a href="http://www.garrettdimon.com/archives/front-end-architecture-browsers">Garrett Dimon</a> argues that <a href="http://www.garrettdimon.com/archives/front-end-architecture-browsers" title="Garrett Dimon: 'Front-End Architecture: Browsers'">customizing a form&rsquo;s look and feel might harm usability</a> by breaking user expectations, and I agree.  Before building a new widget, ensure it makes sense for your application.  Something like a combo-box is pretty straightforward, users deal with the model everyday in the address bar of their browser, but a weird <a href="http://mikewest.org/archive/slidable-select-widgets-explained" title="Mike West: 'Slidable Select Widgets Explained'">sliding widget</a> might be pushing the limits a bit more.  Or, depending on your audience, the exact inverse might be true.  Make sure that usability is taken into account, along with accessibility, when you&rsquo;re souping up your forms.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/Digital-Web"
+                 rel="category tag"
+                 title="View other entries tagged 'Digital-Web'">Digital-Web</a>&#146;, or 
+      
+        &#145;<a href="/tags/JavaScript"
+                 rel="category tag"
+                 title="View other entries tagged 'JavaScript'">JavaScript</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

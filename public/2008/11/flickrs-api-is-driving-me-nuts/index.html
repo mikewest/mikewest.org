@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Flickr's API is driving me nuts&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="I'm trying to do something with the Flickr API that I consider to be relatively trivial. I have the impression that the API is fighting me every step of the way. Why, oh why, can't the wonderful people who designed Del.icio.us's new API hop over to Flickr and slap together something that makes sense from the perspective of the end user?">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Flickr's API is driving me nuts</h1>
+  <time class="published" pubdate datetime="Sun Nov 09 00:00:00 +0100 2008">
+    Sunday, November 09, 2008
+  </time>
+
+  <p>I&rsquo;m trying to do something with the Flickr API that I consider to be relatively trivial. I have the impression that the API is fighting me every step of the way. Why, oh why, can&rsquo;t the wonderful people who designed Del.icio.us&rsquo;s new API hop over to Flickr and slap together something that makes sense from the perspective of the end user?</p>
+
+<h2 id="basics">Basics</h2>
+
+<p>I&rsquo;d like to have a list of my flickr sets as a block on my homepage, displaying the most recent sets in the order they were published, along with some simple metainformation and a thumbnail.  I&rsquo;d also like to display photosets in my <a href="/archive">archive pages</a>, interspersed throughout the rest of the content at the proper point in the timeline.</p>
+
+<p>Most of this is easy to get with a single call to <a href="http://www.flickr.com/services/api/flickr.photosets.getList.html"><code>flickr.photosets.getList</code></a>.  The XML that&rsquo;s returned looks something like:</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;rsp stat="ok"&gt;
+&lt;photosets&gt;
+    &lt;photoset id="[ID GOES HERE]" primary="2914968443" secret="[SECRET GOES HERE]" server="3007" farm="4" photos="2" videos="0"&gt;
+        &lt;title&gt;2008-10 - Driving&lt;/title&gt;
+        &lt;description /&gt;
+    &lt;/photoset&gt;
+    ...
+&lt;/photosets&gt;
+&lt;/rsp&gt;
+</code></pre>
+
+<p>Simple enough to parse, and in combination with Flickr&rsquo;s <a href="http://www.flickr.com/services/api/misc.urls.html">standardized url structure</a>, this gets me relatively close to the data that I&rsquo;m looking for.  The small bit that&rsquo;s missing is an actual publication date, which is significant for my plans.  Without it, I can&rsquo;t correctly insert the photosets into my archive pages, and so far as I can tell, the data simply isn&rsquo;t exposed via the API.  So let&rsquo;s dig around a bit.</p>
+
+<p>Since I know what the primary photo is for the photoset, I can grab it via <a href="http://www.flickr.com/services/api/flickr.photos.getInfo.html"><code>flickr.photos.getInfo</code></a>, which gets me the photo&rsquo;s dates:</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;rsp stat="ok"&gt;
+&lt;photo id="2914968443" secret="[SECRET GOES HERE]" server="3007" farm="4" dateuploaded="1223227911" isfavorite="0" license="3" rotation="0" originalsecret="c87ab26ef7" originalformat="jpg" media="photo"&gt;
+	...
+	&lt;dates posted="1223227911" taken="2008-10-04 18:12:42" takengranularity="0" lastupdate="1223283362" /&gt;
+    ...
+&lt;/photo&gt;
+&lt;/rsp&gt;
+</code></pre>
+
+<p>Leaving aside the strange change of <a href="http://www.flickr.com/services/api/misc.dates.html">timestamp format</a>, and the nonsensical lack of timezone information, I can mash those into the photoset data to get an approximation of it&rsquo;s creation date.  That works pretty well, actually.  It means, however, that I have to make an additional API request for <em>each</em> photoset.  That&rsquo;s more than a little annoying.</p>
+
+<p>But now I have all the information I need, so putting the code together is straightforward.  Straightforward, that is, until I start thinking about the necessity to automatically update this data periodically.</p>
+
+<h2 id="updates">Updates</h2>
+
+<p>The <a href="http://delicious.com/help/api">Del.icio.us API</a> is really good about handling this scenario:
+<a href="http://delicious.com/help/api#posts_all"><code>posts/all</code></a> returns all the your bookmarks, and allows you to <em>filter</em> the list by tag or date range.  If I know, for instance, that I last polled for changes at 10:00 this morning, I can ask Del.icio.us to send me only the bookmarks that came in <em>after</em> that point in time.  This makes the update-handling code on my end quite simple: I ask for all the updates since the last bookmark I&rsquo;ve stored locally, and when I get a response, I treat the whole thing as new.</p>
+
+<p>Flickr doesn&rsquo;t, so far as I can tell, support the same mechanisms.  This has the effect of pushing validation down to my layer: I grab a list of all my photosets and then walk through the list, checking locally to see if I&rsquo;ve already got the information stored.  This is stupendously inefficient, and actually becomes <em>more</em> inefficient as time goes on and I add more photosets.</p>
+
+<p>The closest Flickr comes to the Del.icio.us level of efficiency is <a href="http://www.flickr.com/services/api/flickr.photos.getRecent.html"><code>flickr.photos.getRecent</code></a>, which returns a list of up to 500 recent photos.  It doesn&rsquo;t, however, provide the same benefit as the Del.icio.us feed, as it doesn&rsquo;t allow you to specify what &ldquo;Recent&rdquo; means.  It simply pulls a set number of photos off the top and throws them back over the wall.</p>
+
+<p>I would <em>love</em> to see something like the Del.icio.us functionality added to the Flickr API. It would make my particular use case quite a bit simpler, and if applied across the board, it would make the entire Flickr API better suited to the polling-based tasks it&rsquo;s being put to.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/mikewest.org"
+                 rel="category tag"
+                 title="View other entries tagged 'mikewest.org'">mikewest.org</a>&#146;, 
+      
+        &#145;<a href="/tags/projects"
+                 rel="category tag"
+                 title="View other entries tagged 'projects'">projects</a>&#146;, 
+      
+        &#145;<a href="/tags/fallow"
+                 rel="category tag"
+                 title="View other entries tagged 'fallow'">fallow</a>&#146;, 
+      
+        &#145;<a href="/tags/flickr"
+                 rel="category tag"
+                 title="View other entries tagged 'flickr'">flickr</a>&#146;, 
+      
+        &#145;<a href="/tags/api"
+                 rel="category tag"
+                 title="View other entries tagged 'api'">api</a>&#146;, 
+      
+        &#145;<a href="/tags/webdev"
+                 rel="category tag"
+                 title="View other entries tagged 'webdev'">webdev</a>&#146;, or 
+      
+        &#145;<a href="/tags/development"
+                 rel="category tag"
+                 title="View other entries tagged 'development'">development</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

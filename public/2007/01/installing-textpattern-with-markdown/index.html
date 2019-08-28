@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Installing Textpattern 4.0.4 with Markdown&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="This site is built on top of the Textpattern engine, running Markdown instead of Textile.  Here's how to make that happen.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Installing Textpattern 4.0.4 with Markdown</h1>
+  <time class="published" pubdate datetime="Sun Jan 14 00:00:00 +0100 2007">
+    Sunday, January 14, 2007
+  </time>
+
+  <p><a href="http://www.textpattern.com/" title="Textpattern: A flexible, elegant, easy-to-use content management system for all kinds of websites, even weblogs.">Textpattern</a> is a brilliant blogging tool, one which seems completely
+dedicated to the task of putting words on a page.  It has a great plugin
+structure, and in in practically every respect <em>the</em> blogging tool I&rsquo;d
+recommend above all others.  </p>
+
+<p>The one place where it fails remarkably to exceed my expectations is it&rsquo;s
+single-minded dedication to Dean Allen&rsquo;s <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" title="Wikipedia: Textile (Markup Language)">Textile</a> format.  I don&rsquo;t
+particularly <em>like</em> Textile, you see.  I simply get too hung up on the
+formatting.  <a href="http://en.wikipedia.org/wiki/Markdown" title="Wikipedia: Markdown">Markdown</a> (in combination with <a href="http://daringfireball.net/projects/smartypants/" title="Smartypants">SmartyPants</a>), on the other
+hand, is a lightweight markup language I can really get behind.  It feels like
+it just gets out of my way, and lets me write without thinking about the 
+rendering framework.</p>
+
+<p>Happily, Michel Fortin&rsquo;s <a href="http://www.michelf.com/projects/php-markdown/extra/" title="PHP Markdown Extra">PHP port</a> of the language has the ingenious
+ability to <em>pretend</em> to be Textile, so it can serve as a drop-in replacement
+in programs like <a href="http://www.textpattern.com/" title="Textpattern: A flexible, elegant, easy-to-use content management system for all kinds of websites, even weblogs.">Textpattern</a>.  So if you&rsquo;d like to get a clean copy of
+Textpattern 4.0.4 running Markdown, just copy and paste the following
+commands.  You&rsquo;ll end up with a clean install in <code>~/src/</code>, ready for you to
+start playing with.</p>
+
+<pre><code>mkdir ~/src
+cd ~/src
+#
+#   GET PHP MARKDOWN
+#
+curl -O http://www.michelf.com/docs/projets/php-markdown-extra-1.1.1.zip
+unzip php-markdown-extra-1.1.1.zip 'PHP Markdown Extra 1.1.1/markdown.php'
+rm php-markdown-extra-1.1.1.zip
+mv 'PHP Markdown Extra 1.1.1/markdown.php' ./classTextile.php
+rm -rf 'PHP Markdown Extra 1.1.1'
+#
+#   GET SMARTYPANTS
+#
+curl -O http://www.michelf.com/docs/projets/php-smartypants-typographer-1.0.zip
+unzip php-smartypants-typographer-1.0.zip 'PHP SmartyPants Typographer 1.0/smartypants.php'
+rm php-smartypants-typographer-1.0.zip
+mv 'PHP SmartyPants Typographer 1.0/smartypants.php' ./smartypants.php
+rm -rf 'PHP SmartyPants Typographer 1.0'
+#
+#   GET TEXTPATTERN FROM SVN
+#
+svn export --force http://svn.textpattern.com/releases/4.0.4/source/ .
+#
+#   INSTALL MARKDOWN AND SMARTYPANTS
+#
+mv classTextile.php ./textpattern/lib/classTextile.php
+mv smartypants.php ./textpattern/lib/smartypants.php
+#
+#   FIX SMALL BUG IN PHP MARKDOWN EXTRA'S TEXTILE EMULATION
+#
+NICE="\$new = 'function TextileRestricted(\$text, \$lite, \$encode) { return \$this-&gt;TextileThis(\$text, \$lite, \$encode); }';if (/function blockLite/) { \$_ = \$_.\"\\t\\t\".\$new.\"\\n\"; }";
+perl -pi.bak -e "$NICE" classTextile.php;
+#
+#    SUCCESS!
+#
+</code></pre>
+
+<p>That&rsquo;s it!  Enjoy!</p>
+
+<p><strong>UPDATE</strong>: <a href="http://carlo.zottmann.org/" title="Carlo Zottmann: tail -f carlo.log">Carlo</a> noticed that comments broke on my site after updating to Textpattern 4.0.4.  As it turns out, a new feature was added to Textile at some point between the Textpattern 4.0.3 and 4.0.3 releases, which hasn&rsquo;t yet made it&rsquo;s way into PHP Markdown Extra&rsquo;s Textile emulation mode.  I&rsquo;ve added a quick fix for it in the code here, and submitted a patch to <a href="http://www.michelf.com/" title="Michel Fortin">Michel Fortin</a> who maintains PHP Markdown.</p>
+
+<p>In short, Textile now supports a &ldquo;Restricted&rdquo; mode when submitting comments, which does some things differently than the normal Textile processing.  Links are automatically &ldquo;nofollow&rdquo;d, images are restricted, and block tags are limited to quotes and paragraphs.  It might be worth implementing something like that in Markdown, but for the moment, my &ldquo;fix&rdquo; simply calls the normal Markdown routine when <code>TextileRestricted</code> is called.  That&rsquo;s not perfect, but it&rsquo;s better than dying entirely with a fatal error.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/HOWTO"
+                 rel="category tag"
+                 title="View other entries tagged 'HOWTO'">HOWTO</a>&#146;, or 
+      
+        &#145;<a href="/tags/TextPattern"
+                 rel="category tag"
+                 title="View other entries tagged 'TextPattern'">TextPattern</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;mcw_templates - Import/Export Textpattern Templates&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="mcw_templates is a TextPattern plugin allowing the export/import of pages, forms, and css rules to files for external editing.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">mcw_templates - Import/Export Textpattern Templates</h1>
+  <time class="published" pubdate datetime="Sun Apr 09 00:00:00 +0200 2006">
+    Sunday, April 09, 2006
+  </time>
+
+  <p><code>mcw_templates</code> is a TextPattern admin plugin that enables the trivial export of pages, forms, and CSS rules to files in a specified folder for convenient editing, and the subsequent import of new and updated files.  This means that you&rsquo;re no longer bound to the <code>textarea</code> inside TextPattern when you work on your site&rsquo;s structure and design.</p>
+
+<p>The plugin supports multiple sets of templates, so you can rapidly import a new template, or export your current template for external editing without disturbing templates you&rsquo;ve exported in the past.</p>
+
+<h2 id="download">Download</h2>
+
+<p><a href="http://github.com/mikewest/mcw_templates/tree/master">Download the current version of the plugin (<strong>0.2</strong>)</a>.</p>
+
+<p><strong>Update, 2008-10-18</strong>: I’ve abandoned this project, and released the code under the MIT license.  It&rsquo;s <a href="http://github.com/mikewest/mcw_templates/tree/master">up now on GitHub</a> for you to fork at your leisure.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>This plugin is <strong>beta</strong> in every sense of the word, as it&rsquo;s only been tested on my <strong>4.03</strong> installation.  It might work on other version, but no promises!</p>
+
+<p>Regardless of where it&rsquo;s been tested, this plugin messes around with your database.  <em>Do not use it without backing up your database</em>.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>By default, the plugin looks for a directory named <code>_templates</code>
+in your <code>textpattern</code> directory.  If the directory doesn&rsquo;t exist, the plugin will attempt to create it the first time you export your templates. This creation will almost certainly fail, since the<code>textpattern</code> directory usually isn&rsquo;t writable.  In that case, you&rsquo;ll need to create this  directory, and ensure that the web server has write access.  If your site is hosted at <code>/users/home/myuser/web/public/</code>, then the following commands    could be used:</p>
+
+<pre><code>cd /users/home/myuser/web/public/
+mkdir ./textpattern/_templates
+chmod 777 ./textpattern/_templates
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<p>To use the plugin, simply select &lsquo;import&rsquo; or &lsquo;export&rsquo; from the dropdown on the plugin&rsquo;s tab (e.g. <code>extensions</code> -&gt; <code>Template Files</code>).</p>
+
+<p>When exporting, you&rsquo;re asked for an export set name, which is used as the subdirectory name.  On import, you&rsquo;re asked to choose from the export sets available.  Additionally, an export into <code>preimport-data</code> is run before each import for backup purposes.</p>
+
+<p>Couldn&rsquo;t be simpler.</p>
+
+<h2 id="credits">Credits</h2>
+
+<p>This plugin is more or less a total rewrite of <a href="http://www.woods-fehr.com/txp/8/link-template-2-file">Scott Woods&rsquo; Link Template 2 File</a>.  His idea was brilliant, I just reworked everything so that it fit into a TextPattern admin plugin, and added a lot of error checking and documentation.  Kudos, Scott!</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/TextPattern"
+                 rel="category tag"
+                 title="View other entries tagged 'TextPattern'">TextPattern</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Some Thoughts Regarding Caja&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Yesterday, Yahoo! made some announcements regarding The Future&trade; of many of their high profile properties.  Specifically, they're (slowly) opening up, enabling third-party developers to build applications that can be seen on and interact with your My Yahoo! page, or your mailbox.  I think this is a great step, and one I wish they'd made _before_ they laid me off.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Some Thoughts Regarding Caja</h1>
+  <time class="published" pubdate datetime="Tue Dec 16 00:00:00 +0100 2008">
+    Tuesday, December 16, 2008
+  </time>
+
+  <p>Yesterday, Yahoo! made some announcements regarding The Future&trade; of many of their high profile properties.  Specifically, they&rsquo;re (slowly) opening up, enabling third-party developers to build applications that can be seen on and interact with your <a href="http://my.yahoo.com/">My Yahoo!</a> page, or your <a href="http://mail.yahoo.com/">mailbox</a>.  I think this is a great step, and one I wish they&rsquo;d made <em>before</em> they laid me off. </p>
+
+<p>Ah well.</p>
+
+<p>One of the core technologies that&rsquo;s behind this set of features is called <a href="http://code.google.com/p/google-caja/">Caja</a>.  Caja is a code sanitizer: it takes an HTML fragment, and JavaScript that operates on it, and &ldquo;cajoles&rdquo; it into a chunk that can be embedded into a page without the risk of maliciousness.  I&rsquo;d like to ramble about that, briefly, at a very high level.  I&rsquo;m still trying to wrap my head around it&rsquo;s details</p>
+
+<h2 id="javascript-is-simply-dangerous">JavaScript is, simply, dangerous.</h2>
+
+<p>If you&rsquo;ve paid attention to any of <a href="http://developer.yahoo.com/yui/theater/">Doug Crockford&rsquo;s presentations</a>, you&rsquo;ll know that the browser security model is simply broken-as-designed.  The internet, therefore, is a place where one can barely trust <em>first-party</em> code, much less code written by your neighbor.  You have to keep a constant eye out for new cross-site scripting vectors, and be very careful about how you filter third-party input before making it available as &ldquo;user generated content.&rdquo;</p>
+
+<p>Seen in this light, Yahoo! has a massive problem to confront with it&rsquo;s new &ldquo;open&rdquo; initiatives.  On the one hand, they <em>must</em> protect the security of their sites.  On the other, they want to pull in content from their users, and not just <em>text</em>, but <em>code</em>.  Working applications, written outside of Yahoo!, running directly <em>on</em> a Yahoo! site.  The project specification itself is basically a nightmare scenario for the security team.  They need to find a way to include third-party JavaScript safely and sanely onto Yahoo! pages.  This mechanism needs to be pretty automatic, as they can&rsquo;t dedicate an engineering team to manually review (potentially) thousands of applications.</p>
+
+<p>There are two broad paths to take to this end:</p>
+
+<ul>
+  <li>
+    <p>Code sanitization, which reads unknown code, processes it, and outputs
+a sandboxed version (if possible).  <a href="http://code.google.com/p/google-caja/">Caja</a> is the best known example of
+this tact.</p>
+  </li>
+  <li>
+    <p>Static analysis, which reads unknown code, parses it, and gives a
+thumbs-up if it only does known-safe things.  <a href="http://adsafe.org/">AdSafe</a> is a
+work-in-progress along these lines.</p>
+  </li>
+</ul>
+
+<p>Yahoo!&rsquo;s running with the former, so let&rsquo;s dive in.</p>
+
+<h2 id="code-sanitization">Code Sanitization</h2>
+
+<p>Untrusted JavaScript must not be allowed access to the <code>document</code> or <code>window</code> objects.  This means that it must not gain direct access to any DOM node, as every DOM node enables you to crawl back up to <code>document</code>.  <code>event</code> objects are right out as well, as they contain dangerous references as well.  Really, when you get right down to it, you have to throw out practically everything of practical use.</p>
+
+<p>I mentioned that JavaScript was broken, right?</p>
+
+<p>Caja is an attempt to distill a safe subset of JavaScript out of this mess through server-side sanitization.  A third-party uploads an application, consisting of JavaScript, CSS, and HTML fragments, and Caja transforms it into something that can be guaranteed not to damage the page into which it&rsquo;s embedded.  This is a good thing.</p>
+
+<p>Caja is a capability-based system, meaning in practice that it begins by defining an extremely restrictive sandbox in which code must run, and enabling well thought-out bits of functionality by selectively injecting access as needed.</p>
+
+<p>Think of it this way: when you hand your car to a valet, you would be better off if you gave them the valet key, which <em>only</em> enables them to <em>drive</em> the car.  You shouldn&rsquo;t give them <em>your</em> key, which would also let them rummage through your glove box, etc.  In the same way, you shouldn&rsquo;t give a program access to <em>everything</em> in the DOM if it&rsquo;s only supposed to change a background colour in a particular location.  You&rsquo;d be better off if you could restrict it&rsquo;s scope of access.  Caja attempts to do this.</p>
+
+<p>The token you give the valet, the key, can be looked at as a set of <em>capabilities</em>.  The valet key enables &ldquo;drive the car&rdquo;, your key enables much more.  Similarly, handing an object to a program <em>is</em> handing it capabilities, enabling it to act in whatever ways are exposed by that object.  Since JavaScript&rsquo;s default objects are <em>so</em> overpowered, Caja exposes a new set of objects that completely wrap things like the DOM or the event model, and rewrites input programs to use these objects instead, severely limiting the damage they can do.  These wrapper objects contain a series of runtime checks to ensure that a malicious program hasn&rsquo;t somehow broken out of their constraints, and the entire rewriting process fails if the program is written in such a way as to make it impossible to sandbox.</p>
+
+<h2 id="big-drawback">Big Drawback</h2>
+
+<p>Though I understand Caja&rsquo;s practical necessity, I really don&rsquo;t like the way it works.  In short: it breaks progressive enhancement completely, and introduces a hard dependency on JavaScript for functionality.</p>
+
+<p>As a quick demo, let&rsquo;s look at the following code:</p>
+
+<pre><code>&lt;script src="searchbox.js"&gt;&lt;/script&gt; 
+&lt;link rel=stylesheet href="searchbox.css" /&gt; 
+&lt;form&gt; 
+  &lt;input type="text" size="60" name="q"&gt; 
+  &lt;input type="button" value="Search" onclick="doSearch(this)"&gt; 
+&lt;/form&gt; 
+</code></pre>
+
+<p>After &ldquo;cajoling&rdquo;, it will look something more like:</p>
+
+<pre><code>...
+IMPORTS___.htmlEmitter___.p('form') 
+    .a('onsubmit', 'return false') 
+    .ih('  &lt;input type="text" size="60" name="q"&gt;\n' 
+      + '  &lt;input type="button" value="Search"' 
+      + ' onclick="return plugin_dispatchEvent___(…)"&gt;\n') 
+    .e('form'); 
+...
+</code></pre>
+
+<p>The HTML is transformed into a series of JavaScript method calls that <em>generate</em> HTML.  This makes sense, as it enables Caja to retain complete control over what&rsquo;s written to the page, but it has the side effect of making the form completely inaccessible to anyone who isn&rsquo;t running JavaScript.</p>
+
+<p>I&rsquo;d much prefer more thought to be put into <a href="http://adsafe.org/">AdSafe</a>, which sets up the same sort of wrapped-object sandbox, as well as a series of rules which third-party developers must follow.  The system them simply <em>verifies</em> that they have done so, rather than rewriting their code to ensure that they have.  If the rules are solid, the effect will be the same as can be achieved with Caja, but much more elegant, and with more respect for the fundamentals of the web.</p>
+
+<p>Crockford has (finally) put up some example code on the <a href="http://adsafe.org/">AdSafe site</a>.  I&rsquo;d suggest that you go take a look at it.  It looks like a very interesting way to program indeed.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/mikewest.org"
+                 rel="category tag"
+                 title="View other entries tagged 'mikewest.org'">mikewest.org</a>&#146;, 
+      
+        &#145;<a href="/tags/yahoo!"
+                 rel="category tag"
+                 title="View other entries tagged 'yahoo!'">yahoo!</a>&#146;, 
+      
+        &#145;<a href="/tags/y!"
+                 rel="category tag"
+                 title="View other entries tagged 'y!'">y!</a>&#146;, 
+      
+        &#145;<a href="/tags/yep"
+                 rel="category tag"
+                 title="View other entries tagged 'yep'">yep</a>&#146;, 
+      
+        &#145;<a href="/tags/caja"
+                 rel="category tag"
+                 title="View other entries tagged 'caja'">caja</a>&#146;, 
+      
+        &#145;<a href="/tags/adsafe"
+                 rel="category tag"
+                 title="View other entries tagged 'adsafe'">adsafe</a>&#146;, 
+      
+        &#145;<a href="/tags/capabilities"
+                 rel="category tag"
+                 title="View other entries tagged 'capabilities'">capabilities</a>&#146;, 
+      
+        &#145;<a href="/tags/security"
+                 rel="category tag"
+                 title="View other entries tagged 'security'">security</a>&#146;, 
+      
+        &#145;<a href="/tags/xss"
+                 rel="category tag"
+                 title="View other entries tagged 'xss'">xss</a>&#146;, 
+      
+        &#145;<a href="/tags/javascript"
+                 rel="category tag"
+                 title="View other entries tagged 'javascript'">javascript</a>&#146;, 
+      
+        &#145;<a href="/tags/crockford"
+                 rel="category tag"
+                 title="View other entries tagged 'crockford'">crockford</a>&#146;, 
+      
+        &#145;<a href="/tags/douglascrockford"
+                 rel="category tag"
+                 title="View other entries tagged 'douglascrockford'">douglascrockford</a>&#146;, 
+      
+        &#145;<a href="/tags/thefuture"
+                 rel="category tag"
+                 title="View other entries tagged 'thefuture'">thefuture</a>&#146;, 
+      
+        &#145;<a href="/tags/open"
+                 rel="category tag"
+                 title="View other entries tagged 'open'">open</a>&#146;, 
+      
+        &#145;<a href="/tags/accessibility"
+                 rel="category tag"
+                 title="View other entries tagged 'accessibility'">accessibility</a>&#146;, 
+      
+        &#145;<a href="/tags/progressiveenhancement"
+                 rel="category tag"
+                 title="View other entries tagged 'progressiveenhancement'">progressiveenhancement</a>&#146;, 
+      
+        &#145;<a href="/tags/ugly"
+                 rel="category tag"
+                 title="View other entries tagged 'ugly'">ugly</a>&#146;, or 
+      
+        &#145;<a href="/tags/google"
+                 rel="category tag"
+                 title="View other entries tagged 'google'">google</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

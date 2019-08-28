@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Playing with Placemaker&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Playing with Placemaker</h1>
+  <time class="published" pubdate datetime="Thu May 21 00:00:00 +0200 2009">
+    Thursday, May 21, 2009
+  </time>
+
+  <p>Yahoo&rsquo;s latest API is really quite cool: <a href="http://developer.yahoo.com/geo/placemaker/guide/">Placemaker</a> takes your unstructured data (e.g. any HTML page, RSS feed, etc), and extracts a nice list of <em>locations</em> that your data refers to.  It&rsquo;s a brilliant tool, and I can think of quite a few ways I&rsquo;d like to use it in the future.  Along with their release of a <em>ton</em> of <a href="http://developer.yahoo.com/geo/geoplanet/data/">WhereOnEarth ID codes</a> that allows you to make use of Yahoo&rsquo;s various geo-services, this is a really good day to play with geocoding unstructured data.</p>
+
+<p>So, let&rsquo;s play:</p>
+
+<p>Accessing Placemaker is simple: assuming that you&rsquo;ve somehow managed to <a href="http://developer.yahoo.com/wsregapp/">obtain an application id</a>, you simply make an HTTP <code>POST</code> request to Yahoo!&rsquo;s Placemaker endpoint with a tiny bit of data specifying the nature of the data you&rsquo;re dealing with, and it&rsquo;s URL.  If you like <code>curl</code> on the command line, this might look like:</p>
+
+<pre><code>curl -d 'inputLanguage=en-US&amp;documentType=text/html&amp;documentURL=http://mikewest.org/&amp;appid=[APPID]' http://wherein.yahooapis.com/v1/document
+</code></pre>
+
+<p>You&rsquo;ll get back an XML document (RSS is also available as a response format).  Digging into the contents yields:</p>
+
+<ul>
+  <li>
+    <p>Boilerplate:</p>
+
+    <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;contentlocation xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://wherein.yahooapis.com/v1/schema" xml:lang="de-DE"&gt;
+  &lt;processingTime&gt;0.380778&lt;/processingTime&gt;
+  &lt;version&gt; build 090508&lt;/version&gt;
+  &lt;documentLength&gt;15906&lt;/documentLength&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>A (list of) document element(s) containing the extracted locations:</p>
+
+    <pre><code>  &lt;document&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>A best guess at the document&rsquo;s &ldquo;scope&rdquo; (the smallest region that &ldquo;best
+describes&rdquo; the document):</p>
+
+    <pre><code>    &lt;administrativeScope&gt;
+      &lt;woeId&gt;20071093&lt;/woeId&gt;
+      &lt;type&gt;County&lt;/type&gt;
+      &lt;name&gt;&lt;![CDATA[Munich, Bavaria, DE]]&gt;&lt;/name&gt;
+      &lt;centroid&gt;
+        &lt;latitude&gt;48.1549&lt;/latitude&gt;
+        &lt;longitude&gt;11.5417&lt;/longitude&gt;
+      &lt;/centroid&gt;
+    &lt;/administrativeScope&gt;
+    &lt;geographicScope&gt;
+      &lt;woeId&gt;29388625&lt;/woeId&gt;
+      &lt;type&gt;MMA&lt;/type&gt;
+      &lt;name&gt;&lt;![CDATA[MMA München, Bavaria, DE]]&gt;&lt;/name&gt;
+      &lt;centroid&gt;
+        &lt;latitude&gt;48.1549&lt;/latitude&gt;
+        &lt;longitude&gt;11.5417&lt;/longitude&gt;
+      &lt;/centroid&gt;
+    &lt;/geographicScope&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>Latitude/longitude for a bounding box that contains the places mentioned
+in the document (which makes it trivial to draw an &ldquo;area of discussion&rdquo; on
+a map):</p>
+
+    <pre><code>    &lt;extents&gt;
+      &lt;center&gt;
+        &lt;latitude&gt;48.1364&lt;/latitude&gt;
+        &lt;longitude&gt;11.5775&lt;/longitude&gt;
+      &lt;/center&gt;
+      &lt;southWest&gt;
+        &lt;latitude&gt;48.0417&lt;/latitude&gt;
+        &lt;longitude&gt;11.3771&lt;/longitude&gt;
+      &lt;/southWest&gt;
+      &lt;northEast&gt;
+        &lt;latitude&gt;48.2292&lt;/latitude&gt;
+        &lt;longitude&gt;11.749&lt;/longitude&gt;
+      &lt;/northEast&gt;
+    &lt;/extents&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>Detailed breakdown of the places mentioned in your document, giving you
+lat/long coordinates identifying the place&rsquo;s center point.  Moreover, it
+tells you <em>where</em> in your document the place was found (string offsets
+<em>and</em> XPath expressions, to each their own).  This is helpful for those
+occasions when the text you&rsquo;ve entered doesn&rsquo;t exactly match the place&rsquo;s
+name that Yahoo returns (&ldquo;Munich&rdquo; vs. &ldquo;Munich, Bavaria, DE&rdquo;, in this
+example)  Annotating your documents with this data should be a piece of
+cake.</p>
+
+    <pre><code>    &lt;placeDetails&gt;
+      &lt;place&gt;
+        &lt;woeId&gt;676757&lt;/woeId&gt;
+        &lt;type&gt;Town&lt;/type&gt;
+        &lt;name&gt;&lt;![CDATA[Munich, Bavaria, DE]]&gt;&lt;/name&gt;
+        &lt;centroid&gt;
+          &lt;latitude&gt;48.1364&lt;/latitude&gt;
+          &lt;longitude&gt;11.5775&lt;/longitude&gt;
+        &lt;/centroid&gt;
+      &lt;/place&gt;
+      &lt;matchType&gt;0&lt;/matchType&gt;
+      &lt;weight&gt;1&lt;/weight&gt;
+      &lt;confidence&gt;7&lt;/confidence&gt;
+    &lt;/placeDetails&gt;
+    &lt;referenceList&gt;
+      &lt;reference&gt;
+        &lt;woeIds&gt;676757&lt;/woeIds&gt;
+        &lt;start&gt;50&lt;/start&gt;
+        &lt;end&gt;56&lt;/end&gt;
+        &lt;isPlaintextMarker&gt;0&lt;/isPlaintextMarker&gt;
+        &lt;text&gt;&lt;![CDATA[Munich]]&gt;&lt;/text&gt;
+        &lt;type&gt;xpathwithcounts&lt;/type&gt;
+        &lt;xpath&gt;&lt;![CDATA[/html[1]/body[1]/div[2]/div[1]/p[1]]]&gt;&lt;/xpath&gt;
+      &lt;/reference&gt;
+    &lt;/referenceList&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>And some more boilerplate.  :)</p>
+
+    <pre><code>  &lt;/document&gt;
+&lt;/contentlocation&gt;
+</code></pre>
+  </li>
+</ul>
+
+<p>Full documentation of the Placemaker <a href="http://developer.yahoo.com/geo/placemaker/guide/api_docs.html#query_parameters">query parameters</a> and <a href="http://developer.yahoo.com/geo/placemaker/guide/api-reference.html">response format</a> are available on YDN.  Christian has put together a demo of a <a href="http://isithackday.com/hacks/placemaker/">basic PHP implementation</a> (though it&rsquo;s XSSable, and shouldn&rsquo;t ever be used in production).</p>
+
+<p>In general, this is <em>brilliant</em> stuff.  I&rsquo;m looking forward to playing with it!</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/yahoo"
+                 rel="category tag"
+                 title="View other entries tagged 'yahoo'">yahoo</a>&#146;, 
+      
+        &#145;<a href="/tags/placemaker"
+                 rel="category tag"
+                 title="View other entries tagged 'placemaker'">placemaker</a>&#146;, 
+      
+        &#145;<a href="/tags/api"
+                 rel="category tag"
+                 title="View other entries tagged 'api'">api</a>&#146;, 
+      
+        &#145;<a href="/tags/geolocation"
+                 rel="category tag"
+                 title="View other entries tagged 'geolocation'">geolocation</a>&#146;, 
+      
+        &#145;<a href="/tags/xml"
+                 rel="category tag"
+                 title="View other entries tagged 'xml'">xml</a>&#146;, or 
+      
+        &#145;<a href="/tags/curl"
+                 rel="category tag"
+                 title="View other entries tagged 'curl'">curl</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

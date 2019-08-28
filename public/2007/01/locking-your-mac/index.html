@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Locking Your Mac&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="My coworkers love playing pranks on poor, unlocked computers. This is the method I've decided on to quickly and securely walk away from my Mac.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Locking Your Mac</h1>
+  <time class="published" pubdate datetime="Thu Jan 18 00:00:00 +0100 2007">
+    Thursday, January 18, 2007
+  </time>
+
+  <p>I&rsquo;ve tried a few different methods to walk away from my Mac without worrying about jackass coworkers sending e-mails and IM messages on my behalf, and after a bit of experimentation with various screensavers and applescripts, finally hit upon a solution that I&rsquo;m happy with. It&rsquo;s pretty simple, and leverages the power of <a href="http://docs.blacktree.com/quicksilver/triggers">Quicksilver triggers</a> to make the process of locking my computer absolutely second-nature.</p>
+
+<h2 id="terminal-magic">Terminal Magic</h2>
+
+<p>First, open up a terminal window, and copy and paste the following line:</p>
+
+<pre><code>echo "alias lock='/System/Library/CoreServices/Menu\\ Extras/user.menu/Contents/Resources/CGSession -suspend; exit;'" &gt;&gt; ~/.bash_profile
+</code></pre>
+
+<p>This adds an alias to your bash profile that gives you the ability to simply type lock at the command line to securely suspend your current session. I always have a terminal window open, so this was a good first step for me, and might reasonably be enough for you if you&rsquo;re also a terminal geek. However, adding <a href="http://quicksilver.blacktree.com/">Quicksilver</a> into the mix makes the process more flexible.</p>
+
+<h2 id="triggers">Triggers</h2>
+
+<p>We can create a trigger to bind a hotkey to the terminal command we&rsquo;ve just created. Whenever I hit ???\, my computer locks itself down; it&rsquo;s trivial.</p>
+
+<p>Bring up Quicksilver&rsquo;s preference screen by hitting your Quicksilver hotkey (mine&rsquo;s bound to ?-Space), then ?-Comma. Select &ldquo;Triggers&rdquo; from the menu at the top, then create a new custom trigger by hitting the plus button near the bottom and selecting &ldquo;Hotkey.&rdquo; Set this new trigger to run our lock command by hitting &ldquo;.&rdquo; to enter text entry mode, typing &ldquo;lock&rdquo;, then tabbing to the next field and selecting &ldquo;Run a Text Command in Terminal&rdquo; (if you don&rsquo;t have this command, make sure the Terminal plugin is installed).</p>
+
+<p>Once the trigger is created, give it a hotkey by double clicking on the trigger (or clicking on the &ldquo;info&rdquo; icon in the bottom right-hand corner), then clicking on the &ldquo;Hot Key&rdquo; field, and hitting the keys you&rsquo;d like to assign. I chose ???\ because it requires both hands, and isn&rsquo;t something I could possibly hit by accident.</p>
+
+<p>And that&rsquo;s all there is to it! You can now lock your computer with impunity! Enjoy your new-found power.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/HOWTO"
+                 rel="category tag"
+                 title="View other entries tagged 'HOWTO'">HOWTO</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

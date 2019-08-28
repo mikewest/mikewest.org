@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Auto-configuring Proxy Settings with a PAC File&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Configuring a browser's proxy settings manually is inflexible; proxy auto-config (PAC) files are much more flexible.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Auto-configuring Proxy Settings with a PAC File</h1>
+  <time class="published" pubdate datetime="Tue Jan 16 00:00:00 +0100 2007">
+    Tuesday, January 16, 2007
+  </time>
+
+  <p>At work, resources meant only for super-secret internal use are locked away
+behind a homegrown authentication system.  To get at, for example, a piece of 
+documentation, we connect through a proxy, get bounced around through a
+single-signon system, and finally end up where we&rsquo;re trying to get.  This is
+great for security, but not so wonderful for performance.  The proxy&rsquo;s just
+not as fast as direct access, especially when accessing the internet at large.</p>
+
+<p>I&rsquo;ve taken to the hacky solution of setting Firefox up with the necessary
+proxy settings, and using Safari to do all my browsing and testing.  This
+works, but it&rsquo;s a bit of a pain in the ass.  Safari is not, for me, a browser
+that&rsquo;s conducive to development.  I need a way to load up the super-secret AND
+the not-so-secret sites in Firefox, passing the former through the proxy, and 
+hitting the latter directly.</p>
+
+<p>As it turns out, this is a problem that&rsquo;s really quite solved; there&rsquo;s no need
+to dig around through a series of Firefox extensions that do way more than I
+want them to; I can simply set up a <a href="http://en.wikipedia.org/wiki/Proxy_auto-config" title="Wikipedia: Proxy Auto-config">proxy auto-config (PAC) file</a> that gives
+me quite fine-grained control over when the proxy kicks in.</p>
+
+<p>In a nutshell, the auto-config file is a JavaScript file that defines a single
+function (<code>FindProxyForURL</code>) that accepts two arguments (<code>url</code> and <code>host</code>).  This function is called just before the browser requests a page, and, as you
+might expect, tells the browser whether it should hit a proxy or grab the
+page directly.  If you write an auto-config file, and host it on a server
+somewhere, then you&rsquo;re good to go with regard to proxy configuration in any
+browser that supports the standard (read: all browsers ever).</p>
+
+<h2 id="the-proxy-auto-config-file-format">The Proxy Auto-Config File Format</h2>
+
+<p>In the simplest case, you need to use a basic proxy server for every request
+your browser makes.  Assuming you connect through port 8080 of
+<code>my.proxy.server.com</code>, the corresponding auto-config file is trivial:</p>
+
+<pre><code>function FindProxyForURL(url, host) {
+    return "PROXY my.proxy.server.com:8080";
+}
+</code></pre>
+
+<p>Easy, right?  No matter what <code>url</code> gets passed to the function, you return a 
+string containing the connection method (&ldquo;PROXY&rdquo;, we&rsquo;ll talk about others in
+a second) and the server.</p>
+
+<p>But let&rsquo;s say you&rsquo;re in my situation.  You need to use the proxy server for 
+<em>some</em> sites, and directly connect to others.  Let&rsquo;s say
+<code>super-secret.website.com</code> hid behind the proxy, and you could connect to
+everything else directly:</p>
+
+<pre><code>function FindProxyForURL(url, host) {
+    if (
+        localHostOrDomainIs(host, "super-secret.website.com")
+    ) {
+        return "PROXY my.proxy.server.com:8080";
+    } else {
+        return "DIRECT";
+    }
+}
+</code></pre>
+
+<p>We use the <code>localHostOrDomainIs</code> function to compare the requested host to a
+string.  If <code>host</code> is &ldquo;super-secret.website.com&rdquo;, we return the proxy, if not,
+we tell the browser to connect directly.</p>
+
+<p>Finally, let&rsquo;s put together a more complex example.  Let&rsquo;s say that we need to
+connect to some servers with one proxy, others through a Socks server, and
+everything else directly.  Further, let&rsquo;s assume that our network design is 
+strange enough to dictate that we access a particular server <em>differently</em> 
+based on the URL requested.  This is a strange scenario indeed, but is
+relatively straightforward to implement:</p>
+
+<pre><code>function FindProxyForURL(url, host) {
+    //
+    //  Here's a list of hosts to connect via the PROXY server
+    //
+    var proxy_1 = array(
+        "super-secret.website.com",
+        "mostly-secret.website.com",
+        "my-secret.other-website.com",
+        "our-secret.other-website.com"
+    );
+    
+    for (var i = 0, var count = proxy_1.length; i &lt; length; i++) {
+        if (
+            localHostOrDomainIs(host, proxy_1[i])
+        ) {
+            return "PROXY my.proxy.server.com:8080";
+        }
+    }
+    
+    //
+    //  Here's a list of hosts to connect via the SOCKS server
+    //
+    var proxy_2 = array(
+        "i-need-socks.website.com",
+        "socks-are-warm-and-fuzzy.other-website.com"
+    );
+    
+    for (var i = 0, var count = proxy_2.length; i &lt; length; i++) {
+        if (
+            localHostOrDomainIs(host, proxy_1[i])
+        ) {
+            return "SOCKS my.socks.server.com:1080";
+        }
+    }
+    
+    //
+    // Connect through a SOCKS server for everything on
+    // `strange.server.com` under the `socks` subdirectory
+    //
+    if (
+        shExpMatch(url, "strange.server.com/socks/*")
+    ) {
+        return "SOCKS my.socks.server.com:1080";
+    //
+    //  And through a normal PROXY server for everything
+    //  on `strange.server.com` under the `proxy` subdirectory
+    //
+    } elseif (
+        shExpMatch(url, "strange.server.com/proxy/*")            
+    ) {
+        return "PROXY other.proxy.server.com:8080";            
+    }
+    //
+    // Directly connect to everything else
+    //
+    return "DIRECT";
+}
+</code></pre>
+
+<p>The <code>shExpMatch</code> function we added to this example allows you a lot of
+flexibility by matching the <code>host</code> or <code>url</code> against a string with wildcards.
+<code>shExpMatch(url, '*.domain.com/proxy/*')</code> would, for example, match any
+request for a page under the <code>proxy</code> subdirectory of any subdomain of
+<code>domain.com</code>. while <code>shExpMatch(host, 'secret.*.com')</code> would match any request
+for any page on a server whose lowest-level domain is &ldquo;secret&rdquo;.</p>
+
+<h2 id="hosting-the-pac-file">Hosting The PAC File</h2>
+
+<p>Once you&rsquo;ve written a proxy auto-config file using the techniques above, you
+can either put it somewhere on your local disk and simply point the browser to
+it, or host it remotely on a server you have access to.  You can name it
+whatever you like, but conventionally it&rsquo;s named <code>proxy.pac</code>.</p>
+
+<p>If you choose the latter method, you&rsquo;ll have to ensure that you serve the file
+with the correct <a href="http://en.wikipedia.org/wiki/Mime_type" title="Wikipedia: Internet Media Type">MIME type</a>: <code>application/x-ns-proxy-autoconfig</code>.  If
+you&rsquo;re running Apache, you can simply add the following line to your
+<code>.htaccess</code> file to send the correct headers for any file with the <code>.pac</code>
+extension:</p>
+
+<pre><code>AddType application/x-ns-proxy-autoconfig .pac
+</code></pre>
+
+<h2 id="more-resources">More Resources</h2>
+
+<p>These examples outline everything I&rsquo;ve ever needed when putting together my 
+proxy configuration.  There are more functions out there for you to play with
+if your configuration is more complex than what I&rsquo;ve needed to deal with,
+and documentation is fairly plentiful.</p>
+
+<ul>
+  <li>
+    <p>Netscape has good documentation of the various functions available for use
+in your auto-config file in their <a href="http://wp.netscape.com/eng/mozilla/2.0/relnotes/demo/proxy-live.html" title="Navigator Proxy Auto-Config File Format">documentation for proxy auto-config
+scripts</a>.</p>
+  </li>
+  <li>
+    <p><a href="http://homepages.tesco.net/J.deBoynePollard/FGA/web-browser-auto-proxy-configuration.html" title="Automatic proxy HTTP server configuration in web browsers">Automatic proxy HTTP server configuration in web browsers</a> 
+contains, surprisingly enough, more detailed information about the inner
+workings of the proxy system in the browser engine.</p>
+  </li>
+</ul>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/HOWTO"
+                 rel="category tag"
+                 title="View other entries tagged 'HOWTO'">HOWTO</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

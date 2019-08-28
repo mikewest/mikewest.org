@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Mnot's Redbot&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Mark Nottingham has put together a really useful tool that aids in the analysis of the behavior of HTTP resources.  I've started putting together a command line version based on the web version he's released on GitHub.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Mnot's Redbot</h1>
+  <time class="published" pubdate datetime="Sat May 23 00:00:00 +0200 2009">
+    Saturday, May 23, 2009
+  </time>
+
+  <p><a href="http://www.mnot.net/">Mark Nottingham</a> has put together a really useful tool that aids in the analysis of the behavior of HTTP resources.  Visit <a href="http://redbot.org/">http://redbot.org/</a>, type in a web address, and Redbot will report the resource&rsquo;s cachability based on the returned headers, and provide a helpful list of recommendations for improvement.</p>
+
+<p>Running it on <a href="http://mikewest.org/">http://mikewest.org/</a>, for instance, <a href="http://redbot.org/?uri=http%3A%2F%2Fwww.mikewest.org%2F">flags the fact</a> that I compress the response if the browser tells me that it can accept compressed content, but that I&rsquo;ve neglected to send the proper <code>Vary</code> header to let caches know that the response needs to be negotiated, and cached based on the <code>Accept-Encoding</code> request header.  This is <em>useful</em>, especially for <em>actual</em> applications for which it might matter.</p>
+
+<p>So useful, in fact, that I&rsquo;m forking it to submit some patches.  Mark&rsquo;s put the Redbot code up on GitHub (<a href="http://github.com/mnot/redbot/tree/master">mnot/redbot</a>), and I&rsquo;ve started putting together a <a href="http://github.com/mikewest/redbot/blob/master/src/redbotcli.py">command line version</a> based on the web version he&rsquo;s built.</p>
+
+<p>I&rsquo;ve mentioned that <a href="http://mikewest.org/2008/11/i-love-github">I love GitHub</a>, right?  This is exactly why.  :)</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/redbot"
+                 rel="category tag"
+                 title="View other entries tagged 'redbot'">redbot</a>&#146;, 
+      
+        &#145;<a href="/tags/mnot"
+                 rel="category tag"
+                 title="View other entries tagged 'mnot'">mnot</a>&#146;, 
+      
+        &#145;<a href="/tags/python"
+                 rel="category tag"
+                 title="View other entries tagged 'python'">python</a>&#146;, 
+      
+        &#145;<a href="/tags/code"
+                 rel="category tag"
+                 title="View other entries tagged 'code'">code</a>&#146;, 
+      
+        &#145;<a href="/tags/webdev"
+                 rel="category tag"
+                 title="View other entries tagged 'webdev'">webdev</a>&#146;, 
+      
+        &#145;<a href="/tags/testing"
+                 rel="category tag"
+                 title="View other entries tagged 'testing'">testing</a>&#146;, 
+      
+        &#145;<a href="/tags/http"
+                 rel="category tag"
+                 title="View other entries tagged 'http'">http</a>&#146;, 
+      
+        &#145;<a href="/tags/headers"
+                 rel="category tag"
+                 title="View other entries tagged 'headers'">headers</a>&#146;, or 
+      
+        &#145;<a href="/tags/github"
+                 rel="category tag"
+                 title="View other entries tagged 'github'">github</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

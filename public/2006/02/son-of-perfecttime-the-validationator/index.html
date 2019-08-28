@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Son of PerfectTime: The Validationator!&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="The PerfectTime JavaScript class gets updated to support the hCalendar format.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Son of PerfectTime: The Validationator!</h1>
+  <time class="published" pubdate datetime="Tue Feb 14 00:00:00 +0100 2006">
+    Tuesday, February 14, 2006
+  </time>
+
+  <p>By far, the biggest bit of feedback I&rsquo;ve gotten on <a href="/2006/02/showing-perfect-time-unobtrusively">&ldquo;Showing Perfect Time&rdquo;</a> is the glaringly invalid attribute (<code>gmt_time</code>) in the structure I chose to use (from <a href="http://ecmanaut.blogspot.com/2006/01/ajax-date-time-time-zones-best.html#c113978133722812093">Johan Sundström</a>, for example).  I don&rsquo;t think that the attribute by itself is a huge deal, and <a href="http://www.quirksmode.org/">Peter-Paul Koch</a> makes <a href="http://alistapart.com/articles/scripttriggers/" title="JavaScript Triggers">a convincing argument</a> for that position at <a href="http://alistapart.com/">A List Apart</a>.</p>
+
+<p>However, <a href="http://ifstatement.blogspot.com/">Daniel Morrison</a> points out that the display of dates on webpages is already more or less a solved problem.  <a href="http://microformats.org/wiki/hcalendar#Example">hCalendar</a> is a <a href="http://microformats.org/">microformat</a> used by blogs all over the place to display dates and times, and there&rsquo;s absolutely no good reason why I should try to invent a new format rather than using one already in the wild.</p>
+
+<p>I&rsquo;ve rewritten <a href="/projects/files/PerfectTime/PerfectTime.js">PerfectTime.js</a> to support the <a href="http://microformats.org/wiki/hcalendar#Example">hCalendar</a> format (<a href="/projects/files/PerfectTime/PerfectTimeDemo.php">an updated PHP-driven demo</a> is also avaliable), and I&rsquo;ll describe the changes in the remainder of this article.</p>
+
+<p>The <a href="http://microformats.org/wiki/hcalendar#Example">hCalendar</a> format uses an <code>abbr</code> tag to display dates and times.  The date is machine-readable in the tag&rsquo;s <code>title</code> attribute, while the element&rsquo;s contents are human-readable.  For example:</p>
+
+<pre><code>&lt;abbr title="2005-10-08"&gt;October 8th, 2005&lt;/abbr&gt;
+</code></pre>
+
+<p>Or, for slightly more complexity:</p>
+
+<pre><code>&lt;abbr title="19721128T115524-0800"&gt;Tue, 28 Nov 1972 11:55:24 -0800&lt;/abbr&gt;
+</code></pre>
+
+<p>The <code>title</code> attribute is encoded according to <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>, while the human readable contents can be formatted however you like.  I&rsquo;ve modified the original PerfectTime class to support this format, with the following caveats:</p>
+
+<ol>
+  <li>
+    <p>The script only attempts to modify <code>abbr</code> elements of class <code>PerfectTime</code>.
+If you want your beginning and ending <a href="http://microformats.org/wiki/hcalendar#Example">hCalendar</a> times to be localized,
+you&rsquo;ll have to set them as something like:</p>
+
+    <pre><code>&lt;abbr class='dtend *PerfectTime*' title='...'&gt;...&lt;/abbr&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>ISO 8601 is not completely supported.  Specifically, the formats accepted 
+by this script are the following:</p>
+
+    <pre><code>YYYY
+YYYY-MM
+YYYY-MM-DD
+YYYY-MM-DDTHH:MM
+YYYY-MM-DDTHH:MM[+-]HHMM
+YYYY-MM-DDTHH:MM:SS.sZ
+YYYY-MM-DDTHH:MM:SS
+YYYY-MM-DDTHH:MM:SS.s
+YYYY-MM-DDTHH:MM:SS.s[+-]HHMM    
+YYYY-MM-DDTHH:MM:SS.sZ
+</code></pre>
+
+    <p>Additionally, the hyphens seperating the date components and the colons
+seperating the time components are optional.  For example, &ldquo;March 22, 2006 
+at 12:00 CET (+0100)&rdquo; could be written as any of:</p>
+
+    <pre><code>2006-03-22T12:00+0100        
+20060322T12:00+0100        
+2006-03-22T1100Z
+</code></pre>
+
+    <p>All of those point to the exact same minute in time.</p>
+  </li>
+  <li>
+    <p>The script does not (yet) support the &lsquo;week dates&rsquo; (YYYY-Www-D) or &lsquo;ordinal
+dates&rsquo; (YYYY-DDD) formats.  This probably won&rsquo;t be a problem for most usages
+since my impression is that a script like this will likely be used for hours
+and minutes much more than for specific days.</p>
+  </li>
+</ol>
+
+<p>The piece of the script that parses <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamps is based on <a href="http://delete.me.uk/2005/03/iso8601.html">Paul Sowden&rsquo;s parser</a>.  I&rsquo;ve modified it to fit into the self-contained JavaScript class we&rsquo;re looking at here, to make the colons and hyphens optional, and to reuse a single <code>RegEx</code> object instead of creating a new one on every parse.  </p>
+
+<p>To verify that the methods are giving the same times, I modified the <a href="/projects/files/PerfectTime/PerfectTimeDemo.php">the PerfectTime demo page</a> to generate 10 random timestamps between 1970 and 2010, and output both the <code>span</code> and <code>abbr</code> formats.  It looks like it&rsquo;s working pretty well for me on Firefox, but I don&rsquo;t have access to a windows machine right now, so I&rsquo;ve no idea if it&rsquo;s working correctly there.  I&rsquo;d love it if someone would bang on that for me and let me know how it goes.</p>
+
+<p>With that said, <a href="/projects/files/PerfectTime/PerfectTime.js">PerfectTime 1.1</a> is ready for you to run away with.</p>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/JavaScript"
+                 rel="category tag"
+                 title="View other entries tagged 'JavaScript'">JavaScript</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

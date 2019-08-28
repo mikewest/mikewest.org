@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Generating Etags for static content using Nginx&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Nginx is a brilliant little HTTP server that I'm using on this website to quickly serve static content.  It bothers me a (very) little that it doesn't correctly generate Etag headers for static content, however.  I'm attempting to remedy that oversight by releasing an Nginx module: `nginx-static-etags`.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Generating Etags for static content using Nginx</h1>
+  <time class="published" pubdate datetime="Sat Nov 08 00:00:00 +0100 2008">
+    Saturday, November 08, 2008
+  </time>
+
+  <p><a href="http://nginx.net/">Nginx</a> is a brilliant little HTTP server that I&rsquo;m using on this website to quickly serve static content, and quickly proxy traffic through to the <a href="http://github.com/mikewest/fallow/tree">ruby backend</a> when static content just won&rsquo;t do.  It&rsquo;s been a breeze to set up, and quite stable in my (limited) experience.  There&rsquo;s just one thing bothering me about it at the moment: it doesn&rsquo;t completely support the content-based cache headers I&rsquo;d like to see.  Specifically, it doesn&rsquo;t do <code>Etag</code>s for content it serves, and it <a href="http://markmail.org/message/xiungpgciwvocl4w">doesn&rsquo;t look like Igor&rsquo;s going to implement it</a>.</p>
+
+<p>I see the complete lack of <code>Etag</code> support as an oversight.  It&rsquo;s more granular than <code>Last-Modified</code>, which is only accurate to the second, and only measures change along the axis of <em>time</em>; <code>touch</code>ing a file doesn&rsquo;t change it&rsquo;s content, but would force a cache miss when the cache is based on nothing but timestamp.  <code>Etag</code>s, on the other hand, are <em>content</em>-based identifiers that provide a mechanism for confirmation that the content of the file you&rsquo;re reading is accurate, regardless of inconsequential fiddling or deployment on the server.</p>
+
+<p>That said, it isn&rsquo;t catastrophic to rely entirely on <code>Last-Modified</code> when serving truly static content.  If you set <code>Cache-Control</code> and <code>Expires</code> headers correctly, your users&rsquo; browsers and upstream proxies should cache the static content correctly.  You&rsquo;ll all be seeing the right thing at more or less the right time.  It&rsquo;s not optimal, however, and I&rsquo;m using that as an excuse to play around with C again.</p>
+
+<h2 id="introducing-nginx-static-etags">Introducing <code>nginx-static-etags</code></h2>
+
+<p>It appears that the only way to add the functionality I&rsquo;d like to see is to write an Nginx module (in C) and compile it into the server.  I&rsquo;m in the process of doing that now, and I&rsquo;m making relatively good progress on <a href="http://emiller.info/nginx-modules-guide.html"><code>nginx-static-etags</code></a> over on GitHub.  It&rsquo;s been much harder than I expected, actually.  <a href="http://emiller.info/">Evan Miller</a> has put together an <a href="http://emiller.info/nginx-modules-guide.html">epic Nginx module-building tutorial</a> that I&rsquo;ve had up constantly all week, but it turns out that I remember less C than I thought I did (and that the &ldquo;C&rdquo; that I remember is generally C++, which isn&rsquo;t quite the same).</p>
+
+<p>I certainly wouldn&rsquo;t recommend that anyone run this in production yet, as, let&rsquo;s be honest, the code&rsquo;s likely a joke.  But after a week of tinkering and banging my head against GCC, it&rsquo;s finally actually doing what it promises: generating valid <code>Etag</code> headers for static content.  There&rsquo;s very little configuration available right now, but the goal is to get it up to feature parity with the <a href="http://httpd.apache.org/docs/1.3/mod/core.html#fileetag">equivalent Apache configuration option</a>.</p>
+
+<p>It&rsquo;s been a good learning experience for me, and it&rsquo;s <a href="/2008/10/fallow-fields-and-new-beginnings">keeping me sane</a> (as side projects are wont to do).  <a href="http://github.com/mikewest/nginx-static-etags/tree">Follow along on GitHub</a> if you&rsquo;re interested.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Download the module however you like.  I&rsquo;d recommend pulling it down with Git by simply cloning this repository:</p>
+
+<pre><code>mkdir ~/src
+cd    ~/src
+git clone git://github.com/mikewest/nginx-static-etags.git ./nginx-static-etags
+</code></pre>
+
+<p>To use the module, you&rsquo;ll have to compile it into Nginx.  So, download the Nginx source, configure it with the module path, and compile:</p>
+
+<pre><code>mkdir ~/src
+cd ~/src
+curl -O http://sysoev.ru/nginx/nginx-0.6.32.tar.gz
+tar -zxvf ./nginx-0.6.32.tar.gz
+cd ./nginx-0.6.32
+./configure --add-module=/Users/mikewest/Repositories/nginx-static-etags
+make
+sudo make install
+</code></pre>
+
+<p>And you&rsquo;re done!</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Add <code>FileEtag</code> to the relevant <code>location</code> blocks in your <code>nginx.conf</code> file:</p>
+
+<pre><code>location / {
+    ...
+    FileETag on;
+    ...
+}
+</code></pre>
+
+<h2 id="caveat">Caveat</h2>
+
+<p><a href="http://intranation.com/">Brad&rsquo;s</a> kinda right to <a href="http://github.com/mikewest/nginx-static-etags/commit/7dc32e124a8ba70d7bab733d68a8ef75f1b7d3b8#comments">question the value</a> of implementing <code>Etag</code>s at all: if you don&rsquo;t generate them correctly you&rsquo;ll do more harm than good.  Yahoo!&rsquo;s Exceptional Performance team <a href="http://developer.yahoo.com/performance/rules.html#etags">explicitly recommends against using the <code>Etag</code> header</a> unless you know what you&rsquo;re doing (which really boils down to ensuring that Apache doesn&rsquo;t use the file&rsquo;s <code>inode</code> to generate the key).  I think they&rsquo;ve painted with a <em>really</em> broad brush, though, as YSlow&rsquo;s admonitions against <code>Etag</code>s really only apply to the default configurations of Apache and IIS.  <code>Etag</code> can be a very valuable addition to the caching arsenal if you think about them; Yahoo!&rsquo;s throwing the baby out with the bathwater. </p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/mikewest.org"
+                 rel="category tag"
+                 title="View other entries tagged 'mikewest.org'">mikewest.org</a>&#146;, 
+      
+        &#145;<a href="/tags/nginx"
+                 rel="category tag"
+                 title="View other entries tagged 'nginx'">nginx</a>&#146;, 
+      
+        &#145;<a href="/tags/etag"
+                 rel="category tag"
+                 title="View other entries tagged 'etag'">etag</a>&#146;, 
+      
+        &#145;<a href="/tags/caching"
+                 rel="category tag"
+                 title="View other entries tagged 'caching'">caching</a>&#146;, 
+      
+        &#145;<a href="/tags/http"
+                 rel="category tag"
+                 title="View other entries tagged 'http'">http</a>&#146;, 
+      
+        &#145;<a href="/tags/headers"
+                 rel="category tag"
+                 title="View other entries tagged 'headers'">headers</a>&#146;, 
+      
+        &#145;<a href="/tags/performance"
+                 rel="category tag"
+                 title="View other entries tagged 'performance'">performance</a>&#146;, 
+      
+        &#145;<a href="/tags/exceptionalperformance"
+                 rel="category tag"
+                 title="View other entries tagged 'exceptionalperformance'">exceptionalperformance</a>&#146;, 
+      
+        &#145;<a href="/tags/y!"
+                 rel="category tag"
+                 title="View other entries tagged 'y!'">y!</a>&#146;, 
+      
+        &#145;<a href="/tags/yahoo"
+                 rel="category tag"
+                 title="View other entries tagged 'yahoo'">yahoo</a>&#146;, 
+      
+        &#145;<a href="/tags/static"
+                 rel="category tag"
+                 title="View other entries tagged 'static'">static</a>&#146;, 
+      
+        &#145;<a href="/tags/webdev"
+                 rel="category tag"
+                 title="View other entries tagged 'webdev'">webdev</a>&#146;, 
+      
+        &#145;<a href="/tags/development"
+                 rel="category tag"
+                 title="View other entries tagged 'development'">development</a>&#146;, 
+      
+        &#145;<a href="/tags/fallow"
+                 rel="category tag"
+                 title="View other entries tagged 'fallow'">fallow</a>&#146;, 
+      
+        &#145;<a href="/tags/server"
+                 rel="category tag"
+                 title="View other entries tagged 'server'">server</a>&#146;, 
+      
+        &#145;<a href="/tags/module"
+                 rel="category tag"
+                 title="View other entries tagged 'module'">module</a>&#146;, or 
+      
+        &#145;<a href="/tags/nginx-static-etags"
+                 rel="category tag"
+                 title="View other entries tagged 'nginx-static-etags'">nginx-static-etags</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

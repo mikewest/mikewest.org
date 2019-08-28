@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Static IPs in VMWare Fusion Guests&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Setting VMWare Fusion up to assign the same IP to a particular guest OS every time is a trivial process, and makes configuring your development environment a simpler process.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Static IPs in VMWare Fusion Guests</h1>
+  <time class="published" pubdate datetime="Sat May 02 00:00:00 +0200 2009">
+    Saturday, May 02, 2009
+  </time>
+
+  <p>Generally speaking, your guests will pick up the same IP from VMWare every time.  You write some scripts assuming that those IPs will remain stable, and everything&rsquo;s good.  Then, for whatever reason, VMWare&rsquo;s DHCP server decides that your VM really ought to sit on 192.168.65.131 instead of 192.168.65.135, where it had been happy and comfortable for <em>weeks</em>.  Annoying.</p>
+
+<p>The solution&rsquo;s simple: you need to tell Fusion to assign the same IP to a particular guest every time.  That&rsquo;s a trivial process:</p>
+
+<ol>
+  <li>
+    <p>Log into your VM, and type <code>ifconfig -a | grep HWaddr | awk '{print $5}</code>.  That will spit out a string that looks something like &ldquo;00:0c:29:f8:9d:61&rdquo;.  This string is your VM&rsquo;s <abbr title="Media Access Control">MAC</abbr> address that uniquely identifies this VM when it requests an IP address.  Write it down; you&rsquo;ll need it shortly.</p>
+  </li>
+  <li>
+    <p>Back on your mac, open up VMWare&rsquo;s DHCP server config.  It sits in <code>/Library/Application Support/VMware Fusion/vmnet8/dhcpd.conf</code>, and is a simple text file that you can edit with something like TextMate or VIM.</p>
+
+    <pre><code>mate /Library/Application\ Support/VMware\ Fusion/vmnet8/dhcpd.conf
+</code></pre>
+  </li>
+  <li>
+    <p>Add a block for each of your VMs in the form:</p>
+
+    <pre><code>host [HOSTNAME] {
+    hardware ethernet [MAC ADDRESS];
+    fixed-address [STATIC IP OF YOUR CHOICE];
+}
+</code></pre>
+
+    <p>The address you choose needs to be in the same subnet as the previously assigned DHCP addresses.  Mine, for example, was 192.168.65.131, so I can pick any address in 192.168.65.*.  It&rsquo;s best to pick a number between 3 and 127, as VMWare has reserved that range for static IPs.</p>
+  </li>
+  <li>
+    <p>Reboot VMWare&rsquo;s DHCP server so that it picks up the new assignments you&rsquo;ve made:</p>
+
+    <pre><code>sudo /Library/Application\ Support/VMware\ Fusion/\boot.sh --restart
+</code></pre>
+  </li>
+  <li>
+    <p>Grab new addresses on your VMs.  The simplest way to do this is simply to reboot the machines.  If you&rsquo;re not into rebooting, you can either bring the ethernet interface down and back up again (on linux) with:</p>
+
+    <pre><code>sudo ifdown eth0 &amp;&amp; sudo ifup eth0
+</code></pre>
+
+    <p>Windows has a similar set of commands:</p>
+
+    <pre><code>ipconfig /release
+ipconfig /renew
+</code></pre>
+
+    <p>Make sure you&rsquo;re not trying to perform this switch if you&rsquo;re SSHed into the machine.  I suspect turning off the network would have some adverse effects on your connection&hellip; :)</p>
+  </li>
+</ol>
+
+<p>Enjoy your (dynamically) static IPs!</p>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/vmware"
+                 rel="category tag"
+                 title="View other entries tagged 'vmware'">vmware</a>&#146;, 
+      
+        &#145;<a href="/tags/virtualization"
+                 rel="category tag"
+                 title="View other entries tagged 'virtualization'">virtualization</a>&#146;, 
+      
+        &#145;<a href="/tags/networking"
+                 rel="category tag"
+                 title="View other entries tagged 'networking'">networking</a>&#146;, 
+      
+        &#145;<a href="/tags/staticip"
+                 rel="category tag"
+                 title="View other entries tagged 'staticip'">staticip</a>&#146;, or 
+      
+        &#145;<a href="/tags/dhcp"
+                 rel="category tag"
+                 title="View other entries tagged 'dhcp'">dhcp</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

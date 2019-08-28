@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;DataRequestor 1.6.1 - Ajax without the confusing API&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="DataRequestor is a JavaScript wrapper for the `XMLHttpRequest` object that enables the trivial implementation of dynamic interfaces without the painful necessity for a complete page-refresh to talk to the server. It's Ajax without the confusing API.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">DataRequestor 1.6.1 - Ajax without the confusing API</h1>
+  <time class="published" pubdate datetime="Fri Mar 31 00:00:00 +0200 2006">
+    Friday, March 31, 2006
+  </time>
+
+  <p>DataRequestor is a JavaScript wrapper for the <code>XMLHttpRequest</code> object that enables the trivial implementation of dynamic interfaces without the painful necessity for a complete page-refresh to talk to the server. In other words: Ajax without the confusing API.</p>
+
+<h2 id="how-can-you-use-datarequestor">How can you use DataRequestor?</h2>
+
+<p>When building applications, the most typical Ajaxy sort of thing I find myself doing is sending off data to a server-side script, and then sticking the resulting HTML directly into some element on the page. DataRequestor makes this process absolutely trivial, and enables quite a bit more functionality with minimal effort.</p>
+
+<pre><code>var req = new DataRequestor();
+req.setObjToReplace('objID');
+req.getURL('/path/to/my/file.php');
+</code></pre>
+
+<p>Those three lines build an <code>XMLHtmlRequest</code> object, grab the relevant data from the server, and use that information to replace the <code>innerHTML</code> of an element with id &lsquo;<code>objID</code>&rsquo;. Trivial, right?</p>
+
+<p>What if we wanted to do something else when the data’s loaded? Instead of replacing an element’s <code>innerHTML</code>, maybe we want to do some crazy JavaScript stuff once the data’s finished loading. Typically, this would involve being annoyed at the <code>XMLHttpRequest</code> object’s rather irritating callback structure. Happily, DataRequestor wraps this complexity in a warm blanket of event-driven goodness:</p>
+
+<pre><code>req.onload = function (data, obj) {
+    // Insert crazy JavaScript stuff here!
+}
+</code></pre>
+
+<p>DataRequestor is a solid, stable, and event-driven JavaScript class that you can simply drop into a page and start running with. It makes <code>XMLHTTPRequest</code>&rsquo;s functionality available in a way that doesn’t make my brain hurt, and hopefully it will do the same for you.  <a href="http://mikewest.org/archive/datarequestor/">Download DataRequestor.js</a> and browse through the code.  It&rsquo;s well commented; use cases and instructions abound.</p>
+
+<h2 id="how-can-i-get-it">How can I get it?</h2>
+
+<p>You may download the <a href="http://github.com/mikewest/datarequestor/tree/master">current stable version (1.6) of DataRequestor.js <strong>right here</strong></a>.  How&rsquo;s that for convenience?</p>
+
+<h2 id="future-plans">Future Plans</h2>
+
+<p><strong>Update, 2008-10-18</strong>: Despite well intentioned promises in the past, there are no future plans.  I&rsquo;ve released this project under the MIT license, and <a href="http://github.com/mikewest/datarequestor/tree/master">placed the code on GitHub</a> for you to fork at your leisure.</p>
+
+<p><del style="text-decoration: line-through;">The landscape has changed a lot since I released DataRequestor in March, 2005.  Frameworks have appeared that do everything DataRequestor does, and I certainly don&rsquo;t have the time or desire to compete with them on a feature-for-feature basis.  Happily, I think that&rsquo;s a feature, not a bug.  :)</del></p>
+
+<p><del style="text-decoration: line-through;">I believe there&rsquo;s room for, and demand for, a simple library that does the bare minimum in terms of enabling Ajaxy interactions in existing applications.  I think the API that DataRequestor exposes is clear, concise, and trivial to implement.  In short, it&rsquo;s not going to disappear.</del></p>
+
+<p><del style="text-decoration: line-through;">In the next couple of weeks, I&rsquo;ll be making some changes to DataRequestor&rsquo;s backend in order to leverage some of the incredible work being done on <a href="http://developer.yahoo.com/yui/">Yahoo&rsquo;s User Interface library</a>.  I&rsquo;ll be pulling pieces of that library&rsquo;s code to increase DataRequestor&rsquo;s overall stability and elegance, while keeping the external interface the same.  Just like this 1.6 release, 2.0 will be a drop-in replacement for any previous version of DataRequestor.  I&rsquo;ll be releasing some new features with that release (foremost: automatically repeated requests for timed site updates), and offering an alternate execution path I&rsquo;ve been thinking about, but all your current code will work just the way it always has.  We&rsquo;ll see where it goes from there.</del></p>
+
+<h2 id="release-notes">Release Notes</h2>
+
+<h3 id="changes-in-version-161">Changes in Version 1.6.1</h3>
+<ul>
+  <li>Removed <em>debug code</em> that broke the whole library in every browser that didn&rsquo;t have Firebug installed.  I hate being a moron.  :)</li>
+</ul>
+
+<h3 id="changes-in-version-16">Changes in Version 1.6</h3>
+<ul>
+  <li>Fixed major bug with <code>addArgsFromForm</code>; it now properly reads form variables anywhere under a <code>FORM</code> element&rsquo;s DOM tree, instead of simply those that are the <code>FORM</code>&rsquo;s direct children.</li>
+  <li>Changed the internal handling of get and post variables to avoid some spurious get and post variables caused by other scripts&rsquo; overzealous addition of methods via <code>.prototype</code>.</li>
+  <li>Better handling of certain error situations (calling <code>onfail</code> to handle unexpected exceptions, etc.)</li>
+  <li>Moved handling of strangely cased <code>onLoad</code>, <code>onFail</code>, etc. out of callback function, into <code>getURL</code>.</li>
+  <li>Add ability to deal with Mozilla-based browser&rsquo;s <code>NS_ERROR_NOT_AVAILABLE</code> error.</li>
+  <li>Trigger an <code>onfail</code> event, or throw an error if the browser is disconnected from the internet when a request is made.</li>
+</ul>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/DataRequestor"
+                 rel="category tag"
+                 title="View other entries tagged 'DataRequestor'">DataRequestor</a>&#146;, or 
+      
+        &#145;<a href="/tags/JavaScript"
+                 rel="category tag"
+                 title="View other entries tagged 'JavaScript'">JavaScript</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

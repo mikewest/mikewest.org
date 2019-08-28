@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Smoothly Migrating to a New Server&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Hopefully, you didn't notice a thing yesterday when I moved the site off my shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That was very much the goal.  Briefly, I'll go through the steps I took to make the transition as smooth as possible both before the launch and directly afterwards.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Smoothly Migrating to a New Server</h1>
+  <time class="published" pubdate datetime="Sun Nov 02 00:00:00 +0100 2008">
+    Sunday, November 02, 2008
+  </time>
+
+  <p>Hopefully, you didn&rsquo;t notice a thing yesterday when I moved the site off my shared accelerator at Joyent, and onto a custom built slice at Slicehost.  That was very much the goal.  Briefly, I&rsquo;ll go through the steps I took to make the transition as smooth as possible both before the launch and directly afterwards.</p>
+
+<h2 id="dns-and-ttl">DNS and TTL</h2>
+
+<p>I read in a cookbook once that the first step in <em>any</em> recipe is to boil water.  It doesn&rsquo;t really matter what you&rsquo;re making; there&rsquo;s a very high probability that you&rsquo;ll need boiling water at some point in the process, and since it takes <em>forever</em> to boil, you&rsquo;ll want to get it started as soon as possible.  So, when you find yourself mildly hungry, just walk into the kitchen, fill a pot with water, set it on the stove, and then start thinking about what you want to eat.  Worst case, you can make yourself some tea afterwards.</p>
+
+<p>In exactly the same way, you need to think about your site&rsquo;s DNS situation as early as possible, even if you&rsquo;re not sure where the site will end up when you&rsquo;re done.  DNS changes can take <em>days</em> to propagate, depending on local ISPs cache settings, so it&rsquo;s really in your best interest to start thinking about this part of the migration first, well before you&rsquo;re ready to launch.</p>
+
+<p>Most people don&rsquo;t pay too much attention to DNS.  They&rsquo;ll use their hosting service&rsquo;s DNS servers, or, worse yet, their domain registrar&rsquo;s.  These generally provide very basic service, and very few offer the granularity you&rsquo;d get with a service like <a href="http://dnsmadeeasy.com/">DNSMadeEasy</a>, who I&rsquo;ve <a href="/2007/12/dns-made-easy-is-actually-pretty-easy" title="Mike West: 'DNS Made Easy is actually pretty easy'">talked about before</a> and highly recommend.</p>
+
+<p>In particular, the feature that&rsquo;s most important for smooth migration is the ability to set the <abbr title="Time to Live">TTL</abbr> for a particular DNS record.  TTL prescribes the length of time (in seconds) a particular DNS lookup ought be cached before asking a domain&rsquo;s authoritative server for an update.  Generally speaking, your IP address doesn&rsquo;t change, so there&rsquo;s no point in asking your users to look it up every time they come to your site.  That lookup accounts for a good bit of overhead, hovering somewhere around 20-120 milliseconds per request, <a href="http://developer.yahoo.com/performance/rules.html#dns_lookups">according to Yahoo!&rsquo;s exceptional performance team</a>.  Normally, then, you&rsquo;ll want to keep your TTLs relatively long; I leave mine at about a day (86,400 seconds).</p>
+
+<p>Migrations, however, require much more rapid reaction times.  You&rsquo;ll want to minimize the time between pointing the domain to the new IP address, and the time at which your users actually start hitting the new site.  As soon as you think you might be moving to a new server, or changing your server&rsquo;s IP (to add an SSL certificate, for instance), your first step should be to dial down the TTL on your domains so that the change gets to your users as quickly as possible.  As I said, I leave my TTL sitting at one day, which means I need to dial it down at <em>least</em> 24 hours before the changeover.  And since ISPs are notoriously bad about caching DNS lookups longer than you&rsquo;ve actually recommended, it&rsquo;d be best to reduce your TTL as early in the process as possible.</p>
+
+<p>For yesterday&rsquo;s migration, I dropped <code>mikewest.org</code>&rsquo;s TTL down to an hour about a week ago, and then down to 30 seconds a few hours before I made the cutover.  Today or tomorrow, when I&rsquo;m sure everything&rsquo;s working correctly on the new server, I&rsquo;ll dial that back up.</p>
+
+<h2 id="staging">Staging</h2>
+
+<p>A big advantage of moving to a new server is that you simply don&rsquo;t have to worry about breaking anything on the live site while you&rsquo;re rolling out changes.  I&rsquo;m using a completely different stack on the new slice than I was on Joyent&rsquo;s box, and getting that running on the same machine as the old site would have been&hellip; interesting to say the least.  A new server gives you the opportunity to stage your work somewhere, get it tested and running on the production hardware, and then make the cutover when you&rsquo;re reasonably confident that things will go well.</p>
+
+<p>Make sure you take advantage of this opportunity by pointing a domain at the server while you&rsquo;re still in development: <code>test.mikewest.org</code>, for example.  This allows you to hit the new box from a variety of client machines without the necessity of screwing with <code>/etc/hosts</code> files.</p>
+
+<p>Just before launch, however, it&rsquo;s a good idea to adjust your hosts file to point the &ldquo;live&rdquo; domain at the new server to make sure that you&rsquo;ve set things up correctly.  It&rsquo;s easy during development to create an environment that works perfectly under the test domain, but fails spectacularly under the live domain.  Setting your hosts file and hitting the site that way gives you assurance that you haven&rsquo;t made that sort of mistake.</p>
+
+<h2 id="content-feeds">Content Feeds</h2>
+
+<p>The vast majority of people who read this site do so through RSS feeds.  There&rsquo;s simply no reason to type <code>mikewest.org</code> into a browser every day when you can get the content pushed to you.</p>
+
+<p>I use <a href="http://www.feedburner.com/">feedburner</a> to distribute my feeds, which made it much simpler to seamlessly migrate from one server to the next.  I created three new feeds for this iteration of the site: <a href="http://feeds.mikewest.org/just_posts">one feed for posts</a>, <a href="http://feeds.mikewest.org/just_links">one feed for links</a>, and <a href="http://feeds.mikewest.org/omg_everything_ever">one feed for a combination of both</a>.  I pointed each of these at my staging server&rsquo;s domain to verify that they correctly retrieved content and that nothing was wrong with the new feeds I was building (this is another advantage of a publicly accessible staging server: third-party integrations are <em>much</em> simpler to test).</p>
+
+<p>When I made the cutover yesterday, I simply changed the location at which each of the feeds looks for content.  I kept an eye on each via my trusty NetNewsWire to make sure that the transition was successful, and it seems to have gone off without a hitch.</p>
+
+<h2 id="redirects-for-old-content">Redirects for old content</h2>
+
+<p>It&rsquo;s important to maintain consistency for your users, especially if you&rsquo;re changing URL structure as part of your migration.  I&rsquo;ve <a href="/2006/05/leveraging-modrewrite">written about this problem</a>, way back in 2006 when I last made major changes to mikewest.org, and I think the advice there has held up really quite well.  In a nutshell, set up redirects for your old content that cleanly map to the new page structures, and make sure that you pay attention to your access logs to get an understanding for the way your content is being linked to from the outside world.  If you haven&rsquo;t read <a href="/2006/05/leveraging-modrewrite">&lsquo;Leveraging mod_rewrite&rsquo;</a> yet, I think that it&rsquo;s worth a few minutes of your time.</p>
+
+<h2 id="tail--f-your-access-log"><code>tail -f</code> your access log</h2>
+
+<p>Directly after the launch, it&rsquo;s important to keep an eye on the access log to identify issues that you missed in your own testing.  For example, I haven&rsquo;t gotten around to building an archive overview page yet, so the <code>/archive</code> link currently ends up as a redirect to the current yearly overview: <code>/2008</code>.  This worked perfectly in the tests I did, so I was happy.</p>
+
+<p>Right after the launch, however, I started seeing a whole lot of 4-request sequences for <code>/archive/</code>, which 301&rsquo;d to <code>/archive</code>, which 302&rsquo;d to <code>/2008/</code>, which 301&rsquo;d to <code>/2008</code>.  That&rsquo;s a bit much.  As it turns out, when I made the decision to strip ending <code>/</code> characters to standardize the site&rsquo;s URLs, I&rsquo;d inserted the rule in the wrong place, so it was running <em>before</em> any of the redirects I&rsquo;d coded into the site.  I&rsquo;d also made the mistake of hard-coding <code>/archive/</code> into the link on the homepage, and <code>/#{year}/</code> as the redirect link.  This meant that instead of a single 302 temporary redirect, the user was running through <em>three</em> redirects to get to the end goal.  This showed up clearly in the logs, and was an easy bug to fix.  This sort of thing popped up pretty often in the first hour or two after the switch.  They&rsquo;re small things that can make a big difference to the user experience, but you can&rsquo;t fix them unless you look for them.</p>
+
+<p>Running through the log periodically with something like: <code>tail -n500 ./access.log | grep ' 50[0-9] '</code> gives you a quick overview of the most recent server errors (and there will probably be some&hellip;).  Likewise, <code>tail -n500 ./access.log | grep ' 40[0-9] '</code> gives you a feel for what content is being requested that you&rsquo;re not providing anymore, which you can use to set up appropriate redirects, or to bring back or update old content that your users want to see.</p>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/mikewest.org"
+                 rel="category tag"
+                 title="View other entries tagged 'mikewest.org'">mikewest.org</a>&#146;, 
+      
+        &#145;<a href="/tags/projects"
+                 rel="category tag"
+                 title="View other entries tagged 'projects'">projects</a>&#146;, 
+      
+        &#145;<a href="/tags/migrations"
+                 rel="category tag"
+                 title="View other entries tagged 'migrations'">migrations</a>&#146;, 
+      
+        &#145;<a href="/tags/server"
+                 rel="category tag"
+                 title="View other entries tagged 'server'">server</a>&#146;, 
+      
+        &#145;<a href="/tags/dns"
+                 rel="category tag"
+                 title="View other entries tagged 'dns'">dns</a>&#146;, 
+      
+        &#145;<a href="/tags/dnsmadeeasy"
+                 rel="category tag"
+                 title="View other entries tagged 'dnsmadeeasy'">dnsmadeeasy</a>&#146;, 
+      
+        &#145;<a href="/tags/webdev"
+                 rel="category tag"
+                 title="View other entries tagged 'webdev'">webdev</a>&#146;, 
+      
+        &#145;<a href="/tags/development"
+                 rel="category tag"
+                 title="View other entries tagged 'development'">development</a>&#146;, 
+      
+        &#145;<a href="/tags/howto"
+                 rel="category tag"
+                 title="View other entries tagged 'howto'">howto</a>&#146;, 
+      
+        &#145;<a href="/tags/bestpractice"
+                 rel="category tag"
+                 title="View other entries tagged 'bestpractice'">bestpractice</a>&#146;, 
+      
+        &#145;<a href="/tags/performance"
+                 rel="category tag"
+                 title="View other entries tagged 'performance'">performance</a>&#146;, 
+      
+        &#145;<a href="/tags/sysadmin"
+                 rel="category tag"
+                 title="View other entries tagged 'sysadmin'">sysadmin</a>&#146;, or 
+      
+        &#145;<a href="/tags/logfiles"
+                 rel="category tag"
+                 title="View other entries tagged 'logfiles'">logfiles</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

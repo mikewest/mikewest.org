@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;How do I unit test a website?&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Unit testing seems like an unqualified good, I'm just not sure how to apply the concepts to my work.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">How do I unit test a website?</h1>
+  <time class="published" pubdate datetime="Fri May 18 00:00:00 +0200 2007">
+    Friday, May 18, 2007
+  </time>
+
+  <p>I&rsquo;ve been spending a lot of time recently attempting to puzzle out a <em>good</em>
+way of testing the work I&rsquo;m been doing.  I&rsquo;m enamoured with the idea of unit
+tests, and I have the feeling that I could save myself a bit of misery if I
+had a mechanism to build tests for each bug I close.  It&rsquo;s a great dream, but
+I&rsquo;m not coming up with much in the way of a solid solution for my work.</p>
+
+<p>Sketching out the broad outlines of what I want is pretty simple.  There are
+two broad categories of things I want to test:</p>
+
+<ol>
+  <li>
+    <p>Core functionality: If I click on an article from some listing page, I
+should end up at <em>the same</em> article&rsquo;s page.  I shouldn&rsquo;t ever see 404&rsquo;s.  PHP
+errors and warnings shouldn&rsquo;t exist on the site.  </p>
+  </li>
+  <li>
+    <p>Presentation tests: Each module in the sidebar should be X pixels wide in
+all the A-Grade browsers.  Text shouldn&rsquo;t be cut off because of overflow
+issues.  Thing X should be Y pixels away from thing Z.</p>
+  </li>
+</ol>
+
+<p>Core functionality is easy, rather, I can come up with good ways of writing
+those tests.  A spider is just a quick Perl script away, and the tests I want
+to do are almost completely doable with regular expressions.  If a link&rsquo;s text
+matches the headline of the page to which it leads, wonderful!  If not, error!
+With a few hardcoded exceptions to handle &ldquo;More&rdquo; links and the like, I&rsquo;ve got
+a solid testing system.  Presentation, on the other hand, is hard.</p>
+
+<p>It&rsquo;s hard not because it&rsquo;s terribly complex, it&rsquo;s hard because it&rsquo;s
+tremendously difficult for a computer to determine if a page <em>looks</em> right.
+The only test mechanism I&rsquo;ve come up with is a convoluted system of JavaScript
+checks: grab an element&rsquo;s <code>computedStyle</code> and run a series of checks.  That
+covers a good chunk of presentational issues, but it&rsquo;s incredibly
+timeconsuming to build out a testing system that way.  Moreover, it only
+catches the subset of errors that are directly tied to the box model.  I don&rsquo;t
+really know how to generically test to see if a particular link is floated
+next to an image, or gets pushed under it, for example.  Sure, I can check X
+and Y offsets and compare those to the image&rsquo;s width and height, but those
+sorts of interdependencies get very complex, very quickly.</p>
+
+<p>So I&rsquo;m still looking.  <a href="http://www.openqa.org/selenium/" title="Selenium">Selenium</a> looks like something I should play with,
+even if the notion of writing tests using HTML <code>table</code> elements is somewhat
+disheartening.  <a href="http://www.jsunit.net/" title="JSUnit">JSUnit</a> is likewise a potential source of testing goodness.
+Any other good sources I should be taking a look at?</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/Yahoo"
+                 rel="category tag"
+                 title="View other entries tagged 'Yahoo'">Yahoo</a>&#146;, or 
+      
+        &#145;<a href="/tags/JavaScript"
+                 rel="category tag"
+                 title="View other entries tagged 'JavaScript'">JavaScript</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;HTTP Strict Transport Security and You&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="With a simple Wi-Fi packet-sniffer, intercepting login cookies over the air is far easier than it ought to be. Happily, clever people have put together solid mitigation techniques, one of which is HTTP Strict Transport Security. I've implemented it on a personal site, this article describes what it is, why it's important, and how you can use it yourself.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">HTTP Strict Transport Security and You</h1>
+  <time class="published" pubdate datetime="Fri Oct 07 00:00:00 +0200 2011">
+    Friday, October 07, 2011
+  </time>
+
+  <p>With a simple Wi-Fi packet-sniffer, intercepting login cookies over the air is far easier than it ought to be. <a href="http://codebutler.github.com/firesheep/">Firesheep</a> demonstrated this vulnerability definitively, showing the public exactly how trivial it is to hijack unencrypted HTTP sessions. So, we learned an important lesson: running HTTPS on your servers mitigates a large chunk of risk, as encrypting the traffic between your site and its users prevents attackers from grabbing cookies, and thus from hijacking a user&rsquo;s session. Encryption also ensures that your content is delivered without modification, which reduces the ability of man-in-the-middle attackers to intercept your users&rsquo; traffic when they&rsquo;re using untrustworthy networks. To whatever extent possible, you should use HTTPS, and ensure that you force encryption for important cookies by marking them as <code>Secure</code>.</p>
+
+<p>Unfortunately, this isn&rsquo;t a complete solution. Users generally don&rsquo;t type <code>https://example.com/</code> into their browser&rsquo;s address bar. They generally either type <code>example.com</code> or <code>http://example.com/</code>, and you&rsquo;re going to have a hard time reminding them to consistently use <code>https</code> when visiting your site. You can redirect users from HTTP to HTTPS, but that leaves a window of opportunity for attackers: your request to the HTTP site is unencrypted, and potentially vulnerable to attack <em>before</em> you can be redirected. It would be significantly safer if you could avoid that HTTP request. This is the problem that <a href="http://tools.ietf.org/html/draft-ietf-websec-strict-transport-sec-02">HTTP Strict Transport Security (HSTS)</a><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> is meant to address.</p>
+
+<p>Adding a <code>Strict-Transport-Security</code> header to your server&rsquo;s HTTPS responses will inform browsers that your website should <em>only</em> be accessed via HTTPS. Normal HTTP connections will be rewritten client-side, <em>before</em> any network traffic is generated. Sending the following header:</p>
+
+<pre><code>Strict-Transport-Security: max-age=31556926; includeSubDomains
+</code></pre>
+
+<p>would instruct a browser that supported the draft standard that it shouldn&rsquo;t touch your site (or any of its subdomains) over HTTP for a year. This substantially reduces the surface exposed to attack: as long as the very first HTTP request went through correctly, your users will never use an insecure connection to your website again, regardless of what they type in the address bar.</p>
+
+<p>You will need to ensure that you can actually <em>serve</em> HTTPS responses for every request (on any port) to your host, however, as HTTP simply won&rsquo;t be an option anymore. This is a Good Thing™, even if it might mean a little work for you up front.</p>
+
+<p>None of this is new (just new to me), so browser support is already relatively good: HSTS is supported in <a href="http://hacks.mozilla.org/2010/08/firefox-4-http-strict-transport-security-force-https/">Firefox 4+</a>, and Chrome<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>. <a href="http://my.opera.com/community/forums/topic.dml?id=838822&amp;t=1317981165&amp;page=1#comment10176262">Opera appears to be waiting</a> for <a href="http://trac.tools.ietf.org/wg/websec/trac/report/1?asc=1&amp;sort=ticket">issues open against the draft standard</a> to be resolved, and for the draft to move to RFC status. Looking at the list, I don&rsquo;t see any significant upcoming changes to the header structure: I&rsquo;d recommend implementing it for your sites now.</p>
+
+<h2 id="sound-interesting">Sound interesting?</h2>
+
+<p>As an example, I&rsquo;ve just implemented this for <a href="https://mkw.st/">mkw.st</a> (where I&rsquo;ll likely be moving this site at some point in the relatively near future). It took about a half-hour, all told, and most of that was waiting for the certificate to be mailed to me. Here&rsquo;s what I needed to do to set things up:</p>
+
+<ol>
+  <li>
+    <p>I generated a certificate request on my server, which also involved creating a new private key. Both were trivial, and <a href="https://knowledge.rapidssl.com/support/ssl-certificate-support/index?page=content&amp;id=SO6506">RapidSSL&rsquo;s detailed walkthrough</a> was helpful.</p>
+  </li>
+  <li>
+    <p>Using the newly generated CSR, I purchased a certificate via <a href="http://www.cheapssls.com/">CheapSSLs</a>. They seem a bit… well… cheap, so I&rsquo;m not sure I&rsquo;d recommend them for a high-risk site. For my not particularly valuable site, however, they&rsquo;re brilliant. A 3-year cert (<a href="https://www.cheapssls.com/geotrust-ssl-certificates/rapidssl.html">from RapidSSL</a>) was $27 (paid via PayPal), and showed up in my inbox within 20 minutes of purchase.</p>
+  </li>
+  <li>
+    <p>I configured my server to use the certificate. For Nginx, this just meant recompiling the server with SSL support, and adding a new server definition that listened on port 443, and had reference to both the private key and certificate generated above. <a href="http://wiki.nginx.org/HttpSslModule">Nginx&rsquo;s documentation</a> is better than I remembered it being.</p>
+  </li>
+</ol>
+
+<p>For a single-server site like mine, this is a piece of cake, and certainly worth playing around with.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Adam Barth co-wrote the HSTS spec, and he&rsquo;s coincidentally just started a cleverly titled web security blog that I suspect will be very much worth reading: <a href="http://www.schemehostport.com/">Scheme/Host/Port</a><a href="#fnref:1" rev="footnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>Chrome actually attempts to avoid even the initial one-time HTTP request for websites that have requested extra protection. Sites like PayPal and Twitter are hard-coded as requesting HSTS (the complete list is <a href="http://codesearch.google.com/codesearch#OAMlx_jo-ck/src/net/base/transport_security_state.cc&amp;exact_package=chromium&amp;q=kPreloadedSTS">visible in <code>net/base/transport_security_state.cc</code></a>).<a href="#fnref:2" rev="footnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/chrome"
+                 rel="category tag"
+                 title="View other entries tagged 'chrome'">chrome</a>&#146;, 
+      
+        &#145;<a href="/tags/http"
+                 rel="category tag"
+                 title="View other entries tagged 'http'">http</a>&#146;, 
+      
+        &#145;<a href="/tags/https"
+                 rel="category tag"
+                 title="View other entries tagged 'https'">https</a>&#146;, 
+      
+        &#145;<a href="/tags/encryption"
+                 rel="category tag"
+                 title="View other entries tagged 'encryption'">encryption</a>&#146;, 
+      
+        &#145;<a href="/tags/security"
+                 rel="category tag"
+                 title="View other entries tagged 'security'">security</a>&#146;, 
+      
+        &#145;<a href="/tags/firesheep"
+                 rel="category tag"
+                 title="View other entries tagged 'firesheep'">firesheep</a>&#146;, or 
+      
+        &#145;<a href="/tags/hsts"
+                 rel="category tag"
+                 title="View other entries tagged 'hsts'">hsts</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

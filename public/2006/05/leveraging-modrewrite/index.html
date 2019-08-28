@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Leveraging `mod_rewrite`&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="I have three kinds of `mod_rewrite` rules in my `.htaccess` file, this article explains each, and lays out best practices for managing your site's URL scheme.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Leveraging `mod_rewrite`</h1>
+  <time class="published" pubdate datetime="Sun May 14 00:00:00 +0200 2006">
+    Sunday, May 14, 2006
+  </time>
+
+  <p>I have three kinds of <code>mod_rewrite</code> rules in my <code>.htaccess</code> file:</p>
+
+<ul>
+  <li>&ldquo;This Doesn&rsquo;t Exist Anymore&rdquo; Rules</li>
+  <li>&ldquo;Go Away&rdquo; Rules</li>
+  <li>&ldquo;Fixing Other People&rsquo;s Links&rdquo; Rules</li>
+</ul>
+
+<p>Through judicious application of these <code>mod_rewrite</code> rules, I have more or less complete control over the URLs people use to visit my site, and moreover, control over the way search engines deal with my old (and at times obsolete) content.</p>
+
+<h2 id="this-doesnt-exist-anymore-rules">&ldquo;This Doesn&rsquo;t Exist Anymore&rdquo; Rules</h2>
+
+<p>Once upon a time, I uploaded some mp3&rsquo;s to a <em>super secret</em> directory on my webserver so that I could download them at the office and enjoy some tunes on my horridly locked-down work machine.  As you might guess, the <em>super secret</em> directory name was neither particularly super, nor spectacularly secret.  MP3 search engines tracked down the directory within hours, and I realized my mistake after my bandwidth usage for the week skyrocketed.</p>
+
+<p>I killed off the directory pretty quickly, but the damage was done.  I was still getting tons of hits for those non-existent files, and the &lsquo;file not found&rsquo; responses were making it pretty much impossible to get any useful information out of my error logs.</p>
+
+<p>The right thing to do in this situation is to serve up a <a href="http://diveintomark.org/archives/2003/03/27/http_error_410_gone" title="Mark Pilgrim - HTTP Error 410: Gone">410 (&lsquo;Gone&rsquo;) HTTP error</a> for any and all requests for files that were sitting around at some point in the past, but have since been removed.  <code>mod_rewrite</code> makes this an absolute breeze:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI}  ^/mp3/  [NC]
+RewriteRule ^(.*)           -       [G,L]
+</code></pre>
+
+<p>In fact, I have a whole series of rules that return 410 errors.  The relevant section of my <code>.htaccess</code> files looks like:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI}  ^/mint                       [NC,OR]
+RewriteCond %{REQUEST_URI}  ^/mp3                         [NC,OR]
+RewriteCond %{REQUEST_URI}  ^/matchmaker                 [NC,OR]
+RewriteCond %{REQUEST_URI}    ^/ars/?                        [NC]
+
+RewriteRule ^(.*)           -                           [G,L]
+</code></pre>
+
+<p>The <code>OR</code> at the end of each <code>RewriteCond</code> chains them together in exactly the way you might imagine.  If <em>any</em> of the conditions matches, then the rule triggers, and a 410 error code is returned.  Brilliant!</p>
+
+<h2 id="go-away-rules">&ldquo;Go Away&rdquo; Rules</h2>
+
+<p>Along with 410 error codes, you&rsquo;ll probably also find some use for 403 (&lsquo;Forbidden&rsquo;) errors.  For example, if you deploy content with CVS or SVN, then you&rsquo;ve got files sitting around in your public document root that contain information you&rsquo;d probably prefer not to share with everyone in the world (see <a href="http://hivelogic.com/articles/2006/04/30/preventing_svn_exposure" title="Hivelogic - Preventing SVN Exposure">Dan Benjamin&rsquo;s explanation</a> for discussion of this very issue with Ruby on Rails&rsquo; <a href="http://manuals.rubyonrails.com/read/book/17">Capistrano</a>).  The files exist, so you shouldn&rsquo;t send a 404 (&lsquo;Not Found&rsquo;) or a 410 (&lsquo;Gone&rsquo;) error, but do you want to forbid access via the web.  The following rules solve the problem:</p>
+
+<pre><code>RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI}    ^(.*/)?CVS/                    [NC,OR]
+RewriteCond %{REQUEST_URI}    ^(.*/)?\.svn/                [NC]
+RewriteRule ^(.*)           -                           [F,L]
+</code></pre>
+
+<p>The first line tests to see whether or not the requested <code>CVS</code> or <code>.svn</code> file actually exists before throwing a 403 (&lsquo;Forbidden&rsquo;) error.  It&rsquo;s a bit pedantic, but one ought not return a &lsquo;Forbidden&rsquo; error for a file that&rsquo;s really &lsquo;Not Found&rsquo;.</p>
+
+<p>It&rsquo;s also worth noting here that the <code>OR</code> binds more tightly than the implicit <code>AND</code> in the first line.  The rules therefore evaluate to something like &ldquo;If the file exists AND (it&rsquo;s a <code>CVS</code> OR <code>.svn</code> file)&rdquo;, which makes sense for this application.</p>
+
+<h2 id="fixing-other-peoples-links-rules">&ldquo;Fixing Other People&rsquo;s Links&rdquo; Rules</h2>
+
+<p>I&rsquo;ve used a few domains over the lifetime of this blog, and search engines have links to files on all of them.  Since I want all my URLs to refer to the same domain (to reduce confusion, and accumulate Page Rank correctly), I use <code>mod_rewrite</code> to map all requests to those other domains to my domain of choice.  <a href="http://daringfireball.net/2006/05/htaccess_redirection" title="John Gruber - Using .htaccess Redirection to Standardize Web Server Addresses">John Gruber&rsquo;s recent <code>.htaccess</code> article</a> does a brilliant job explaining this sort of redirection, so I&rsquo;ll just note the syntax I use here (I like to explicitly note that the error code is 301 (&lsquo;Moved Permanently&rsquo;) instead of using the full name, but that&rsquo;s simply personal preference; both work fine):</p>
+
+<pre><code>RewriteCond %{HTTP_HOST}    ^(www\.)?reversal\.org$ [NC]
+RewriteRule ^(.*)           http://mikewest.org/$1  [R=301,L]
+</code></pre>
+
+<p>Beyond differing domains, I&rsquo;ve used a number of different URL schemas.  Before I migrated to <a href="http://textpattern.com/" title="TextPattern">TextPattern</a>, each article on the site was accessible via a URL that looked something like &lsquo;<code>/blog/id/&lt;id number&gt;</code>&rsquo;.  I wasn&rsquo;t a huge fan of this URL schema, and I welcomed the chance to flip to something that made more sense.  The new URL schema looks like &lsquo;<code>/archive/&lt;short title&gt;</code>&rsquo;, which is friendlier both to end-users and search engines.  </p>
+
+<p>The problem, of course, is that the articles on the old site had been indexed by search engines, and linked by other bloggers.  When I migrated to the new URL schema, I wanted to make sure that those old links would still go somewhere relevant.</p>
+
+<p>There isn&rsquo;t much to say about this, really, as it&rsquo;s simply a manual mapping from URL #1 to URL #2 using a 301 (&lsquo;Moved Permanently&rsquo;) error code:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI}  ^/blog/id/12                [NC]
+RewriteRule ^.*$            /archive/event-handlers-and-other-distractions? [R=301,L]
+</code></pre>
+
+<p>If you&rsquo;re planning a similar move, it would be best to determine which of your pages are actually linked regularly by other sites, and generate the <code>mod_rewrite</code> rules that are most relevant to your circumstances.  I examined my &lsquo;Not Found&rsquo; error logs religiously for the first couple of days after moving to the new framework, and created <code>mod_rewrite</code> rules for any errors that popped up more than once or twice.  </p>
+
+<p>This practice is actually a good ongoing maintenance idea.  In his recent <a href="http://video.google.com/videoplay?docid=-70449010942275062" title="Jacob Kaplan-Moss talks about Django at Google">Django talk at Google</a>, <a href="http://www.jacobian.org/" title="Jacob Kaplan-Moss' Website">Jacob Kaplan-Moss</a> mentioned that the Django team uses the &lsquo;Not Found&rsquo; errors as a useful source of user suggestions.  If people continually look for an &lsquo;/archives/&rsquo; URL, then maybe it&rsquo;s a good idea to make one, or write a <code>mod_rewrite</code> rule to direct that request to your &lsquo;/past-posts/&rsquo; page, etc.  For example, I&rsquo;m directing a few &lsquo;suggestions&rsquo; to my <a href="/is/" title="Mike West's Bio/Resume">bio</a>:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI}  ^/resume.php            [NC,OR]
+RewriteCond %{REQUEST_URI}  ^/contact.php           [NC,OR]
+RewriteCond %{REQUEST_URI}  ^/contact/              [NC,OR]
+RewriteCond %{REQUEST_URI}  ^/resume/               [NC,OR]
+RewriteCond %{REQUEST_URI}  ^/bio.php               [NC]
+RewriteRule ^(.*)           http://mikewest.org/is/ [R=301,L]
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li>Dave Child&rsquo;s &ldquo;<a href="http://www.addedbytes.com/cheat-sheets/mod_rewrite-cheat-sheet/" title="Dave Child - `mod_rewrite` Cheat Sheet"><code>mod_rewrite</code> Cheat Sheet</a>&rdquo; is a great one-stop reference, including a list of the flags for <code>RewriteRule</code> that I continually mix up in my head.</li>
+  <li>John Gruber&rsquo;s &ldquo;<a href="http://daringfireball.net/2006/05/htaccess_redirection" title="John Gruber - Using .htaccess Redirection to Standardize Web Server Addresses">Using .htaccess Redirection to Standardize Web Server Addresses</a>&rdquo; is an excellent resource for (very) basic explanations of the regular expressions that drive his <code>mod_rewrite</code> domain name redirections.</li>
+  <li>Apache&rsquo;s <a href="http://httpd.apache.org/docs/1.3/mod/mod_rewrite.html"><code>mod_rewrite</code> documentation</a>, and the less incomprehensible &ldquo;<a href="http://httpd.apache.org/docs/2.0/misc/rewriteguide.html" title="URL Rewriting Guide">URL Rewriting Guide</a>&rdquo; from Ralf Engelschall who wrote <code>mod_rewrite</code> in the first place.</li>
+</ul>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/HOWTO"
+                 rel="category tag"
+                 title="View other entries tagged 'HOWTO'">HOWTO</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Building Subversion 1.4.3 for OS X&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Twitter! -->
+<meta property="twitter:account_id" content="4503599627436107" />
+
+<!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
+<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="Metissian's pre-build Subversion binaries are out of date, and Dan Benjamin's excellent guide to building Subversion yourself runs into a wall for 1.4+.  You, however, are an impatient pioneer.  You want to build the latest stable (impatient, not _imprude">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a Developer
+      Advocate on Google's Chrome team in Munich, he helps develop websites
+      and applications that (on good days) delight and inform. Drop me an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow me on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle me on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Building Subversion 1.4.3 for OS X</h1>
+  <time class="published" pubdate datetime="Tue Dec 19 00:00:00 +0100 2006">
+    Tuesday, December 19, 2006
+  </time>
+
+  <p><strong>UPDATE</strong>: <em><a href="http://subversion.tigris.org/servlets/NewsItemView?newsItemID=1807">Subversion 1.4.3 was released</a>
+(<a href="http://svn.collab.net/repos/svn/tags/1.4.3/CHANGES">Release Notes</a>) on Jan 25th, 2007.  I&rsquo;ve updated the
+instructions here accordingly.</em></p>
+
+<p>The <a href="http://metissian.com/projects/macosx/subversion/" title="Subversion Packages for Mac OS X">pre-built Subversion binaries</a> that <a href="http://metissian.com/">Metissian</a> generally
+puts together are running a little behind the times, and
+<a href="http://hivelogic.com/" title="Dan Benjamin: Hivelogic">Dan Benjamin&rsquo;s</a> excellent <a href="http://hivelogic.com/articles/2006/04/19/svn_on_os_x" title="Building Subversion (SVN) on Mac OS X">guide to building Subversion from
+source</a> needs a bit of an update to support 1.4.3.   Those are still
+the sources I&rsquo;d recommend that you visit in the future; they&rsquo;re diligent folk
+indeed.</p>
+
+<p>You, however, are an impatient pioneer.  You want to build the latest stable
+(impatient, not <em>imprudent</em>) Subversion release yourself, <em>right now</em>. This
+article explains the process.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>If you haven&rsquo;t installed Subversion yet, visit Dan&rsquo;s <a href="http://hivelogic.com/articles/2006/04/19/svn_on_os_x" title="Building Subversion (SVN) on Mac OS X">guide to building
+Subversion</a> that I mentioned above, and ensure that you&rsquo;ve
+followed the the instructions under the <strong>Set Your Path</strong> heading.  They&rsquo;re
+important.</p>
+
+<p>You&rsquo;ll also need to ensure that you have a recent version of Xcode installed
+(I&rsquo;m running 2.4.1).  You will get errors if you&rsquo;re running a sufficiently old
+version (I&rsquo;m <em>guessing</em> 2.2 or below).</p>
+
+<h2 id="process">Process</h2>
+
+<p>So, you&rsquo;re good to go.  Simply pop open Terminal and run:</p>
+
+<pre><code>mkdir ~/Desktop/src/
+cd ~/Desktop/src/
+curl -O http://subversion.tigris.org/downloads/subversion-1.4.3.tar.gz
+curl -O http://subversion.tigris.org/downloads/subversion-deps-1.4.3.tar.gz
+tar xvzf ./subversion-1.4.3.tar.gz
+tar xvzf ./subversion-deps-1.4.3.tar.gz
+cd subversion-1.4.3
+./configure --prefix=/usr/local --with-openssl --with-ssl --with-zlib
+make
+sudo make install
+</code></pre>
+
+<p>That last command will require you to enter your password; do so, it&rsquo;s ok.</p>
+
+<p>That&rsquo;s it.  You&rsquo;re done.</p>
+
+<h2 id="problems">Problems</h2>
+
+<p>What?  You got an error helpfully informing you that your &ldquo;C compiler cannot
+create executables See &lsquo;config.log&rsquo; for more details&rdquo;?  I did too.</p>
+
+<p>The answer&rsquo;s simple: you have either an outdated version of the <code>GCC</code>
+compiler, or an outdated <code>ln</code> utility.  Either way, you need to upgrade your
+Xcode installation.  It&rsquo;s an absurdly large package that you can grab (for
+free) from <a href="http://developer.apple.com/" title="Apple Developer Connection">Apple&rsquo;s Developer Connection</a>.  Sign up for an account if you
+don&rsquo;t already have one, download the upgrade, install it, reboot for good
+measure (though logging out and then back in is probably enough), then re-run:</p>
+
+<pre><code>./configure --prefix=/usr/local --with-openssl --with-ssl --with-zlib
+make
+sudo make install
+</code></pre>
+
+<p>That should take care of the issue.</p>
+
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/Subversion"
+                 rel="category tag"
+                 title="View other entries tagged 'Subversion'">Subversion</a>&#146;, or 
+      
+        &#145;<a href="/tags/HOWTO"
+                 rel="category tag"
+                 title="View other entries tagged 'HOWTO'">HOWTO</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>
