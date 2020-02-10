@@ -11,7 +11,89 @@
     </author>
 
     
-    <updated>2013-09-24T00:00:00+02:00</updated>
+    <updated>2020-02-10T00:00:00+01:00</updated>
+    
+    <entry>
+        <title type='text'>Web Platform Security @ CMS Security Summit 2020</title>
+        <link rel="alternate" href="https://mikewest.org/2020/02/cms-security-summit-2020/index" />
+        <id>https://mikewest.org/2020/02/cms-security-summit-2020/cms-security-summit-2020</id>
+        <updated>2020-02-10T00:00:00+01:00</updated>
+        <published>2020-02-10T00:00:00+01:00</published>
+        <content type='html'>&lt;p&gt;Last Thursday, I had the opportunity to chat with folks in the CMS community about some client-side
+web security topics that I find pretty relevant today. Preparing the talk was a bit of a strange
+experience; I think I could have directly copied most of the slides from similar presentations I’ve
+given years ago, and it’s a little frustrating that they’re &lt;em&gt;still&lt;/em&gt; so relevant. That said, this was
+a good opportunity to discuss some new bits and pieces that are only now coming into focus after a
+lot of design work and discussion.&lt;/p&gt;
+
+&lt;p&gt;I aimed to get a few messages across:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;My team is focused on two sets of web platform attacks: &lt;strong&gt;script injection&lt;/strong&gt; continues to be
+both high risk and pervasive, and we’re rapidly discovering the side-channeled consequences of
+insufficient isolation. These are topics I’d love web developers to be paying attention to as
+well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Injection attacks can be reasonably mitigated today with a reasonably
+&lt;a href=&quot;https://csp.withgoogle.com/docs/strict-csp.html&quot;&gt;strict Content Security Policy&lt;/a&gt;, and I’m hopeful about our ability to more robustly
+address the underlying vulnerability via new tools like &lt;a href=&quot;https://developers.google.com/web/updates/2019/02/trusted-types&quot;&gt;Trusted Types&lt;/a&gt;. I would love
+to see web developers deploy the former, and start playing around with the latter.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Browsers and developers can cooperate to attenuate side-channel attacks by shifting away from
+the web’s embed-everything defaults, moving instead towards an opt-in model that more tightly
+constrains attackers’ ability to unexpectedly poke at resources. Chrome will be shipping
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Cross-Origin-Opener-Policy&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Cross-Origin-Embedder-Policy&lt;/code&gt; shortly, and we intend to ensure
+that they’re in place before enabling some APIs that risk aggravating side-channel attacks. To
+make this work at scale, it’s critical that we collectively help developers place priority on
+applying &lt;code class=&quot;highlighter-rouge&quot;&gt;Cross-Origin-Resource-Policy&lt;/code&gt; assertions to intentionally-embeddable resources.&lt;/p&gt;
+
+    &lt;p&gt;&lt;em&gt;Note that Artur Janc, et al. have put together a great &lt;a href=&quot;https://docs.google.com/document/d/1zDlfvfTJ_9e8Jdc8ehuV4zMEu9ySMCiTGMS9y0GU92k/edit&quot;&gt;explainer for Cross-Origin
+Resource/Embedder/Opener Policy&lt;/a&gt; that I’m kicking myself for not linking in the
+talk. So. I’m linking it here, now.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I pointed folks to &lt;a href=&quot;https://github.com/mikewest/securer-contexts&quot;&gt;Securer Contexts&lt;/a&gt; as an area where I think browsers can
+revisit the minimum bar for modern applications that we set back in ~2015. Transport security
+seems quite insufficient to mitigate today’s threats, and nudging developers more firmly towards
+the tools noted above seems imminently reasonable to me.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I’d appreciate feedback on these priorities, and also on the particular mitigations proposed above.
+I’m hopeful that they’re generally-applicable and widely-deployable, and would love to hear how
+y’all see things.&lt;/p&gt;
+
+&lt;p&gt;For completeness, I’ll embed the slides below (but I think you’ll only get as much out of them as
+you’ve already gotten out of the bullets above). For those of you that were in the room, thanks for
+listening!&lt;/p&gt;
+
+&lt;h2 id=&quot;slides&quot;&gt;Slides&lt;/h2&gt;
+
+&lt;iframe src=&quot;https://speakerdeck.com/player/0dd492ced8eb4117a573d4e72d018824&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot; frameborder=&quot;0&quot; title=&quot;Web Platform Security @ CMS Security Summit 2020&quot; width=&quot;606&quot; height=&quot;516&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;links-from-the-presentation&quot;&gt;Links from the presentation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Artur Janc and Lukas Weichselbaum’s “&lt;a href=&quot;https://youtu.be/DDtM9caQ97I&quot;&gt;Securing Web Apps with Modern Platform Features&lt;/a&gt; from Google I/O in 2019.&lt;/li&gt;
+  &lt;li&gt;Chromium’s “&lt;a href=&quot;https://chromium.googlesource.com/chromium/src/+/master/docs/security/side-channel-threat-model.md&quot;&gt;Post-Spectre Threat Model Re-Think&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Google’s “&lt;a href=&quot;https://csp.withgoogle.com/docs/strict-csp.html&quot;&gt;Strict CSP&lt;/a&gt;” recommendations.&lt;/li&gt;
+  &lt;li&gt;Christoph Kern’s “&lt;a href=&quot;https://research.google/pubs/pub42934&quot;&gt;Securing the Tangled Web&lt;/a&gt;”.&lt;/li&gt;
+  &lt;li&gt;Krzysztof Kotowicz’ “&lt;a href=&quot;https://developers.google.com/web/updates/2019/02/trusted-types&quot;&gt;Trusted Types Help Prevent Cross-Site Scripting&lt;/a&gt;”.&lt;/li&gt;
+  &lt;li&gt;The &lt;a href=&quot;https://bit.ly/tt-spec&quot;&gt;Trusted Types specification&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;The &lt;a href=&quot;https://bit.ly/scripting-policy&quot;&gt;Scripting Policy&lt;/a&gt; thought experiment.&lt;/li&gt;
+  &lt;li&gt;The &lt;a href=&quot;https://bit.ly/corp-spec&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cross-Origin-Resource-Policy&lt;/code&gt; specification&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;The &lt;a href=&quot;https://bit.ly/coep-spec&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cross-Origin-Embedder-Policy&lt;/code&gt; specification&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;The &lt;a href=&quot;https://bit.ly/fm-spec&quot;&gt;Fetch Metadata specification&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Example &lt;a href=&quot;https://bit.ly/fm-policies&quot;&gt;Fetch Metadata policies&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;The &lt;a href=&quot;https://bit.ly/coop-spec&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cross-Origin-Opener-Policy&lt;/code&gt; specification&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;The “&lt;a href=&quot;https://github.com/mikewest/securer-contexts&quot;&gt;Securer Contexts&lt;/a&gt;” proposal.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </entry>
+
     
     <entry>
         <title type='text'>XSS (No, the _other_ 'S') - CSSConf EU 2013</title>
@@ -3055,63 +3137,6 @@ and showing off things that simply aren’t possible with the &lt;code class=&qu
 &lt;p&gt;And that’s it. Fiveish quick demos in about five minutes. I enjoyed it! What did
 you think?&lt;/p&gt;
 
-</content>
-    </entry>
-
-    
-    <entry>
-        <title type='text'>Secure Chrome extensions: Content Security Policy</title>
-        <link rel="alternate" href="https://mikewest.org/2011/10/secure-chrome-extensions-content-security-policy/index" />
-        <id>https://mikewest.org/2011/10/secure-chrome-extensions-content-security-policy/secure-chrome-extensions-content-security-policy</id>
-        <updated>2011-10-30T00:00:00+02:00</updated>
-        <published>2011-10-30T00:00:00+02:00</published>
-        <content type='html'>&lt;p&gt;After reading the &lt;a href=&quot;http://mikewest.org/2011/10/content-security-policy-a-primer&quot;&gt;Content Security Policy primer&lt;/a&gt; that I wrote earlier this month, you should have a good idea of the benefits that CSP can offer a website developer. Whitelisting known-good resource origins, refusing to execute potentially dangerous inline JavaScript, and banning the use of &lt;code class=&quot;highlighter-rouge&quot;&gt;eval&lt;/code&gt; are all effective mechanisms for mitigating cross-site scripting attacks. Implementing and enforcing such policies is simply a good idea.&lt;/p&gt;
-
-&lt;p&gt;Recognizing these advantages, Chrome’s engineers have extended CSP’s reach beyond websites into other areas of the browser where policies can serve as a defense against attacks. Most notably, policies can be applied to &lt;a href=&quot;http://code.google.com/chrome/extensions/apps.html&quot;&gt;packaged applications&lt;/a&gt; and &lt;a href=&quot;http://code.google.com/chrome/extensions/index.html&quot;&gt;extensions&lt;/a&gt;. Both can make use of Chrome’s powerful and modular set of &lt;a href=&quot;http://code.google.com/chrome/extensions/api_index.html&quot;&gt;extension APIs&lt;/a&gt;, which give developers capabilities above and beyond what it makes sense for the web platform to offer normal websites. To whatever extent possible, therefore, developers need to ensure that those additional capabilities aren’t leaked out to the broader web. Content Security Policies mitigate this risk by helping developers ensure that the only code that runs with elevated privileges is their own.&lt;/p&gt;
-
-&lt;p&gt;Defining policies for an extension is quite straightforward, and we’re working to add them to all the sample extensions in the Chromium project. Walking through one of these samples together should give you a good idea of how it all works.&lt;/p&gt;
-
-&lt;h2 id=&quot;implementation&quot;&gt;Implementation&lt;/h2&gt;
-
-&lt;p&gt;The &lt;a href=&quot;http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/extensions/mappy/&quot;&gt;Mappy&lt;/a&gt; sample extension injects a content script into every page a user visits, searches the page for addresses, and passes them back to the extension so that a map can be displayed in the extension’s popup. This is exactly the sort of dangerous scenario in which we need to worry about malicious websites exploiting the extension’s permissions, perhaps by cleverly embedding JavaScript into the address which might then be executed if we’re not careful when it’s passed back to the extension’s context. A content security policy is absolutely necessary.&lt;/p&gt;
-
-&lt;p&gt;The first step towards securing the extension is to define exactly which resources it needs to load. Mappy’s needs are pretty simple: it loads CSS and JavaScript from the local extension package, connects to &lt;code class=&quot;highlighter-rouge&quot;&gt;https://maps.googleapis.com&lt;/code&gt; to geolocate an address, and finally displays a static map image from &lt;code class=&quot;highlighter-rouge&quot;&gt;https://maps.google.com&lt;/code&gt;.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; A sufficiently paranoid policy would use a &lt;code class=&quot;highlighter-rouge&quot;&gt;default-src&lt;/code&gt; policy directive to deny access to &lt;em&gt;everything&lt;/em&gt; by default, and then specifically whitelist only those resources via &lt;code class=&quot;highlighter-rouge&quot;&gt;style-src&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;script-src&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;connect-src&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;img-src&lt;/code&gt; directives. I’ve annotated Mappy’s definition (which does exactly that) below:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Block everything, then whitelist from there.
-default-src 'none';
-
-# Accept CSS from the extension's package.
-style-src 'self';
-
-# Accept JavaScript from the extension's package.
-script-src 'self';
-
-# Allow XHR connections over HTTPS to Google Maps APIs.
-connect-src https://maps.googleapis.com; 
-
-# Allow images from Google Maps to load over HTTPS.
-img-src https://maps.google.com;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;For normal websites, content security policies are delivered via an HTTP header. Chrome extensions use the same policy syntax, but define policies in the package’s &lt;a href=&quot;http://code.google.com/chrome/extensions/manifest.html&quot;&gt;manifest JSON&lt;/a&gt; as a simple key-value pair. Simply take the policy you’ve defined, and add it to &lt;code class=&quot;highlighter-rouge&quot;&gt;manifest.json&lt;/code&gt;: you can see how Mappy’s CSP is defined by visiting &lt;a href=&quot;http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/extensions/mappy/manifest.json?view=markup&quot;&gt;Chromium’s source repository&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;With the &lt;a href=&quot;http://codereview.chromium.org/8311007/diff/9001/chrome/common/extensions/docs/examples/extensions/mappy/manifest.json&quot;&gt;manifest changes&lt;/a&gt; in place, the next step is to take a close look at the extension’s code to make sure we comply with the new restrictions we’re defining. Generally speaking, this means ensuring that CSS and JavaScript is moved out from the extension’s background page and popup into separate files. Most of the time, this is a straight copy/paste job, simply moving code wholesale from an inline &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt; block into a &lt;code class=&quot;highlighter-rouge&quot;&gt;background.js&lt;/code&gt; file. For Mappy, the &lt;code class=&quot;highlighter-rouge&quot;&gt;background.html&lt;/code&gt; change is &lt;a href=&quot;http://codereview.chromium.org/8311007/diff/9001/chrome/common/extensions/docs/examples/extensions/mappy/background.html&quot;&gt;captured in this diff&lt;/a&gt;, and the &lt;code class=&quot;highlighter-rouge&quot;&gt;popup.html&lt;/code&gt; change is &lt;a href=&quot;http://codereview.chromium.org/8311007/diff/9001/chrome/common/extensions/docs/examples/extensions/mappy/popup.html&quot;&gt;visible in this diff&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;That’s it! Once you’ve defined a policy, and adjusted your extension’s code to match it, just test the extension locally, bump the version number, and push the update to your users. They’ll be more secure, and the world will be a (slightly) better place.&lt;/p&gt;
-
-&lt;h2 id=&quot;next-steps&quot;&gt;Next Steps&lt;/h2&gt;
-
-&lt;p&gt;Your task is clear: update the extensions you own! It’s very straightforward work, and a real win for security. Content Security Policy support was added to Mappy in &lt;a href=&quot;http://crrev.com/106043&quot;&gt;revision 106043&lt;/a&gt;; take a look at &lt;a href=&quot;http://codereview.chromium.org/8311007&quot;&gt;the code review&lt;/a&gt; to get some implementation ideas for your own extensions.&lt;/p&gt;
-
-&lt;p&gt;At the same time you’re working on your extensions, the Chromium team is working to set a better example by updating the 70 or so sample extensions and applications that Chromium makes available to include the new &lt;code class=&quot;highlighter-rouge&quot;&gt;content_security_policy&lt;/code&gt; manifest entry. It’s easy work – following the steps listed above takes less than half-hour on average – but 70 is a big number, so we’re a bit behind. You can follow our progress on that effort at &lt;a href=&quot;http://crbug.com/92644&quot;&gt;crbug.com/92644&lt;/a&gt;: star the bug if you’re interested in updates, and pitch in if you’re interested! &lt;a href=&quot;http://www.chromium.org/developers/contributing-code&quot;&gt;Patches are welcome&lt;/a&gt;: just send any code reviews my way (&lt;code class=&quot;highlighter-rouge&quot;&gt;mkwst@chromium.org&lt;/code&gt;).&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;Whenever possible, load resources over HTTPS rather than unencrypted HTTP. This has a number of benefits for privacy and security, most importantly (for our current context) a guarantee that the code you’re loading hasn’t been modified since it left the server. Active network attackers need to do a &lt;em&gt;lot&lt;/em&gt; more work to inject code into a HTTPS stream, wheres it’s a trivial task via HTTP. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
 </content>
     </entry>
 

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+        
+        &ldquo;Web Platform Security @ CMS Security Summit 2020&rdquo; &mdash; 
+        
+        
+            Mike West
+        
+    </title>
+    <!-- Prefetch DNS -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//ssl.google-analytics.com">
+
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
+
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
+
+<meta name="viewport" content="width=820">
+
+
+<meta http-equiv="description" content="This is a quick summary of a presentation I gave last week at Google's second CMS Security Summit, held here in Munich. TL;DR: Injection attacks are bad, isolation is lacking, and I'm looking forward to more collaboration on both fronts.">
+
+
+  </head>
+  <body>
+    <address class="vcard">
+  <p>
+    <a href="/" class="fn" rel="home">Mike West</a>
+    <span>
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
+      email at
+    </span>
+    <a href="mailto:mike@mikewest.org"
+       title="Drop me an email."
+       class="email icon">mike@mikewest.org</a>
+    <span>
+      follow him on
+    </span>
+    <a href="http://twitter.com/mikewest"
+      rel="me"
+      title="Follow me on Twitter"
+      class="twitter icon">Twitter</a>
+    <span>
+      or circle him on
+    </span>
+    <a href="https://plus.google.com/104437754419996754779/"
+       rel="me"
+       title="Circle me on Google+"
+       class="plus icon">Google+</a>
+  </p>
+</address>
+
+    <article class="hentry" role="main">
+  <h1 class="entry-title">Web Platform Security @ CMS Security Summit 2020</h1>
+  <time class="published" pubdate datetime="2020-02-10">
+    Monday, February 10, 2020
+  </time>
+
+  <p>Last Thursday, I had the opportunity to chat with folks in the CMS community about some client-side
+web security topics that I find pretty relevant today. Preparing the talk was a bit of a strange
+experience; I think I could have directly copied most of the slides from similar presentations I’ve
+given years ago, and it’s a little frustrating that they’re <em>still</em> so relevant. That said, this was
+a good opportunity to discuss some new bits and pieces that are only now coming into focus after a
+lot of design work and discussion.</p>
+
+<p>I aimed to get a few messages across:</p>
+
+<ol>
+  <li>
+    <p>My team is focused on two sets of web platform attacks: <strong>script injection</strong> continues to be
+both high risk and pervasive, and we’re rapidly discovering the side-channeled consequences of
+insufficient isolation. These are topics I’d love web developers to be paying attention to as
+well.</p>
+  </li>
+  <li>
+    <p>Injection attacks can be reasonably mitigated today with a reasonably
+<a href="https://csp.withgoogle.com/docs/strict-csp.html">strict Content Security Policy</a>, and I’m hopeful about our ability to more robustly
+address the underlying vulnerability via new tools like <a href="https://developers.google.com/web/updates/2019/02/trusted-types">Trusted Types</a>. I would love
+to see web developers deploy the former, and start playing around with the latter.</p>
+  </li>
+  <li>
+    <p>Browsers and developers can cooperate to attenuate side-channel attacks by shifting away from
+the web’s embed-everything defaults, moving instead towards an opt-in model that more tightly
+constrains attackers’ ability to unexpectedly poke at resources. Chrome will be shipping
+<code class="highlighter-rouge">Cross-Origin-Opener-Policy</code> and <code class="highlighter-rouge">Cross-Origin-Embedder-Policy</code> shortly, and we intend to ensure
+that they’re in place before enabling some APIs that risk aggravating side-channel attacks. To
+make this work at scale, it’s critical that we collectively help developers place priority on
+applying <code class="highlighter-rouge">Cross-Origin-Resource-Policy</code> assertions to intentionally-embeddable resources.</p>
+
+    <p><em>Note that Artur Janc, et al. have put together a great <a href="https://docs.google.com/document/d/1zDlfvfTJ_9e8Jdc8ehuV4zMEu9ySMCiTGMS9y0GU92k/edit">explainer for Cross-Origin
+Resource/Embedder/Opener Policy</a> that I’m kicking myself for not linking in the
+talk. So. I’m linking it here, now.</em></p>
+  </li>
+  <li>
+    <p>I pointed folks to <a href="https://github.com/mikewest/securer-contexts">Securer Contexts</a> as an area where I think browsers can
+revisit the minimum bar for modern applications that we set back in ~2015. Transport security
+seems quite insufficient to mitigate today’s threats, and nudging developers more firmly towards
+the tools noted above seems imminently reasonable to me.</p>
+  </li>
+</ol>
+
+<p>I’d appreciate feedback on these priorities, and also on the particular mitigations proposed above.
+I’m hopeful that they’re generally-applicable and widely-deployable, and would love to hear how
+y’all see things.</p>
+
+<p>For completeness, I’ll embed the slides below (but I think you’ll only get as much out of them as
+you’ve already gotten out of the bullets above). For those of you that were in the room, thanks for
+listening!</p>
+
+<h2 id="slides">Slides</h2>
+
+<iframe src="https://speakerdeck.com/player/0dd492ced8eb4117a573d4e72d018824" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="0" title="Web Platform Security @ CMS Security Summit 2020" width="606" height="516"></iframe>
+
+<h2 id="links-from-the-presentation">Links from the presentation</h2>
+
+<ul>
+  <li>Artur Janc and Lukas Weichselbaum’s “<a href="https://youtu.be/DDtM9caQ97I">Securing Web Apps with Modern Platform Features</a> from Google I/O in 2019.</li>
+  <li>Chromium’s “<a href="https://chromium.googlesource.com/chromium/src/+/master/docs/security/side-channel-threat-model.md">Post-Spectre Threat Model Re-Think</a>.</li>
+  <li>Google’s “<a href="https://csp.withgoogle.com/docs/strict-csp.html">Strict CSP</a>” recommendations.</li>
+  <li>Christoph Kern’s “<a href="https://research.google/pubs/pub42934">Securing the Tangled Web</a>”.</li>
+  <li>Krzysztof Kotowicz’ “<a href="https://developers.google.com/web/updates/2019/02/trusted-types">Trusted Types Help Prevent Cross-Site Scripting</a>”.</li>
+  <li>The <a href="https://bit.ly/tt-spec">Trusted Types specification</a>.</li>
+  <li>The <a href="https://bit.ly/scripting-policy">Scripting Policy</a> thought experiment.</li>
+  <li>The <a href="https://bit.ly/corp-spec"><code class="highlighter-rouge">Cross-Origin-Resource-Policy</code> specification</a>.</li>
+  <li>The <a href="https://bit.ly/coep-spec"><code class="highlighter-rouge">Cross-Origin-Embedder-Policy</code> specification</a>.</li>
+  <li>The <a href="https://bit.ly/fm-spec">Fetch Metadata specification</a>.</li>
+  <li>Example <a href="https://bit.ly/fm-policies">Fetch Metadata policies</a>.</li>
+  <li>The <a href="https://bit.ly/coop-spec"><code class="highlighter-rouge">Cross-Origin-Opener-Policy</code> specification</a>.</li>
+  <li>The “<a href="https://github.com/mikewest/securer-contexts">Securer Contexts</a>” proposal.</li>
+</ul>
+
+
+  <address class="vcard">&mdash; <a href="/" rel="author" class="fn url">Mike West</a></address>
+
+  <aside>
+    <p>
+    <span>More reading: </span>If you enjoyed this post,
+      
+      you might also be interested in perusing lists of other posts tagged
+      
+      
+        &#145;<a href="/tags/security"
+                 rel="category tag"
+                 title="View other entries tagged 'security'">security</a>&#146;, or 
+      
+        &#145;<a href="/tags/presentation"
+                 rel="category tag"
+                 title="View other entries tagged 'presentation'">presentation</a>&#146;.
+      
+    </p>
+  </aside>
+</article>
+
+    <small>
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
+  this site's content is
+  <a href="/license" rel="license">available for non-commercial reuse</a>.
+  Enjoy!
+</small>
+
+  </body>
+</html>
