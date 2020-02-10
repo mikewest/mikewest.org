@@ -71,8 +71,8 @@ Slides
   webkitallowfullscreen="true"
   frameborder="0"
   title="Web Platform Security @ CMS Security Summit 2020"
-  width="606"
-  height="516"></iframe>
+  width="740"
+  height="416"></iframe>
 
 Links from the presentation
 ---------------------------
