@@ -71,8 +71,10 @@ Slides
   webkitallowfullscreen="true"
   frameborder="0"
   title="Web Platform Security @ CMS Security Summit 2020"
-  width="740"
-  height="416"></iframe>
+  width="606"
+  height="341"></iframe>
+
+Hosted [on Speaker Deck](https://speakerdeck.com/mikewest/web-platform-security-at-cms-security-summit-2020), or [as a PDF](https://speakerd.s3.amazonaws.com/presentations/0dd492ced8eb4117a573d4e72d018824/CMS_Security_Summit__2020-02__1_.pdf).
 
 Links from the presentation
 ---------------------------
