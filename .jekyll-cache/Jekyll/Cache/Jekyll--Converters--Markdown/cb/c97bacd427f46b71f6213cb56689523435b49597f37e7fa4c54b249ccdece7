@@ -1,0 +1,2 @@
+I"Ä<p>Based on the Content Security Policy primer I wrote last week, you should have a good idea of what CSP can offer a website developer. What might not be clear is that the policies can extend beyond HTTP, a bit more deeply into the browser. Chrome offers Content Security Policy support for extensions that substantially reduce the possibility of permission leakage; this article describes how it works, and how you can use it in your extensions.</p>
+:ET

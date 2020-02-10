@@ -1,0 +1,12 @@
+I"<p><a href="http://ben-ward.co.uk/">Ben Ward</a> has a <a href="http://developer.yahoo.net/blog/archives/2008/03/kelkoo_goes_mic.html">great post up on YDN</a> discussing the massive
+addition of <a href="http://microformats.org/">microformats</a> to the latest refresh of the <a href="http://www.kelkoo.co.uk/">Kelkoo</a>.  ~27
+<em>million</em> <a href="http://microformats.org/wiki/hlisting">hListings</a> can’t be wrong!  It’s a great read, and a real
+validation of the concept.</p>
+
+<p>Moreover, it’s an excellent introduction to <strong>microformats as API</strong>.  There’s
+no official Kelkoo API to grab and process listings or reviews or companies,
+but the judicious use of microformats makes it <em>easy</em> for you to grab and
+parse the information out of the page on your own.  <a href="http://developer.yahoo.net/blog/archives/2008/03/kelkoo_goes_mic.html">The article’s</a> very
+much worth paging through; I suggest you <a href="http://developer.yahoo.net/blog/archives/2008/03/kelkoo_goes_mic.html">take a look</a>.</p>
+
+:ET

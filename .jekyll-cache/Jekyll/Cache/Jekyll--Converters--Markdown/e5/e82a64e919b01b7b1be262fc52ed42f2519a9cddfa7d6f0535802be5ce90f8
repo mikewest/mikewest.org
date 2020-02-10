@@ -1,0 +1,9 @@
+I"�<p><a href="http://www.mnot.net/">Mark Nottingham</a> has put together a really useful tool that aids in the analysis of the behavior of HTTP resources.  Visit <a href="http://redbot.org/">http://redbot.org/</a>, type in a web address, and Redbot will report the resource’s cachability based on the returned headers, and provide a helpful list of recommendations for improvement.</p>
+
+<p>Running it on <a href="http://mikewest.org/">http://mikewest.org/</a>, for instance, <a href="http://redbot.org/?uri=http%3A%2F%2Fwww.mikewest.org%2F">flags the fact</a> that I compress the response if the browser tells me that it can accept compressed content, but that I’ve neglected to send the proper <code class="highlighter-rouge">Vary</code> header to let caches know that the response needs to be negotiated, and cached based on the <code class="highlighter-rouge">Accept-Encoding</code> request header.  This is <em>useful</em>, especially for <em>actual</em> applications for which it might matter.</p>
+
+<p>So useful, in fact, that I’m forking it to submit some patches.  Mark’s put the Redbot code up on GitHub (<a href="http://github.com/mnot/redbot/tree/master">mnot/redbot</a>), and I’ve started putting together a <a href="http://github.com/mikewest/redbot/blob/master/src/redbotcli.py">command line version</a> based on the web version he’s built.</p>
+
+<p>I’ve mentioned that <a href="http://mikewest.org/2008/11/i-love-github">I love GitHub</a>, right?  This is exactly why.  :)</p>
+
+:ET

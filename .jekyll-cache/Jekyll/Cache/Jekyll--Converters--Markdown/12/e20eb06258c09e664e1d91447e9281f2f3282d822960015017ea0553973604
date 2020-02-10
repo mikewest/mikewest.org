@@ -1,0 +1,93 @@
+I"�<p>So, the disk on which I keep the main copy of my Aperture library started
+making strange clicking noises when plugged into my powerbook.  It makes these
+noises <em>instead of</em> the expected whirring and humming and actual <em>reading of
+data</em>.  This, as you may suspect, is a Bad Thing.</p>
+
+<p>Thankfully, it works perfectly when plugged into my work laptop, so I’ve spent
+the majority of the day descending into full-blown backup paranoia.  I’ve
+consolidated all my important and cloned them onto three separate hard drives.
+Now I’m beginning the process of burning a million DVDs.  Of course, the
+aforementioned paranoia forces me to recognize that DVDs degrade; I can’t
+<em>trust</em> them, you see.  What to do?</p>
+
+<p>This is thankfully a solved problem.</p>
+
+<p>Usenet posters have used something called <a href="http://parchive.sourceforge.net/">Parchive</a> for years now to post
+binary files with some guarantee of completeness in the intrinsically lossy
+world of globally mirrored newsgroups.  Along with the actual data that’s
+written to a newsgroup, the poster will upload a number of <code class="highlighter-rouge">PAR</code> files
+containing <em>parity information</em> that allows you to <em>regenerate</em> any lost data.
+Without going into the details of <a href="http://en.wikipedia.org/wiki/Reed-Solomon_error_correction" title="Wikipedia: 'Reed-Solomon error correction'">Reed-Solomon error correction</a>, this
+means that if a few pieces of the data you’re downloading are missing, you can
+generate them yourself, ensuring that the original signal gets through.</p>
+
+<p>The same theory applies to DVDs.  I don’t particularly trust the medium to
+<em>guarantee</em> successful backups over time, but I <em>do</em> trust that they’ll
+probably retain 99% of the bits I care about.  Parchive, therefore, looks like
+a great solution.</p>
+
+<h2 id="installing-parchive">Installing <code class="highlighter-rouge">parchive</code></h2>
+
+<p>Installing Parchive is trivial.  You can grab binaries off sourceforge, or
+check out the CVS tree and compile it yourself, like so:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cvs -d:pserver:anonymous@parchive.cvs.sourceforge.net:/cvsroot/parchive login
+cvs -z3 -d:pserver:anonymous@parchive.cvs.sourceforge.net:/cvsroot/parchive co -P par2cmdline
+cd par2-cmdline/
+./configure --prefix=/usr/local
+make
+sudo make install
+</code></pre></div></div>
+
+<h2 id="using-parchive">Using <code class="highlighter-rouge">parchive</code></h2>
+
+<p>The main thing I want to do with Parchive is create <code class="highlighter-rouge">PAR</code> files that contain
+vital parity information about my data.  when doing so, there are two options
+that are important to consider:  <strong>% redundancy</strong>, and <strong>block size</strong>.</p>
+
+<p>The former option controls how much parity information is generated, that is,
+how much data you can <em>lose</em> while still being able to regenerate the whole.
+I’ve settled on <strong>10%</strong> as being stupendously beyond the amount of bad sectors
+I’d expect to see on a DVD within a reasonable amount of time, and therefore
+“safe”.</p>
+
+<p>The latter option only makes sense if you know a little about how parchive
+works: in a nutshell, it breaks your files up into smaller pieces, and
+generates parity information for each block separately.  If you lose <em>one bit</em>
+of a block, the whole thing is invalid, and has to be regenerated.  In an
+ideal world, then, you’d set the block size equal to the sector size of
+whatever medium you’re using for backup.  In that case, you’ve got the best
+protection against a single sector dying; you don’t waste any space.  This
+efficiency, however, is impractical for two reasons: first, the smaller the
+block size, the longer it takes to process the data, and second, parchive’s
+algorithm is limited to a maximum of 32,768 (coincidentally, that’s
+2<sup>15</sup>) blocks.  If you set a 2k block size to <em>maximize</em> efficiency,
+you’d only be able to process ~65M before parchive fell over and died.  I need
+to write parity information for up to a whole DVD’s worth of data, ~4Gb
+(~4.7Gb total capacity - 10% redundancy).  4 millionish kilobytes / 32768
+blocks = about 123kb per block.  I’ll double that (and round to the nearest
+power of two, because I suspect that makes things easier internally), and
+end up with a block size of 262,144 bytes.</p>
+
+<p>So, creating <code class="highlighter-rouge">PAR</code> files for a directory is just a matter of plugging these
+values into the <code class="highlighter-rouge">par2create</code> command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>par2create -s262144 -r10 [NameOfParFile.par2] [FilesToRead]
+</code></pre></div></div>
+
+<p>Easy, eh?</p>
+
+<p>Verifying the files in a directory is equally trivial, using <code class="highlighter-rouge">par2verify</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>par2verify [NameOfParFile.par2]
+</code></pre></div></div>
+
+<p>If <code class="highlighter-rouge">par2verify</code> tells you that you’ve got corruption in your data, you can
+repair it with <code class="highlighter-rouge">par2repair</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>par2repair [NameOfParFile.par2]
+</code></pre></div></div>
+
+<p>When that’s finished, parchive will have magically regenerated your data from
+the parity files you have at hand.  Brilliant.</p>
+:ET

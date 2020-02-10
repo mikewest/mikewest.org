@@ -1,0 +1,803 @@
+I"��<p>Last week, I was in Zürich attending <a href="http://2013.frontendconf.ch/">Frontend Conference</a> (talks and
+slides linked up <a href="http://lanyrd.com/2013/fec13/">on Lanyrd</a>), and had the opportunity to chat with
+the folks there about client-side security. <a href="https://mkw.st/r/csp">Content Security Policy</a>,
+shockingly, was central to the discussion.</p>
+
+<p>In the interests of making the presentation as accessible (and indexable) as
+possible, a full transcript of the presentation is below, along with an embed of
+the video and slides.</p>
+
+<h2 id="video">Video</h2>
+
+<iframe width="606" height="455" src="https://www.youtube.com/embed/fYjO5pIY1mY?rel=0" frameborder="0" title="Video: 'Frontend Security' - Frontend Conf, Zürich 2013" allowfullscreen="allowfullscreen"></iframe>
+
+<p>The video is 48m long, fully captioned, and <a href="https://www.youtube.com/watch?v=fYjO5pIY1mY">up on YouTube for your viewing
+enjoyment</a> (I swiped the <a href="http://www.ustream.tv/recorded/38005119">original conference feed from UStream</a>
+(with permission, thanks!)).</p>
+
+<h2 id="slides">Slides</h2>
+
+<iframe src="https://speakerdeck.com/player/c67a4f30f3a5013025764a2e0c7b14d8" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="0" title="Slides: 'Frontend Security' - Frontend Conf, Zürich 2013" width="606" height="516"></iframe>
+
+<p>The <a href="https://speakerdeck.com/mikewest/frontend-security-frontend-conf-zurich-2013-08-30">slides are up on Speaker Deck</a> (which is awesome), and I actually
+used Speaker Deck to <em>present</em> the slides from someone else’s laptop since my
+computer decided not to connect to the conference’s projector. I love you,
+Speaker Deck!</p>
+
+<h2 id="transcript">Transcript</h2>
+
+<p><strong>» MIKE WEST:</strong> Thank you very much.  Before I get started, I’d like to say thanks to
+<a href="http://2013.frontendconf.ch/">Frontend Conf</a> because this is the first conference I’ve ever been at
+where the – where everything was online less than a day after the speeches.
+In fact, speeches from this morning are already online.  I think it’s absolutely
+incredible.  Can you give the guys up there a round of applause?  Because
+that’s…</p>
+
+<p>[applause]</p>
+
+<p>Blows me away.</p>
+
+<p>So my name is Mike West.  I work at Google on Chrome.  I do some stuff in Blink.
+I do some stuff in Chrome.  If you have any questions about that, I’m happy to
+answer them. What I’ve been doing recently has had a lot to do with security.</p>
+
+<p>I’m going to talk about a couple of things today that I find really important.
+The slides are at <a href="https://speakerdeck.com/mikewest/frontend-security-frontend-conf-zurich-2013-08-30">this URL</a>, I’m actually using them right now
+because my computer decided that it didn’t want to hook up to the network.  So
+you can follow along with me on SlideShare.  Sorry, on Speaker Deck.  I stopped
+using SlideShare for good reasons, and I will tell you about them later.  I’m on
+<a href="https://twitter.com/mikewest">Twitter</a>.  I’m on <a href="https://google.com/+MikeWest">Google+</a>.  You can find <a href="https://mikewest.org/">my website</a> that I
+update maybe once to twice a year.  It’s very exciting, very good stuff indeed.</p>
+
+<p>So my brain is absolutely full.  I’ve been to a lot of talks over the last two
+days.  This is the last talk on the last day.  I think if I tried to stuff
+anything else in my head, it would explode.  I suspect that many of you are
+feeling the same way. So I want to give you the one thing that I want you to
+remember right now, up front, before you forget everything that I’m going to
+say.</p>
+
+<p>This is <a href="https://mkw.st/r/csp">an article talking about Content Security Policy</a>.  What is
+Content Security Policy?  Why should I care?  I’ll tell you in a minute.  But
+don’t worry about that right now.  Open the article, put it somewhere, find it
+later.  It’s something that I really think you should read.  It’s something
+that’s well worth your time and it’s written by a very handsome man.  So I
+think it’s really something that would be worth your time to play around with.
+It’s on HTML5Rocks, by the way. Does anyone know HTML5Rocks?  Does anyone not
+know html5rocks.com?  Excellent. That’s very good.  They’re very smart people
+on my team that write lots of good articles for the site.  I really think that
+if you don’t know about it and many if you do, it’s well worth your time to take
+a look at.</p>
+
+<p>So how many of you have seen a page that looks like this, in either Chrome or
+any other browser?  That’s not enough of you.  You people are browsing really
+boring websites.  You need to go into a – just completely different corner
+of the web.  You’re not going to see this from cnn.com, right?  You’ve got to
+really look for it.  This is a malware alert brought to you by the magic of
+<a href="https://developers.google.com/safe-browsing/">SafeBrowsing</a>.  SafeBrowsing is a service that Google has put together
+that’s used by Chrome, used by Firefox, and a variety of other services.  It
+gives us the ability to relatively rapidly show users that they could be doing
+something dangerous, that we compare a list of hashes to the website that
+they’re about to visit.  If there’s a match then we can inform the user that
+they might not want to visit the site.  The site is something that we’ve
+identified as being persistently malicious.  That is every time users go to the
+site, people try to load malware onto their computers or try to direct into
+phishing sites, or things along these lines.  It’s persistent.  Meaning that
+for every user, they’re seeing this sort of behavior.</p>
+
+<p>And then we’ve gotten really good at detecting these sorts of behaviors.  We’ve
+gotten really good at detecting the websites that are always going to do you
+harm.  What we’re not so good at is detecting the more transient attacks.
+Detecting attacks like content injection that only affect a single request or a
+single subset of users, or perhaps only users that are logged in to a particular
+site, only a particular user.  We’re not that great in detecting it because
+we – when we crawl the web, we don’t see these sites, because this site are
+usually distributed via e-mail or via Twitter or via a wide variety of other
+mechanisms by which people try to trick you into clicking on links that will do
+you harm.</p>
+
+<p>I mentioned – I mentioned content injection.  Content injection is a
+broad term that – of which XSS is a specific variant.  XSS means cross-site
+scripting. And generally speaking, this means that an attacker is able to trick
+a server into sending code that it didn’t mean to.  That is, instead of only
+delivering the JavaScript that actually makes up your application.  Your server
+is tricked into also delivering some sort of malicious code, code that does harm
+to a user or exfiltrates their data without them even knowing about it which is
+actually even worse.</p>
+
+<p>Why is XSS problematic?  Generally speaking, XSS is one of the most prevalent
+problems on the web.  Almost every website will have an XSS flaw of one sort
+or another at one time or another, even Google.  Given that, why is it
+dangerous?  What can it actually do?  What can a – an attacker do when
+they can execute code in the context of your website?</p>
+
+<p>To understand why it’s important, you have to understand the concept of an
+<a href="http://tools.ietf.org/html/draft-abarth-origin">origin</a>.  An origin is a pairing of a scheme, a host, and a port.  That is
+<code class="highlighter-rouge">http</code>, <code class="highlighter-rouge">example.com</code>, <code class="highlighter-rouge">80</code>. or <code class="highlighter-rouge">https</code>, <code class="highlighter-rouge">google.com</code>, <code class="highlighter-rouge">443</code>.  Those are
+distinct origins.  And because they’re distinct origins, they should and
+must not have accessed to each others data. <code class="highlighter-rouge">example.com</code> must never have
+access to <code class="highlighter-rouge">google.com</code>’s data.  And the browser can actually do a relatively
+good job of enforcing this sort of restrictions.</p>
+
+<p>There’s a policy known as the Same-Origin Policy which basically means that
+everything within the context of your origin has access to all of the data for
+that origin.  It can access cookies, it can access <code class="highlighter-rouge">localStorage</code>,
+<code class="highlighter-rouge">sessionStorage</code>, you name it.  Anything you are storing locally using any of
+the wide variety of HTML5 mechanisms that are out there is accessible to any
+and all code that runs within the context of your origin.  In other words, the
+origin boundary is the only boundary that the browser can very effectively
+enforce.</p>
+
+<p>It is however the case that we generally includes script from all over the place
+into our origins.  The browser allows this.  The browser really likes
+JavaScript.  And basically any JavaScript it sees, it’s going to execute. It
+just loves JavaScript.  So every time it gets a chance to execute anything, it
+executes, which is problematic, right?</p>
+
+<p>What’s the difference between these two <code class="highlighter-rouge">script</code> tags?</p>
+
+<p>Exactly right.  There is no difference whatsoever.  If both of these <code class="highlighter-rouge">script</code>
+tags are included on a page, the browser is going to go, “Yay, JavaScript.”,
+grab them both, execute them as fast as it possibly can because Chrome’s all
+about speed and bad things are going to happen, right?  Now, visually we can
+inspect these two scripts.  We can say the first one is awesome, the second
+one not so much.  Perhaps, I want to execute the first one that was actually
+part of my application.  The second one, I have no idea how it got to my page,
+I didn’t write that.</p>
+
+<p>Well, it might’ve gotten on your page like this, right?  If you’re using PHP
+or any other wide variety of other templating languages and you don’t properly
+escape output, if you just say “Hello {$name}!”, and then accept whatever name,
+the user gives you as their name then you’re in trouble, right?  Because the –
+if the user gives you a name of <code class="highlighter-rouge">&lt;script&gt;beEvil()&lt;/script&gt;</code> and you just
+blindly write that out, then you’re doing yourself of disservice.</p>
+
+<p>This is how a lot of cross-scripting attacks happen.  There are a lot of
+variants on this, so it’s not always the case that it’s just coming from a GET
+parameter or a POST parameter.  Things can be stored locally, things can be
+reflected from various pieces of the DOM.  So attackers are really, really
+clever about finding holes in your site and exploiting them.  How many people
+have dedicated members of their team working on security?  That’s kind of what I
+suspected.</p>
+
+<p>I guarantee you that if you had any sort of high value data on your website or
+even medium value, even low value data on your website, there are people that
+are much more interested in getting access to that data then you are in
+protecting it.  Because generally speaking, your team’s responsibility is to
+build amazing new features and to build amazing new experiences for your users.
+It’s kind of assumed that you’re doing security work.  And the security work is
+not really ever part of your goals for a quarter.  Your goal for the quarter is
+yo build this amazing new page.  It’s not to make sure the other pages didn’t
+break in the meantime.  That should probably change, but we’ll talk about how we
+can mitigate the effects.</p>
+
+<p>Happily, this is a absolutely trivial problem to solve. All you have to do is
+perfectly escape every piece of output that you put on your site. Every piece.
+Pieces that come from you and pieces that come from users.</p>
+
+<p>You also have to perfectly escape it for the context in which this output will
+find itself.  Here’s a relatively an exhaustive list of different context in an
+HTML page, you have a color exported into a <code class="highlighter-rouge">style</code> tag, you have a name
+directly in a paragraph tag, you have a URL that’s put directly into an
+attribute of an HTML element, you have an ID that’s put directly into script,
+and you have some debug information that’s put into a comment.</p>
+
+<p>The rules for each of these contexts are different.  For example, inside of a
+comment, two dashes will close the comment and everything else will be rendered.
+Two dashes of course have no effect whatsoever inside a paragraph tag, but if
+you open a script tag inside of paragraph tag then you’re in trouble.  So you
+need to understand the rules for each of these contexts and you need to
+perfectly escape all information that you export into this contexts.</p>
+
+<p>It is, honestly, trivial.</p>
+
+<p>However, we are really bad at trivial things, apparently, if you look at the
+history of the web.</p>
+
+<p>Has anyone heard of OWASP?  O-W-A-S-P?  Excellent.  OWASP is an interesting
+organization that does a lot of security research and lots of security
+trainings.  They have – as an example of the kinds of cleverness that
+people can come up with for exploiting things in websites, this is an XSS
+filter evasion cheat sheet]<a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet">owaspxss</a>.  It’s a little bit old, it’s not really
+new, it hasn’t really been updated since like, I don’t know, 2012 or so, 2011.
+But there’s a lot of really interesting things in here that might make you think
+again about the mechanisms by which you are filtering data that’s going out to
+your websites.</p>
+
+<p><a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Long_UTF-8_Unicode_encoding_without_semicolons">Long UTF-8 encode without semicolons</a>.  Did you know that you can
+have UTF-8 entities put in to your site without semicolons?  So if you’re
+checking for ampersand, semicolon then you’re kind of screwed because you don’t
+need those semicolons.  Ha ha, hurray for HTML.</p>
+
+<p>Has anyone heard of <a href="http://www.jsfuck.com/">JSFuck</a>?</p>
+
+<p><strong>»</strong> I have.</p>
+
+<p><strong>» MIKE WEST:</strong> JSFuck is amazing.  It proves that you can write any line of JavaScript
+using only six characters.  Open brace, close brace, open parenthesis, close
+parenthesis, plus and bang.  Do your filters check for any of these characters?
+They all seem relatively benign, right?  But if you put these into an attribute,
+you’re kind of screwed.</p>
+
+<p>Does anyone know what this code does by the way?  Can you guess?  You can all
+read this.  I mean, it’s just JavaScript, right?  This is <code class="highlighter-rouge">alert(1)</code>.  Usually
+you will do – usually you will do <code class="highlighter-rouge">alert('XSS')</code> when you’re doing a pentest
+or something but <code class="highlighter-rouge">alert('XSS')</code> is about 6,000 characters long, so I
+didn’t paste it.  JSFuck is quite verbose.</p>
+
+<p>Alex Russell puts this beautifully when he says, “I discount the probability of
+perfection.”  It’s really difficult to be perfect.</p>
+
+<p>I would phrase it slightly differently: “We are all idiots with deadlines.”
+We do the things that we think are important in the moment and it’s very easy
+to forget about things, these overarching things that are a critical
+foundation of the work that we should be doing.  And it’s very easy to make
+small mistakes.  And unfortunately, small mistakes are really all that it takes.</p>
+
+<p>So what I want to talk about today is what we can do inside of a browser to
+mitigate the effects of our idiocy because generally speaking, there are going
+to be holes in the websites that you create.  It’s almost unavoidable.  It’s a
+question of – it’s a question of “when” not “if” there’s going to be a hole in
+your sites and “when” not “if” that hole is going to be exploited.  It will be
+really nice if there was some sort of – I don’t know a <em>policy</em> of some sort
+that we could give to the browser that, I don’t know will have an effect on the
+<em>security</em> of our <em>content</em>.  I don’t know.  We’ll back come back to that idea.</p>
+
+<p>Does anyone what <a href="http://traumwerk.stanford.edu/philolog/2009/10/homers_odyssey_in_art_sirens_f.html">this painting</a> is?  This painting is <a href="http://en.wikipedia.org/wiki/Odysseus">Odysseus</a>
+and the <a href="http://en.wikipedia.org/wiki/Siren">Sirens</a>.  It’s a really good story.  It goes something like
+this. Odysseus is – Odysseus is an amazing man.  And by that, I mean, that he
+is an egomaniacal maniac and bastard.  This story goes something like this:
+Sirens, they sing beautifully.  So, beautifully in fact, that they drive you to
+the brink of madness, sailors in particular, they really like sailors for some
+reason, who knows why.   Sailors are driven to the point that they – all they
+want to do is be near this music to hear more of the music, so they end up
+throwing themselves overboard whenever they, you know, sail around the island
+where these sirens find themselves.  The ship then crashes on the island then
+these sirens I guess eat people, who knows.</p>
+
+<p>Regardless, Odysseus decides, because he is an amazing man, that he wants to be
+the only living person to have heard the song of the sirens and survived.  So,
+what does he do?  Well, he tells his men to tie him to the mast.  So, they bind
+him quite tightly, his hands behind his back, his legs are tied to the mast.  He
+can’t go anywhere.  But he can hear the music.  He simply prevented from doing
+things that would be stupid, you know, acknowledging the fact that the entire
+endeavor is stupid.  He then, instructs his men to put beeswax in their ears and
+they, you know, wrapped things around their head, you know, primitive sorts of
+earmuffs so that they can’t hear the music of the sirens.  And he gives them
+explicit instruction.  You know, “row next to this island”, “don’t go to the
+island”, “don’t jump out of the boat”, and “just keep rowing”, right?   The
+sirens come, they sing their beautiful songs.  He’s driven to the brink of
+madness but he’s able to continue on his path because he’s given these
+instructions and then he’s prevented his men from acting on these distractions.</p>
+
+<p>It’d be really great if we could do something like this with the browser.
+Where we could tell the browser, “Hey, this piece of code is what you want to be
+executing.”  These distractions, all this other beautiful JavaScript that’s out
+here that youreally, really want to go execute and look at it, but please do not
+touch, right?  It would be nice if your application could ask the browser to tie
+its hands behind its back and prevent it from doing things that it knows are
+going to be bad idea.</p>
+
+<p><a href="https://mkw.st/r/csp">Content Security Policy</a> is this thing.  It is gorgeous.  It will give you
+errors like this when people try to inject code into your sites. <code class="highlighter-rouge">Refused to
+execute inline script because it violates the Content Security Policy
+directive: "script-src 'self'"</code>.  We’ll talk about this in a little bit more
+detail.  But the core idea I hope is clear.  Content Security Policy gives you a
+mechanism by which you can whitelist certain origins of content and allow only
+those origins to execute within the content – within the context of your
+origin. That is, if I want to include <a href="http://www.google.com/fonts">Google Web Fonts</a> I can only
+whitelist the origin from which this font should come.  I get script from that
+origin, I get fonts from that origin, but I shouldn’t get them from anywhere
+else in the web.  This is really quite powerful.</p>
+
+<p>The specification is <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html">here</a>.  Content Security Policy
+1.1 is currently in draft.  Content Security Policy 1.0 is a candidate
+recommendation.  It’s currently implemented in Chrome.  It’s implemented in
+Firefox 23 which just came out as an unprefix header.  We’ll talk about that in
+a little bit.</p>
+
+<p>I edit the spec along with <a href="http://www.adambarth.com/">Adam Barth</a> and <a href="https://twitter.com/dveditz">Dan Veditz</a> from
+Mozilla.  They are much smarter than I am, so I just kind of sit there and type
+whatever they say.  It’s great.</p>
+
+<p>So, what could a Content Security Policy look like?  Content Security Policy is
+delivered as an HTTP header.  This is the – this is the policy that’s being
+used on an incredibly high value website <code class="highlighter-rouge">mikewest.org</code>.  Yeah.  Content
+Security Policy is the name of the header, right. So, you send
+<code class="highlighter-rouge">Content-Security-Policy</code> and then the value is a semicolon-delimited list of
+directives.  Each of these directives controls a specific type of content.</p>
+
+<p>Here, I’ve set the default of <code class="highlighter-rouge">'none'</code>, in other words, nothing should
+be allowed on my site.  Then, I slowly open that up and start saying, “Okay.
+Well, okay.  Nothing except style from my CDN.  Okay.  Nothing except style and
+frames from these two places.” and so on.</p>
+
+<p>And you see here that I’ve whitelisted <a href="https://www.speakerdeck.com">https://www.speakerdeck.com</a>.  I did
+that because Speaker Deck, being awesome, serves things over HTTPS whereas
+other services do not and have no intention of doing so.  This is problematic
+especially if you’re on a HTTPS site because Chrome and Firefox has started
+actually blocking HTTP content within the context of an HTTPS site.  So, it’s
+really good if you run a service of any sort and you expect people to embed
+things on the web, serve it over SSL.  If you don’t serve it over SSL, slowly
+but surely your options are going to be limited with regards to where that
+content can be embedded.  All right.</p>
+
+<p>So, script – sorry – style, frames, script images, fonts, and so on.  This is
+an exhaustive list of the directives that exist in
+<a href="http://w3.org/TR/CSP">Content Security Policy 1.0</a> which is currently available in Chrome.
+There are couple of additional directives behind a flag in Chrome.  So, if you
+go in to Chrome flags and then enable “Experimental Web Platform features”
+(&lt;chrome://flags/#enable-experimental-web-platform-features&gt;), then you’ll be
+able to start playing around with the 1.1 stuff immediately.</p>
+
+<p>And I’ll talk about a little bit about what’s new in 1.1 later because they are
+like two important things and then a bunch of other stuff that’s gotten through
+for one reason or another.  What’s interesting here is the last item, a report
+URL or URI.  Yeah, URI.  What this does is actually gives you insight into
+whether or not you’re being attacked.</p>
+
+<p>You can run Content Security Policy in such a way that every time there’s a
+violation, every time a resource is loaded that – I’m sorry – an attempt to
+load a resource has made that goes – that violates your policy, you’ll get a
+POST message from the browser.  The browser will say, “Hey, I tried to load this
+thing and I blocked it.  It was on this page.  It had this URL, maybe you should
+take a look at that,” which is really quite useful if you’re auditing websites.</p>
+
+<p>What’s nice here is that you can actually run kind of Content Security Policy in
+a “Report Only” mode.  That is it won’t actually block any content on your site.
+What it will do instead is simply send these POST messages out to your web
+server so that you can start cleaning up your site before you actually deploy a
+Content Security Policy.  What’s really nice is that you can actually run both
+a Report Only mode and an Enforce Mode policy at the same time.  So, you can
+have a really loose enforce policy that says <code class="highlighter-rouge">https:</code> only.  So I should load
+everything over HTTPS and if I don’t, then start telling me about that, so
+that I can find these places on my site that need to be cleaned up.  Then you
+can also have a Report Only mode that’s more restrictive where you start saying
+only this origin, only that origin, no inline script, and so on.  This gives you
+a nice mechanism by which you can start rolling this out.  You start getting
+information about how your site’s actually behaving in the wild and it gives
+you a good opportunity to start cleaning up these areas that need work.</p>
+
+<p>If any of you have any questions by the way, please ask.  Did you have a
+question? Okay.  I’m sorry.  Anyway, you see the report information here.
+There are variety of attributes.  They do more or less what they say on the
+tin. <code class="highlighter-rouge">document-uri</code> is the document what was being attacked.  <code class="highlighter-rouge">referrer</code> is
+the link from which the user came and so on.  The interesting bit might be the
+source file line number and column number at the end.  If the violation came
+from JavaScript we’ll do our best to give you some context that you can actually
+find it again later on.</p>
+
+<p>But what do we do about inline script?  What origin would you say that this
+comes from?  It’s not being loaded via a script tag, right?  It’s just
+inline in the page.</p>
+
+<p>Ha-ha, we didn’t know either.  So, we invented one, we called it <code class="highlighter-rouge">'self'</code>
+<em>(I should have said <code class="highlighter-rouge">'unsafe-inline'</code> here… Oops!)</em>. Basically, inline
+script is the biggest problem that we saw on the web.  And it’s the core reason
+the Content Security Policy is valuable.  We can instruct the browser to not to
+execute inline script.  This means that even if an attacker can inject script
+into your page they can’t do anything.  They’ve just injected text, it’s not
+executed which means it’s not dangerous.  It does mean however that if you have
+inline script in your page that you’re using now, you’re going to have to do a
+little bit of rewriting.  So, code that looks like this, where it defines a
+function inline in the page and then has inline <code class="highlighter-rouge">onclick</code> handlers or
+<code class="highlighter-rouge">javascript:</code> URLs or something along those lines, we have to be rewritten
+something like this.</p>
+
+<p>So, you externalize the script.  You put it in to an external file, you load it
+from that file, and then you do some DOM manipulation in order to add event
+listeners.  Quite honestly this is what you should be doing now.  I know there
+are good reasons for inline script.  I know there are interesting performance
+questions around it.  Generally speaking our approach with Content Security
+Policy has been to throw the baby out with the bathwater and then to look in the
+water and see if we can pick the baby up.  So, in 1.1 we’re going to be digging
+around in the water, and I’ll show you a little bit of that in a moment.  For
+1.0, to get something out the door that was really valuable, we simply say
+inline script is banned.</p>
+
+<p>You can however turn it back on by using the <code class="highlighter-rouge">'unsafe-inline'</code> origin.  We call
+it “unsafe inline” because it’s kind of unsafe and we kind of don’t want you to
+do it.  Regardless, here’s <a href="https://mkw.st/r/csp">that article again</a>.  This article gives you
+really all of the practical detail that you’re going to need in order to do –
+to start implementing this on your own.  I think its well worth your time.  I
+really believe the Content Security Policy is one of the most effective
+mechanisms to mitigate the risk of cross-site scripting that’s come out in the
+last several years.  It’s not perfect.  There are ways to get around it.
+There’s an excellent paper called <a href="http://lcamtuf.coredump.cx/postxss/">“Postcards from the Post-XSS World”</a>
+where people have already figuring out how they can attack you after you have
+Content Security Policy that bans inline script.  Attackers are really, really
+clever but we should make it as hard as possible for them and I think Content
+Security Policy is a great way to do that.</p>
+
+<p>Let’s take a quick look at the <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html">1.1 spec</a> just so I can tell you about
+it.  Now I’m in full screen mode.  I’m sorry.  So, I had everything open on the
+other machine and then it decided not to connect.  So, we’re going to go and
+let’s see if I can remember where it is.  Yeah, look at that.  So, Content
+Security Policy 1.1.  The interesting bits of Content Security Policy 1.1 are
+the inline stuff.  There’s also – there’s some discussion around the JavaScript
+API that might or might not go anywhere.  But let’s look at – oh, that’s right.
+It used to be a separate directive and now it’s not.  So, we have the ability to
+embed nonces as valid sources of script and… I have no idea where it is.</p>
+
+<p>I just write this stuff.  I don’t know where it actually is.  Give me a break.
+How can I be expected to find anything? So, “valid nonces”, that sounds good.
+And it’s a Swiss keyboard, this is sweet.</p>
+
+<p>All right, you’ve seen something like this.  Anyway, the idea – there are two
+competing ideas that we kind of don’t want to implement both of them but we want
+to discuss both of them.  One of them is a nonce which basically a one-time pad.
+A server, when it generates a page, should generate a unique idea along with
+that page and send it in the header.  It then would embed that ID as a <code class="highlighter-rouge">nonce</code>
+attribute on each of the scripts that are enabled.  This means that if the
+server does its job and generates a new nonce every time, that an attacker
+won’t be able to guess it.  So, even if they inject script, it won’t have the
+<code class="highlighter-rouge">nonce</code> attribute and then won’t be executed.  It has the advantage of being
+very simple, it has the advantage of being transferable so that if I load a
+third-party widget, I can give it the nonce as well and it can then inject code
+into my page if I trust it to do that.  And ads do this all the time, so, for
+ads, it’s kind of an important use-case regardless of whether it’s a good
+use-case or not.  The other option is a hash where we would basically hash the
+inline script.  And take, like, the SHA-1 or SHA-256 hash of the script and
+then compare that to something that was in the header so that you could only
+inject code that match this hash.  I think both of them have advantages and
+disadvantages.  And they’re being discussed right now on the
+<a href="http://lists.w3.org/Archives/Public/public-webappsec/"><code class="highlighter-rouge">public-webappsec@</code></a> list.  I’ll get there right now.  So,
+the <a href="http://www.w3.org/2011/webappsec/">Web Application Security Working Group</a> is the group that is
+doing this work.  And from this page, you’d be able to find a link to the
+discussions that are going on the – on the mailing list.  If you have opinions
+and you can back them with use-cases, I’d really suggest that you get involved.
+Just join the working group, join the discussion.  We’re still kind of in the
+formative stages of 1.1 so it’s a good time to get involved.</p>
+
+<p>Well. OK, cool.</p>
+
+<p>So, that is Content Security Policy. That is the one thing that I want you to
+remember from this talk.  I think it’s incredibly important, I think it’s well
+worth your time to play around with. Now, we’re going to talk about other stuff
+because I have more time.</p>
+
+<p>Some of the things that I think are important.  SSL is the first and foremost
+of these. I think serving your sites over a secure channel is an absolute
+prerequisite to any conception of security whatsoever.  If you’re serving your
+site over HTTP, you have absolutely no guarantee that the bits that leave your
+server are the same bits that are getting to the – to the client and you have
+no guarantee that the bits that came from the client are the bits that actually
+reached your server.</p>
+
+<p>We conceive of the internet somehow like this, that I have my laptop, I send
+the request directly out to a server.  I get a request or I get a response
+directly back from the server.  But when we think about it, we know that that’s
+not at all how things work.</p>
+
+<p>Instead, I go to conferences and I join the Wi-Fi network at a conference.  And
+then I send all my requests through this Wi-Fi network.  Do you trust <a href="http://2013.frontendconf.ch/about/">the
+people that run Frontend Conf</a>? I don’t know, they look kinda shady.</p>
+
+<p>Generally speaking, proxies that sit between you and the servers that you want
+to talk to have complete control over every HTTP connection.  There’s simply
+nothing that you can do to verify anything about the connection whatsoever.
+It’s unencrypted, sent in the clear, which means that those proxies have a)
+the ability to modify the request but also the ability to read the request and
+store them and send them to exciting people like the US government.  What I
+would suggest is that your conception of the world should look something like
+this where there’s always something in between you and the server and you
+should never trust it.  You should always assume that everything going through
+external servers is being tainted in some way.</p>
+
+<p>You can fix that to an extent by encrypting the data that’s being sent.  This
+at least guarantees that the information that’s leaving your computer can only
+– well, mostly only – be read by the server that it’s going to.  And mostly
+only – and you can mostly only read the responses that are coming back.  SSL
+is not perfect.  There are a lot of ways in which SSL can leak information and
+we discover new and exciting ways almost everyday.  However, it is the only
+guarantee that we have, period, that any information you send is going to be
+the same information that’s going out to the – to the server and vice versa.
+Given that, I think it’s highly important for any service that is doing anything
+with any information that has any value whatsoever, any, to use SSL.  It’s
+really quite important.  And it’s also really quite easy.  For example,
+StartSSL (which is much bigger than 124 – or 1024 by 768) will give you free
+SSL certificates.  All you need is an IP address. StartSSL is great.  I use them
+for my site.  It’ll look something like this when you do.  It won’t look like
+this because I never touch this thing, but you’ll get a nice green thing up
+here.  You’ll get some green stuff there.  You’ll get some green things over
+here which is kind of nice.  But basically, all of that is theater.  What it
+means simply is that you have the ability to encrypt the connection between
+you and the client and that is only a good thing.  If you start setting up SSL
+and you want to make sure that you’ve done it correctly, there’s an excellent
+website called <a href="https://www.ssllabs.com/ssltest/index.html">ssllabs.com which has an SSL test</a>.  This will run
+through a lot of tests that show you in great detail how you have screwed up
+your SSL connections or how you have screwed up your SSL system in general.</p>
+
+<p>I apparently still have some work to do.</p>
+
+<p>Generally speaking, SSL is really quite valuable, really important, and not
+that difficult to set up.  It’s like <a href="http://wiki.nginx.org/HttpSslModule">three lines in Nginx</a> and it’s
+probably similar in just about every other system.  The only complication is
+generating a request and then sending the request off and then getting a
+response back and making sure that you <a href="http://www.digicert.com/ssl-certificate-installation-nginx.htm">concatenate things in the right
+order</a> so that Nginx will send it.  It’s really quite straightforward
+and really quite nice.  So, I highly recommend that you do that.</p>
+
+<p>Once you do, once you’ve gone ahead and set up SSL, make sure that all your
+users are using it all the time.  That is if someone requests an HTTP page,
+redirect them to the HTTPS page.  There’s a 301 permanent redirect, it’s just
+the location header, it’s really quite straight forward.  The clever amongst you
+will notice that this leaves a window of opportunity for an attacker to do
+some interesting things.  They could <a href="http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security#Applicability">strip this redirect</a>, for
+instance.  They could man-in-the-middle you at that point and say, “Okay, I’m
+going to keep you on HTTP but I’m going to do the HTTPS connection over here to
+the server and then I’ll just forward the information to you.”  They can keep
+you on HTTPS – or HTTP by doing so.  To get back to the concept of client-side
+and browser-side, you can actually instruct the browser to <em>only</em> connect to
+your website over HTTPS regardless of what the user actually types into the
+address bar.  You do that by setting a <a href="http://www.html5rocks.com/en/tutorials/security/transport-layer-security/#closing-the-open-window"><code class="highlighter-rouge">Strict-Transport-Security</code>
+header</a>.  What this means is that the browser will do a transparent
+redirect locally before it actually goes out to the network.  So, if I type in
+<code class="highlighter-rouge">mikewest.org</code>, or if I type in <code class="highlighter-rouge">http://mikewest.org</code>, the browser will actually
+switch that to HTTPS for me before it goes out to the network.  This means that
+there’s not – there’s only one window of opportunity for an attacker to strip
+the SSL connection and that’s the very first time you connect to a site.  So,
+connect from home in the dark with a hood over your head or something so that
+you’re extra secure.  And then when you go out in to the wild and dangerous
+world, you’ll be guaranteed that you go to HTTPS and not http.  If you’d like
+to see the list of websites that is actually already set up within Chrome or
+within Firefox, then go to &lt;chrome://net-internals&gt; and check.</p>
+
+<p>So, I can look at <code class="highlighter-rouge">mikewest.org</code> and you’ll see that it’s in strict mode that
+include – doesn’t include subdomains and there’s some nother stuff that I’ll
+talk about in just a minute. So, Strict Transport Security, it’s a good
+thing, I highly recommend that you set it up.  This means you have SSL and all
+your users use it all the time, or as close to all the time as you could possibly
+get.</p>
+
+<p>If you want even more security – well, actually this is something that you
+should do even if you don’t want security.  Even if you don’t care at all, you
+should do this anyway.  <code class="highlighter-rouge">Set-Cookie</code>, whenever you set cookies, make sure that
+you set a – the <code class="highlighter-rouge">secure</code> flag, which means that they are only sent over SSL and
+never sent over HTTP and you set the <code class="highlighter-rouge">HttpOnly</code> flag which means your cookies
+are not accessible from JavaScript.  This means even if someone can inject
+JavaScript into your page and, even if it gets past your policy and even if it’s
+executed, they still won’t be able to steal users authentication tokens because
+– well, not easily anyway.  They won’t be able to do it via JavaScript.
+They’ll have to find other ways in your site to expose the value of the cookie.</p>
+
+<p><code class="highlighter-rouge">Public-Key-Pins</code> is a mechanism of making your security even more secure.  So,
+the weakest link in SSL right now are the people that issue SSL certificates,
+the <a href="http://en.wikipedia.org/wiki/Certificate_authority">Certificate Authorities</a>.  It’s the case that any certificate authority
+has the authority to issue certificates for any origin on the web.  So, I can
+issue a <code class="highlighter-rouge">google.com</code> certificate, you can issue a <code class="highlighter-rouge">google.com</code> certificate, it’s
+just a beautiful world where we all have this ability. Google, however, would
+prefer that not everyone have this ability.  Since we can’t change the CA system
+as it is, we can instead look to things that ensure that the certificate is only
+acceptable if it meets whatever requirements we set up.  In this case,
+<code class="highlighter-rouge">Public-Key-Pins</code> gives us the ability to send a header that says only accept
+certificates whose public key matches this hash.  This means we only accept
+certificates that we have signed, not that <em>anyone</em> has signed but that <em>we</em>
+have signed.  This gives you the ability to only accept <em>certain</em> certificates
+and not <em>all</em> certificates that are valid for a particular origin.  It’s really
+quite valuable especially if your site is a high-value target that’s under attack.</p>
+
+<p>I haven’t set this up on my site because it is incredibly easy to screw up.  If
+I lose my keys, then people would no longer be able to access my website because
+I would generate a new SSL cert but, for the max age of the pinning, which in
+this case is – I don’t know, some long amount of time, I think that’s a month
+– people would go to my website and then they get an SSL error even though I’ve
+set up everything on my end.  So, you need to be really, really sure that you’re
+doing everything right before you start implementing this.</p>
+
+<p>If you want to go a step further, you can talk to Chrome and you can talk to
+Firefox about having your website <a href="http://src.chromium.org/viewvc/chrome/trunk/src/net/http/transport_security_state_static.json">hard-coded into Chrome as being on the HSTS
+list</a>.  What this means is that there’s no window of opportunity for an
+attacker to strip SSL on your site.  So, <code class="highlighter-rouge">mail.google.com</code>, <code class="highlighter-rouge">paypal.com</code>, a
+wide variety of sites had chosen to do this.  They’re basically hard-coded into
+Chrome as a list of sites that should always be HSTS, that should always use
+Strict Transport Security.  And if your site is one those sites, just <a href="http://crbug.com/new">file a
+bug</a> and we’re happy to add any site and every site but beware
+of the consequences because if you’ve then screwed up your SSL then no one can
+get to your site, ever, with Chrome.</p>
+
+<p>That is Transport Level – <a href="http://src.chromium.org/viewvc/chrome/trunk/src/net/http/transport_security_state_static.json">Transport Layer Security</a>.  There’s one more
+topic that I was going to talk about but I think I’m going to skip it because
+it’s not particularly important.  The slides are online so please feel free to
+skim through all the <code class="highlighter-rouge">&lt;iframe sandbox&gt;</code> stuff.  It’s pretty interesting but
+it’s not critical.</p>
+
+<p>What I think is critical is, again, one more time, just so everyone remembers,
+<a href="https://mkw.st/r/csp">Content Security Policy</a>.  It’s really important.  I think it’s the
+single biggest step forward that we’ve made in quite some time with regard to
+mitigating the risk of cross-site scripting attacks.  It’s not perfect.
+Attackers will still attack you after you have a policy but at least you’ve
+raised the bar to the point where attacking you is hard as opposed to not so
+hard.  Thank you for your time.</p>
+
+<h2 id="qa">Q&amp;A</h2>
+
+<p>Do you have any questions?  I’d be really happy to answer them.  Yeah?</p>
+
+<p>I mean, maybe, depending on the question.</p>
+
+<p><strong>»</strong> So, this one’s going to be hopefully challenging.  So, we were on quite a big
+web service and we really rely on advertising on all pages.  So, what we get a
+lot is, from security web people like people in this room, is use f-ing SSL
+and we cannot do that because of all the advertising.  Most advertisers do not
+use SSL to serve ads.  Do you have any suggestions what we could do about it?</p>
+
+<p><strong>» MIKE WEST:</strong> I – well, the flip suggestion would be find advertisers that serve over
+SSL.  The less flip suggestion is that we’re moving in that direction.
+Advertisers in general are starting to understand that they simply – they can’t
+embed into it – SSL sites.  And because of that, they’re going to start losing
+revenue.  It’s not happening as quickly as I’d like, but generally speaking, the
+trend is for everything on the net to be encrypted.  If you look at <a href="http://www.chromium.org/spdy">SPDY</a>, if
+you look at <a href="http://blog.chromium.org/2013/06/experimenting-with-quic.html">QUIC</a>, if you look at HTTP2 which is currently in discussion, the
+general trend in those discussions is starting with SSL, and that there just
+isn’t a non-encrypted variant.  There’s some discussion around that,
+specifically around caching because encryption makes caching difficult.  But
+generally speaking, the trend is towards encryption and the trend, specifically
+with new protocols, is to only have encryption and to simply not have a
+non-encrypted channel.</p>
+
+<p>So, my answer would be that it gets better but they we’re going to have to wait
+for that betterness.</p>
+
+<p>For now, I would suggest using advertisers that can serve over SSL like Google,
+for instance.  But generally speaking, I honestly believe that this is going to
+be a feature that website owners are going to start asking for more and more.
+And it’s up to website owners and publishers to put pressure onto advertisers so
+that they actually start doing the right thing.  Until that pressure, until that
+market pressure exists, it’s going to be very difficult to move advertisers
+towards a more secure world.</p>
+
+<p><strong>»</strong> Hi.  Thank you for this talk.  What’s your opinion on this plugins that
+came last year like <a href="https://www.eff.org/https-everywhere">HTTPSEverywhere</a> for Firefox as well as Adblock Plus
+which has been, I believe, two or three months ago.  In Germany, there was a
+big announcement of all these media sites serving, saying to you. You have an
+Adblocker, please, please disable it because we are relying on advertising,
+for example.</p>
+
+<p><strong>» MIKE WEST:</strong> I think those are – I guess I would say that those are two completely
+different questions.  I think <a href="https://www.eff.org/https-everywhere">HTTPSEverywhere</a> is wonderful.  I highly
+encourage that you install HTTPSEverywhere.  It’s a plugin, an extension or a
+plugin depending on your browser from the EFF, the <a href="https://www.eff.org/">Electronic Freedom…</a></p>
+
+<p><strong>»</strong> Foundation.</p>
+
+<p><strong>» MIKE WEST:</strong>  Yes, I don’t – it’s just <a href="https://www.eff.org/">EFF</a> and it’s awesome. I <a href="https://supporters.eff.org/donate">give them
+money</a>, I just don’t know their name.</p>
+
+<p>Generally speaking, I would highly recommend that you install it because what
+it does is – has a list of all services or lots of services that serve things
+over HTTPS but for whatever reason give you HTTP options.  It forces you onto
+HTTPS.  So, it’s kind of like a client-side version of the Strict Transport
+Security that we talked about.  And then, I recommend that you install it but
+understand that not every publisher actually expects you to use HTTPS, so, it
+breaks sometimes.  You have to understand that maybe for this site, you have
+to turn it off and it’s a little bit more work but you’re certainly more
+secure because you’re sending the vast majority of your traffic over HTTPS
+and that’s a very good thing.  AdBlock is kind of a completely different
+question and I’m going to ignore it.</p>
+
+<p>I won’t actually.</p>
+
+<p>AdBlock – I don’t understand Adblock.  I understand why people use it because
+ads are often annoying. But for good or for ill, advertising is absolutely
+central to financing the web, period, whether you like it or not.  Given that,
+I think it’s problematic if a large portion of the populace is blocking ads.
+I’m not going to tell you to stop blocking ads because you’re not going to.
+But generally speaking, I think it’s the wrong thing to do.  I think the right
+thing to do is to vote with your feet and if you don’t like the ads on a
+particular publisher, don’t visit that publisher.  I understand there are
+reasons that people use it. We’ve talked about it yesterday or the day before.
+But generally speaking, I see it as really problematic and I find that when
+people complain about ads in the web, like, I find it unsympathetic, but of
+course I would because I work for Google so, who knows?  Feel free to ignore
+that.</p>
+
+<p>We’ll talk afterwards, okay? It’s not really this topic so we’ll talk
+afterwards.</p>
+
+<p><strong>»</strong> Yeah, sorry.  I quite like the reporting feature which we saw before and – but
+there was just a question on twitter.  Is there some way to prevent misuse?
+Because like the URL for reporting is then public and basically everyone can
+submit anything there, so, how to use a tech if it’s really from a browser or…</p>
+
+<p><strong>» MIKE WEST:</strong> Yeah.  So, we do – we – First, I would suggest that you should
+already have things in place that do rate-limiting.  So, if you’re being DDOS’d
+then you should have mechanisms in place, and this isn’t gonna make that any
+worse. Second I would say, that for same-origin reporting mechanisms, so, if
+<code class="highlighter-rouge">example.com</code> reports to <code class="highlighter-rouge">example.com</code>, we send cookies.  If example.com reports
+to something else then we don’t send cookies.  So, at that point, you can use the
+cookies as some sort of authentication mechanism and say that, you know, this is
+coming from this user. What you can also do is have a token, a <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF token</a> in
+the reporting URL and say that for this page, you go to this URL, for this page,
+you go to that URL, just with GET parameters and then verify that those
+parameters are actually what you expect them to be.  So, in the same way that
+you verify form submissions, you can also verify these sorts of POSTs. And I
+think that would take care of most of the mechanisms.</p>
+
+<p>You’re making him run, that’s just mean!</p>
+
+<p><strong>»</strong> I’ll raise about full HTTPS, what is the impact first about SEO, how Google
+look about HTTPS for the website, have an impact?</p>
+
+<p><strong>» MIKE WEST:</strong> I have no idea but Google serves basically everything itself over SSL,
+almost everything.  And generally speaking, Google as a company wants people to
+be using SSL.  I’d be shocked if SSL had a negative impact but I am not a
+quote-unquote “SEO expert”, so don’t take my word for anything.  Talk to people
+who know something about SEO.</p>
+
+<p><strong>»</strong> Just a last comment, when you have a big website with lots of view, if you
+use full SSL, of course, we need to have a bigger hosting environment.  How many
+percentage?</p>
+
+<p><strong>» MIKE WEST:</strong> Not significantly.  So, there is kind of this general common knowledge
+that SSL is much slower than HTTP.  It’s not that slow.  I think you’re going
+to – I’m going to quote it wrong.  There’s a – there are some really smart
+people at Google.  One of them is – what’s the guy’s name?  Smart guy at
+Google, help me out.  Violet – SSL something – <a href="https://www.imperialviolet.org/">ImperialViolet</a>, there
+we go. Oh, and look, that’s like – that’s the exact article I wanted to go to.
+That is sweet.  So, there’s <a href="https://www.imperialviolet.org/2010/06/25/overclocking-ssl.html">a good article on ImperialViolet.org called
+“Overclocking SSL”</a>, where it talks a little bit about the
+impact of SSL.  I want to say, yeah, one – less than 1% of the CPU load, less
+than 10K of memory per connection, less than 2% of network overhead.  There is
+overhead, it is minimal.  This was 2010.  My suspicion is that it’s even lower
+at this point.  So, if you have set things up poorly, then your site’s going to
+be slow.  If, however, you follow the best practices for setting up SSL
+connections and do the right things with regard to <a href="http://tools.ietf.org/html/draft-bmoeller-tls-falsestart">false-start</a>
+and a variety of other code, weird configuration options, you’re going to have a
+site that’s exactly as fast – within 1% of –  non-SSL sites.</p>
+
+<p><strong>»</strong> I have one more question about the SSL thing which is, are there any
+disadvantages in using a free SSL provider like you were showing in comparison
+to the quite expensive other ones?</p>
+
+<p><strong>» MIKE WEST:</strong> Yeah.  I don’t get it.  I think Thawte would love for you to believe
+that their certificates are more valuable.  They are not.  You get 204 – 2048
+bits of encryption with any certificate ever.  Certs are certs.  They are a text
+file that’s like that long, there’s no reason to pay thousands and thousands of
+Euros.  It’s kind of a ridiculous racket.  They can do that because people trust
+them.  So, if you’re doing – the only reason – sorry, the only reason that I would
+suggest using any of these services that are, you know, widely known and widely
+trusted is that some networks, especially inside of enterprises for whatever
+reason, only trust certificates from certain providers.  Generally speaking,
+<a href="https://www.startssl.com/">StartSSL</a>, which is the one that I recommend and the one that I use, is
+well-supported across the world but you would have to test in the specific
+enterprise whether they’ve, for whatever reason, disabled certificates from
+people other than, like, the two CAs that they trust.  So, the only reason
+that’s valuable is because it’s a racket.</p>
+
+<p><strong>»</strong> You just showed us this http header was – the pin where…</p>
+
+<p><strong>» MIKE WEST:</strong> Uh-hmm.  Yeah.</p>
+
+<p><strong>»</strong> Do we need a <a href="https://www.startssl.com/">StartSSL</a> or some provider like that anyway or…</p>
+
+<p><strong>» MIKE WEST:</strong> Yeah, yeah.  You’d have to have a cert before you can pin a cert, so
+pinning.</p>
+
+<p><strong>»</strong> Maybe somewhat, self-sign it to…</p>
+
+<p><strong>» MIKE WEST:</strong> You can self-sign it and you can pin a self-signed certificate but the
+browser isn’t going to trust that anymore.  There’s been <a href="https://www.imperialviolet.org/2011/06/16/dnssecchrome.html">some discussion around
+making self-signed certificates less terrible in terms of their
+presentation</a> but I don’t think that’s going to roll out to the web.</p>
+
+<p><strong>»</strong> I see your point before that <a href="http://en.wikipedia.org/wiki/Extended_Validation_Certificate">EV SSL</a> isn’t worth a lot really.  Why in
+browsers do – do browser producers actually change the icon?</p>
+
+<p><strong>» MIKE WEST:</strong> That is an excellent question.  You would have to talk with whoever
+made that decision.</p>
+
+<p>I don’t think there’s any value to EV certificate. Basically, the certification
+means that you have a lot of money and that you paid someone.  And that gives
+you your name in the URL bar and I guess that has some value, and if you’re a
+company then you have money to burn anyway so, hey, why not throw money at SSL.
+But generally speaking, there is no difference, period, between the encryption
+that you get with a self-signed certificate and a totally expensive EV
+certificate.  The encryption is exactly the same.</p>
+
+<p>Great. Thank you very much.</p>
+
+<p>If you have any questions at all…</p>
+
+<p><strong>»</strong> Thank you, Michael.  We’ll follow-up with our closing keynote.  Just a moment.</p>
+
+:ET

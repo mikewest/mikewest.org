@@ -1,0 +1,124 @@
+I"�<p>Yahoo’s latest API is really quite cool: <a href="http://developer.yahoo.com/geo/placemaker/guide/">Placemaker</a> takes your unstructured data (e.g. any HTML page, RSS feed, etc), and extracts a nice list of <em>locations</em> that your data refers to.  It’s a brilliant tool, and I can think of quite a few ways I’d like to use it in the future.  Along with their release of a <em>ton</em> of <a href="http://developer.yahoo.com/geo/geoplanet/data/">WhereOnEarth ID codes</a> that allows you to make use of Yahoo’s various geo-services, this is a really good day to play with geocoding unstructured data.</p>
+
+<p>So, let’s play:</p>
+
+<p>Accessing Placemaker is simple: assuming that you’ve somehow managed to <a href="http://developer.yahoo.com/wsregapp/">obtain an application id</a>, you simply make an HTTP <code class="highlighter-rouge">POST</code> request to Yahoo!’s Placemaker endpoint with a tiny bit of data specifying the nature of the data you’re dealing with, and it’s URL.  If you like <code class="highlighter-rouge">curl</code> on the command line, this might look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -d 'inputLanguage=en-US&amp;documentType=text/html&amp;documentURL=http://mikewest.org/&amp;appid=[APPID]' http://wherein.yahooapis.com/v1/document
+</code></pre></div></div>
+
+<p>You’ll get back an XML document (RSS is also available as a response format).  Digging into the contents yields:</p>
+
+<ul>
+  <li>
+    <p>Boilerplate:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;contentlocation</span> <span class="na">xmlns:yahoo=</span><span class="s">"http://www.yahooapis.com/v1/base.rng"</span> <span class="na">xmlns=</span><span class="s">"http://wherein.yahooapis.com/v1/schema"</span> <span class="na">xml:lang=</span><span class="s">"de-DE"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;processingTime&gt;</span>0.380778<span class="nt">&lt;/processingTime&gt;</span>
+  <span class="nt">&lt;version&gt;</span> build 090508<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;documentLength&gt;</span>15906<span class="nt">&lt;/documentLength&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>A (list of) document element(s) containing the extracted locations:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;document&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>A best guess at the document’s “scope” (the smallest region that “best
+describes” the document):</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;administrativeScope&gt;
+      &lt;woeId&gt;20071093&lt;/woeId&gt;
+      &lt;type&gt;County&lt;/type&gt;
+      &lt;name&gt;&lt;![CDATA[Munich, Bavaria, DE]]&gt;&lt;/name&gt;
+      &lt;centroid&gt;
+        &lt;latitude&gt;48.1549&lt;/latitude&gt;
+        &lt;longitude&gt;11.5417&lt;/longitude&gt;
+      &lt;/centroid&gt;
+    &lt;/administrativeScope&gt;
+    &lt;geographicScope&gt;
+      &lt;woeId&gt;29388625&lt;/woeId&gt;
+      &lt;type&gt;MMA&lt;/type&gt;
+      &lt;name&gt;&lt;![CDATA[MMA München, Bavaria, DE]]&gt;&lt;/name&gt;
+      &lt;centroid&gt;
+        &lt;latitude&gt;48.1549&lt;/latitude&gt;
+        &lt;longitude&gt;11.5417&lt;/longitude&gt;
+      &lt;/centroid&gt;
+    &lt;/geographicScope&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Latitude/longitude for a bounding box that contains the places mentioned
+in the document (which makes it trivial to draw an “area of discussion” on
+a map):</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;extents&gt;
+      &lt;center&gt;
+        &lt;latitude&gt;48.1364&lt;/latitude&gt;
+        &lt;longitude&gt;11.5775&lt;/longitude&gt;
+      &lt;/center&gt;
+      &lt;southWest&gt;
+        &lt;latitude&gt;48.0417&lt;/latitude&gt;
+        &lt;longitude&gt;11.3771&lt;/longitude&gt;
+      &lt;/southWest&gt;
+      &lt;northEast&gt;
+        &lt;latitude&gt;48.2292&lt;/latitude&gt;
+        &lt;longitude&gt;11.749&lt;/longitude&gt;
+      &lt;/northEast&gt;
+    &lt;/extents&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Detailed breakdown of the places mentioned in your document, giving you
+lat/long coordinates identifying the place’s center point.  Moreover, it
+tells you <em>where</em> in your document the place was found (string offsets
+<em>and</em> XPath expressions, to each their own).  This is helpful for those
+occasions when the text you’ve entered doesn’t exactly match the place’s
+name that Yahoo returns (“Munich” vs. “Munich, Bavaria, DE”, in this
+example)  Annotating your documents with this data should be a piece of
+cake.</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;placeDetails&gt;
+      &lt;place&gt;
+        &lt;woeId&gt;676757&lt;/woeId&gt;
+        &lt;type&gt;Town&lt;/type&gt;
+        &lt;name&gt;&lt;![CDATA[Munich, Bavaria, DE]]&gt;&lt;/name&gt;
+        &lt;centroid&gt;
+          &lt;latitude&gt;48.1364&lt;/latitude&gt;
+          &lt;longitude&gt;11.5775&lt;/longitude&gt;
+        &lt;/centroid&gt;
+      &lt;/place&gt;
+      &lt;matchType&gt;0&lt;/matchType&gt;
+      &lt;weight&gt;1&lt;/weight&gt;
+      &lt;confidence&gt;7&lt;/confidence&gt;
+    &lt;/placeDetails&gt;
+    &lt;referenceList&gt;
+      &lt;reference&gt;
+        &lt;woeIds&gt;676757&lt;/woeIds&gt;
+        &lt;start&gt;50&lt;/start&gt;
+        &lt;end&gt;56&lt;/end&gt;
+        &lt;isPlaintextMarker&gt;0&lt;/isPlaintextMarker&gt;
+        &lt;text&gt;&lt;![CDATA[Munich]]&gt;&lt;/text&gt;
+        &lt;type&gt;xpathwithcounts&lt;/type&gt;
+        &lt;xpath&gt;&lt;![CDATA[/html[1]/body[1]/div[2]/div[1]/p[1]]]&gt;&lt;/xpath&gt;
+      &lt;/reference&gt;
+    &lt;/referenceList&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>And some more boilerplate.  :)</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;/document&gt;
+&lt;/contentlocation&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Full documentation of the Placemaker <a href="http://developer.yahoo.com/geo/placemaker/guide/api_docs.html#query_parameters">query parameters</a> and <a href="http://developer.yahoo.com/geo/placemaker/guide/api-reference.html">response format</a> are available on YDN.  Christian has put together a demo of a <a href="http://isithackday.com/hacks/placemaker/">basic PHP implementation</a> (though it’s XSSable, and shouldn’t ever be used in production).</p>
+
+<p>In general, this is <em>brilliant</em> stuff.  I’m looking forward to playing with it!</p>
+
+:ET

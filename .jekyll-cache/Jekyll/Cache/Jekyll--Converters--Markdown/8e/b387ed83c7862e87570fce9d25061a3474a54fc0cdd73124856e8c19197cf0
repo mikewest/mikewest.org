@@ -1,0 +1,49 @@
+I"><p>Generally speaking, your guests will pick up the same IP from VMWare every time.  You write some scripts assuming that those IPs will remain stable, and everything’s good.  Then, for whatever reason, VMWare’s DHCP server decides that your VM really ought to sit on 192.168.65.131 instead of 192.168.65.135, where it had been happy and comfortable for <em>weeks</em>.  Annoying.</p>
+
+<p>The solution’s simple: you need to tell Fusion to assign the same IP to a particular guest every time.  That’s a trivial process:</p>
+
+<ol>
+  <li>
+    <p>Log into your VM, and type <code class="highlighter-rouge">ifconfig -a | grep HWaddr | awk '{print $5}</code>.  That will spit out a string that looks something like “00:0c:29:f8:9d:61”.  This string is your VM’s <abbr title="Media Access Control">MAC</abbr> address that uniquely identifies this VM when it requests an IP address.  Write it down; you’ll need it shortly.</p>
+  </li>
+  <li>
+    <p>Back on your mac, open up VMWare’s DHCP server config.  It sits in <code class="highlighter-rouge">/Library/Application Support/VMware Fusion/vmnet8/dhcpd.conf</code>, and is a simple text file that you can edit with something like TextMate or VIM.</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mate /Library/Application\ Support/VMware\ Fusion/vmnet8/dhcpd.conf
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Add a block for each of your VMs in the form:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host [HOSTNAME] {
+    hardware ethernet [MAC ADDRESS];
+    fixed-address [STATIC IP OF YOUR CHOICE];
+}
+</code></pre></div>    </div>
+
+    <p>The address you choose needs to be in the same subnet as the previously assigned DHCP addresses.  Mine, for example, was 192.168.65.131, so I can pick any address in 192.168.65.*.  It’s best to pick a number between 3 and 127, as VMWare has reserved that range for static IPs.</p>
+  </li>
+  <li>
+    <p>Reboot VMWare’s DHCP server so that it picks up the new assignments you’ve made:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo /Library/Application\ Support/VMware\ Fusion/\boot.sh --restart
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Grab new addresses on your VMs.  The simplest way to do this is simply to reboot the machines.  If you’re not into rebooting, you can either bring the ethernet interface down and back up again (on linux) with:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ifdown eth0 &amp;&amp; sudo ifup eth0
+</code></pre></div>    </div>
+
+    <p>Windows has a similar set of commands:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ipconfig /release
+ipconfig /renew
+</code></pre></div>    </div>
+
+    <p>Make sure you’re not trying to perform this switch if you’re SSHed into the machine.  I suspect turning off the network would have some adverse effects on your connection… :)</p>
+  </li>
+</ol>
+
+<p>Enjoy your (dynamically) static IPs!</p>
+:ET

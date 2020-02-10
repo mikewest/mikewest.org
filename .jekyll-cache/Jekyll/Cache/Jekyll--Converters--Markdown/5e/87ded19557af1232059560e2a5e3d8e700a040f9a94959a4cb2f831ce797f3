@@ -1,0 +1,47 @@
+I"4<p>I’m currently boning up on interview lore in preparation for one I’ve got coming up in a few weeks (speaking of which, if you’ll be in Munich on the 13th, drop me a line; First beer’s on me!).  I’m ignoring the “big name” interview advice sites today (though <a href="http://www.techinterview.org/" title="techInterview">techinterview</a> looks like a promising avenue for tomorrow…), instead using the magic of <a href="http://ranchero.com/netnewswire/" title="NetNewsWire: _The_ RSS Reader for OS X">NetNewsWire</a> to dive back through my RSS feeds to find articles and essays that were written by people I read and respect.  A little research has yielded the following (very) short list of interview essays that I think are worth reading, whether you’re prepping for an interview, or trying to figure out <em>how to</em> interview:</p>
+
+<ul>
+  <li>
+    <p>Steve Yegge has a number of excellent essays up, recounting his
+experiences interviewing candidates for software developer positions at
+Amazon.  The best of these is 
+“<a href="http://steve.yegge.googlepages.com/five-essential-phone-screen-questions" title="Steve Yegge: 'Five Essential Phone Screen Questions'">Five Essential Phone Screen Questions</a>”, which outlines
+in great detail the critical areas to check for as early as possible in
+the interview process.  It’s well written, and seems dead-on in terms of
+the areas it recommends.</p>
+
+    <p>He’s also written “<a href="http://steve.yegge.googlepages.com/practical-magic" title="Steve Yegge: 'Practical Magic'">Practical Magic</a>”, exploring the question
+of abstraction (which is directly applicable to the danger of
+over-reliance on frameworks and JavaScript libraries); 
+“<a href="http://steve.yegge.googlepages.com/what-you-need-to-know" title="Steve Yegge: 'What You Need To Know'">What You Need To Know</a>”, espousing the virtues of
+interviewing for ‘common sense’; and more recently 
+“<a href="http://www.oreillynet.com/ruby/blog/2006/03/interviewing_ruby_programmers.html" title="Steve Yegge: 'Interviewing Ruby Programmers'">Interviewing Ruby Programmers</a>” and it’s followup
+“<a href="http://steve-yegge.blogspot.com/2006/03/truth-about-interviewing.html" title="Steve Yegge: 'Truth About Interviewing'">The Truth About Interviewing</a>”, arguing (among other
+things) that programming is <em>hard</em>, and that interviewees shouldn’t be
+surprised or offended when companies’ interview process sets a very high
+standard for acceptance.</p>
+
+    <p>And really, <a href="http://steve-yegge.blogspot.com" title="Steve Yegge: 'Stevey's Blog Rants'">Steve’s blog</a> and his 
+<a href="http://steve.yegge.googlepages.com/blog-rants" title="Stevey's Drunken Blog Rants">collection of older essays</a> are well worth reading no matter what
+you’re looking for, he’s an entertaining and insightful guy.</p>
+
+    <p><em>[Edited 2006-09-28: Steve moved servers and didn’t set up 301 redirects, so I updated the links manually.]</em></p>
+  </li>
+  <li>
+    <p>Joel Spolsky (of <a href="http://www.joelonsoftware.com/" title="Joel on Software">Joel on Software</a> fame) has an essay
+up entitled “<a href="http://www.joelonsoftware.com/articles/fog0000000073.html" title="Joel Spolsky: 'The Guerrilla Guide to Interviewing'">The Guerrilla Guide to Interviewing</a>”, which is both a
+great example of why I enjoy reading Joel’s writing, but also a wonderful
+resource for technical interviews.  Though this essay is geared towards
+the <em>interviewer</em>, his advice and expectations are easily applicable to
+the <em>interviewee</em>.  He covers much of the same ground as Steve’s essays, 
+though of course with his own spin, and offers some great tidbits about
+what he’s looking for, and what he finds impressive.</p>
+
+    <p>His essay “<a href="http://www.joelonsoftware.com/articles/ResumeRead.html" title="Joel Spolsky: 'Getting Your Résumé Read'">Getting Your Résumé Read</a>” looks like a keeper as
+well, though it wasn’t exactly what I was looking for.</p>
+  </li>
+</ul>
+
+<p>Do you know of any good articles I should add to the list?</p>
+
+:ET

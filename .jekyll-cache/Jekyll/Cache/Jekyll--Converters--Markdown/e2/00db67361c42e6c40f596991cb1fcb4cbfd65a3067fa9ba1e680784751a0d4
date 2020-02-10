@@ -1,0 +1,17 @@
+I"<p>For future reference:</p>
+
+<p>Curly braces in the attributes of XSLT document’s elements are interpreted as XPATH expressions to be evaluated.  This, generally, is fine: I like shortcuts.  I don’t, however, like them when they interfere with my ability to embed JavaScript hacks into a document.</p>
+
+<p>You may be thinking to yourself: “Mike, you shouldn’t embed JavaScript into an element’s attributes!  That’s simply idiotic!”  You’d be right, of course.  But assume for the moment that I had a good reason for doing it (in this particular case, the link simply doesn’t work at all without JavaScript.  which is also bad.  but something I can’t do anything about right now.  don’t do this at home, kids.).  In that obscure case, I’d need to remember to set the attribute via the magical <code class="highlighter-rouge">&lt;xsl:attribute&gt;</code> element.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a&gt;
+    &lt;xsl:attribute name="href"&gt;
+        http://curlyquotes.com/i/can/use/{/and/}/yay!/
+    &lt;/xsl:attribute&gt;
+&lt;/a&gt;
+</code></pre></div></div>
+
+<p>Now you know.  And now I’ll be able to look this up in a few weeks when I have no idea what my code’s doing.  :)</p>
+
+<p>Also: I hate XSLT.</p>
+:ET

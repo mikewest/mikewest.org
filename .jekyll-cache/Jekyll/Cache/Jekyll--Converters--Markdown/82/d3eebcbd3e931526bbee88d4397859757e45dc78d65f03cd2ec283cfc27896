@@ -1,0 +1,109 @@
+I"�<p>After working with Blink’s implementation of <code class="highlighter-rouge">window.onerror</code> a little bit
+over the last week or so, I’m somewhat amazed that anyone ever used it for
+anything at all. For those of you to whom the API is news, the current
+implementation in Chrome’s stable channel (28) looks a little bit like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>window.onerror = function (message, filename, lineno) {
+    // Do some centralized error reporting here, for example, by POSTing
+    // the error message, filename, and line number to a collection
+    // server for later processing.
+  
+    return true; // The exception is handled, not reported to the user.
+};
+
+...
+
+throw new Error('OMG!');
+</code></pre></div></div>
+
+<p>‘window.onerror’ acts something like a global try/catch block, allowing you
+to gracefully handle uncaught exceptions you didn’t expect to see. This, in
+theory, is brilliant.</p>
+
+<p>Two issues have made it less than brilliant in practice:</p>
+
+<ol>
+  <li>
+    <p>Unlike a local try/catch block, the <code class="highlighter-rouge">window.onerror</code> handler doesn’t have
+direct access to the exception object, and is executed in the global
+context rather than locally where the error occurred. That means that
+developers don’t have access to a call stack, and can’t build a call stack
+themselves by walking up the chain of a method’s callers.</p>
+  </li>
+  <li>
+    <p>Browsers go to great lengths to sanitize the data provided to the handler
+in order to prevent unintentional data leakage from cross-origin scripts.
+If you host your JavaScript on a CDN (as you ought), you’ll get “Script
+error.”, “”, and 0 in the above handler. That’s not particularly helpful.</p>
+  </li>
+</ol>
+
+<p>There are a few other concerns, but those are the big two. I’m happy to say
+that recent patches have addressed many of the concerns in Blink.</p>
+
+<ol>
+  <li>
+    <p>Christophe Dumez <a href="http://crbug.com/264197">added the column number to the handler</a>.</p>
+  </li>
+  <li>
+    <p>After a lot of back-and-forth, Hixie <a href="http://html5.org/r/8086">added an ‘error’ parameter to the
+<code class="highlighter-rouge">onerror</code> handler in the WHATWG spec</a>. This, as you might imagine,
+contains the exception that was thrown, just as you’d get in a <code class="highlighter-rouge">catch</code>
+block. The <a href="http://crbug.com/147127">Blink implementation landed last week</a>, which means that you
+can now access the stack trace in your handler via something like the
+following:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>window.onerror = function (message, filename, lineno, colno, error) {
+    console.log("This is a stack trace! Wow! --&gt; %s", error.stack);
+};
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Blink <a href="http://crbug.com/159566">now follows</a> Mozilla’s and WebKit’s practice of enabling full
+detail in exceptions generated from cross-origin scripts that are served
+with proper access-control headers and attributes. If you add a
+<code class="highlighter-rouge">crossorigin</code> attribute to a <code class="highlighter-rouge">script</code> tag, and serve that script with an
+<code class="highlighter-rouge">Access-Control-Allow-Origin</code> header that allows access to the document
+loading the script, then you’ll be given unsanitized data in your error
+handlers. That might look something like this:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script crossorigin="anonymous" src="http://cdn.example.com/script.js"&gt;&lt;/script&gt;
+</code></pre></div>    </div>
+
+    <p>Note that this is a bit tricky: you’ll need to make quite sure that your
+server is properly configured. If a script has a <code class="highlighter-rouge">crossorigin</code> attribute
+but the server doesn’t send appropriate CORS headers, the script load
+will fail miserably.</p>
+  </li>
+  <li>
+    <p><a href="https://code.google.com/p/v8/issues/detail?id=2822">Stringification of custom errors is (slightly) improved</a> for the case
+where an Error object is directly set as the prototype of your custom
+error. Handlebars, for instance, created a <code class="highlighter-rouge">Handlebars.Exception</code> object
+with code like this:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Handlebars.Exception.prototype = new Error();
+</code></pre></div>    </div>
+
+    <p>V8 didn’t support that very well in <code class="highlighter-rouge">window.onerror</code>: the stringification
+looked something like <code class="highlighter-rouge">[object Object]</code>, which wasn’t particularly useful
+for anyone. Now you’ll get the expected message, as long as you haven’t
+overridden the <code class="highlighter-rouge">toString</code> method.</p>
+  </li>
+  <li>
+    <p>I’m still knee-deep in the Worker implementation, which is a bit of mess
+really. I expect to <a href="http://crbug.com/269538">fix the sanitization</a> shortly, and I think it
+shouldn’t be too difficult to <a href="http://crbug.com/270005">add the <code class="highlighter-rouge">error</code> property to the Worker’s
+<code class="highlighter-rouge">onerror</code> handler</a>.</p>
+  </li>
+</ol>
+
+<p>I think this set of changes will make centralized error reporting a bit more
+realisticly possible in the near future. I’d love for you folks to start
+banging on these initial implementations now so that I can fix bugs and clean
+up edge-cases now, before these start rolling into Stable. When you see a bug
+please do file it at <a href="http://crbug.com/new">http://crbug.com/new</a>, and ping me the bug ID
+(<a href="https://google.com/+MikeWest">+Mike West</a>, <a href="https://twitter.com/mikewest">@mikewest</a>, or <a href="mailto:mkwst@chromium.org">mkwst@chromium.org</a>).</p>
+
+<p>Enjoy Blink’s newly more-usable error reporting!</p>
+
+:ET

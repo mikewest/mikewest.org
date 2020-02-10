@@ -1,0 +1,14 @@
+I"<p>Italian, apparently, is full of single quotes.  I’m sure they’re not called “single quotes” in Italian, and I’m sure that the Italian people didn’t have exactly <em>my</em> code in mind when they settled upon that convention…  That said, my broken code is still obviously their fault.</p>
+
+<p>Note to self:  Escape all quotes.  At a minimum, do something like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$title =~ s/\'/\\\'/g;
+</code></pre></div></div>
+
+<p>before writing out strings for use later.  Potentially even use correct typography with code like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$title =~ s/\'/&amp;#x2019;/g;
+</code></pre></div></div>
+
+<p>depending on context.</p>
+:ET

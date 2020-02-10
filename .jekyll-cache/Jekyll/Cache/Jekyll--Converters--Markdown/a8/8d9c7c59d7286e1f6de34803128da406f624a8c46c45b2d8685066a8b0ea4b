@@ -1,0 +1,7 @@
+I"�<p>I’ve just updated <a href="http://mikewest.org/archive/mcwmagnolia"><code class="highlighter-rouge">mcw_ma_gnolia</code></a> to 0.4, tweaking the plugin to work with Ma.gnolia’s new linkroll JavaScript. This, of course, is a good reason to start working on something that actually uses the Ma.gnolia API instead of parsing through a linkroll JavaScript file. I’ll be starting on that soon.</p>
+
+<p><a href="http://mikewest.org/file_download/8" title="`mcw_ma_gnolia` download">Download the new version</a> and let me know if you run into any problems.</p>
+
+<p><a href="http://mikewest.org/archive/mcwmagnolia"><code class="highlighter-rouge">mcw_ma_gnolia</code></a> is a TextPattern plugin that generates a customizable Ma.gnolia link roll for use on your website.  If you’re curious, visit <a href="http://mikewest.org/archive/mcwmagnolia">the project page</a> for all the details and documentation.</p>
+
+:ET

@@ -1,0 +1,2 @@
+I"c<p>Nginx is a brilliant little HTTP server that I’m using on this website to quickly serve static content.  It bothers me a (very) little that it doesn’t correctly generate Etag headers for static content, however.  I’m attempting to remedy that oversight by releasing an Nginx module: <code class="highlighter-rouge">nginx-static-etags</code>.</p>
+:ET

@@ -1,0 +1,66 @@
+I"�<p><strong>UPDATE</strong>: <em><a href="http://subversion.tigris.org/servlets/NewsItemView?newsItemID=1807">Subversion 1.4.3 was released</a>
+(<a href="http://svn.collab.net/repos/svn/tags/1.4.3/CHANGES">Release Notes</a>) on Jan 25th, 2007.  I’ve updated the
+instructions here accordingly.</em></p>
+
+<p>The <a href="http://metissian.com/projects/macosx/subversion/" title="Subversion Packages for Mac OS X">pre-built Subversion binaries</a> that <a href="http://metissian.com/">Metissian</a> generally
+puts together are running a little behind the times, and
+<a href="http://hivelogic.com/" title="Dan Benjamin: Hivelogic">Dan Benjamin’s</a> excellent <a href="http://hivelogic.com/articles/2006/04/19/svn_on_os_x" title="Building Subversion (SVN) on Mac OS X">guide to building Subversion from
+source</a> needs a bit of an update to support 1.4.3.   Those are still
+the sources I’d recommend that you visit in the future; they’re diligent folk
+indeed.</p>
+
+<p>You, however, are an impatient pioneer.  You want to build the latest stable
+(impatient, not <em>imprudent</em>) Subversion release yourself, <em>right now</em>. This
+article explains the process.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>If you haven’t installed Subversion yet, visit Dan’s <a href="http://hivelogic.com/articles/2006/04/19/svn_on_os_x" title="Building Subversion (SVN) on Mac OS X">guide to building
+Subversion</a> that I mentioned above, and ensure that you’ve
+followed the the instructions under the <strong>Set Your Path</strong> heading.  They’re
+important.</p>
+
+<p>You’ll also need to ensure that you have a recent version of Xcode installed
+(I’m running 2.4.1).  You will get errors if you’re running a sufficiently old
+version (I’m <em>guessing</em> 2.2 or below).</p>
+
+<h2 id="process">Process</h2>
+
+<p>So, you’re good to go.  Simply pop open Terminal and run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/Desktop/src/
+cd ~/Desktop/src/
+curl -O http://subversion.tigris.org/downloads/subversion-1.4.3.tar.gz
+curl -O http://subversion.tigris.org/downloads/subversion-deps-1.4.3.tar.gz
+tar xvzf ./subversion-1.4.3.tar.gz
+tar xvzf ./subversion-deps-1.4.3.tar.gz
+cd subversion-1.4.3
+./configure --prefix=/usr/local --with-openssl --with-ssl --with-zlib
+make
+sudo make install
+</code></pre></div></div>
+
+<p>That last command will require you to enter your password; do so, it’s ok.</p>
+
+<p>That’s it.  You’re done.</p>
+
+<h2 id="problems">Problems</h2>
+
+<p>What?  You got an error helpfully informing you that your “C compiler cannot
+create executables See ‘config.log’ for more details”?  I did too.</p>
+
+<p>The answer’s simple: you have either an outdated version of the <code class="highlighter-rouge">GCC</code>
+compiler, or an outdated <code class="highlighter-rouge">ln</code> utility.  Either way, you need to upgrade your
+Xcode installation.  It’s an absurdly large package that you can grab (for
+free) from <a href="http://developer.apple.com/" title="Apple Developer Connection">Apple’s Developer Connection</a>.  Sign up for an account if you
+don’t already have one, download the upgrade, install it, reboot for good
+measure (though logging out and then back in is probably enough), then re-run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./configure --prefix=/usr/local --with-openssl --with-ssl --with-zlib
+make
+sudo make install
+</code></pre></div></div>
+
+<p>That should take care of the issue.</p>
+
+:ET

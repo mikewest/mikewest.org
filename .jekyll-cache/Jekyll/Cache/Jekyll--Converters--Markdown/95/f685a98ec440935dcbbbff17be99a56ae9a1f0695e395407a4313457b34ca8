@@ -1,0 +1,2 @@
+I"$<p>The “Hello World!” of Subversion <code class="highlighter-rouge">post-commit</code> hooks is the use of <code class="highlighter-rouge">SVNnotify</code> to send e-mails out to a project team every time a new revision is committed to the repository.  This is easier than it sounds.</p>
+:ET

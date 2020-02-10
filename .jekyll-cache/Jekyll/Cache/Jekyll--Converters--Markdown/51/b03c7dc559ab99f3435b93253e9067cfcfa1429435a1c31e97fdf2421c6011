@@ -1,0 +1,2 @@
+I"�<p>AngularJS has recently implemented support for Content Security Policy that restricts the use of <code class="highlighter-rouge">eval()</code>, <code class="highlighter-rouge">new Function()</code>, and other such text-to-JS conduits. This is a huge win, as CSP is one of the best protections modern browsers provide against XSS attacks. However, Angular’s implementation reveals a need for feature detection that the spec currently doesn’t address. This is my proposal for such an API.</p>
+:ET

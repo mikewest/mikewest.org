@@ -1,0 +1,60 @@
+I"�<p>Varnish is an excellent-looking “HTTP accelerator”, designed specifically as a high-performance caching reverse-proxy to sit in front of your hard-working application servers, and relieve them of load.  It’s a bit of a pain in the ass to install from source on JeOS, though.  Here’s what I ended up doing:</p>
+
+<ol>
+  <li>
+    <p>Install XSLTProc:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install xsltproc
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Install some helpful GNU tools:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install automake autoconf libtool libncurses5
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Install <code class="highlighter-rouge">groff-base</code>.  If you don’t do this, your compilation will fail because <a href="http://www.linuxcommand.org/man_pages/soelim1.html"><code class="highlighter-rouge">soelim</code></a> isn’t available:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install groff-base
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Install Subversion:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install subversion
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Checkout the Varnish trunk:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/src
+cd ~/src
+svn co http://varnish.projects.linpro.no/svn/trunk/varnish-cache
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Generate <code class="highlighter-rouge">configure</code> and makefiles:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/src/varnish-cache
+./autogen.sh
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Configure, make, test (this is SVN trunk, after all), install.  This step (particularly the tests) will take a while, go make some tea:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./configure &amp;&amp; make &amp;&amp; make check &amp;&amp; sudo make install
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Tell JeOS where to look for Varnish’s shared libraries.  I can’t imagine why the installer doesn’t do this, I’ll assume for the moment that it’s an artifact of building directly from SVN.  If you don’t do this, you’ll get errors like “varnishd: error while loading shared libraries: libvarnish.so.1: cannot open shared object file: No such file or directory”:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ldconfig -n /usr/local/lib
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Go read the <a href="http://varnish.projects.linpro.no/wiki/Introduction">Varnish introduction</a>.  That’s what I’m doing at the moment… it seems like a good next step.  :)</p>
+  </li>
+</ol>
+
+:ET

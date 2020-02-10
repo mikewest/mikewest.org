@@ -1,0 +1,21 @@
+I"Ç<p>Getting <a href="http://blog.mikewest.org/post/108613427/running-python-spidermonkey-on-jeos">JSLint running inside Spidermonkey</a> was much simpler than I expected it to be:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[14:12] src/jslint $ python
+Python 2.6.2 (release26-maint, Apr 19 2009, 01:58:18) 
+[GCC 4.3.3] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import spidermonkey
+&gt;&gt;&gt; rt = spidermonkey.Runtime()
+&gt;&gt;&gt; cx = rt.new_context()
+&gt;&gt;&gt; text = file( './fulljslint.js' ).read()
+&gt;&gt;&gt; cx.execute( text )
+u'use strict'
+&gt;&gt;&gt; cx.execute( text + 'JSLINT("i++", {})' )
+False
+&gt;&gt;&gt; cx.execute( text + 'JSLINT("i++", {}); JSLINT.report();' )
+u'&lt;div id=errors&gt;&lt;i&gt;Error:&lt;/i&gt;&lt;p&gt;&lt;i&gt;Implied global:&lt;/i&gt; &lt;code&gt;i&lt;/code&gt;&amp;nbsp;&lt;i&gt;1&lt;/i&gt;&lt;/p&gt;&lt;p&gt;Problem at line 1 character 4: Missing semicolon.&lt;/p&gt;&lt;p class=evidence&gt;i++&lt;/p&gt;&lt;/div&gt;&lt;br&gt;&lt;div id=functions&gt;&lt;div&gt;&lt;i&gt;No new global variables introduced.&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;'
+</code></pre></div></div>
+
+<p>Yay!</p>
+
+:ET

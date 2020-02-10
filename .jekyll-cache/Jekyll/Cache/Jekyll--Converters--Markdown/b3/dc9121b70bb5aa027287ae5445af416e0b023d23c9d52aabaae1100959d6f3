@@ -1,0 +1,70 @@
+I"!<p>One of the few tools that I consider truly indispensable when developing
+websites is <a href="http://www.jslint.com/">JSLint</a>.  A marvel of applied compiler theory, the program
+has saved me from stupid mistakes more times than I care to remember.  I
+have it set up to automatically sanity-check my code <a href="http://github.com/mikewest/jslint-utils">every time I push a
+commit to SVN</a>, and it’s generally my best friend in the whole
+wide world.</p>
+
+<p>JSLint isn’t always perfect, however, especially when used to check CSS
+files.  I think <a href="http://www.crockford.com/">Douglas Crockford</a> is a JavaScript wizard, but I’m
+somewhat less blindly acquiescent when it comes to his take on the Good
+Parts of style sheets.  For better or worse, browsers are <em>much</em> less
+similar in their interpretation of what I mean when I write a particular
+style, and certain hacks and workarounds are par for the course when
+putting together a layout of any complexity.  JSLint’s CSS checks do a
+good job warning about certain types of errors (missing semicolons, for
+instance), but a relatively terrible job when it comes to some of the
+necessary evils of practical development.  In short, JSLint’s CSS mode
+needs some <a href="http://github.com/mikewest/jslint/raw/master/CHANGELOG.markdown">Bad Parts</a> to be really <em>usable</em> for me.</p>
+
+<p>In itself, this wouldn’t be an issue.  Crockford has kindly released 
+JSLint as open source (under a unique (to say the least) “Do no evil”
+license), and I’m generally able to puzzle out how to go about adding
+support for the features that I believe are necessary.  Getting those
+patches into the mainline JSLint project is, unfortunately, often a
+miserable process.  I have two issues with the current process:</p>
+
+<p>First, there’s no public repository (that I’ve come across).  Crockford
+is pretty good about announcing changes on <a href="http://tech.groups.yahoo.com/group/jslint_com/">the JSLint mailing list</a>,
+and he keeps a timestamp in the current <code class="highlighter-rouge">fulljslint.js</code> file, but that’s
+hardly a solid basis for contributing patches.  This isn’t a show stopper,
+it just makes things harder to follow than they could be, and more
+difficult to give back to the project than it should be.  I asked about
+this <a href="http://tech.groups.yahoo.com/group/jslint_com/message/476">in May 2009</a>, and was met with silence.  Ah well.</p>
+
+<p>Second, the aforementioned list is easily the most (passive-)aggressive
+I’ve been on recently.  The (true) warning that “JSLint will hurt your
+feelings” goes double for posting questions or suggestions, especially
+as a newbie.  I almost fell off my chair when I saw <a href="http://tech.groups.yahoo.com/group/jslint_com/message/1168">this question</a>
+(“I have this problem, and I’ve found this workaround.  Why is it a
+problem in the first place?”) received <a href="http://tech.groups.yahoo.com/group/jslint_com/message/1170">this response</a> (“Thanks for
+the report.  JSLint now no longer accepts your workaround.”)  Crockford
+is a <em>smart</em> guy, and he’s opinionated in the best possible way, but he
+couples that with a periodic lack of tact that’s really influenced the
+way the list as a whole works.  It’s simply not a fun place to
+contribute ideas or code, and that’s a shame.  <a href="http://tech.groups.yahoo.com/group/jslint_com/message/1280">Arguing about the
+validity of suggestions</a> is simply not something I’m willing to do
+<em>every single time</em> I make a suggestion, especially when the suggestions
+are quite often met with silence from the one guy who actually has 
+commit access to the mainline trunk.</p>
+
+<p>So, to resolve these issues for myself, I’m forking JSLint.  I fully
+expect this to be of interest to almost exclusively myself, but I’ll
+find it useful, and I’ll hold out hope that some of the patches will
+eventually make it back into JSLint proper.</p>
+
+<p>To resolve the issue of a base “official”  repository, I’ll pull down
+a copy of the current iteration of JSLint on a daily basis, and
+mirror it on GitHub (<a href="http://github.com/mikewest/jslint/tree/mirror">jslint/mirror</a>).  My patches will be pushed
+to <a href="http://github.com/mikewest/jslint/">jslint/master</a> (along with QUnit-based regression tests), and
+I’ll do my best to keep <code class="highlighter-rouge">master</code> merged with the latest from <code class="highlighter-rouge">mirror</code>,
+and the changes continually rebased on top of <code class="highlighter-rouge">mirror</code> into
+<a href="http://github.com/mikewest/jslint/tree/rebased">jslint/rebased</a> for ease of application (in the unlikely event
+that Crockford pays attention :) ).</p>
+
+<p>I’ll keep the <a href="http://github.com/mikewest/jslint/raw/master/CHANGELOG.markdown">changelog</a> up to date as I add the functionality
+I find that I need to do my job.  If you find the idea useful, I hope
+you’ll help me out.  Reasonable patches most humbly accepted (although
+<em>my</em> arbitration of “reasonable” might hurt your feelings too).</p>
+
+:ET

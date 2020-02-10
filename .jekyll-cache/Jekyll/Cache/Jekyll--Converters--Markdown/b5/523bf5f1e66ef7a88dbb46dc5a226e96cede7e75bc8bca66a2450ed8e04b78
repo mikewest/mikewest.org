@@ -1,0 +1,78 @@
+I"a<p>The “Hello World!” of Subversion <code class="highlighter-rouge">post-commit</code> hooks is the use of <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code class="highlighter-rouge">SVNnotify</code></a> to send e-mails out to a project team every time a new revision is committed to the repository.</p>
+
+<p>This is easier than it sounds:</p>
+
+<ol>
+  <li>
+    <p>Make sure <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code class="highlighter-rouge">svnnotify</code></a> is installed on your system.  I’ll
+leave that as an exercise for the reader.</p>
+  </li>
+  <li>
+    <p>Navigate to your repository’s <code class="highlighter-rouge">hooks</code> directory.  This is almost always a
+directory cleverly named “hooks” right inside the top level of your
+repository:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /Users/mwest/svn/my_repository/hooks/
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a new file called <code class="highlighter-rouge">post-commit</code>, and make it executable by the
+<code class="highlighter-rouge">www</code> user.</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch ./post-commit
+chmod 755 ./post-commit
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Open up the file you just created, and add the following bit of code:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+<span class="nv">REPOS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nv">REV</span><span class="o">=</span><span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
+
+/usr/local/bin/svnnotify                    <span class="se">\</span>
+    <span class="nt">--repos-path</span>    <span class="s2">"</span><span class="nv">$REPOS</span><span class="s2">"</span>                <span class="se">\</span>
+    <span class="nt">--revision</span>      <span class="s2">"</span><span class="nv">$REV</span><span class="s2">"</span>                  <span class="se">\</span>
+    <span class="nt">--subject-cx</span>                            <span class="se">\</span>
+    <span class="nt">--with-diff</span>                             <span class="se">\</span>
+    <span class="nt">--handler</span>       HTML::ColorDiff         <span class="se">\</span>
+    <span class="nt">--to</span>            &lt;your e-mail address&gt;   <span class="se">\</span>
+    <span class="nt">--from</span>          &lt;from e-mail address&gt;
+</code></pre></div>    </div>
+
+    <p>It’s all pretty straightforward, so let’s take it line by line:</p>
+
+    <ul>
+      <li>
+        <p>The first line is the so-called <a href="http://en.wikipedia.org/wiki/Shebang_(Unix)" title="Wikipedia: 'Shebang'"><code class="highlighter-rouge">shebang</code></a> that tells
+the system that the file is a shell script that ought be executed.</p>
+      </li>
+      <li>
+        <p>Next, we set two variables based on the information that
+Subversion passes into the script when it’s called.  The
+<code class="highlighter-rouge">post-commit</code> hook gets two bits of data: the path to the
+repository, and the new revision number that the commit created.</p>
+      </li>
+      <li>
+        <p>Finally, we call <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code class="highlighter-rouge">svnnotify</code></a> to actually generate and
+send a nicely formatted e-mail using the repository path and
+revision number that we gathered earlier.  Make sure to put your
+e-mail address (or list’s address) in the last two lines!</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Do some work, and commit it.</p>
+  </li>
+  <li>
+    <p>Check your e-mail.</p>
+  </li>
+  <li>
+    <p>Bask in the glorious glow of a really, really useful tool.</p>
+  </li>
+</ol>
+
+<p>For further reading on the nine hooks provided by Subversion, visit <a href="http://svnbook.red-bean.com/nightly/en/svn.reposadmin.create.html#svn.reposadmin.create.hooks" title="Version Control with Subversion: Hook Scripts">the “Hook Scripts” section</a> of <a href="http://svnbook.red-bean.com/nightly/en/index.html" title="Version Control with Subversion">Version Control with Subversion</a>.</p>
+
+:ET

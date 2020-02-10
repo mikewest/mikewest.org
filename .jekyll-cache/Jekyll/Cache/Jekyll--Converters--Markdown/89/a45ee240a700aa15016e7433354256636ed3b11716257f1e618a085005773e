@@ -1,0 +1,35 @@
+I"R<p>It’s been quite some time since I put any serious effort into mikewest.org.  I’ve had tons of work, I’ve been burnt out, I’ve been complacent… the excuses pile on top of each other, each valid, each sufficient, none satisfactory.  For the sake of my own sanity, I need to start working on personal projects again.  Last week’s <a href="/2008/10/gently-abandoning-dead-to-me-projects">GitHub dump</a> was the first step in that direction.  Consider this relaunch to be the second.</p>
+
+<h2 id="a-brief-history">A Brief History</h2>
+
+<p>The design has been sitting in my head and strewn across my hard drive in a few overlapping HTML files for months now.  The site as it stands today is most clearly influenced (both in form and function) by <a href="http://tomayko.com/about">Ryan Tomayko</a>, and his <a href="http://tomayko.com/writings/administrative-debris">stark interpretation</a> of Tufte’s admonitions against “administrative debris”.  I couldn’t bring myself to go quite as clean as Ryan, mostly because I was rapidly becoming enthralled with <a href="http://jontangerine.com/about/">Jon Tan</a> and his absolutely <a href="http://jontangerine.com/">gorgeous site</a>.  I owe my current obsession with Baskerville to him.</p>
+
+<p>I had mockups finished in June or July that more or less look like what you’re seeing now.  I didn’t, however, have the heart to put them up on top of the site as it sat.  Until today, mikewest.org was running on <a href="http://textpattern.com/">TextPattern</a>, which is a fine CMS indeed, but one whose intricacies I’ve never been able to fully wrap my head around.  It’s also stunningly inefficient.  Everything in TextPattern is a database hit; usually several.  The content is in the database, the templates are in the database, the plugins are <em>serialized PHP</em> that sits in the database, and so on.  Doing anything at all in TextPattern requires some not insignificant amount of processing power, and caching isn’t something that’s built in.</p>
+
+<p>TextPattern wasn’t the CMS I wanted to use going forward, but I had neither the inclination nor the time to investigate all the options that were out there.  Hosted services seemed like a copout (I’m a <em>webdev</em>, damnit!), and the rest seemed like too much work to get going.</p>
+
+<p>So mikewest.org sat, empty, alone, partially broken, and unmaintained.  A sad website indeed.</p>
+
+<h2 id="and-then">And then…</h2>
+
+<p>A month or two ago, <a href="http://carlo.zottmann.org/" title="Carlo Zottmann">Carlo</a> re-introduced me to <a href="http://github.com/">GitHub</a>, and something clicked.  If I simply sat down and <em>wrote</em> myself a <em>new</em> blogging engine I could solve the problems I saw with my TextPattern installation.  Moreover, I could experiment with <a href="http://git.or.cz/" title="Git: Fast Version Control System">git</a> and teach myself <a href="http://www.ruby-lang.org/" title="Ruby Programming Language">ruby</a> at the same time.  After a few guys at the office convinced me of the beauty of setting <em>everything</em> up myself at <a href="http://slicehost.com/">slicehost</a>, I was on my way. This was really just what I needed: a quick <code class="highlighter-rouge">git init</code> later, and <a href="https://github.com/mikewest/fallow/tree">Fallow</a> was born.</p>
+
+<p>As experiments go, this has been terrifically successful.  I’ve built myself a new blog from scratch in a little under a month, using a distributed version control system I’d never touched, and a language I knew nothing about.  I sincerely doubt anyone in the world will touch any of the code I’ve put out, but putting it out <em>feels good</em>.</p>
+
+<h2 id="fallow-in-a-nutshell">Fallow in a nutshell</h2>
+
+<p><a href="https://github.com/mikewest/fallow/tree">Fallow</a> is firmly grounded in three principles:</p>
+
+<ul>
+  <li>Markdown is a wonderful, wonderful thing; why would I need an admin interface when I have TextMate?</li>
+  <li>Static content shouldn’t be generated twice.  It’s <em>static</em>, after all.</li>
+  <li>Databases aren’t, strictly speaking, <em>necessary</em> for a simple blog like mine.</li>
+</ul>
+
+<p>Accordingly, Fallow uses flat Markdown files as data sources for articles, flat YAML for bookmarks, and regenerates a tagging and caching Sqlite3 database on the fly after every deployment.  Article pages and old archive pages render HTML once, and cache it out to a static HTML document on the server, which is served to all subsequent users.  The homepage and tag pages are currently fully dynamic, but I’ll get around to resolving that shortly.</p>
+
+<p>It’s been a ton of fun to build, and I intend to go into a bit more detail of some of the design decisions in the future.  But first, I need to get some more functionality built in.  Flickr and Twitter sync is coming, as are a plethora of tag-based Atom feeds, etc.  There’s a <a href="http://github.com/mikewest/fallow/tree/master/README.markdown" title="Fallow's README and TODO.">lot of work left to do</a>, and I don’t think I’ll ever actually be done.</p>
+
+<p>But I have a side project again.  I’m enjoying that.  :)</p>
+
+:ET

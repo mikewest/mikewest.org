@@ -1,0 +1,26 @@
+I"�<p>Interviews for technical positions are tough, both for the interviewer and the interviewee.  The interviewer has the impossible task of evaluating someone’s competence on a wide range of complex subjects in just a few hours.  The interviewee has the equally impossible task of proving that she’s smarter than the average bear within the same tight time constraints.  Really, it’s a wonder anyone ever gets hired at all.</p>
+
+<p>There are no hard and fast rules you can follow to guarantee success in an interview.</p>
+
+<hr />
+
+<h2 id="the-anatomy-of-a-web-development-interview">The Anatomy of a Web Development Interview</h2>
+
+<p>Interviews are tough, especially interviews for technical positions.  The interviewer wants to get a good feel for your problem-solving ability, and you want to answer questions as quickly and correctly as possible so that you give the best possible impression.  I interviewed for a web development position a little while back, and in this brief series of articles, I want to talk a little bit about a few of the more interesting questions I got asked, and the process by which I came up with an answer.</p>
+
+<p>The first task focuses on JavaScript and the DOM, here it is: “<strong>Write a function that returns an array containing all the elements on a page having a specified attribute.</strong>”  Given that, where do you start?</p>
+
+<h2 id="prove-that-youre-an-expert">Prove That You’re an Expert</h2>
+
+<p>The first thing to realize when you’ve in a good technical interview is that the answer you come up with probably matters less than you think.  It’s important that you end up with some code that works, but the interviewer is typically more concerned with <em>how</em> you get to the answer, and <em>why</em> you went that route.</p>
+
+<p>When you get a question, don’t start by grabbing a marker and scribbling on the whiteboard.  Step back a bit, and talk about the problem with the interviewer.  Make sure that you understand the task, and that the interviewer <em>knows</em> that you understand it, before diving in.  If nothing else, this discussion is a good opportunity for you to point out everything you <em>do</em> know, even if you’re (for the moment) clueless as to how to solve the actual question at hand.</p>
+
+<p>So, we might begin by talking about the similarities between the function we’ve been asked for and some built in DOM methods:  “Well, Ms. Interviewer, we’ve got <code class="highlighter-rouge">getElementsByTagName</code> which gives us an array of all the elements of a specific type, and we’ve got <code class="highlighter-rouge">getElementById</code> to get a specific element.  But neither of those seems immediately useful, so it looks like we’ll have to write some code to hit every element on the DOM tree and test whether it has the attribute we’re looking for.”  We haven’t gotten much closer to the goal, but we’re <em>talking intelligently</em> about the DOM.  We’re giving the clear impression that we <em>know what we’re talking about</em> (hey, he knows that the DOM is a <a href="http://en.wikipedia.org/wiki/Tree_%28data_structure%29" title="Wikipedia: 'Tree (Data Structure)'">tree</a>!), which counts for a lot in the interview.</p>
+
+<p>From there, we need to come up with a plan of attack, so start discussing the algorithms you might choose to solve the problem you’ve just described.  You need to hit every DOM node on the tree… How could you do it?  In my interview, I latched onto <a href="http://en.wikipedia.org/wiki/Recursion" title="Wikipedia: 'Recursion'">recursion</a>, both because it was the first thing that came to mind, and because [smart people][] consider recursion to be an important skill to test for:  “Well, generally speaking, we need to traverse a tree, hitting every node on the way.  It makes sense to do that recursively, starting at the top, and walking the tree depth-first, then sticking all the results into a big array to give back to the function’s caller.”</p>
+
+<h2 id="apply-your-expertise">Apply Your Expertise</h2>
+
+<p>At this point, we’ve established that we more or less know what we’re talking about, and outlined the general process by which we’ll attack the problem.  Now we need to turn that general algorithm into a specific solution for our problem.</p>
+:ET

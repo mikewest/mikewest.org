@@ -1,0 +1,58 @@
+I"�<p>Paul Davis’ <a href="http://github.com/davisp/python-spidermonkey/tree/master"><code class="highlighter-rouge">python-spidermonkey</code></a> project looks brilliant.</p>
+
+<p>In a nutshell, he’s building a Python bridge to Mozilla’s <a href="http://www.mozilla.org/js/spidermonkey/">SpiderMonkey</a> “JavaScript on C” environment.  I’m excited about that, because it means I might be able to put together a headless testing environment without trying to make everything work correctly inside Rhino.  Hooray for options!</p>
+
+<p>I ran into a snag or two while getting up and running on JeOS (my <a href="http://intranation.com/entries/2009/03/development-virtual-machines-os-x-using-vmware-and/">dev environment of choice</a>), so I’m documenting the process here.</p>
+
+<ol>
+  <li>
+    <p>Install python headers and <code class="highlighter-rouge">pkg-config</code>.  Forgetting to install
+<code class="highlighter-rouge">pgk-config</code> will give you some exciting errors in the compilation phase
+later on that make it sound like NSPR failed to install correctly.  If
+you’re on JeOS, it’s more likely the case that you don’t have <code class="highlighter-rouge">pkg-config</code>
+at all:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install python2.6-dev pkg-config
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Install netscape portable runtime:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install libnspr4-dev
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Pull down python-spidermonkey</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/src
+cd ~/src
+git clone git://github.com/davisp/python-spidermonkey.gitnsp
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Build <code class="highlighter-rouge">python-spidermonkey</code></p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/src/python-spidermonkey
+python setup.py build
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Test <code class="highlighter-rouge">python-spidermonkey</code>:</p>
+
+    <p>Actually, <strong>don’t</strong> do this.  <a href="http://davisp.lighthouseapp.com/projects/26898-python-spidermonkey/tickets/15-test_exceed_time-fails-on-jeos">One of the tests fails on JeOS</a>, and it
+fails in a way that sucks up all your resources and leaves you in an
+infinite loop.  Yay!</p>
+  </li>
+  <li>
+    <p>Install:  Even though the max time test fails (spectacularly), the bridge
+seems to work pretty well.  Install the package anyway, just don’t rely on
+being able to set a max execution time on your code.  :)</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo python setup.py install
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Now, to see about getting <a href="http://jslint.com/">JSLint</a> running in this environment… Fun!</p>
+
+:ET

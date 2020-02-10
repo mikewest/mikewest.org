@@ -1,0 +1,46 @@
+I"`<p>SQLite is a self-contained, embeddable, zero-configuration SQL database engine that performs admirably in a variety of applications.</p>
+
+<p>Of course, there’s a <a href="http://www.sqlite.org/download.html" title="SQLite Download Page">nice binary distribution</a> that you can install, but it’s trivial to compile yourself from source and install into <code class="highlighter-rouge">/usr/local</code>.  Simply drop into Terminal, and type the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    curl -O http://www.sqlite.org/sqlite-3.3.6.tar.gz
+    tar xzvf ./sqlite-3.3.6.tar.gz
+    cd sqlite-3.3.6
+    ./configure --prefix=/usr/local
+    make
+    sudo make install
+</code></pre></div></div>
+
+<p>Other configuration options are spelled out <a href="http://www.sqlite.org/compile.html" title="Compilation Options for SQLite">at the SQLite website</a>.  I don’t think any are very relevant to your locally-hosted development copy of SQLite, but if you’re curious, there they are.</p>
+
+<h2 id="using-sqlite-with-php-51x">Using SQLite with PHP 5.1.X</h2>
+
+<p>SQLite is built into php 5.1.X, so you can simply install <a href="http://www.entropy.ch/software/macosx/php/" title="Marc Liyanage's excellent PHP distribution for OS X">Marc Liyanage’s excellent PHP distribution</a>, and start going with code like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SQLiteDatabase</span><span class="p">(</span><span class="s2">":memory:"</span><span class="p">);</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">"
+        BEGIN;
+            CREATE TABLE hello_world (text varchar(12));
+            INSERT INTO hello_world VALUES ('Hello World!');
+        COMMIT;
+    "</span><span class="p">);</span>
+    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">"SELECT * FROM hello_world"</span><span class="p">);</span>
+    <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">();</span>
+    <span class="k">print</span> <span class="nv">$row</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Unfortunately, my <a href="http://www.entropy.ch/software/macosx/php/" title="Marc Liyanage's excellent PHP distribution for OS X">PHP distribution of choice</a> seems to have dropped the PDO drivers for SQLite in the <a href="http://www2.entropy.ch/download/entropy-php-5.1.4-5.tar.gz" title="PHP 5.1.4 :: Marc Liyanage's Binary Distribution for OS X">5.1.4 release</a>.  That’s a shame, as <a href="http://textdrive.com/">TextDrive</a> wants me to use the PDO drivers to access SQLite 3+ databases.</p>
+
+<p>Reverting to the <a href="http://www2.entropy.ch/download/Entropy-PHP-5.1.2-1.dmg" title="PHP 5.1.2 :: Marc Liyanage's Binary Distribution for OS X">5.1.2 release</a> gives me back my the precious PDO support, but I’m still looking around for a simple way of bringing the PDO drivers to the party in a more recent release of PHP.  I’ll update this post as soon as I figure something out.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="http://www.sqlite.org/" title="SQLite">The SQLite website</a> is, of course, a great resource for SQLite
+development in general.</li>
+  <li>Zend has a <a href="http://www.zend.com/php5/articles/php5-sqlite.php" title="Zend :: SQLite Introduction">good SQLite introduction</a> avaliable for your reading
+pleasure.</li>
+</ul>
+
+:ET

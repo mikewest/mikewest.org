@@ -1,0 +1,22 @@
+I"�	<p>I’ve tried a few different methods to walk away from my Mac without worrying about jackass coworkers sending e-mails and IM messages on my behalf, and after a bit of experimentation with various screensavers and applescripts, finally hit upon a solution that I’m happy with. It’s pretty simple, and leverages the power of <a href="http://docs.blacktree.com/quicksilver/triggers">Quicksilver triggers</a> to make the process of locking my computer absolutely second-nature.</p>
+
+<h2 id="terminal-magic">Terminal Magic</h2>
+
+<p>First, open up a terminal window, and copy and paste the following line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "alias lock='/System/Library/CoreServices/Menu\\ Extras/user.menu/Contents/Resources/CGSession -suspend; exit;'" &gt;&gt; ~/.bash_profile
+</code></pre></div></div>
+
+<p>This adds an alias to your bash profile that gives you the ability to simply type lock at the command line to securely suspend your current session. I always have a terminal window open, so this was a good first step for me, and might reasonably be enough for you if you’re also a terminal geek. However, adding <a href="http://quicksilver.blacktree.com/">Quicksilver</a> into the mix makes the process more flexible.</p>
+
+<h2 id="triggers">Triggers</h2>
+
+<p>We can create a trigger to bind a hotkey to the terminal command we’ve just created. Whenever I hit ???\, my computer locks itself down; it’s trivial.</p>
+
+<p>Bring up Quicksilver’s preference screen by hitting your Quicksilver hotkey (mine’s bound to ?-Space), then ?-Comma. Select “Triggers” from the menu at the top, then create a new custom trigger by hitting the plus button near the bottom and selecting “Hotkey.” Set this new trigger to run our lock command by hitting “.” to enter text entry mode, typing “lock”, then tabbing to the next field and selecting “Run a Text Command in Terminal” (if you don’t have this command, make sure the Terminal plugin is installed).</p>
+
+<p>Once the trigger is created, give it a hotkey by double clicking on the trigger (or clicking on the “info” icon in the bottom right-hand corner), then clicking on the “Hot Key” field, and hitting the keys you’d like to assign. I chose ???\ because it requires both hands, and isn’t something I could possibly hit by accident.</p>
+
+<p>And that’s all there is to it! You can now lock your computer with impunity! Enjoy your new-found power.</p>
+
+:ET

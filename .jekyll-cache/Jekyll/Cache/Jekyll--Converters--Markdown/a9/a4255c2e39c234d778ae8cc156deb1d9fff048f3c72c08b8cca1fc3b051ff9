@@ -1,0 +1,39 @@
+I"�<p><code class="highlighter-rouge">mcw_templates</code> is a TextPattern admin plugin that enables the trivial export of pages, forms, and CSS rules to files in a specified folder for convenient editing, and the subsequent import of new and updated files.  This means that you’re no longer bound to the <code class="highlighter-rouge">textarea</code> inside TextPattern when you work on your site’s structure and design.</p>
+
+<p>The plugin supports multiple sets of templates, so you can rapidly import a new template, or export your current template for external editing without disturbing templates you’ve exported in the past.</p>
+
+<h2 id="download">Download</h2>
+
+<p><a href="http://github.com/mikewest/mcw_templates/tree/master">Download the current version of the plugin (<strong>0.2</strong>)</a>.</p>
+
+<p><strong>Update, 2008-10-18</strong>: I’ve abandoned this project, and released the code under the MIT license.  It’s <a href="http://github.com/mikewest/mcw_templates/tree/master">up now on GitHub</a> for you to fork at your leisure.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>This plugin is <strong>beta</strong> in every sense of the word, as it’s only been tested on my <strong>4.03</strong> installation.  It might work on other version, but no promises!</p>
+
+<p>Regardless of where it’s been tested, this plugin messes around with your database.  <em>Do not use it without backing up your database</em>.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>By default, the plugin looks for a directory named <code class="highlighter-rouge">_templates</code>
+in your <code class="highlighter-rouge">textpattern</code> directory.  If the directory doesn’t exist, the plugin will attempt to create it the first time you export your templates. This creation will almost certainly fail, since the<code class="highlighter-rouge">textpattern</code> directory usually isn’t writable.  In that case, you’ll need to create this  directory, and ensure that the web server has write access.  If your site is hosted at <code class="highlighter-rouge">/users/home/myuser/web/public/</code>, then the following commands    could be used:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /users/home/myuser/web/public/
+mkdir ./textpattern/_templates
+chmod 777 ./textpattern/_templates
+</code></pre></div></div>
+
+<h2 id="usage">Usage</h2>
+
+<p>To use the plugin, simply select ‘import’ or ‘export’ from the dropdown on the plugin’s tab (e.g. <code class="highlighter-rouge">extensions</code> -&gt; <code class="highlighter-rouge">Template Files</code>).</p>
+
+<p>When exporting, you’re asked for an export set name, which is used as the subdirectory name.  On import, you’re asked to choose from the export sets available.  Additionally, an export into <code class="highlighter-rouge">preimport-data</code> is run before each import for backup purposes.</p>
+
+<p>Couldn’t be simpler.</p>
+
+<h2 id="credits">Credits</h2>
+
+<p>This plugin is more or less a total rewrite of <a href="http://www.woods-fehr.com/txp/8/link-template-2-file">Scott Woods’ Link Template 2 File</a>.  His idea was brilliant, I just reworked everything so that it fit into a TextPattern admin plugin, and added a lot of error checking and documentation.  Kudos, Scott!</p>
+
+:ET

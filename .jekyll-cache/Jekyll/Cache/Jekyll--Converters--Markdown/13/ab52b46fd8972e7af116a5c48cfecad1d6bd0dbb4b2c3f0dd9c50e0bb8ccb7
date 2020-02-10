@@ -1,0 +1,52 @@
+I"�<p>Celebrity that I am, I use Google Analytics to figure out exactly how many
+times I’ve visited my own website in a given day.  The interface is
+surprisingly good (given that it’s a Google app), and generally I’m happy with
+the service.  Also, it’s free (assuming that you don’t worry about giving
+Google <em>even more</em> of your data).  Yay free.</p>
+
+<p>The JavaScript that Google suggests using to embed their tracking code,
+however, is a bit wasteful.  Take a look:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript"&gt;
+  var gaJsHost = (
+    ( "https:" == document.location.protocol ) ?
+      "https://ssl." :
+      "http://www."
+    );
+  document.write(
+    unescape( "%3Cscript src='"             +
+              gaJsHost                      +
+              "google-analytics.com/ga.js'" +
+              " type='text/javascript'%3E%3C/script%3E"
+    )
+  );
+&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+  try {
+    var pageTracker = _gat._getTracker("[YOUR TRACKING NUMBER]");
+    pageTracker._trackPageview();
+  } catch(err) {}
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>I understand why they need to differentiate SSL requests, but passing a cobbled-together string through <code class="highlighter-rouge">unescape</code> before feeding it to <code class="highlighter-rouge">document.write</code> is a bit much, don’t you think?  Also, injecting <code class="highlighter-rouge">pageTracker</code> and <code class="highlighter-rouge">gaJsHost</code> as new global variables isn’t particularly friendly.</p>
+
+<p>Given that I can make the assumption that this site is unencrypted, let’s change the code a bit to fix these two points:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script
+  type="text/javascript"
+  src="http://www.google-analytics.com/ga.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+  /*globals _gat */
+  try {
+    ( function ( $g ) {
+      $g._getTracker("[YOUR TRACKING NUMBER]")._trackPageview();
+    }( _gat ) );
+  } catch ( err ) {}
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>That’s a little better.  And it even <a href="http://jslint.com/">JSLints</a>.</p>
+
+:ET

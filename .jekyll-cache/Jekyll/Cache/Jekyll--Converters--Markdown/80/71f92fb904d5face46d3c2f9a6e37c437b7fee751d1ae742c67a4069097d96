@@ -1,0 +1,25 @@
+I"�
+<p>So, I got pretty clever with my <a href="http://mikewest.org/archive/leveraging-modrewrite" title="Leveraging `mod_rewrite`"><code class="highlighter-rouge">mod_rewrite</code> rules</a> to deal with some of the programs out there that nefarious types use to find vulnerable targets for exploits.  At least, I thought I was being clever.  As it turns out, I ended up shooting myself in the foot with the following rule:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RewriteCond %{REQUEST_URI}    ^(.*)main.php$  [NC]
+RewriteRule ^(.*)           -               [F,L]
+</code></pre></div></div>
+
+<p>It’s intention was to stop a bot from hammering me with requests for <code class="highlighter-rouge">main.php</code> in a wide variety of directories in the hopes that I had a broken version of <a href="http://www.horde.org/" title="Horde Project">Horde</a> installed.  These requests were generating tons of 404 (“Not Found”) errors, making my log files pretty much worthless.  Sending 403 (“Forbidden”) responses solved the immediate problem, but caused me some headaches yesterday when I tried to import a new project into <a href="http://subversion.tigris.org/" title="Subversion">Subversion</a>.  Specifically, I was getting the following error:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn: Commit failed (details follow):
+subversion/libsvn_ra_dav/util.c:296: (apr_err=175002)
+svn: PUT of '/svn/&lt;snipped long directory string&gt;/lang_main.php': 403 Forbidden (https://mikewest.org)
+</code></pre></div></div>
+
+<p>In context, this is obvious.  The file I was trying to import was triggering the <code class="highlighter-rouge">mod_rewrite</code> rule, generating a 403 response.  I simply forgot entirely that my <code class="highlighter-rouge">mod_rewrite</code> rules were a factor when running Subversion over <a href="http://en.wikipedia.org/wiki/WebDAV" title="Wikipedia: WebDAV">WebDAV</a>.  Once the support staff at <a href="http://textdrive.com/" title="TextDrive">TextDrive</a> pointed out my oversight, fixing the problem was trivial.</p>
+
+<p>I added the following rule to the top of my <code class="highlighter-rouge">.htaccess</code> file’s list of <code class="highlighter-rouge">mod_rewrite</code> rules:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RewriteCond %{REQUEST_URI}    ^/svn
+RewriteRule    ^(.*)            -        [L]
+</code></pre></div></div>
+
+<p>That simply stops the engine from rewriting anything under my <code class="highlighter-rouge">/svn/</code> directory, which solved the problem completely.  One more thing to look out for…</p>
+
+:ET

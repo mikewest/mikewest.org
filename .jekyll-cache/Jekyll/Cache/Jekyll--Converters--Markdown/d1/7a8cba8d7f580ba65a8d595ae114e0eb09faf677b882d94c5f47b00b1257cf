@@ -1,0 +1,5 @@
+I"<p><a href="http://the.taoofmac.com/space/RuiCarmo">Rui Carmo</a> has put together a <a href="http://the.taoofmac.com/space/Projects/imapbackup.py">great Python script</a> to pull e-mail from an IMAP server down into <code class="highlighter-rouge">mbox</code> formatted files that can be backed-up and imported into practically any e-mail program in existance.</p>
+
+<p>It’s a work in progress, but it’s such a nice utility that I’m already using it to run incremental backups of the e-mail I leave up on the server.</p>
+
+:ET

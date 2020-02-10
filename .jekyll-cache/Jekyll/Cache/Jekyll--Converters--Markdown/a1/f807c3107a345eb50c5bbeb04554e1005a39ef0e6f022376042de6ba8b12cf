@@ -1,0 +1,12 @@
+I"
+<p>If Apple’s taught me anything about design, it’s that details are everything.  The overall product might be brilliant, but it’s the tiny bits of <em>perfection</em> that really bring things together and imbue an experience with a sense of wonder and care.  When I noticed that <a href="http://robgoodlatte.com/">Rob Goodlatte</a> (who has gone dark, apparently?) replaces the ampersands on his Lucida Grande dominated page with lovely, lovely Baskerville, I was thrilled.  The first time I saw the little bit of bounce-back at the end of an iPhone’s scrolled list, I was hooked.  These almost insignificant changes have an effect on the overall experience far out of proportion to their apparent importance.</p>
+
+<p>It’s important, however, not to miss the forest for the trees.  Attention to details will often make or break a project, but first laying down a solid foundation of functionality in broad strokes is <em>critical</em>.  If you haven’t yet <em>built</em> a bit of your application, worrying about making it pixel-perfect cross-browser and subtly animated to amaze your users is nonsensical and counterproductive.</p>
+
+<p>Put (virtual) pen to (virtual) paper, and start working.  Details will fall into place naturally, either in the nooks and crannies of unconnected code you cleverly hack together to solve a problem, or in the long periods of iteration and polishing that you’ll start to go through near the middle of a project when things <em>mostly</em> work.</p>
+
+<p>Test-Driven Development generally advocates that you should begin by ignoring (irrelevant) details and “Do the simplest thing that could possibly work.”  <a href="http://neilcrosby.com/vcard/">Neil Crosby</a> similarly says “<a href="http://thecodetrain.co.uk/2008/11/make-it-work-make-it-pretty-make-it-right/">Make it work, Make it pretty, Make it right</a>.”  My Dad (enthralled with the message while completely missing the commercial point of the Nike campaign) always told us “Just do it.”  These are starting to resonate with me, and I like the idea of the development process as a continual process of iteration, building something delightful</p>
+
+<p>This, of course, is a long-winded way of justifying the <a href="http://github.com/mikewest/fallow/commit/9d9b4e69e56841fabe38eb4724caa8b629f40db3">gaudy hack I’ve just put into Fallow</a> to handle simple conditionals in templates.  It’s ugly, but functional, and I know I can make it cleaner tomorrow.  But right now, it works; That’s better than yesterday, and I can live with that.</p>
+
+:ET

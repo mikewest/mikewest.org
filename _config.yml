@@ -2,6 +2,6 @@ destination:    ./docs
 lsi:            false
 markdown:       kramdown
 highlighter:    null
-permalink:      /:year/:month/:title/index
+permalink:      /:year/:month/:title/
 tag_root:       /tags
 static_root:    "/static"

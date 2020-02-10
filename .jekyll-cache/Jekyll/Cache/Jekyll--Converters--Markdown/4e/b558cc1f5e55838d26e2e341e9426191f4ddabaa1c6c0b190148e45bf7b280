@@ -1,0 +1,55 @@
+I"
+<p>Using Matías Giovannini’s <a href="http://www.paginar.net/matias/articles/gd_x_howto.html" title="Compiling GD on Mac OS X HOWTO">great instructions</a>, I was (finally)
+able to get the GD library installed on OS X so I can build some charts in
+Perl.  I’ve condensed his instructions into the shell commands that I actually
+needed to get everything installed, and record them here just in case I ever
+have to do it again.  :)</p>
+
+<h2 id="1-install-zlib">1. Install <code class="highlighter-rouge">zlib</code></h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -O http://www.zlib.net/zlib-1.2.3.tar.gz
+tar -xzvf ./zlib-1.2.3.tar.gz
+cd zlib-1.2.3
+./configure --shared &amp;&amp; make &amp;&amp; sudo make install
+</code></pre></div></div>
+
+<h2 id="2-install-libjpeg">2. Install <code class="highlighter-rouge">libjpeg</code></h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -O ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.gz
+tar -xzvf ./
+cd jpeg-6b
+ln -s `which glibtool` ./libtool
+export MACOSX_DEPLOYMENT_TARGET=10.4
+./configure --enable-shared &amp;&amp; make &amp;&amp; sudo make install
+</code></pre></div></div>
+
+<h2 id="3-install-libpng">3. Install <code class="highlighter-rouge">libpng</code></h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -O ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-1.2.16.tar.gz
+tar -xzvf ./libpng-1.2.16.tar.gz
+cd libpng-1.2.16
+./configure &amp;&amp; make &amp;&amp; sudo make install
+</code></pre></div></div>
+
+<h2 id="4-install-freetype2">4. Install <code class="highlighter-rouge">freetype2</code></h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -O http://download.savannah.gnu.org/releases/freetype/freetype-2.3.4.tar.gz
+tar -xzvf freetype-2.3.4.tar.gz
+cd freetype-2.3.4
+./configure &amp;&amp; make &amp;&amp; sudo make install
+</code></pre></div></div>
+
+<h2 id="5-install-libgd">5. Install <code class="highlighter-rouge">libgd</code></h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -O http://libgd.org/releases/gd-2.0.34.tar.gz
+tar -xvzf ./gd-2.0.34.tar.gz
+cd gd-2.0.34
+sudo ln -s /usr/X11R6/include/fontconfig /usr/local/include
+./configure &amp;&amp; make &amp;&amp; sudo make install
+</code></pre></div></div>
+
+<h2 id="6-celebrate">6. Celebrate!</h2>
+
+<p>I celebrated by installing <code class="highlighter-rouge">GD::Graph</code> via CPAN, you might prefer something
+more suitably exciting.  :)</p>
+:ET

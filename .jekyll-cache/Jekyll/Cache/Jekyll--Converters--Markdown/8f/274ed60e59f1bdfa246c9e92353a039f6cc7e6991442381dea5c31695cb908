@@ -1,0 +1,13 @@
+I"ö<p><code class="highlighter-rouge">mcw_templates</code> is a TextPattern admin plugin, enabling the trivial export of pages, forms, and CSS rules to a specified folder for convenient editing, and the subsequent import of new and updated files.</p>
+
+<p>The new version adds the ability to hold multiple exports and imports, instead of being limited to a single template set.</p>
+
+<h2 id="download-version-02">Download Version 0.2</h2>
+
+<p><a href="/file_download/4">Version 0.2 is ready</a> for you to play with.</p>
+
+<p>To install, simply backup your database, and install the plugin.  Any data you might have currently sitting in the <code class="highlighter-rouge">_templates</code> directory will be ignored by this version of the plugin, and can be safely removed.</p>
+
+<p><a href="http://mikewest.org/archive/mcw-templates">Visit the <code class="highlighter-rouge">mcw_templates</code></a> page on this site for more details about what exactly <code class="highlighter-rouge">mcw_templates</code> does.</p>
+
+:ET

@@ -1,0 +1,2 @@
+I"H<p>After working with Blink’s implementation of <code class="highlighter-rouge">window.onerror</code> a little bit over the last week or so, I’m somewhat amazed that anyone ever used it for anything at all. Happily, we’ve made some big improvements in the last week or two that I think it’s worth highlighting here.</p>
+:ET

@@ -1,0 +1,50 @@
+I"J<p>I’m trying to do something with the Flickr API that I consider to be relatively trivial. I have the impression that the API is fighting me every step of the way. Why, oh why, can’t the wonderful people who designed Del.icio.us’s new API hop over to Flickr and slap together something that makes sense from the perspective of the end user?</p>
+
+<h2 id="basics">Basics</h2>
+
+<p>I’d like to have a list of my flickr sets as a block on my homepage, displaying the most recent sets in the order they were published, along with some simple metainformation and a thumbnail.  I’d also like to display photosets in my <a href="/archive">archive pages</a>, interspersed throughout the rest of the content at the proper point in the timeline.</p>
+
+<p>Most of this is easy to get with a single call to <a href="http://www.flickr.com/services/api/flickr.photosets.getList.html"><code class="highlighter-rouge">flickr.photosets.getList</code></a>.  The XML that’s returned looks something like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span>
+<span class="nt">&lt;rsp</span> <span class="na">stat=</span><span class="s">"ok"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;photosets&gt;</span>
+    <span class="nt">&lt;photoset</span> <span class="na">id=</span><span class="s">"[ID GOES HERE]"</span> <span class="na">primary=</span><span class="s">"2914968443"</span> <span class="na">secret=</span><span class="s">"[SECRET GOES HERE]"</span> <span class="na">server=</span><span class="s">"3007"</span> <span class="na">farm=</span><span class="s">"4"</span> <span class="na">photos=</span><span class="s">"2"</span> <span class="na">videos=</span><span class="s">"0"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>2008-10 - Driving<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;description</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/photoset&gt;</span>
+    ...
+<span class="nt">&lt;/photosets&gt;</span>
+<span class="nt">&lt;/rsp&gt;</span>
+</code></pre></div></div>
+
+<p>Simple enough to parse, and in combination with Flickr’s <a href="http://www.flickr.com/services/api/misc.urls.html">standardized url structure</a>, this gets me relatively close to the data that I’m looking for.  The small bit that’s missing is an actual publication date, which is significant for my plans.  Without it, I can’t correctly insert the photosets into my archive pages, and so far as I can tell, the data simply isn’t exposed via the API.  So let’s dig around a bit.</p>
+
+<p>Since I know what the primary photo is for the photoset, I can grab it via <a href="http://www.flickr.com/services/api/flickr.photos.getInfo.html"><code class="highlighter-rouge">flickr.photos.getInfo</code></a>, which gets me the photo’s dates:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span>
+<span class="nt">&lt;rsp</span> <span class="na">stat=</span><span class="s">"ok"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;photo</span> <span class="na">id=</span><span class="s">"2914968443"</span> <span class="na">secret=</span><span class="s">"[SECRET GOES HERE]"</span> <span class="na">server=</span><span class="s">"3007"</span> <span class="na">farm=</span><span class="s">"4"</span> <span class="na">dateuploaded=</span><span class="s">"1223227911"</span> <span class="na">isfavorite=</span><span class="s">"0"</span> <span class="na">license=</span><span class="s">"3"</span> <span class="na">rotation=</span><span class="s">"0"</span> <span class="na">originalsecret=</span><span class="s">"c87ab26ef7"</span> <span class="na">originalformat=</span><span class="s">"jpg"</span> <span class="na">media=</span><span class="s">"photo"</span><span class="nt">&gt;</span>
+	...
+	<span class="nt">&lt;dates</span> <span class="na">posted=</span><span class="s">"1223227911"</span> <span class="na">taken=</span><span class="s">"2008-10-04 18:12:42"</span> <span class="na">takengranularity=</span><span class="s">"0"</span> <span class="na">lastupdate=</span><span class="s">"1223283362"</span> <span class="nt">/&gt;</span>
+    ...
+<span class="nt">&lt;/photo&gt;</span>
+<span class="nt">&lt;/rsp&gt;</span>
+</code></pre></div></div>
+
+<p>Leaving aside the strange change of <a href="http://www.flickr.com/services/api/misc.dates.html">timestamp format</a>, and the nonsensical lack of timezone information, I can mash those into the photoset data to get an approximation of it’s creation date.  That works pretty well, actually.  It means, however, that I have to make an additional API request for <em>each</em> photoset.  That’s more than a little annoying.</p>
+
+<p>But now I have all the information I need, so putting the code together is straightforward.  Straightforward, that is, until I start thinking about the necessity to automatically update this data periodically.</p>
+
+<h2 id="updates">Updates</h2>
+
+<p>The <a href="http://delicious.com/help/api">Del.icio.us API</a> is really good about handling this scenario:
+<a href="http://delicious.com/help/api#posts_all"><code class="highlighter-rouge">posts/all</code></a> returns all the your bookmarks, and allows you to <em>filter</em> the list by tag or date range.  If I know, for instance, that I last polled for changes at 10:00 this morning, I can ask Del.icio.us to send me only the bookmarks that came in <em>after</em> that point in time.  This makes the update-handling code on my end quite simple: I ask for all the updates since the last bookmark I’ve stored locally, and when I get a response, I treat the whole thing as new.</p>
+
+<p>Flickr doesn’t, so far as I can tell, support the same mechanisms.  This has the effect of pushing validation down to my layer: I grab a list of all my photosets and then walk through the list, checking locally to see if I’ve already got the information stored.  This is stupendously inefficient, and actually becomes <em>more</em> inefficient as time goes on and I add more photosets.</p>
+
+<p>The closest Flickr comes to the Del.icio.us level of efficiency is <a href="http://www.flickr.com/services/api/flickr.photos.getRecent.html"><code class="highlighter-rouge">flickr.photos.getRecent</code></a>, which returns a list of up to 500 recent photos.  It doesn’t, however, provide the same benefit as the Del.icio.us feed, as it doesn’t allow you to specify what “Recent” means.  It simply pulls a set number of photos off the top and throws them back over the wall.</p>
+
+<p>I would <em>love</em> to see something like the Del.icio.us functionality added to the Flickr API. It would make my particular use case quite a bit simpler, and if applied across the board, it would make the entire Flickr API better suited to the polling-based tasks it’s being put to.</p>
+
+:ET

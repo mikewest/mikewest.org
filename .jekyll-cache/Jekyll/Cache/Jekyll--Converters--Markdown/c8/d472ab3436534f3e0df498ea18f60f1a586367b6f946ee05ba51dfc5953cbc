@@ -1,0 +1,55 @@
+I"L<p>A little known fact about Subversion is that you don’t need a special server to get running.  You can actually host Subversion repositories locally on your own computer, or on any remote machine you’ve got SSH access into.</p>
+
+<h2 id="localhosting">Localhosting</h2>
+
+<p>You can easily create a local repository on your machine with the <code class="highlighter-rouge">svnadmin</code> command.  To set up a repository in my home directory, I’d just drop to the command line, and type:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svnadmin create ~/new_repository
+</code></pre></div></div>
+
+<p>That would create the <code class="highlighter-rouge">new_repository</code> directory under my home, and initialize it for use as an SVN repository.  From there, you can reference it via the <code class="highlighter-rouge">file</code> protocol, and use it just like any other repository:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn import ./my_project file:///Users/mwest/new_repository
+</code></pre></div></div>
+
+<p>Easy!</p>
+
+<h2 id="remotehosting">Remotehosting</h2>
+
+<p>If you don’t have a dedicated SVN server, or a <a href="http://textdrive.com/" title="TextDrive">decent web host</a>, you can gain some of the advantages of a remote repository by creating a local repository, and then uploading it to a server where you have SSH access.  This trick works wonderfully on services like <a href="http://strongspace.com/">Strongspace</a> where you have nothing more than SSH access, with no opportunity to log in and run <code class="highlighter-rouge">svnadmin</code>.</p>
+
+<p>To set up a repository on such a server, I’d create it locally, just like before:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svnadmin create ~/temp
+</code></pre></div></div>
+
+<p>Instead of using it locally with the <code class="highlighter-rouge">file:///</code> protocol, we’ll <em>upload</em> it to our remote server using <code class="highlighter-rouge">scp</code> (or whatever file transfer mechanism makes sense to you):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r ~/temp me@my.server.com:/path/to/repository
+</code></pre></div></div>
+
+<p>Now, the initialized repository is up waiting for us on the remote server.  We can’t use the <code class="highlighter-rouge">file</code> protocol to get to it anymore, since it isn’t part of our local filesystem.  Instead, there’s a special protocol for using SVN over an SSH connection: <code class="highlighter-rouge">svn+ssh</code>.  To run the same import command from above on the remote server, we’d type:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn import ./my_project svn+ssh://me@my.server.com/path/to/repository
+</code></pre></div></div>
+
+<p>And there you go.  Easy, straightforward SVN access without any server setup whatsoever.</p>
+
+<p>You lose a little bit of functionality, and it feels a little duct-taped together, but it’s a great first-step into the world of SVN, and you can easily migrate to a “real” SVN server when you’re ready to use the additional features that enables.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li>
+    <p><a href="http://andrewho.co.uk/" title="Andrew Ho">Andrew Ho</a> pointed this technique out on the Strongspace forums, I
+hadn’t thought about it at all before his post.</p>
+  </li>
+  <li>
+    <p>If you’re not interested in typing in a password every time (and who is),
+follow the instructions under the <a href="http://blog.invisible.ch/2005/10/06/back-up/" title="Back Up">Set up key based login</a> section of
+this post.  And be sure to read the rest anyway, it’s excellent
+information about backing up your system.  You <em>do</em> back up, right?</p>
+  </li>
+</ul>
+
+:ET

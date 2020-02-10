@@ -1,0 +1,5 @@
+I"8<p>For a long time now, I’ve wanted to implement Flickr-style notes as a comment system for a <a href="http://lddebate.org/exchange/" title="LD Debate: Case Exchange">peer-review system</a> I put together a while back, but ran into so many cross-browser positioning issues that I more or less gave it up for dead.  <a href="http://www.jackslocum.com/" title="Jack Slocum">Jack Slocum</a> might just have changed that.</p>
+
+<p>I need to dig into the code a bit, but he’s basically <a href="http://www.jackslocum.com/yui/2006/10/09/my-wordpress-comments-system-built-with-yahoo-ui-and-yahooext/" title="Jack Slocum: WordPress Comments System built with Yahoo! UI">reinvented the comment presentation system</a> in a way that I’m <em>really</em> excited about.  I’m not entirely convinced by this particular UI (clicking on a sidebar to post comments for a block seems a little obtuse), but I’m absolutely loving the idea of comments tied to individual blocks instead of global comments for an entire article.  You’ll be hearing more about this from me later…  :)</p>
+
+:ET

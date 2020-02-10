@@ -1,0 +1,96 @@
+I"�<p>So.  W3C has quite decent <a href="http://validator.w3.org/docs/install.html">installation instructions</a> for the HTML
+validator, but it makes a few assumptions about a typical linux environment
+that don’t actually hold true if you’re running a stripped down JeOS distro in
+a virtual machine.</p>
+
+<p>Here’s what I ended up doing to get the software working on my VM.  Hopefully
+it’ll work for you too.  :)</p>
+
+<p>Install Apache2:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo aptitude install apache2 apache2.2-common apache2-mpm-prefork apache2-utils libexpat1 ssl-cert
+</code></pre></div></div>
+
+<p>Turn on SSI:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo a2enmod include
+</code></pre></div></div>
+
+<p>Install OpenSP SGML parser:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/src
+cd ~/src
+curl -O http://switch.dl.sourceforge.net/sourceforge/openjade/OpenSP-1.5.2.tar.gz
+tar xzvf ./OpenSP-1.5.2.tar.gz
+cd OpenSP-1.5.2
+./configure --enable-http --disable-doc-build &amp;&amp; make &amp;&amp; sudo make install
+</code></pre></div></div>
+
+<p>Install perl dependencies:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install libxml2-dev
+
+sudo perl -MCPAN -e shell
+...
+install Bundle::W3C::Validator
+install SGML::Parser::OpenSP
+</code></pre></div></div>
+
+<p>Install cvs:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install cvs
+</code></pre></div></div>
+
+<p>Checkout the validator code into `/usr/local/validator</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /usr/local
+$ sudo mkdir /usr/local/validator
+$ sudo chmod a+w /usr/local/validator
+$ export CVSROOT=":pserver:anonymous@dev.w3.org:/sources/public"
+$ cvs login
+CVS password: anonymous
+$ cvs get validator
+</code></pre></div></div>
+
+<p>Adjust the default configuration file a bit:</p>
+
+<ol>
+  <li>
+    <p>Change the directory for the two <code class="highlighter-rouge">AliasMatch</code> lines at the top of the file.  For whatever reason, they’re pointing to the wrong place.  The first ought point to <code class="highlighter-rouge">/usr/local/validator/httpd/cgi-bin/check</code>, the second to <code class="highlighter-rouge">/usr/local/validator/httpd/cgi-bin/sendfeedback.pl</code>.</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AliasMatch ^/+w3c-validator/+check(/+referer)?$   /usr/local/validator/httpd/cgi-bin/check
+AliasMatch ^/+w3c-validator/+feedback(\.html)?$ /usr/local/validator/httpd/cgi-bin/sendfeedback.pl
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Comment out the <code class="highlighter-rouge">&lt;Proxy&gt;</code> block at the bottom of the file.</p>
+  </li>
+</ol>
+
+<p>Symlink the validator config into <code class="highlighter-rouge">/etc/w3c</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ln -s /usr/local/validator/htdocs/config /etc/w3c
+</code></pre></div></div>
+
+<p>Symlink the configuration file from CVS to the <code class="highlighter-rouge">/etc/apache2/sites-available/</code> directory:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ln -s /usr/local/validator/httpd/conf/httpd.conf /etc/apache2/sites-available/
+</code></pre></div></div>
+
+<p>Enable the new site:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo a2ensite validator
+</code></pre></div></div>
+
+<p>Reload the Apache config:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo /etc/init.d/apache2 reload
+</code></pre></div></div>
+
+<p>Test the checker:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/validator/httpd/cgi-bin/check uri=http://www.w3.org/
+</code></pre></div></div>
+
+<p>Win!</p>
+:ET

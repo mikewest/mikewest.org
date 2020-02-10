@@ -1,0 +1,20 @@
+I"	<p>In a spontaneous burst of productivity, spawned mostly by my complete and utter failure as a sysadmin, I moved my parent’s email account off my server, and onto Google’s <a href="http://www.google.com/a/org/" title="Google Apps">Apps for your Domain</a> platform.</p>
+
+<p>This finally gave me an excuse to move my DNS hosting to <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  The move turned out to be easier than I thought, and stunningly fast.  The dark times of multi-day propagation waiting-periods are (apparently) over: the whole process from account signup to complete and totally successful migration was about an hour.  I’m thrilled.  This is the best hosting-related $15 I’ve spent all year.</p>
+
+<p>I’ve moved my parent’s domain over, as well as <code class="highlighter-rouge">mikewest.org</code>.  While moving the latter, I had a little fun setting up “<a href="https://www.dnsmadeeasy.com/s0306/tuts/vanitydns.html" title="DNS Made Easy: Setting up your own Vanity DNS">Vanity DNS</a>.”  I have <em>no</em> need for this feature whatsoever, and it’ll probably cause me some pain in the future whenever the nameserver IP addresses change for whatever reason, but it satisfies my inner geek to see <code class="highlighter-rouge">ns0.mikewest.org</code> as the canonical name server for my domain:</p>
+
+<p><img src="http://mikewest.org/images/5.png" /></p>
+
+<p>So, two thumbs up for <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  They’re absolutely living up to their name’s promise.</p>
+
+<h2 id="potentially-useful-technical-note">Potentially Useful Technical Note</h2>
+
+<p>Relatedly, the <code class="highlighter-rouge">lookupd</code> command is gone in Leopard.  If you want to clear your DNS cache under 10.5, you need to use <code class="highlighter-rouge">dscacheutil</code>.  I’ve added a quick alias to my <code class="highlighter-rouge">~/.bash_login</code> file, because I’m sure I’m going to forget this in about 10 minutes.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias flushcache='sudo dscacheutil -flushcache';
+</code></pre></div></div>
+
+<p>I’d suggest you do the same, if you plan on mucking about with DNS settings, or editing your hosts file.</p>
+
+:ET

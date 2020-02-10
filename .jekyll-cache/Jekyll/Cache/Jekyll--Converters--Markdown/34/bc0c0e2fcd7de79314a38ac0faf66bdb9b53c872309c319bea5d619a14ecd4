@@ -1,0 +1,2 @@
+I"p<p>With a simple Wi-Fi packet-sniffer, intercepting login cookies over the air is far easier than it ought to be. Happily, clever people have put together solid mitigation techniques, one of which is HTTP Strict Transport Security. I’ve implemented it on a personal site, this article describes what it is, why it’s important, and how you can use it yourself.</p>
+:ET

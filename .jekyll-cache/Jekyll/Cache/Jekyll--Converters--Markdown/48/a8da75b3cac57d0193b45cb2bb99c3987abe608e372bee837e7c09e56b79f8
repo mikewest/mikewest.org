@@ -1,0 +1,45 @@
+I"<p>After seeing <a href="http://adrianocastro.net/about/">Adriano Castro’s</a> presentation last week on <a href="http://sourceforge.net/projects/rthree" title="R3: A neat looking templating system, full of support for l10n, i18n, and many other letters and numbers.">R3</a>, I was inspired both to play a little bit with R3 itself (cool!), and just as importantly, to finally taking a few minutes to customize my bash prompt.  His brightly coloured prompt was full of information and life, mine not; I’d just done an entire presentation on <a href="/archive/presentation-love-the-terminal" title="Mike West: 'Love the Terminal'">loving the terminal</a>, so this deficit was particularly shameful.</p>
+
+<p>So, I spent a few minutes this evening toying around with things, and ended up with this:</p>
+
+<p><img src="http://mikewest.org/images/4.png" alt="My newly colourful and lively Terminal window." height="267" width="575" /></p>
+
+<p>Ah, lovely; it’s <em>really</em> simple to do for yourself.</p>
+
+<h2 id="heres-how-it-works">Here’s how it works</h2>
+
+<p>The terminal prompt is controlled via the <code class="highlighter-rouge">PS1</code> environment variable in <code class="highlighter-rouge">bash</code>.  You simply need to construct a particular string, and assign it to that variable by adding a line to your <code class="highlighter-rouge">.bash_login</code> file like the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PS1="&lt;your formatting string goes here&gt;"
+</code></pre></div></div>
+
+<p>This prompt in particular is:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PS1="\[\033]2;\u@\h\a[\[\033[37;44;1m\]\t\[\033[0m\]] \[\033[32m\]\w\[\033[0m\] \$ \[\033[0m\]"
+</code></pre></div></div>
+
+<p>This breaks down into:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\[\033]2;\u@\h\a                    #    which writes the `user@host` string
+                                    #    into the terminal window's title bar
+                
+[\[\033[37;44;1m\]\t\[\033[0m\]]    #    which writes (in white-on-blue)
+                                    #    `[HH:MM:SS]` at the beginning of
+                                    #    each line, so that I know exactly
+                                    #    when I executed a command
+
+\[\033[32m\]\w\[\033[0m\]            #    which writes (in a pleasant green) 
+                                    #    the current working directory
+                                
+\$                                    #    which writes "$" if I'm logged in as
+                                    #    a normal user, and "#" if I'm logged
+                                    #    in as `root`.
+</code></pre></div></div>
+
+<p>To build your own, I’d suggest taking a look at <a href="http://www.ibm.com/developerworks/linux/library/l-tip-prompt/" title="Tip: Prompt Magic">Daniel Robbins’ “Prompt Magic” article on IBM developerWorks</a>.  It’s a well put-together article that walks you through the whole, terrifically geeky process.</p>
+
+<h2 id="update">Update</h2>
+
+<p>If you happen to have some strange text-wrapping problems, <a href="http://mikewest.org/archive/solving-strange-text-wrapping-problems-in-bash" title="Mike West: 'Solving strange text wrapping problems in `bash`'">I might have a solution for you</a>.  In a nutshell, end your prompt with a colour code, and use <code class="highlighter-rouge">\033</code> instead of <code class="highlighter-rouge">\e</code>.  I’ve updated this page accordingly; see <a href="http://mikewest.org/archive/solving-strange-text-wrapping-problems-in-bash" title="Mike West: 'Solving strange text wrapping problems in `bash`'">“Solving strange text wrapping problems in bash”</a> for more details.</p>
+
+:ET

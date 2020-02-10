@@ -1,0 +1,15 @@
+I"�<p>In the same spirit as this week’s <a href="http://www.alistapart.com/articles/revisioncontrol" title="A List Apart: 'I Wonder What This Button Does'">revision control article</a>, I ran across a <a href="http://bradchoate.com/weblog/2006/07/27/oscon-subversion-best-practices" title="Brad Choate: 'OSCON: Subversion Best Practices'">great summary</a> of an <a href="http://conferences.oreillynet.com/cs/os2006/view/e_sess/8671">OSCON presentation entitled “Subversion Best Practices”</a> (via: <a href="http://bradchoate.com/" title="Brad Choate">Brad Choate</a>).  Normally, I’d just stuff this into my linkroll and leave it at that, but this is really interesting material that’s worth talking about.  Ben Collins-Sussman &amp; Brian W. Fitzpatrick’s (Subversion developers, and co-authors of <a href="http://svnbook.red-bean.com/" title="Version Control with Subversion">“Version Control with Subversion”</a>) presentation deals with the way Subversion is <em>actually used</em> on large software projects.  Two ideas that jumped out at me:</p>
+
+<ul>
+  <li>Binary file modifications; or other files that can’t be merged. You’d
+want to lock such files to prevent conflicts.  Property svn:needs-lock
+accommodates this. It checks out the file as read-only, and becomes
+read/write once you lock it for modifications. If you try to lock and
+can’t, it’s because someone else is working on the file.</li>
+  <li>hotcopy versus rsync: Use hotcopy to make the backup to preserve
+consistency, then use rsync on <strong>that</strong>.</li>
+</ul>
+
+<p>I learned some things just by flipping through <a href="http://bradchoate.com/weblog/2006/07/27/oscon-subversion-best-practices" title="Brad Choate: 'OSCON: Subversion Best Practices'">Brad’s summary of the presentation</a>, and I’m hoping a more detailed report pops up at some point soon, because it looks like there was some great client-side stuff in there that Brad’s summary doesn’t really give enough insight into.</p>
+
+:ET

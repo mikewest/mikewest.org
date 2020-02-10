@@ -1,0 +1,71 @@
+I"�<p>Accessing and manipulating the DOM is slow.  The speed of your JavaScript execution will very often depend entirely on the number, and the nature, of DOM calls that you make.</p>
+
+<p>For example, a common problem when writing unobtrusive JavaScript is to loop through a group of elements (say, each cell in a table), doing <em>something interesting</em> to each in turn.  An initial pass at this code might look something like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var theTable    = document.getElementById('sought_after');
+var rows        = theTable.getElementsByTagName('tr');
+for (var rowNum=0;rowNum&lt;rows.length;rowNum++) {
+    var cells   = rows[rowNum].getElementsByTagName('td');
+    for (var colNum=0;colNum&lt;cells.length;colNum++) {
+        var theValue = cells[colNum].innerHTML;
+        
+        //
+        // do some processing here.
+        //
+    }
+}
+</code></pre></div></div>
+
+<p>The code’s fine, and on small data sets, it’ll run quickly enough.  That said, “quickly enough” is relative, and if the interesting something that you’re doing to each cell takes much time, then you’ll quickly find yourself running into performance problems.</p>
+
+<p>One quick way to squeeze a few milliseconds of processing time is to avoid the expensive <code class="highlighter-rouge">getElementsByTagName</code> call inside the <code class="highlighter-rouge">rows</code> loop.  Instead of grabbing a list of the cells in each row as we pass, we can grab <em>all</em> the cells, and process them as a flat array:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var theTable    = document.getElementById('sought_after');
+var cells       = theTable.getElementsByTagName('td');
+for (var cellNum=0;cellNum&lt;cells.length;cellNum++) {
+    var theValue = cells[cellNum].innerHTML;
+        
+    //
+    // do some processing here.
+    //
+}
+</code></pre></div></div>
+
+<p>This code avoids the overhead of the internal <code class="highlighter-rouge">for</code> loop, and additionally replaces <code class="highlighter-rouge">rows.length</code> DOM calls with a single, larger call.  The performance increase is non-trivial (and it’s even faster if you replace the <code class="highlighter-rouge">for</code> loop with the native <code class="highlighter-rouge">Array.forEach</code> method that newer versions of Firefox provide.  Take a look at Dean Edward’s <a href="http://dean.edwards.name/weblog/2006/07/enum/" title="Dean Edwards: 'Enumerating JavaScript Objects'">Enumerating JavaScript Objects</a> for ideas in that regard).  The downside is that we no longer have access to the <code class="highlighter-rouge">rowNum</code> and <code class="highlighter-rouge">colNum</code> variables that were used in the initial algorithm.  If we want to do some calculations that require knowing where we are in our dataset, we’ll run into problems.</p>
+
+<p>Simple arithmetic, however, can give us that information.  In essence, what we’ve done to our dataset is a transformation of a table that looks like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1   2   3   4   5
+6   7   8   9   10
+11  12  13  14  15
+</code></pre></div></div>
+
+<p>into an array that looks like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+</code></pre></div></div>
+
+<p>If we know how many columns were in the original table (5), then we can use division and modulus to calculate the mapping between the cell array, and the position in the table:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var numCols = 5;
+var colNum  = cellNum % numCols;
+var rowNum  = Math.floor(cellNum / numCols);
+</code></pre></div></div>
+
+<p>Of course, that requires a modulus, a division, and a call to <code class="highlighter-rouge">Math.floor</code>.  We can drop out the latter two in favour of a less-expensive <code class="highlighter-rouge">if</code> by simply incrementing <code class="highlighter-rouge">rowNum</code> at loop’s end when <code class="highlighter-rouge">colNum</code> is equal to <code class="highlighter-rouge">numCols - 1</code>.  The whole thing, then, looks like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var theTable    = document.getElementById('sought_after');
+var numCols     = theTable.getElementsByTagName('tr')[0].childNodes.length;
+var cells       = theTable.getElementsByTagName('td');
+var rowNum      = 0;
+for (var cellNum=0;cellNum&lt;cells.length;cellNum++) {
+    var colNum = cellNum % numCols;
+
+    //
+    // do some processing here.
+    //
+    
+    if (colNum == (numCols-1)) { rowNum++; }
+}
+</code></pre></div></div>
+:ET

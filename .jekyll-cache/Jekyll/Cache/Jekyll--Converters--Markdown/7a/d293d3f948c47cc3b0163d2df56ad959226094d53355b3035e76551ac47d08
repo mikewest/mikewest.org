@@ -1,0 +1,24 @@
+I"	<p>I started having strange text wrapping problems after implementing implementing the beautifully colored bash prompt I discussed on Monday.  After fidgeting around a bit, I think I’ve come up with a solution.  In short, I changed two things:</p>
+
+<ul>
+  <li>I’m using <code class="highlighter-rouge">\033</code> instead of <code class="highlighter-rouge">\e</code> when defining the colors.</li>
+  <li>I’m <em>ending</em> my prompt with a color code, even though it’s redundant.</li>
+</ul>
+
+<p>I also completely refactored the way I’m building the prompt, which makes it easier to extend it to do even more interesting things.  For example, I spend almost all my time working in subdirectories below <code class="highlighter-rouge">/my/project/directory</code>.  There’s no reason to display that in the prompt, it’s simply wasting space.  A quick <code class="highlighter-rouge">sed</code> command can take care of this for me, replacing <code class="highlighter-rouge">/my/project/directory/news/uk/whatever</code> with <code class="highlighter-rouge">.../news/uk/whatever</code>.  That’s much easier for me to read, and makes me happy.  So my prompt now consists of:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias ypwd="pwd | sed -e 's#/my/project/directory#...#'";
+
+set_my_prompt() {
+    local OPEN="\[";
+    local CLOSE="\]";
+    local BLUE="${OPEN}\033[1;37;44m${CLOSE}";
+    local GREEN="${OPEN}\033[32m${CLOSE}";
+    local WHITE="${OPEN}\033[0m${CLOSE}";
+    export PS1="\[\e]2;\u@\h\a[\[\033]2;\u@\h\a${BLUE}\t${WHITE}] ${GREEN}\$(ypwd)${WHITE} \$ ${WHITE}";
+}
+set_my_prompt
+</code></pre></div></div>
+
+<p>The magic part happens inside of <code class="highlighter-rouge">\$(...)</code>.  That structure acts just like the backtick (<code class="highlighter-rouge">`</code>) on the shell: anything inside will be executed, and it’s result returned as a string.  In this case, we execute the <code class="highlighter-rouge">ypwd</code> alias I set up at the beginning of the script, which pushes the result of <code class="highlighter-rouge">pwd</code> through a <code class="highlighter-rouge">sed</code>-based regex.  That result is then used inside the prompt; you can do <em>really</em> interesting things with this concept.</p>
+:ET

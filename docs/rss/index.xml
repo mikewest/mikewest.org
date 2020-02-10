@@ -15,8 +15,8 @@
     
     <entry>
         <title type='text'>Web Platform Security @ CMS Security Summit 2020</title>
-        <link rel="alternate" href="https://mikewest.org/2020/02/cms-security-summit-2020/index" />
-        <id>https://mikewest.org/2020/02/cms-security-summit-2020/cms-security-summit-2020</id>
+        <link rel="alternate" href="https://mikewest.org/2020/02/cms-security-summit-2020/" />
+        <id>https://mikewest.org/2020/02/cms-security-summit-2020</id>
         <updated>2020-02-10T00:00:00+01:00</updated>
         <published>2020-02-10T00:00:00+01:00</published>
         <content type='html'>&lt;p&gt;Last Thursday, I had the opportunity to chat with folks in the CMS community about some client-side
@@ -99,8 +99,8 @@ listening!&lt;/p&gt;
     
     <entry>
         <title type='text'>XSS (No, the _other_ 'S') - CSSConf EU 2013</title>
-        <link rel="alternate" href="https://mikewest.org/2013/09/xss-no-the-other-s-cssconfeu-2013/index" />
-        <id>https://mikewest.org/2013/09/xss-no-the-other-s-cssconfeu-2013/xss-no-the-other-s-cssconfeu-2013</id>
+        <link rel="alternate" href="https://mikewest.org/2013/09/xss-no-the-other-s-cssconfeu-2013/" />
+        <id>https://mikewest.org/2013/09/xss-no-the-other-s-cssconfeu-2013</id>
         <updated>2013-09-24T00:00:00+02:00</updated>
         <published>2013-09-24T00:00:00+02:00</published>
         <content type='html'>&lt;p&gt;I had the distinct pleasure of talking with folks at this year’s
@@ -143,8 +143,8 @@ Speaker Deck!&lt;/p&gt;
     
     <entry>
         <title type='text'>Frontend Security - Frontend Conference, Zürich 2013</title>
-        <link rel="alternate" href="https://mikewest.org/2013/09/frontend-security-frontendconf-2013/index" />
-        <id>https://mikewest.org/2013/09/frontend-security-frontendconf-2013/frontend-security-frontendconf-2013</id>
+        <link rel="alternate" href="https://mikewest.org/2013/09/frontend-security-frontendconf-2013/" />
+        <id>https://mikewest.org/2013/09/frontend-security-frontendconf-2013</id>
         <updated>2013-09-09T00:00:00+02:00</updated>
         <published>2013-09-09T00:00:00+02:00</published>
         <content type='html'>&lt;p&gt;Last week, I was in Zürich attending &lt;a href=&quot;http://2013.frontendconf.ch/&quot;&gt;Frontend Conference&lt;/a&gt; (talks and
@@ -955,8 +955,8 @@ certificate.  The encryption is exactly the same.&lt;/p&gt;
     
     <entry>
         <title type='text'>Debugging runtime errors with 'window.onerror' in Blink</title>
-        <link rel="alternate" href="https://mikewest.org/2013/08/debugging-runtime-errors-with-window-onerror/index" />
-        <id>https://mikewest.org/2013/08/debugging-runtime-errors-with-window-onerror/debugging-runtime-errors-with-window-onerror</id>
+        <link rel="alternate" href="https://mikewest.org/2013/08/debugging-runtime-errors-with-window-onerror/" />
+        <id>https://mikewest.org/2013/08/debugging-runtime-errors-with-window-onerror</id>
         <updated>2013-08-08T00:00:00+02:00</updated>
         <published>2013-08-08T00:00:00+02:00</published>
         <content type='html'>&lt;p&gt;After working with Blink’s implementation of &lt;code class=&quot;highlighter-rouge&quot;&gt;window.onerror&lt;/code&gt; a little bit
@@ -1073,8 +1073,8 @@ please do file it at &lt;a href=&quot;http://crbug.com/new&quot;&gt;http://crbug
     
     <entry>
         <title type='text'>Securing the Client Side</title>
-        <link rel="alternate" href="https://mikewest.org/2013/02/securing-the-client-side-devoxx-2012/index" />
-        <id>https://mikewest.org/2013/02/securing-the-client-side-devoxx-2012/securing-the-client-side-devoxx-2012</id>
+        <link rel="alternate" href="https://mikewest.org/2013/02/securing-the-client-side-devoxx-2012/" />
+        <id>https://mikewest.org/2013/02/securing-the-client-side-devoxx-2012</id>
         <updated>2013-02-25T00:00:00+01:00</updated>
         <published>2013-02-25T00:00:00+01:00</published>
         <content type='html'>&lt;p&gt;In November, 2012, I attended Devoxx in Antwerp for the first time to present
@@ -1957,8 +1957,8 @@ room, I’ll be here and I hope you guys are too.&lt;/p&gt;
     
     <entry>
         <title type='text'>Content Security Policy: Feature Detection</title>
-        <link rel="alternate" href="https://mikewest.org/2012/05/content-security-policy-feature-detection/index" />
-        <id>https://mikewest.org/2012/05/content-security-policy-feature-detection/content-security-policy-feature-detection</id>
+        <link rel="alternate" href="https://mikewest.org/2012/05/content-security-policy-feature-detection/" />
+        <id>https://mikewest.org/2012/05/content-security-policy-feature-detection</id>
         <updated>2012-05-02T00:00:00+02:00</updated>
         <published>2012-05-02T00:00:00+02:00</published>
         <content type='html'>&lt;p&gt;&lt;a href=&quot;http://angularjs.org/&quot;&gt;AngularJS&lt;/a&gt;’s &lt;a href=&quot;https://groups.google.com/forum/?fromgroups#!topic/angular/NUT9q_fjMJQ&quot;&gt;latest release candidate&lt;/a&gt; is the first
@@ -2037,8 +2037,8 @@ walking through this with me.&lt;/p&gt;
     
     <entry>
         <title type='text'>Chrome connects to three random domains at startup.</title>
-        <link rel="alternate" href="https://mikewest.org/2012/02/chrome-connects-to-three-random-domains-at-startup/index" />
-        <id>https://mikewest.org/2012/02/chrome-connects-to-three-random-domains-at-startup/chrome-connects-to-three-random-domains-at-startup</id>
+        <link rel="alternate" href="https://mikewest.org/2012/02/chrome-connects-to-three-random-domains-at-startup/" />
+        <id>https://mikewest.org/2012/02/chrome-connects-to-three-random-domains-at-startup</id>
         <updated>2012-02-18T00:00:00+01:00</updated>
         <published>2012-02-18T00:00:00+01:00</published>
         <content type='html'>&lt;p&gt;When you start Chrome, it attempts to connect to three random domains like &lt;code class=&quot;highlighter-rouge&quot;&gt;http://aghepodlln/&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;http://lkhjasdnpr/&lt;/code&gt;. I’ve seen a &lt;a href=&quot;http://stackoverflow.com/questions/7464378/why-is-google-chrome-pinging-mdioussrvd-and-other-random-hosts-that-dont-reso&quot;&gt;few&lt;/a&gt; &lt;a href=&quot;http://www.freesmug.org/forum/t-433541/chromium-chrome-and-mysterious-server-connections&quot;&gt;theories&lt;/a&gt; about why exactly this happens that brush up against the nefarious. The true rationale is incredibly mundane: hopefully this short summary will clear things up.&lt;/p&gt;
@@ -2061,8 +2061,8 @@ walking through this with me.&lt;/p&gt;
     
     <entry>
         <title type='text'>Nerdy New Year</title>
-        <link rel="alternate" href="https://mikewest.org/2011/12/nerdy-new-year/index" />
-        <id>https://mikewest.org/2011/12/nerdy-new-year/nerdy-new-year</id>
+        <link rel="alternate" href="https://mikewest.org/2011/12/nerdy-new-year/" />
+        <id>https://mikewest.org/2011/12/nerdy-new-year</id>
         <updated>2011-12-31T00:00:00+01:00</updated>
         <published>2011-12-31T00:00:00+01:00</published>
         <content type='html'>&lt;p&gt;New Year’s resolutions come in all shapes and sizes; if you’re a web
@@ -2154,8 +2154,8 @@ envy of all your friends and neighbors when you compare notes at the end of
     
     <entry>
         <title type='text'>Making Your Web Apps Accessible Using HTML5 and ChromeVox</title>
-        <link rel="alternate" href="https://mikewest.org/2011/12/transcript-gdd-accessibility-with-chromevox/index" />
-        <id>https://mikewest.org/2011/12/transcript-gdd-accessibility-with-chromevox/transcript-gdd-accessibility-with-chromevox</id>
+        <link rel="alternate" href="https://mikewest.org/2011/12/transcript-gdd-accessibility-with-chromevox/" />
+        <id>https://mikewest.org/2011/12/transcript-gdd-accessibility-with-chromevox</id>
         <updated>2011-12-16T00:00:00+01:00</updated>
         <published>2011-12-16T00:00:00+01:00</published>
         <content type='html'>&lt;p&gt;Back in November, I presented twice at the Google Developer Day in Tel-Aviv.
@@ -3063,8 +3063,8 @@ that type of person.&lt;/p&gt;
     
     <entry>
         <title type='text'>GDD Keynote: The HTML5 Demos</title>
-        <link rel="alternate" href="https://mikewest.org/2011/11/gdd-keynote-the-html5-demos/index" />
-        <id>https://mikewest.org/2011/11/gdd-keynote-the-html5-demos/gdd-keynote-the-html5-demos</id>
+        <link rel="alternate" href="https://mikewest.org/2011/11/gdd-keynote-the-html5-demos/" />
+        <id>https://mikewest.org/2011/11/gdd-keynote-the-html5-demos</id>
         <updated>2011-11-21T00:00:00+01:00</updated>
         <published>2011-11-21T00:00:00+01:00</published>
         <content type='html'>&lt;p&gt;I had the opportunity to present a few demos during the Chrome section of 
