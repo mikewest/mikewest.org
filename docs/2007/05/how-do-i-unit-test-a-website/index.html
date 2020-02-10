@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,15 +58,15 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">How do I unit test a website?</h1>
-  <time class="published" pubdate datetime="Fri May 18 00:00:00 +0200 2007">
+  <time class="published" pubdate datetime="2007-05-18">
     Friday, May 18, 2007
   </time>
 
-  <p>I&rsquo;ve been spending a lot of time recently attempting to puzzle out a <em>good</em>
-way of testing the work I&rsquo;m been doing.  I&rsquo;m enamoured with the idea of unit
+  <p>I’ve been spending a lot of time recently attempting to puzzle out a <em>good</em>
+way of testing the work I’m been doing.  I’m enamoured with the idea of unit
 tests, and I have the feeling that I could save myself a bit of misery if I
-had a mechanism to build tests for each bug I close.  It&rsquo;s a great dream, but
-I&rsquo;m not coming up with much in the way of a solid solution for my work.</p>
+had a mechanism to build tests for each bug I close.  It’s a great dream, but
+I’m not coming up with much in the way of a solid solution for my work.</p>
 
 <p>Sketching out the broad outlines of what I want is pretty simple.  There are
 two broad categories of things I want to test:</p>
@@ -77,37 +74,37 @@ two broad categories of things I want to test:</p>
 <ol>
   <li>
     <p>Core functionality: If I click on an article from some listing page, I
-should end up at <em>the same</em> article&rsquo;s page.  I shouldn&rsquo;t ever see 404&rsquo;s.  PHP
-errors and warnings shouldn&rsquo;t exist on the site.  </p>
+should end up at <em>the same</em> article’s page.  I shouldn’t ever see 404’s.  PHP
+errors and warnings shouldn’t exist on the site.</p>
   </li>
   <li>
     <p>Presentation tests: Each module in the sidebar should be X pixels wide in
-all the A-Grade browsers.  Text shouldn&rsquo;t be cut off because of overflow
+all the A-Grade browsers.  Text shouldn’t be cut off because of overflow
 issues.  Thing X should be Y pixels away from thing Z.</p>
   </li>
 </ol>
 
 <p>Core functionality is easy, rather, I can come up with good ways of writing
 those tests.  A spider is just a quick Perl script away, and the tests I want
-to do are almost completely doable with regular expressions.  If a link&rsquo;s text
+to do are almost completely doable with regular expressions.  If a link’s text
 matches the headline of the page to which it leads, wonderful!  If not, error!
-With a few hardcoded exceptions to handle &ldquo;More&rdquo; links and the like, I&rsquo;ve got
+With a few hardcoded exceptions to handle “More” links and the like, I’ve got
 a solid testing system.  Presentation, on the other hand, is hard.</p>
 
-<p>It&rsquo;s hard not because it&rsquo;s terribly complex, it&rsquo;s hard because it&rsquo;s
+<p>It’s hard not because it’s terribly complex, it’s hard because it’s
 tremendously difficult for a computer to determine if a page <em>looks</em> right.
-The only test mechanism I&rsquo;ve come up with is a convoluted system of JavaScript
-checks: grab an element&rsquo;s <code>computedStyle</code> and run a series of checks.  That
-covers a good chunk of presentational issues, but it&rsquo;s incredibly
+The only test mechanism I’ve come up with is a convoluted system of JavaScript
+checks: grab an element’s <code class="highlighter-rouge">computedStyle</code> and run a series of checks.  That
+covers a good chunk of presentational issues, but it’s incredibly
 timeconsuming to build out a testing system that way.  Moreover, it only
-catches the subset of errors that are directly tied to the box model.  I don&rsquo;t
+catches the subset of errors that are directly tied to the box model.  I don’t
 really know how to generically test to see if a particular link is floated
 next to an image, or gets pushed under it, for example.  Sure, I can check X
-and Y offsets and compare those to the image&rsquo;s width and height, but those
+and Y offsets and compare those to the image’s width and height, but those
 sorts of interdependencies get very complex, very quickly.</p>
 
-<p>So I&rsquo;m still looking.  <a href="http://www.openqa.org/selenium/" title="Selenium">Selenium</a> looks like something I should play with,
-even if the notion of writing tests using HTML <code>table</code> elements is somewhat
+<p>So I’m still looking.  <a href="http://www.openqa.org/selenium/" title="Selenium">Selenium</a> looks like something I should play with,
+even if the notion of writing tests using HTML <code class="highlighter-rouge">table</code> elements is somewhat
 disheartening.  <a href="http://www.jsunit.net/" title="JSUnit">JSUnit</a> is likewise a potential source of testing goodness.
 Any other good sources I should be taking a look at?</p>
 
@@ -135,7 +132,7 @@ Any other good sources I should be taking a look at?</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

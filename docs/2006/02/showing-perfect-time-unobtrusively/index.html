@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,76 +58,76 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Showing Perfect Time (Unobtrusively)</h1>
-  <time class="published" pubdate datetime="Sun Feb 12 00:00:00 +0100 2006">
+  <time class="published" pubdate datetime="2006-02-12">
     Sunday, February 12, 2006
   </time>
 
-  <p>Via <a href="http://simon.incutio.com/">Simon Willison</a>&rsquo;s <a href="http://simon.incutio.com/blogmarks/2006/01/16/">Blogmarks</a>, I came across an interesting idea 
+  <p>Via <a href="http://simon.incutio.com/">Simon Willison</a>’s <a href="http://simon.incutio.com/blogmarks/2006/01/16/">Blogmarks</a>, I came across an interesting idea 
 regarding the display of timestamps on web pages, and how the nasty annoyance of
 time-zones can be dealt with in a fairly elegant manner.  In a nutshell, 
-<a href="http://redhanded.hobix.com/inspect/showingPerfectTime.html">&ldquo;Showing Perfect Time&rdquo;</a> describes a method of displaying timestamps to 
-visitors in the visitor&rsquo;s own time zone, using JavaScript to convert a 
+<a href="http://redhanded.hobix.com/inspect/showingPerfectTime.html">“Showing Perfect Time”</a> describes a method of displaying timestamps to 
+visitors in the visitor’s own time zone, using JavaScript to convert a 
 seconds-since-the-GMT-epoch stamp into something pretty and localized.</p>
 
-<p>I love the idea, but the implementation doesn&rsquo;t work for me.  Importantly, it
-relies on <code>&lt;noscript&gt;</code> to display times for users without JavaScript turned on
-and <code>document.write</code> to dump out times for those who do.  I&rsquo;m not a fan of this 
-method, so I stood on <a href="http://whytheluckystiff.net/">the author&rsquo;s</a> shoulders (who, by the way, was 
+<p>I love the idea, but the implementation doesn’t work for me.  Importantly, it
+relies on <code class="highlighter-rouge">&lt;noscript&gt;</code> to display times for users without JavaScript turned on
+and <code class="highlighter-rouge">document.write</code> to dump out times for those who do.  I’m not a fan of this 
+method, so I stood on <a href="http://whytheluckystiff.net/">the author’s</a> shoulders (who, by the way, was 
 <a href="http://ecmanaut.blogspot.com/2006/01/ajax-date-time-time-zones-best.html">standing on shoulders already</a>), and wrote my own version.</p>
 
-<p><a href="http://mikewest.org/projects/files/PerfectTime/PerfectTime.js">PerfectTime.js</a> is a self-contained JavaScript class that runs <code>onload</code>, and
-unobtrusively replaces the contents of a specially constructed <code>span</code> with a 
+<p><a href="http://mikewest.org/projects/files/PerfectTime/PerfectTime.js">PerfectTime.js</a> is a self-contained JavaScript class that runs <code class="highlighter-rouge">onload</code>, and
+unobtrusively replaces the contents of a specially constructed <code class="highlighter-rouge">span</code> with a 
 properly formatted timestamp.  The code on the webpage might look something like</p>
 
-<pre><code>&lt;span class='PerfectTime' gmt_time='1111396060'&gt;3/21/2005 1:03 CST&lt;/span&gt;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;span class='PerfectTime' gmt_time='1111396060'&gt;3/21/2005 1:03 CST&lt;/span&gt;
+</code></pre></div></div>
 
 <p>which I find to be more semantically meaningful, and accessible.  This article 
-details the process, but if you&rsquo;d like to skip ahead and play with the code 
+details the process, but if you’d like to skip ahead and play with the code 
 yourself, <a href="http://mikewest.org/projects/files/PerfectTime/PerfectTime.js">the PerfectTime JavaScript class</a> is available for download.</p>
 
 <hr />
 
-<p>Writing this class begins in much the same way as the other classes I&rsquo;ve written
-about on this site.  We ought to map out what, exactly, we&rsquo;re trying to achieve
+<p>Writing this class begins in much the same way as the other classes I’ve written
+about on this site.  We ought to map out what, exactly, we’re trying to achieve
 in order to give ourselves a clear goal to code towards.</p>
 
-<p>The final goal is to take a GMT timestamp that&rsquo;s sitting in our database, and 
+<p>The final goal is to take a GMT timestamp that’s sitting in our database, and 
 display it to the user in her own time-zone.  We know that her browser can make
-this translation for us if she&rsquo;s using JavaScript, so we just have to figure out
+this translation for us if she’s using JavaScript, so we just have to figure out
 a nice method of making that translation possible while at the same time
-maintaining the semantic meaning of our page&rsquo;s markup, and providing an
+maintaining the semantic meaning of our page’s markup, and providing an
 alternative to those users visiting without JavaScript enabled.  To me, this
 semantic HTML code looks like:</p>
 
-<pre><code>&lt;span class='PerfectTime' gmt_time='60'&gt;Jan 1, 1970 00:01 GMT&lt;/span&gt;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;span class='PerfectTime' gmt_time='60'&gt;Jan 1, 1970 00:01 GMT&lt;/span&gt;
+</code></pre></div></div>
 
-<p>A <code>span</code> surrounds the time in some baseline acceptable format (e.g. whatever 
-you&rsquo;re currently writing out), and has a custom attribute <code>gmt_time</code> that 
+<p>A <code class="highlighter-rouge">span</code> surrounds the time in some baseline acceptable format (e.g. whatever 
+you’re currently writing out), and has a custom attribute <code class="highlighter-rouge">gmt_time</code> that 
 contains the seconds-since-epoch integer associated with that timestamp.</p>
 
 <p>Without JavaScript, nothing more happens, and your users see the timestamp
 in some specific time-zone.  With JavaScript enabled, we can take this a step
-further, and dynamically replace the contents of this <code>span</code> with a timestamp
-keyed off the user&rsquo;s local timezone.</p>
+further, and dynamically replace the contents of this <code class="highlighter-rouge">span</code> with a timestamp
+keyed off the user’s local timezone.</p>
 
 <p>The steps, therefore, are straightforward:</p>
 
 <ol>
-  <li>Find all the <code>spans</code> on the page of class <code>PerfectTime</code>.</li>
-  <li>Extract the GMT stamp from each <code>span</code>.</li>
+  <li>Find all the <code class="highlighter-rouge">spans</code> on the page of class <code class="highlighter-rouge">PerfectTime</code>.</li>
+  <li>Extract the GMT stamp from each <code class="highlighter-rouge">span</code>.</li>
   <li>Translate each GMT stamp to a local timestamp.</li>
-  <li>Replace the content of each <code>span</code> with the new timestamp.</li>
+  <li>Replace the content of each <code class="highlighter-rouge">span</code> with the new timestamp.</li>
 </ol>
 
-<p>So, let&rsquo;s start coding.</p>
+<p>So, let’s start coding.</p>
 
-<p>We pick a name (&ldquo;PerfectTime&rdquo; sounds catchy) to distinguish this class from 
+<p>We pick a name (“PerfectTime” sounds catchy) to distinguish this class from 
 others we might use in the future, and create the package <a href="/2005/03/component-encapsulation-using-object-oriented-javascript">as per usual</a>
-aliasing <code>this</code> to avoid scoping issues, as per usual.</p>
+aliasing <code class="highlighter-rouge">this</code> to avoid scoping issues, as per usual.</p>
 
-<pre><code>function PerfectTime() {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function PerfectTime() {
     var self = this;
 
     ...
@@ -148,54 +145,54 @@ aliasing <code>this</code> to avoid scoping issues, as per usual.</p>
     
     handleEvent(window, 'load', self.instantiate);
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>We&rsquo;re looking for all the <code>spans</code> on the page with a <code>className</code> of
-&ldquo;PerfectTime&rdquo;, and calling a method called (astoundingly enough) <code>processSpan</code>
-on each one.  That&rsquo;s where we&rsquo;ll make the magic happen.  As it turns out, that
+<p>We’re looking for all the <code class="highlighter-rouge">spans</code> on the page with a <code class="highlighter-rouge">className</code> of
+“PerfectTime”, and calling a method called (astoundingly enough) <code class="highlighter-rouge">processSpan</code>
+on each one.  That’s where we’ll make the magic happen.  As it turns out, that
 magic is quite straightforward:</p>
 
-<pre><code>    self.processSpan = function (theSpan) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    self.processSpan = function (theSpan) {
         var GMT = parseInt(theSpan.getAttribute('gmt_time')) * 1000;
         var newDate = new Date(GMT);
         theSpan.innerHTML = self.strftime(newDate);
     }
-</code></pre>
+</code></pre></div></div>
 
-<p>So, what&rsquo;s going on in these three lines?  </p>
+<p>So, what’s going on in these three lines?</p>
 
-<p>The first line grabs the <code>gmt_time</code> attribute off the <code>span</code>, and turns it into
-an integer using <code>parseInt</code> (because the <code>getAttribute</code> method <em>always</em> returns
+<p>The first line grabs the <code class="highlighter-rouge">gmt_time</code> attribute off the <code class="highlighter-rouge">span</code>, and turns it into
+an integer using <code class="highlighter-rouge">parseInt</code> (because the <code class="highlighter-rouge">getAttribute</code> method <em>always</em> returns
 a string).  We also have to multiply this number by 1000 to account for the fact
-that JavaScript&rsquo;s <code>Date</code> object expects microseconds as opposed to seconds.  </p>
+that JavaScript’s <code class="highlighter-rouge">Date</code> object expects microseconds as opposed to seconds.</p>
 
-<p>The second line creates our <code>Date</code> object, and populates it with our GMT stamp.</p>
+<p>The second line creates our <code class="highlighter-rouge">Date</code> object, and populates it with our GMT stamp.</p>
 
-<p>The third line calls a method called <code>strftime</code> to translate the GMT timestamp
-into a localized timestamp, and sticks that information into our <code>span</code>&rsquo;s 
-<code>innerHTML</code>.  We&rsquo;ve taken care, therefore, of steps #1, #2, and #4.<br />
-<code>strftime()</code> handles the heavy lifting in #3.</p>
+<p>The third line calls a method called <code class="highlighter-rouge">strftime</code> to translate the GMT timestamp
+into a localized timestamp, and sticks that information into our <code class="highlighter-rouge">span</code>’s 
+<code class="highlighter-rouge">innerHTML</code>.  We’ve taken care, therefore, of steps #1, #2, and #4.<br />
+<code class="highlighter-rouge">strftime()</code> handles the heavy lifting in #3.</p>
 
-<p><code>strftime()</code> is based upon <a href="http://redhanded.hobix.com/inspect/showingPerfectTime.html">whytheluckystiff</a>&rsquo;s reworking of 
-<a href="http://ecmanaut.blogspot.com">Johan Sundström&rsquo;s</a>&rsquo;s clever <a href="http://ecmanaut.blogspot.com/2006/01/ajax-date-time-time-zones-best.html"><code>formatTime</code> method</a>.  I&rsquo;ve simply moved the
+<p><code class="highlighter-rouge">strftime()</code> is based upon <a href="http://redhanded.hobix.com/inspect/showingPerfectTime.html">whytheluckystiff</a>’s reworking of 
+<a href="http://ecmanaut.blogspot.com">Johan Sundström’s</a>’s clever <a href="http://ecmanaut.blogspot.com/2006/01/ajax-date-time-time-zones-best.html"><code class="highlighter-rouge">formatTime</code> method</a>.  I’ve simply moved the
 code around so that it fits into our self-contained environment.  The function
-takes a <code>Date</code> object as it&rsquo;s only argument, and returns the properly formatted
-time string just as it would have been returned from any other <code>strftime()</code>
-implementation (say, <a href="http://php.net/strftime">PHP&rsquo;s <code>strftime</code></a>, which happens to have nicely
+takes a <code class="highlighter-rouge">Date</code> object as it’s only argument, and returns the properly formatted
+time string just as it would have been returned from any other <code class="highlighter-rouge">strftime()</code>
+implementation (say, <a href="http://php.net/strftime">PHP’s <code class="highlighter-rouge">strftime</code></a>, which happens to have nicely
 available documentation).  The formatting string is set when the class is 
 instantiated with the following code:</p>
 
-<pre><code>self.defaultFormat = '%d %b %Y at %H:%M';
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>self.defaultFormat = '%d %b %Y at %H:%M';
 self.format        = (arguments[0])?arguments[0]:self.defaultFormat;
-</code></pre>
+</code></pre></div></div>
 
-<p>We use the <code>arguments</code> array of the constructor to determine if a formatting
+<p>We use the <code class="highlighter-rouge">arguments</code> array of the constructor to determine if a formatting
 string was passed in.  If one exists, we use it.  If not, we use the default
 format string.</p>
 
-<p>And that&rsquo;s it.  Simple, eh?</p>
+<p>And that’s it.  Simple, eh?</p>
 
-<p>I&rsquo;ve set up an example proof-of-concept PHP script that writes out various Unix
+<p>I’ve set up an example proof-of-concept PHP script that writes out various Unix
 timestamps (in fact, the timestamps of each and every blog post on mikewest.org)
 that will hopefully make the process clear.</p>
 
@@ -223,7 +220,7 @@ The JavaScript class is <a href="http://mikewest.org/projects/files/PerfectTime/
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

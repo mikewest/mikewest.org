@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,66 +58,66 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Running `python-spidermonkey` on JeOS</h1>
-  <time class="published" pubdate datetime="Sat May 16 00:00:00 +0200 2009">
+  <time class="published" pubdate datetime="2009-05-16">
     Saturday, May 16, 2009
   </time>
 
-  <p>Paul Davis&rsquo; <a href="http://github.com/davisp/python-spidermonkey/tree/master"><code>python-spidermonkey</code></a> project looks brilliant.</p>
+  <p>Paul Davis’ <a href="http://github.com/davisp/python-spidermonkey/tree/master"><code class="highlighter-rouge">python-spidermonkey</code></a> project looks brilliant.</p>
 
-<p>In a nutshell, he&rsquo;s building a Python bridge to Mozilla&rsquo;s <a href="http://www.mozilla.org/js/spidermonkey/">SpiderMonkey</a> &ldquo;JavaScript on C&rdquo; environment.  I&rsquo;m excited about that, because it means I might be able to put together a headless testing environment without trying to make everything work correctly inside Rhino.  Hooray for options!</p>
+<p>In a nutshell, he’s building a Python bridge to Mozilla’s <a href="http://www.mozilla.org/js/spidermonkey/">SpiderMonkey</a> “JavaScript on C” environment.  I’m excited about that, because it means I might be able to put together a headless testing environment without trying to make everything work correctly inside Rhino.  Hooray for options!</p>
 
-<p>I ran into a snag or two while getting up and running on JeOS (my <a href="http://intranation.com/entries/2009/03/development-virtual-machines-os-x-using-vmware-and/">dev environment of choice</a>), so I&rsquo;m documenting the process here.</p>
+<p>I ran into a snag or two while getting up and running on JeOS (my <a href="http://intranation.com/entries/2009/03/development-virtual-machines-os-x-using-vmware-and/">dev environment of choice</a>), so I’m documenting the process here.</p>
 
 <ol>
   <li>
-    <p>Install python headers and <code>pkg-config</code>.  Forgetting to install
-<code>pgk-config</code> will give you some exciting errors in the compilation phase
+    <p>Install python headers and <code class="highlighter-rouge">pkg-config</code>.  Forgetting to install
+<code class="highlighter-rouge">pgk-config</code> will give you some exciting errors in the compilation phase
 later on that make it sound like NSPR failed to install correctly.  If
-you&rsquo;re on JeOS, it&rsquo;s more likely the case that you don&rsquo;t have <code>pkg-config</code>
+you’re on JeOS, it’s more likely the case that you don’t have <code class="highlighter-rouge">pkg-config</code>
 at all:</p>
 
-    <pre><code>sudo apt-get install python2.6-dev pkg-config
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install python2.6-dev pkg-config
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Install netscape portable runtime:</p>
 
-    <pre><code>sudo apt-get install libnspr4-dev
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install libnspr4-dev
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Pull down python-spidermonkey</p>
 
-    <pre><code>mkdir -p ~/src
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/src
 cd ~/src
 git clone git://github.com/davisp/python-spidermonkey.gitnsp
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Build <code>python-spidermonkey</code></p>
+    <p>Build <code class="highlighter-rouge">python-spidermonkey</code></p>
 
-    <pre><code>cd ~/src/python-spidermonkey
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/src/python-spidermonkey
 python setup.py build
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Test <code>python-spidermonkey</code>:</p>
+    <p>Test <code class="highlighter-rouge">python-spidermonkey</code>:</p>
 
-    <p>Actually, <strong>don&rsquo;t</strong> do this.  <a href="http://davisp.lighthouseapp.com/projects/26898-python-spidermonkey/tickets/15-test_exceed_time-fails-on-jeos">One of the tests fails on JeOS</a>, and it
+    <p>Actually, <strong>don’t</strong> do this.  <a href="http://davisp.lighthouseapp.com/projects/26898-python-spidermonkey/tickets/15-test_exceed_time-fails-on-jeos">One of the tests fails on JeOS</a>, and it
 fails in a way that sucks up all your resources and leaves you in an
 infinite loop.  Yay!</p>
   </li>
   <li>
     <p>Install:  Even though the max time test fails (spectacularly), the bridge
-seems to work pretty well.  Install the package anyway, just don&rsquo;t rely on
+seems to work pretty well.  Install the package anyway, just don’t rely on
 being able to set a max execution time on your code.  :)</p>
 
-    <pre><code>sudo python setup.py install
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo python setup.py install
+</code></pre></div>    </div>
   </li>
 </ol>
 
-<p>Now, to see about getting <a href="http://jslint.com/">JSLint</a> running in this environment&hellip; Fun!</p>
+<p>Now, to see about getting <a href="http://jslint.com/">JSLint</a> running in this environment… Fun!</p>
 
 
 
@@ -170,7 +167,7 @@ being able to set a max execution time on your code.  :)</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,30 +58,30 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Slidable Select Widgets Explained</h1>
-  <time class="published" pubdate datetime="Mon Mar 21 00:00:00 +0100 2005">
+  <time class="published" pubdate datetime="2005-03-21">
     Monday, March 21, 2005
   </time>
 
   <p>When designing a web-based application, we’re working with a hugely impoverished set of widgets as compared to what might be available in a native app. Dropdowns, text-input fields, and a variety of buttons more or less define the boundaries within which we need to work. Despite this, we’ve managed to make some truly interesting user interfaces, and the possibilities are only expanding as we start to explore some newly rediscovered technologies like XMLHttpRequest.</p>
 
-<p>That’s one direction to explore; as <a href="http://www.bestkungfu.com/archive/date/2005/03/ajaxessibility/">Matthew May</a> points out, it basically throws the doors wide open for new paradigms. I’ll certainly be talking about that sort of thing on this site (especially since I’m heavily involved in trying to <a href="/2006/03/datarequestor/">improve XMLHttpRequest’s JavaScript interface</a>), but for the moment I’d like to point out another option. We can transparently extend the widgets we already have, an approach which I think has some real potential in terms of maintaining accessibility while leaping forward with regard to the typical user’s experience. I’ve started down this road in previous articles, specifically the idea of <a href="/2005/03/type-ahead-search-for-select-elements">adding type-ahead searching to <code>select</code> elements</a>, which certainly isn’t anything really <em>new</em>. It <em>is</em>, however, something that allows us to gradually improve the way that we interact with applications on the web. Small steps like that will eventually take us quite a long way towards replicating a native-like feel in our apps without diving into the inaccessible quagmire of ActiveX or Flash plugins. This article will explain another of those small steps: a slidable <code>select</code> widget that replaces the typical dropdown with a nicer-looking (we’ll ignore my Photoshop ‘skills’ for the moment, and assume that people can make better skins for the widget) alternative that works in all the modern browsers (Mozilla, IE6, Safari/Konqueror, and Opera).</p>
+<p>That’s one direction to explore; as <a href="http://www.bestkungfu.com/archive/date/2005/03/ajaxessibility/">Matthew May</a> points out, it basically throws the doors wide open for new paradigms. I’ll certainly be talking about that sort of thing on this site (especially since I’m heavily involved in trying to <a href="/2006/03/datarequestor/">improve XMLHttpRequest’s JavaScript interface</a>), but for the moment I’d like to point out another option. We can transparently extend the widgets we already have, an approach which I think has some real potential in terms of maintaining accessibility while leaping forward with regard to the typical user’s experience. I’ve started down this road in previous articles, specifically the idea of <a href="/2005/03/type-ahead-search-for-select-elements">adding type-ahead searching to <code class="highlighter-rouge">select</code> elements</a>, which certainly isn’t anything really <em>new</em>. It <em>is</em>, however, something that allows us to gradually improve the way that we interact with applications on the web. Small steps like that will eventually take us quite a long way towards replicating a native-like feel in our apps without diving into the inaccessible quagmire of ActiveX or Flash plugins. This article will explain another of those small steps: a slidable <code class="highlighter-rouge">select</code> widget that replaces the typical dropdown with a nicer-looking (we’ll ignore my Photoshop ‘skills’ for the moment, and assume that people can make better skins for the widget) alternative that works in all the modern browsers (Mozilla, IE6, Safari/Konqueror, and Opera).</p>
 
 <p><a href="/projects/files/Widgets/SliderSelect/sliderSelectExample.html">Example code for this slider is available at /projects/files/Widgets/SliderSelect/</a></p>
 
-<p>Again, we’ll start this project by mapping out what functionality we want to provide. So, here’s what we’re planning on accomplishing. Using a <code>select</code> box as our template, we’ll create a slider bar with a few distinct visual elements: A ‘gutter’ that defines the space in which we can slide. A ‘slider’ that indicates our current position within the gutter, and several ‘placeholders’ that indicate defined selection points within the gutter. These selection points will correspond to the <code>option</code> elements inside our <code>select</code> template. This is about as simple as we can make the slider, so we’ll start with this, and discuss some additional features that might be nice to add in later. Importantly, the slider needs to somehow maintain a value that can be manipulated via the DOM and submitted via a form, just like it’s parent <code>select</code> element.</p>
+<p>Again, we’ll start this project by mapping out what functionality we want to provide. So, here’s what we’re planning on accomplishing. Using a <code class="highlighter-rouge">select</code> box as our template, we’ll create a slider bar with a few distinct visual elements: A ‘gutter’ that defines the space in which we can slide. A ‘slider’ that indicates our current position within the gutter, and several ‘placeholders’ that indicate defined selection points within the gutter. These selection points will correspond to the <code class="highlighter-rouge">option</code> elements inside our <code class="highlighter-rouge">select</code> template. This is about as simple as we can make the slider, so we’ll start with this, and discuss some additional features that might be nice to add in later. Importantly, the slider needs to somehow maintain a value that can be manipulated via the DOM and submitted via a form, just like it’s parent <code class="highlighter-rouge">select</code> element.</p>
 
 <p>So how can we accomplish this, using the tools that we currently have available? Let’s start by coming up with a way of presenting a slider bar, and work backwards from there. Here’s what I decided upon for a structure:</p>
 
-<pre><code>&lt;select id='selectBoxId' name='selectBoxName' presentation='slider'&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;select id='selectBoxId' name='selectBoxName' presentation='slider'&gt;
     &lt;option value='0'&gt;Option 1&lt;/option&gt;
     ...
     &lt;option value='N'&gt;Option N&lt;/option&gt;
 &lt;/select&gt;
-</code></pre>
+</code></pre></div></div>
 
 <p>Becomes:</p>
 
-<pre><code>&lt;div class='SliderContainer'&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class='SliderContainer'&gt;
     &lt;div class='gutter'&gt;
         &lt;span class='slider'&gt;&lt;/span&gt;
         &lt;span class='placeholder'&gt;&lt;/span&gt;
@@ -93,13 +90,13 @@
     &lt;/div&gt;
     &lt;input type='hidden' id='selectBoxId' name='selectBoxName' /&gt;
 &lt;/div&gt;
-</code></pre>
+</code></pre></div></div>
 
-<p>That seems fairly straightforward to me, and provides all the structure we’ll need in order to fully encapsulate the functionality of each slider bar from every other slider bar on the page. We need the container <code>div</code>, for example, in order to easily identify the slider’s <code>input</code> element via some simple DOM calls (e.g. this.parentNode.childNodes<a href="http://www.bestkungfu.com/archive/date/2005/03/ajaxessibility/">1</a>) from any of the slider’s other elements. It also makes styling via CSS a little more specific so that we don’t have to come up with <em>truly</em> unique class names.</p>
+<p>That seems fairly straightforward to me, and provides all the structure we’ll need in order to fully encapsulate the functionality of each slider bar from every other slider bar on the page. We need the container <code class="highlighter-rouge">div</code>, for example, in order to easily identify the slider’s <code class="highlighter-rouge">input</code> element via some simple DOM calls (e.g. this.parentNode.childNodes<a href="http://www.bestkungfu.com/archive/date/2005/03/ajaxessibility/">1</a>) from any of the slider’s other elements. It also makes styling via CSS a little more specific so that we don’t have to come up with <em>truly</em> unique class names.</p>
 
-<p>Now that we’ve got a solid DOM structure in mind, let’s get started on the JavaScript needed to generate that model from a <code>select</code> element. We’ll begin with some code that should be pretty familiar by now (if it’s not, take a quick look at my <a href="/2005/03/component-encapsulation-using-object-oriented-javascript">object encapsulation article</a> for some help):</p>
+<p>Now that we’ve got a solid DOM structure in mind, let’s get started on the JavaScript needed to generate that model from a <code class="highlighter-rouge">select</code> element. We’ll begin with some code that should be pretty familiar by now (if it’s not, take a quick look at my <a href="/2005/03/component-encapsulation-using-object-oriented-javascript">object encapsulation article</a> for some help):</p>
 
-<pre><code>function SliderSelect() {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function SliderSelect() {
     var self = this;
 
     /*
@@ -120,59 +117,59 @@
 
     handleEvent(window, "load", self.instantiate);
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>We’re looking for all the <code>select</code> elements on the page with a <code>presentation</code> attribute of “slider”, and calling a method named “slidify” on all of them. That’s where we’ll create our structure. We’ll take a look at that code now:</p>
+<p>We’re looking for all the <code class="highlighter-rouge">select</code> elements on the page with a <code class="highlighter-rouge">presentation</code> attribute of “slider”, and calling a method named “slidify” on all of them. That’s where we’ll create our structure. We’ll take a look at that code now:</p>
 
-<pre><code>self.slidify = function (selectBox) {
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>self.slidify = function (selectBox) {
+</code></pre></div></div>
 
-<p>Starting off, we determine how wide the <code>select</code> element that we’re replacing was. We’ll use the same width for our slider. This gives us a simple method of controlling the amount of space the slider takes up by simply styling the <code>select</code> element it’s going stand-in for. We then create the outermost <code>div</code> that will contain the remainder of our structure. It gets the class name “SliderContainer”, and we set it’s width to the width of the <code>select</code> element it replaces.</p>
+<p>Starting off, we determine how wide the <code class="highlighter-rouge">select</code> element that we’re replacing was. We’ll use the same width for our slider. This gives us a simple method of controlling the amount of space the slider takes up by simply styling the <code class="highlighter-rouge">select</code> element it’s going stand-in for. We then create the outermost <code class="highlighter-rouge">div</code> that will contain the remainder of our structure. It gets the class name “SliderContainer”, and we set it’s width to the width of the <code class="highlighter-rouge">select</code> element it replaces.</p>
 
-<pre><code>    var selectBoxWidth  = selectBox.offsetWidth;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var selectBoxWidth  = selectBox.offsetWidth;
 
     var containerDiv         = document.createElement('div');
     containerDiv.className   = "SliderContainer";
     containerDiv.style.width = selectBoxWidth + "px";
-</code></pre>
+</code></pre></div></div>
 
-<p>The gutter is the next item on the list. It’s going to hold most of the variables associated with the slider, because as we’ll see later, it ends up being the element that does most of the work. </p>
+<p>The gutter is the next item on the list. It’s going to hold most of the variables associated with the slider, because as we’ll see later, it ends up being the element that does most of the work.</p>
 
-<p>We’ll need to keep track of a few bits of information, including the number of options in our <code>select</code> element’s dropdown, the currently selected option’s index, and the list of option values and names. As it turns out, the simplest way to keep track of that latter set of info is just to grab the entire <code>options</code> collection off the <code>select</code> element, and store it on the gutter <code>div</code>. JavaScript’s loose typing makes that a breeze. Finally, we’ll need to figure out how wide each option should be on the slider. That’s a simple calculation: divide the width of the box by one less than the total number of items (because the first item lines up with the left edge of the slider). The code to do all that is as follows:</p>
+<p>We’ll need to keep track of a few bits of information, including the number of options in our <code class="highlighter-rouge">select</code> element’s dropdown, the currently selected option’s index, and the list of option values and names. As it turns out, the simplest way to keep track of that latter set of info is just to grab the entire <code class="highlighter-rouge">options</code> collection off the <code class="highlighter-rouge">select</code> element, and store it on the gutter <code class="highlighter-rouge">div</code>. JavaScript’s loose typing makes that a breeze. Finally, we’ll need to figure out how wide each option should be on the slider. That’s a simple calculation: divide the width of the box by one less than the total number of items (because the first item lines up with the left edge of the slider). The code to do all that is as follows:</p>
 
-<pre><code>    var theGutter                = document.createElement('div');
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var theGutter                = document.createElement('div');
         theGutter.className      = "gutter";
         theGutter.options        = selectBox.options;                        
         theGutter.numOptions     = selectBox.options.length;
         theGutter.optionDistance = Math.floor(selectBoxWidth/(theGutter.numOptions-1));
         theGutter.defaultOption  = (selectBox.selectedIndex)?selectBox.selectedIndex:0;
-</code></pre>
+</code></pre></div></div>
 
-<p>The slider is next, and it’s trivial: just a span with a <code>className</code> of “slider”.</p>
+<p>The slider is next, and it’s trivial: just a span with a <code class="highlighter-rouge">className</code> of “slider”.</p>
 
-<pre><code>    var theSlider           = document.createElement('span');
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var theSlider           = document.createElement('span');
         theSlider.className = "slider";
-</code></pre>
+</code></pre></div></div>
 
-<p>We’ll set up a hidden <code>input</code> field to store the value that used to be associated with the <code>select</code> element, and give it the same <code>name</code> and <code>id</code> attributes so that any references to it won’t need to be rewritten.</p>
+<p>We’ll set up a hidden <code class="highlighter-rouge">input</code> field to store the value that used to be associated with the <code class="highlighter-rouge">select</code> element, and give it the same <code class="highlighter-rouge">name</code> and <code class="highlighter-rouge">id</code> attributes so that any references to it won’t need to be rewritten.</p>
 
-<pre><code>    var theInput            = document.createElement('input');
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var theInput            = document.createElement('input');
         theInput.id         = selectBox.id;
         theInput.name       = selectBox.name;
         theInput.type       = "hidden";
         theInput.value      = selectBox.options[theGutter.defaultOption].value;
         theInput.onchange   = selectBox.onchange;
         theInput.options    = selectBox.options;
-</code></pre>
+</code></pre></div></div>
 
-<p>Now we’ve gotten the major components of our slider created, let’s start sticking them together into a coherent whole. First, we’ll append the slider to the gutter (meaning that it can be referenced as <code>theGutter.childNodes[0]</code>):</p>
+<p>Now we’ve gotten the major components of our slider created, let’s start sticking them together into a coherent whole. First, we’ll append the slider to the gutter (meaning that it can be referenced as <code class="highlighter-rouge">theGutter.childNodes[0]</code>):</p>
 
-<pre><code>    theGutter.appendChild(theSlider);
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    theGutter.appendChild(theSlider);
+</code></pre></div></div>
 
-<p>Next, we’ll create some placeholder <code>span</code>s that we’ll use for the tick marks that delineate options. We’ll create as many of these <code>span</code>s as we have options, and place each at the proper location in the slider by setting their <code>left</code> style attribute:</p>
+<p>Next, we’ll create some placeholder <code class="highlighter-rouge">span</code>s that we’ll use for the tick marks that delineate options. We’ll create as many of these <code class="highlighter-rouge">span</code>s as we have options, and place each at the proper location in the slider by setting their <code class="highlighter-rouge">left</code> style attribute:</p>
 
-<pre><code>    var placeHolder = document.createElement('span');
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var placeHolder = document.createElement('span');
         placeHolder.className  = 'placeHolder';
         theGutter.appendChild(placeHolder);     
 
@@ -182,22 +179,22 @@
         placeHolder.style.left = Math.min(selectBoxWidth, (i * theGutter.optionDistance)) + "px";
         theGutter.appendChild(placeHolder);
     }
-</code></pre>
+</code></pre></div></div>
 
-<p>So, the gutter is complete: let’s stick it into the container <code>div</code>, and then place the <code>input</code> field in there too:</p>
+<p>So, the gutter is complete: let’s stick it into the container <code class="highlighter-rouge">div</code>, and then place the <code class="highlighter-rouge">input</code> field in there too:</p>
 
-<pre><code>    containerDiv.appendChild(theGutter);
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    containerDiv.appendChild(theGutter);
     containerDiv.appendChild(theInput);
-</code></pre>
+</code></pre></div></div>
 
 <p>Two steps remain: First, we set up an event handler to make the slider work correctly (which we’ll talk about in a moment):</p>
 
-<pre><code>    handleEvent(theGutter, "mousedown", self.registerSlider);
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    handleEvent(theGutter, "mousedown", self.registerSlider);
+</code></pre></div></div>
 
-<p>And finally, we position the slider in the proper location on the gutter, and replace the original <code>select</code> element with the slider that we’ve created.</p>
+<p>And finally, we position the slider in the proper location on the gutter, and replace the original <code class="highlighter-rouge">select</code> element with the slider that we’ve created.</p>
 
-<pre><code>    theSlider.style.left = (
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    theSlider.style.left = (
                                 Math.min(
                                     selectBoxWidth, 
                                     (theGutter.defaultOption * theGutter.optionDistance)
@@ -209,15 +206,15 @@
                            ) + "px";                            
     selectBox.parentNode.replaceChild(containerDiv, selectBox);
 }
-</code></pre>
+</code></pre></div></div>
 
 <p>So, most of the hard work is done at this point. Using a little CSS to set up background images and colours, we’ve got a nice looking slider bar sitting on our page, waiting for us to play with it. Now comes the hard part. How the heck do we make this thing work?</p>
 
-<p>Well, you saw above that we registered an event handler that fires off when we click anywhere on the gutter. We’re going to use that event to set up everything else that we need to take care of. The plan is this: when you click on the gutter, we’ll set three tracking variables — <code>activeSlider</code>, <code>activeInput</code> and <code>activeGutter</code>— to keep track of which slider it is that you’ve clicked on. This enables us to run multiple sliders on the same page, because we’ve cleverly encapsulated all of a slider’s relevant information in properties that hang out on the gutter itself. Once we’ve saved off references to the slider we’re currently working with, we register two event handlers on the <code>document</code> object. These handlers trigger based on mouse movement (<code>mousemove</code>) and letting go of the mouse button (<code>mouseup</code>). </p>
+<p>Well, you saw above that we registered an event handler that fires off when we click anywhere on the gutter. We’re going to use that event to set up everything else that we need to take care of. The plan is this: when you click on the gutter, we’ll set three tracking variables — <code class="highlighter-rouge">activeSlider</code>, <code class="highlighter-rouge">activeInput</code> and <code class="highlighter-rouge">activeGutter</code>— to keep track of which slider it is that you’ve clicked on. This enables us to run multiple sliders on the same page, because we’ve cleverly encapsulated all of a slider’s relevant information in properties that hang out on the gutter itself. Once we’ve saved off references to the slider we’re currently working with, we register two event handlers on the <code class="highlighter-rouge">document</code> object. These handlers trigger based on mouse movement (<code class="highlighter-rouge">mousemove</code>) and letting go of the mouse button (<code class="highlighter-rouge">mouseup</code>).</p>
 
-<p>In a nutshell, these triggers will allow us to replicate click-and-drag functionality on our slider by letting us know what state the mouse is in. When we click on the gutter, we set up some variables so that we know that the mouse button is down. While the mouse button is down, we want to use the information gathered from the <code>mousemove</code> event to position the slider on the gutter. When the mouse button is lifted, we want to stop moving the slider around, and lock it into one of the demarcated positions on the gutter. In essence, we’ve created a simple <a href="http://en.wikipedia.org/wiki/State_machine">state machine</a>.</p>
+<p>In a nutshell, these triggers will allow us to replicate click-and-drag functionality on our slider by letting us know what state the mouse is in. When we click on the gutter, we set up some variables so that we know that the mouse button is down. While the mouse button is down, we want to use the information gathered from the <code class="highlighter-rouge">mousemove</code> event to position the slider on the gutter. When the mouse button is lifted, we want to stop moving the slider around, and lock it into one of the demarcated positions on the gutter. In essence, we’ve created a simple <a href="http://en.wikipedia.org/wiki/State_machine">state machine</a>.</p>
 
-<pre><code>self.registerSlider = function (e) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>self.registerSlider = function (e) {
     if (!e) e = window.event;
 
     /*
@@ -240,11 +237,11 @@
     e.cancelBubble = true;
     return false;
 }
-</code></pre>
+</code></pre></div></div>
 
-<p><code>registerSlider</code> deals when the <code>mousedown</code> event, and sets things up to let us know that we should be processing <code>mousemove</code> events. Let’s quickly talk about <code>unregisterSlider</code>, which gets called when we let go of the mouse button. A few things need to happen here: first, we want to reposition the slider to whichever of the tick marks it’s closest to (It’s a <code>select</code> element, after all. You can’t sit on the fence between two <code>options</code>, it’s one or the other). We determine which option we’re closes to in the <code>mousemove</code> handler, which we’ll discuss in a moment, so all that’s left is to ensure that the slider is actually positioned on that option. This is a simple multiplication of the <code>optionNum</code> that we already know, and the <code>optionDistance</code> that we calculated when we instantiated the slider bar. Due to rounding issues, we’ll make sure we don’t jump off the end of the bar by using <code>Math.min</code> to get the minimum value between our calculated position and the slider bar’s actual width. That should take care of things. All that’s left is to set the activeSlider, activeGutter, and activeInput values to <code>null</code>.</p>
+<p><code class="highlighter-rouge">registerSlider</code> deals when the <code class="highlighter-rouge">mousedown</code> event, and sets things up to let us know that we should be processing <code class="highlighter-rouge">mousemove</code> events. Let’s quickly talk about <code class="highlighter-rouge">unregisterSlider</code>, which gets called when we let go of the mouse button. A few things need to happen here: first, we want to reposition the slider to whichever of the tick marks it’s closest to (It’s a <code class="highlighter-rouge">select</code> element, after all. You can’t sit on the fence between two <code class="highlighter-rouge">options</code>, it’s one or the other). We determine which option we’re closes to in the <code class="highlighter-rouge">mousemove</code> handler, which we’ll discuss in a moment, so all that’s left is to ensure that the slider is actually positioned on that option. This is a simple multiplication of the <code class="highlighter-rouge">optionNum</code> that we already know, and the <code class="highlighter-rouge">optionDistance</code> that we calculated when we instantiated the slider bar. Due to rounding issues, we’ll make sure we don’t jump off the end of the bar by using <code class="highlighter-rouge">Math.min</code> to get the minimum value between our calculated position and the slider bar’s actual width. That should take care of things. All that’s left is to set the activeSlider, activeGutter, and activeInput values to <code class="highlighter-rouge">null</code>.</p>
 
-<pre><code>self.unregisterSlider = function (e) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>self.unregisterSlider = function (e) {
     if (!self.activeGutter) { return; }
 
     self.activeSlider.style.left = (
@@ -266,11 +263,11 @@
     self.activeSlider    = null;
     self.activeInput     = null;        
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>The last thing to discuss is probably the most important piece of the puzzle. How do we make the slider move when we drag it with the mouse? As it turns out, this isn’t at all difficult. The event object gives us the coordinates of the mouse on the page (of course, <a href="http://evolt.org/article/Mission_Impossible_mouse_position/17/23335/index.html">this isn’t precisely true</a>, but for our purposes, the quirks don’t matter) with the simple syntax <code>e.clientX</code> and <code>e.clientY</code>. This coordinate information is all we need in order to position the slider correctly. The only magic in this function is the code that snaps the slider to a placeholder when it comes within a certain number of pixels. We take the pixel value of the slider’s current position, and mod it by the <code>optionDistance</code>. That gives us the number of pixels between the current position, and one of the options. From that, we can determine if we’re close enough to the option to jump right to it. I’ve chosen 10% of the option distance as my snap-to distance, but that could easily be pulled out into a configuration option when the object is instantiated. Also, I’ll note that the function <code>findPosX</code> is borrowed from PPK’s excellent <a href="http://www.quirksmode.org/js/findpos.html">QuirksMode</a>. I’ll leave it’s explanation to him:</p>
+<p>The last thing to discuss is probably the most important piece of the puzzle. How do we make the slider move when we drag it with the mouse? As it turns out, this isn’t at all difficult. The event object gives us the coordinates of the mouse on the page (of course, <a href="http://evolt.org/article/Mission_Impossible_mouse_position/17/23335/index.html">this isn’t precisely true</a>, but for our purposes, the quirks don’t matter) with the simple syntax <code class="highlighter-rouge">e.clientX</code> and <code class="highlighter-rouge">e.clientY</code>. This coordinate information is all we need in order to position the slider correctly. The only magic in this function is the code that snaps the slider to a placeholder when it comes within a certain number of pixels. We take the pixel value of the slider’s current position, and mod it by the <code class="highlighter-rouge">optionDistance</code>. That gives us the number of pixels between the current position, and one of the options. From that, we can determine if we’re close enough to the option to jump right to it. I’ve chosen 10% of the option distance as my snap-to distance, but that could easily be pulled out into a configuration option when the object is instantiated. Also, I’ll note that the function <code class="highlighter-rouge">findPosX</code> is borrowed from PPK’s excellent <a href="http://www.quirksmode.org/js/findpos.html">QuirksMode</a>. I’ll leave it’s explanation to him:</p>
 
-<pre><code>self.mousemove = function (e) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>self.mousemove = function (e) {
     if (!e) {
         e             = window.event;
         e.returnValue = false;
@@ -301,13 +298,13 @@
                                 - 
                                 Math.floor(self.activeSlider.offsetWidth/2)) + "px";
 }
-</code></pre>
+</code></pre></div></div>
 
 <p>And that’s it. Plug that code into the framework outlined above, and you’ve got yourself a working slider bar.</p>
 
-<p>There are, however, some vaguely large drawbacks to this method. First, the normal event handling of the <code>select</code> element more or less goes away. You see, JavaScript doesn’t fire an <code>onchange</code> event when an input field is programatically changed. This means that we can’t easily hook into the hidden <code>input</code> field in order to take some action when the user repositions the slider. What we can do, however, is partially fake the functionality by providing a mechanism for calling some user-defined function when the slider changes position. I’ll leave that implementation detail for another article. :)</p>
+<p>There are, however, some vaguely large drawbacks to this method. First, the normal event handling of the <code class="highlighter-rouge">select</code> element more or less goes away. You see, JavaScript doesn’t fire an <code class="highlighter-rouge">onchange</code> event when an input field is programatically changed. This means that we can’t easily hook into the hidden <code class="highlighter-rouge">input</code> field in order to take some action when the user repositions the slider. What we can do, however, is partially fake the functionality by providing a mechanism for calling some user-defined function when the slider changes position. I’ll leave that implementation detail for another article. :)</p>
 
-<p>Additionally, I&rsquo;ll be talking about some more visible improvements that could be made: for example, I&rsquo;d like to display the names of each selected option somehow, perhaps as a tooltip? That&rsquo;s going to take a little work. Look for things like that next time I put an article together.</p>
+<p>Additionally, I’ll be talking about some more visible improvements that could be made: for example, I’d like to display the names of each selected option somehow, perhaps as a tooltip? That’s going to take a little work. Look for things like that next time I put an article together.</p>
 
 <p><a href="http://mikewest.org/projects/files/Widgets/SliderSelect/sliderSelectExample.html">Example code for this slider is available at /projects/files/Widgets/SliderSelect/</a></p>
 
@@ -331,7 +328,7 @@
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

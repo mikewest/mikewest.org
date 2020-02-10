@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,17 +58,17 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">I Wonder What This Button Does</h1>
-  <time class="published" pubdate datetime="Tue Jul 25 00:00:00 +0200 2006">
+  <time class="published" pubdate datetime="2006-07-25">
     Tuesday, July 25, 2006
   </time>
 
-  <p>This morning, I can happily announce the publication of my latest article, <a href="http://alistapart.com/articles/revisioncontrol" title="A List Apart: 'I Wonder What This Button Does'">&ldquo;I Wonder What This Button Does&rdquo;</a>, in the 220th issue of <a href="http://alistapart.com/">A List Apart</a>.</p>
+  <p>This morning, I can happily announce the publication of my latest article, <a href="http://alistapart.com/articles/revisioncontrol" title="A List Apart: 'I Wonder What This Button Does'">“I Wonder What This Button Does”</a>, in the 220th issue of <a href="http://alistapart.com/">A List Apart</a>.</p>
 
-<p>The article is a fairly light and non-technical look at my favourite development tool: Subversion.  I hope this introduction to revision control inspires a few of you to dive in and try things out in your own projects.  I think you&rsquo;ll be shocked both at how easy it is to get things going in a revision controlled environment, but also at how <em>freeing</em> it is, knowing that you no longer have to <em>worry</em> about irrevocably breaking something.</p>
+<p>The article is a fairly light and non-technical look at my favourite development tool: Subversion.  I hope this introduction to revision control inspires a few of you to dive in and try things out in your own projects.  I think you’ll be shocked both at how easy it is to get things going in a revision controlled environment, but also at how <em>freeing</em> it is, knowing that you no longer have to <em>worry</em> about irrevocably breaking something.</p>
 
-<p>After reading <a href="http://alistapart.com/articles/revisioncontrol" title="A List Apart: 'I Wonder What This Button Does'">the article</a>, I hope you&rsquo;re looking for a little more information about getting started with Subversion.  There&rsquo;s really no better general-purpose resource than <a href="http://svnbook.red-bean.com/" title="Version Control with Subversion">&ldquo;Version Control with Subversion&rdquo;</a>.  It&rsquo;s got all the information you&rsquo;ll need to get started, and goes into far more breadth and depth than you&rsquo;ll probably ever need.</p>
+<p>After reading <a href="http://alistapart.com/articles/revisioncontrol" title="A List Apart: 'I Wonder What This Button Does'">the article</a>, I hope you’re looking for a little more information about getting started with Subversion.  There’s really no better general-purpose resource than <a href="http://svnbook.red-bean.com/" title="Version Control with Subversion">“Version Control with Subversion”</a>.  It’s got all the information you’ll need to get started, and goes into far more breadth and depth than you’ll probably ever need.</p>
 
-<p>Additionally, I&rsquo;ve collected a few articles that pinpoint specific pieces of Subversion, detailing methods for tweaking Subversion to meet your needs.  Enjoy!</p>
+<p>Additionally, I’ve collected a few articles that pinpoint specific pieces of Subversion, detailing methods for tweaking Subversion to meet your needs.  Enjoy!</p>
 
 <ul>
   <li>
@@ -80,30 +77,30 @@
     <p>Subversion has a very powerful system for associating metadata with the
 files you have under version control. This article describes how to
 automate the process of adding properties to the files you put under
-version control using <code>auto-props</code>.</p>
+version control using <code class="highlighter-rouge">auto-props</code>.</p>
   </li>
   <li>
     <p><a href="http://mikewest.org/archive/subversion-post-commit-hooks-101">Subversion Post-Commit Hooks 101</a></p>
 
-    <p>Subversion&rsquo;s system of &ldquo;hooks&rdquo; allows you to trigger scripted responses to
+    <p>Subversion’s system of “hooks” allows you to trigger scripted responses to
 your interactions with your repositories.  This article maps out the
-&ldquo;Hello World&rdquo; of hooks: using <code>SVNnotify</code> to send out e-mails to your 
+“Hello World” of hooks: using <code class="highlighter-rouge">SVNnotify</code> to send out e-mails to your 
 project team every time a new revision is committed.</p>
   </li>
   <li>
     <p><a href="http://mikewest.org/archive/forbidden-errors-and-subversion-commits">“Forbidden” Errors and Subversion Commits</a></p>
 
-    <p>Since Subversion can run over HTTP, it&rsquo;s easy to cause problems for
-yourself with wayward <code>mod_rewrite</code> rules.  This article notes one such
+    <p>Since Subversion can run over HTTP, it’s easy to cause problems for
+yourself with wayward <code class="highlighter-rouge">mod_rewrite</code> rules.  This article notes one such
 conflict scenario, and provides an easy solution.</p>
   </li>
   <li>
-    <p><a href="http://mikewest.org/archive/leveraging-modrewrite">Leveraging <code>mod_rewrite</code></a></p>
+    <p><a href="http://mikewest.org/archive/leveraging-modrewrite">Leveraging <code class="highlighter-rouge">mod_rewrite</code></a></p>
 
-    <p>Continuing in the <code>mod_rewrite</code> vein, you&rsquo;ll want to make sure that the 
-hidden directories that Subversion generates aren&rsquo;t available for general
+    <p>Continuing in the <code class="highlighter-rouge">mod_rewrite</code> vein, you’ll want to make sure that the 
+hidden directories that Subversion generates aren’t available for general
 consumption.  This article, among other things, shows you how to use
-<code>mod_rewrite</code> to block requests for those directories that you&rsquo;d rather
+<code class="highlighter-rouge">mod_rewrite</code> to block requests for those directories that you’d rather
 the world not see.</p>
   </li>
   <li>
@@ -112,7 +109,7 @@ the world not see.</p>
     <p>Dan Benjamin rocks.  This article of his spells out in exacting detail the
 (simple) process of compiling Subversion from source and installing it on
 OS X.  Why would you do this when you could just <a href="http://subversion.tigris.org/project_packages.html">grab the
-binaries</a>?  Because it&rsquo;s fun, that&rsquo;s why.</p>
+binaries</a>?  Because it’s fun, that’s why.</p>
   </li>
 </ul>
 
@@ -140,7 +137,7 @@ binaries</a>?  Because it&rsquo;s fun, that&rsquo;s why.</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,64 +58,64 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Nerdy New Year</h1>
-  <time class="published" pubdate datetime="Sat Dec 31 00:00:00 +0100 2011">
+  <time class="published" pubdate datetime="2011-12-31">
     Saturday, December 31, 2011
   </time>
 
-  <p>New Year&rsquo;s resolutions come in all shapes and sizes; if you&rsquo;re a web
+  <p>New Year’s resolutions come in all shapes and sizes; if you’re a web
 developer stuck for good ideas of things you could do to improve the world
-(or at least the tiny chunk of it that&rsquo;s concerned with web performance and
-security) I&rsquo;d like to propose two: secure user&rsquo;s connections to all your
+(or at least the tiny chunk of it that’s concerned with web performance and
+security) I’d like to propose two: secure user’s connections to all your
 websites, and use a cookieless domain for static assets.</p>
 
 <h2 id="ssl-everywhere">SSL Everywhere.</h2>
 
-<p>If you look closely, you&rsquo;ll notice that <code>mikewest.org</code> is being served via a
-secure connection: <code>https</code> rather than <code>http</code>. This is a Good Thing™, for
-reasons which I explored <a href="https://mikewest.org/2011/10/http-strict-transport-security-and-you">earlier this year</a>. I&rsquo;d like to suggest that each
+<p>If you look closely, you’ll notice that <code class="highlighter-rouge">mikewest.org</code> is being served via a
+secure connection: <code class="highlighter-rouge">https</code> rather than <code class="highlighter-rouge">http</code>. This is a Good Thing™, for
+reasons which I explored <a href="https://mikewest.org/2011/10/http-strict-transport-security-and-you">earlier this year</a>. I’d like to suggest that each
 of you pop open Firefox (yes, Firefox) and head to <a href="https://www.startssl.com/">StartSSL</a> where you can,
 <em>for free</em>, create an account, verify your ownership of a domain, and generate
 an SSL certificate.</p>
 
-<p>I&rsquo;ve moved to StartSSL for every domain I own that hosts a website. It&rsquo;s
-trivially easy, very well supported (I&rsquo;ve never waited more than 18 hours for a
+<p>I’ve moved to StartSSL for every domain I own that hosts a website. It’s
+trivially easy, very well supported (I’ve never waited more than 18 hours for a
 response to a support request), and works well in every browser I care about.
-Moreover, it&rsquo;s run by real people who you can email. I&rsquo;ve gotten responses from
+Moreover, it’s run by real people who you can email. I’ve gotten responses from
 the founder himself at two in the morning; the service is brilliant.</p>
 
-<p>I&rsquo;d suggest, actually, going through the extra step of verifying your identity
+<p>I’d suggest, actually, going through the extra step of verifying your identity
 with them so that you can generate wildcard certificates, and certificates
 with DNS alt names: both will make it easier for you to host SSL websites
 without the annoyance of setting up separate IP addresses for each host.
 They charge $59.90 for the verification, at which point you can create as many
-certificates as you like. It&rsquo;s a heck of a deal.</p>
+certificates as you like. It’s a heck of a deal.</p>
 
-<p>And hey, while you&rsquo;re at it, start serving <a href="https://mikewest.org/2011/10/http-strict-transport-security-and-you"><code>Strict-Transport-Security</code></a>
+<p>And hey, while you’re at it, start serving <a href="https://mikewest.org/2011/10/http-strict-transport-security-and-you"><code class="highlighter-rouge">Strict-Transport-Security</code></a>
 headers too!</p>
 
 <h2 id="cookieless-domains-for-static-assets">Cookieless domains for static assets</h2>
 
-<p>You&rsquo;ve probably heard at some point in the past that it&rsquo;s a <a href="http://code.google.com/speed/page-speed/docs/request.html#ServeFromCookielessDomain">good</a> <a href="http://developer.yahoo.com/performance/rules.html#cookie_free">idea</a>
-to serve static assets from a domain that doesn&rsquo;t set cookies. Yesterday, I
+<p>You’ve probably heard at some point in the past that it’s a <a href="http://code.google.com/speed/page-speed/docs/request.html#ServeFromCookielessDomain">good</a> <a href="http://developer.yahoo.com/performance/rules.html#cookie_free">idea</a>
+to serve static assets from a domain that doesn’t set cookies. Yesterday, I
 finally got around to doing that here. If you hop into devtools or Firebug,
-you&rsquo;ll see that this page&rsquo;s CSS, JavaScript, and images are all being served
-not from <code>mikewest.org</code>, but from <code>mikewestdotorg.hasacdn.net</code>. Setting up an
-alias like this is trivial in any server. Here&rsquo;s how I made it work in Nginx:</p>
+you’ll see that this page’s CSS, JavaScript, and images are all being served
+not from <code class="highlighter-rouge">mikewest.org</code>, but from <code class="highlighter-rouge">mikewestdotorg.hasacdn.net</code>. Setting up an
+alias like this is trivial in any server. Here’s how I made it work in Nginx:</p>
 
 <p>My websites all have specific directories in which static assets live,
-<code>/home/mkwst/public_html/mikewest.org/public/static</code> for example. I simply set
-up a server listening for requests to <code>mikewestdotorg.hasacdn.net</code>, and use
-the static asset directory as the <code>root</code>. With that in place, I ensure that all
+<code class="highlighter-rouge">/home/mkwst/public_html/mikewest.org/public/static</code> for example. I simply set
+up a server listening for requests to <code class="highlighter-rouge">mikewestdotorg.hasacdn.net</code>, and use
+the static asset directory as the <code class="highlighter-rouge">root</code>. With that in place, I ensure that all
 files are served with <a href="http://developer.yahoo.com/performance/rules.html#expires">far-future expiry headers</a>, and then set up some
 trivial versioning magic by ignoring the first chunk of the URL:
-<code>https://mikewestdotorg.hasacdn.net/20111231/style.css</code> serves the same file
-as <code>https://mikewestdotorg.hasacdn.net/1/style.css</code>, but because the 
+<code class="highlighter-rouge">https://mikewestdotorg.hasacdn.net/20111231/style.css</code> serves the same file
+as <code class="highlighter-rouge">https://mikewestdotorg.hasacdn.net/1/style.css</code>, but because the 
 paths are different, the file can be loaded and cached anew when something
 changes.</p>
 
 <p>That setup looks like this:</p>
 
-<pre><code>server {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
   listen 80;
   server_name mikewestdotorg.hasacdn.net;
 
@@ -140,12 +137,12 @@ changes.</p>
     rewrite ^/\d+/(.*) /$1 break;
   }
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>Easy! I&rsquo;ve thrown <a href="https://github.com/mikewest/hasacdn.net/blob/master/private/nginx.conf">the whole config file up on GitHub</a> if you&rsquo;re curious. </p>
+<p>Easy! I’ve thrown <a href="https://github.com/mikewest/hasacdn.net/blob/master/private/nginx.conf">the whole config file up on GitHub</a> if you’re curious.</p>
 
 <p>So there you have it; enjoy the end of your holidays with these two resolutions
-that you can bang out over the weekend. You&rsquo;ll be ahead of the game, and the
+that you can bang out over the weekend. You’ll be ahead of the game, and the
 envy of all your friends and neighbors when you compare notes at the end of
 2012.</p>
 
@@ -196,7 +193,7 @@ envy of all your friends and neighbors when you compare notes at the end of
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

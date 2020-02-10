@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,36 +58,36 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Answers to Common Technical Interview Questions</h1>
-  <time class="published" pubdate datetime="Mon Sep 04 00:00:00 +0200 2006">
+  <time class="published" pubdate datetime="2006-09-04">
     Monday, September 04, 2006
   </time>
 
-  <p>In an effort to convince myself that I really do know what I&rsquo;m doing with this &ldquo;web&rdquo; thing, I&rsquo;ve walked through some of the example interview questions from the articles I <a href="http://mikewest.org/archive/articles-about-interviewing" title="Mike West: 'Articles about Interviewing'">mentioned yesterday</a>.  A few were simply inapplicable to the work I&rsquo;d be doing, but actually doing the few minutes of work for the questions that matter is so much more worthwhile than simply looking at them and thinking &ldquo;Yup.  I could do that.&rdquo;  I&rsquo;m posting JavaScript implementations and explanations here in the hopes that someone out there is in a similar position and could use the help, or that a genius passing through will point out some silly mistake or cool optimization I missed.  So, here goes:</p>
+  <p>In an effort to convince myself that I really do know what I’m doing with this “web” thing, I’ve walked through some of the example interview questions from the articles I <a href="http://mikewest.org/archive/articles-about-interviewing" title="Mike West: 'Articles about Interviewing'">mentioned yesterday</a>.  A few were simply inapplicable to the work I’d be doing, but actually doing the few minutes of work for the questions that matter is so much more worthwhile than simply looking at them and thinking “Yup.  I could do that.”  I’m posting JavaScript implementations and explanations here in the hopes that someone out there is in a similar position and could use the help, or that a genius passing through will point out some silly mistake or cool optimization I missed.  So, here goes:</p>
 
 <ol>
   <li>
     <p><strong>Write a function to return the <em>Nth</em> <a href="http://en.wikipedia.org/wiki/Fibonacci_number" title="Wikipedia: 'Fibonacci Number'">Fibonacci number</a></strong>:  This is
 <em>the</em> quintessential recursion problem.  Even though the recursive
-implementation is O(2<sup>n</sup>), it&rsquo;s almost certainly the answer your
-interviewer is looking for.  Here&rsquo;s one way of writing it:</p>
+implementation is O(2<sup>n</sup>), it’s almost certainly the answer your
+interviewer is looking for.  Here’s one way of writing it:</p>
 
-    <pre><code>function fib(n) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function fib(n) {
     return (n &lt;= 1)?n:fib(n-1) + fib(n-2);
 }
-</code></pre>
+</code></pre></div>    </div>
 
-    <p>Easy, right?  The <em>Nth</em> number is either the number itself (if it&rsquo;s 0 or
+    <p>Easy, right?  The <em>Nth</em> number is either the number itself (if it’s 0 or
 1), or the sum of the previous two numbers.  Recursion is built right into
-the definition, no need to look farther afield for a &ldquo;correct&rdquo; answer.</p>
+the definition, no need to look farther afield for a “correct” answer.</p>
 
     <p>But in a technical interview, this is almost certainly the beginning of a
 larger question: how do we make this computation <em>fast</em>?  Recursion,
 though applicable here, is simply a slow way to calculate the values
-because it&rsquo;s doing just that: <em>calculating</em> every value for <code>fib(n-1)</code>,
-over and over again.  We can vastly improve the code&rsquo;s performance by
+because it’s doing just that: <em>calculating</em> every value for <code class="highlighter-rouge">fib(n-1)</code>,
+over and over again.  We can vastly improve the code’s performance by
 caching results as we calculate them in an iterative fashion, for example:</p>
 
-    <pre><code>function fib(n) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function fib(n) {
     var cache   = [];
     cache[0]    = 0;
     cache[1]    = cache[2]  = 1;
@@ -99,20 +96,20 @@ caching results as we calculate them in an iterative fashion, for example:</p>
     }
     return cache[n];
 }
-</code></pre>
+</code></pre></div>    </div>
 
     <p>This runs in something closer to O(n): the number of calculations
-increases linearly, a huge improvement over the recursive version&rsquo;s
+increases linearly, a huge improvement over the recursive version’s
 exponential explosion.</p>
   </li>
   <li>
     <p><strong>Print out a multiplication table, up to 12x12</strong>:  Do you understand
-<code>for</code> loops?  Have you heard of <code>printf</code>?  Good, because that&rsquo;s about all
+<code class="highlighter-rouge">for</code> loops?  Have you heard of <code class="highlighter-rouge">printf</code>?  Good, because that’s about all
 that this question tests.  JavaScript, unfortunately, has no native
-<code>printf</code> function to pad out the results is probably a more interesting
-test than the question itself&hellip;</p>
+<code class="highlighter-rouge">printf</code> function to pad out the results is probably a more interesting
+test than the question itself…</p>
 
-    <pre><code>    function mult_table() {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    function mult_table() {
         var theString = "";
         for (var i=1;i&lt;13;i++) {
             for (var j=1;j&lt;13;j++) {
@@ -130,19 +127,19 @@ test than the question itself&hellip;</p>
             }
             return str;
         }
-</code></pre>
+</code></pre></div>    </div>
 
-    <p>The <code>mult_table</code> function is trivial: two <code>for</code> loops, one nested inside
-the other, to calculate 1x1, 1x2, 1x3, &hellip;, 12x12.  The <code>pad</code> function
+    <p>The <code class="highlighter-rouge">mult_table</code> function is trivial: two <code class="highlighter-rouge">for</code> loops, one nested inside
+the other, to calculate 1x1, 1x2, 1x3, …, 12x12.  The <code class="highlighter-rouge">pad</code> function
 takes the answer that was calculated, and pads it out to a certain length,
-using either &ldquo; &ldquo;, or the third argument (if one was provided).</p>
+using either “ “, or the third argument (if one was provided).</p>
   </li>
   <li>
     <p><strong>Print all the odd numbers from 1 to N</strong>:  Again, this is a fairly simple
-question with a fairly predictable answer.  Happily, we&rsquo;re able to reuse
-the <code>pad</code> function we just wrote to make the string prettier:</p>
+question with a fairly predictable answer.  Happily, we’re able to reuse
+the <code class="highlighter-rouge">pad</code> function we just wrote to make the string prettier:</p>
 
-    <pre><code>function print_odds() {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function print_odds() {
     var theString = "";
     for (var i = 0; i &lt; 100; i++) {
         if (i &amp; 1) {
@@ -151,23 +148,23 @@ the <code>pad</code> function we just wrote to make the string prettier:</p>
     }
     return theString;
 }
-</code></pre>
+</code></pre></div>    </div>
 
-    <p>The only bit of trickery I&rsquo;ve thrown into this implementation is the <code>if</code>
-condition, which eschews the typical <code>(i % 2 == 1)</code> test for the more
-esoteric bitwise and: &ldquo;<code>&amp;</code>&rdquo;.  In a nutshell, we can use <code>and</code> in this case
-to determine if the &ldquo;ones&rdquo; bit of a number is set, meaning that it&rsquo;s odd
-(if you&rsquo;re not up on binary, take a look at Dave Stewart&rsquo;s great article 
-&ldquo;<a href="http://www.easy-designs.net/articles/theBitwiseOperator/" title="Dave Stewart: 'Get a Speed Boost from the Bitwise Operator'">Get a Speed Boost from the Bitwise Operator</a>&rdquo;).  That&rsquo;s a bit
-faster than using modulus, though for a problem like this it&rsquo;s barely
+    <p>The only bit of trickery I’ve thrown into this implementation is the <code class="highlighter-rouge">if</code>
+condition, which eschews the typical <code class="highlighter-rouge">(i % 2 == 1)</code> test for the more
+esoteric bitwise and: “<code class="highlighter-rouge">&amp;</code>”.  In a nutshell, we can use <code class="highlighter-rouge">and</code> in this case
+to determine if the “ones” bit of a number is set, meaning that it’s odd
+(if you’re not up on binary, take a look at Dave Stewart’s great article 
+“<a href="http://www.easy-designs.net/articles/theBitwiseOperator/" title="Dave Stewart: 'Get a Speed Boost from the Bitwise Operator'">Get a Speed Boost from the Bitwise Operator</a>”).  That’s a bit
+faster than using modulus, though for a problem like this it’s barely
 noticeable.</p>
   </li>
   <li>
-    <p><strong>Determine how many bits are &ldquo;on&rdquo; in a given integer</strong>:  Continuing with
-the bitwise theme, an answer to this question is to use bitwise <code>and</code> to
+    <p><strong>Determine how many bits are “on” in a given integer</strong>:  Continuing with
+the bitwise theme, an answer to this question is to use bitwise <code class="highlighter-rouge">and</code> to
 act as a filter for our integer:</p>
 
-    <pre><code>function howManyBits(num) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function howManyBits(num) {
     var numBits = 0,
         i       = 1,
         theAnd  = Math.pow(2, i);
@@ -177,24 +174,24 @@ act as a filter for our integer:</p>
     } while (theAnd &lt;= num);
     return numBits;
 }
-</code></pre>
+</code></pre></div>    </div>
 
-    <p>We generate a test value with a single bit &ldquo;on&rdquo; by exploiting the fact
+    <p>We generate a test value with a single bit “on” by exploiting the fact
 that binary numbers with a single bit set are all powers of two (e.g.
-<code>00000001</code> = 1, <code>00000010</code> = 2, <code>00000100</code> = 4, etc.).  We&rsquo;ll simply
-generate filters until we&rsquo;ve exceeded our number, and use each filter to
-test a single bit.  This is an easy solution, but I can&rsquo;t help but think
-that there must be a better way to do this&hellip;</p>
+<code class="highlighter-rouge">00000001</code> = 1, <code class="highlighter-rouge">00000010</code> = 2, <code class="highlighter-rouge">00000100</code> = 4, etc.).  We’ll simply
+generate filters until we’ve exceeded our number, and use each filter to
+test a single bit.  This is an easy solution, but I can’t help but think
+that there must be a better way to do this…</p>
   </li>
   <li>
-    <p><strong>Find the largest value in an array of integers</strong>: There&rsquo;s not a
+    <p><strong>Find the largest value in an array of integers</strong>: There’s not a
 straightforward way to do this without looking at each of the values in
 the array, so the easy solution (which is O(n)) is probably the best.  The
-only &lsquo;trick&rsquo; is that you can skip evaluation of the first item in the
-array by using it as the initial value for <code>max</code>.  Otherwise, the code is
+only ‘trick’ is that you can skip evaluation of the first item in the
+array by using it as the initial value for <code class="highlighter-rouge">max</code>.  Otherwise, the code is
 very easy to sift through:</p>
 
-    <pre><code>function largest_int(theArray) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function largest_int(theArray) {
     var max = theArray[0];
     for (var i=1;i&lt;theArray.length;i++) {
         if (theArray[i] &gt; max) {
@@ -203,7 +200,7 @@ very easy to sift through:</p>
     }
     return max;
 }
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Implement <a href="http://en.wikipedia.org/wiki/Binary_search" title="Wikipedia: 'Binary Search Algorithm'">binary search</a></strong>: This question simply tests whether
@@ -212,11 +209,11 @@ about the virtues of O(n log(n)) search algorithms.  The basic premise of
 a binary search is this: given a sorted array, a particular value can be
 found by starting in the middle.  If the sought-after value is greater
 than the middle value, look in the middle of the <em>second</em> half of the
-array.  If it&rsquo;s less, look in the middle of the <em>first</em> half of the array.
+array.  If it’s less, look in the middle of the <em>first</em> half of the array.
 This question, therefore, is both testing your general knowledge of common
 algorithms, but also sneakily getting at your recursive chops as well:</p>
 
-    <pre><code>function binary_search(needle, haystack) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function binary_search(needle, haystack) {
     return binary_search_helper(needle, haystack, 0, haystack.length-1);
 }
     function binary_search_helper(needle, haystack, top, bottom) {
@@ -231,25 +228,25 @@ algorithms, but also sneakily getting at your recursive chops as well:</p>
             }
         }
     }
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p><strong>Implement <a href="http://en.wikipedia.org/wiki/Atoi" title="Wikipedia: 'atoi'"><code>atoi</code></a> and <a href="http://en.wikipedia.org/wiki/Itoa" title="Wikipedia: 'itoa'"><code>itoa</code></a></strong>:  Ok, honestly?  I had to look up
-what <code>atoi</code> and <code>itoa</code> meant.  This probably means that I&rsquo;m completely
-disqualified from a C++ programming position.  That said, I&rsquo;m not
-interviewing for C++, so hopefully that won&rsquo;t be a terrible strike against
+    <p><strong>Implement <a href="http://en.wikipedia.org/wiki/Atoi" title="Wikipedia: 'atoi'"><code class="highlighter-rouge">atoi</code></a> and <a href="http://en.wikipedia.org/wiki/Itoa" title="Wikipedia: 'itoa'"><code class="highlighter-rouge">itoa</code></a></strong>:  Ok, honestly?  I had to look up
+what <code class="highlighter-rouge">atoi</code> and <code class="highlighter-rouge">itoa</code> meant.  This probably means that I’m completely
+disqualified from a C++ programming position.  That said, I’m not
+interviewing for C++, so hopefully that won’t be a terrible strike against
 me.  The point, of course, is not <em>just</em> to test whether you know C++
-vocabulary, but also whether you can implement something like <code>.toString</code>
-for integers in a reasonable way.  The &ldquo;trick&rdquo; here is to understand that
+vocabulary, but also whether you can implement something like <code class="highlighter-rouge">.toString</code>
+for integers in a reasonable way.  The “trick” here is to understand that
 each characters has a numerical code associated with it, and that each
-number character&rsquo;s code is defined to be one more than the previous number
-character&rsquo;s code.  In other words, if you calculate the character code for
-&ldquo;0&rdquo;, you can simply subtract that from any other number&rsquo;s code to convert
-the character to an integer.  So, <code>'8'.charCodeAt(0) - '0'.charCodeAt(0)</code>
-gets you the integer <code>8</code>.  All you have to do is multiply that by the
-relevant power of 10, and you&rsquo;ve got yourself an integer:</p>
+number character’s code is defined to be one more than the previous number
+character’s code.  In other words, if you calculate the character code for
+“0”, you can simply subtract that from any other number’s code to convert
+the character to an integer.  So, <code class="highlighter-rouge">'8'.charCodeAt(0) - '0'.charCodeAt(0)</code>
+gets you the integer <code class="highlighter-rouge">8</code>.  All you have to do is multiply that by the
+relevant power of 10, and you’ve got yourself an integer:</p>
 
-    <pre><code>function atoi(str) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function atoi(str) {
     var cur     = 0;
     var sign    = 1;
     var value   = 0;
@@ -273,14 +270,14 @@ relevant power of 10, and you&rsquo;ve got yourself an integer:</p>
     }
     return sign * value;
 }
-</code></pre>
+</code></pre></div>    </div>
 
-    <p>The same idea, of course, applies in reverse.  Adding an integer to zero&rsquo;s
-character code gives you the character code for that integer&rsquo;s character,
-and a simple call to <code>String.fromCharCode</code> gets you the relevant character
+    <p>The same idea, of course, applies in reverse.  Adding an integer to zero’s
+character code gives you the character code for that integer’s character,
+and a simple call to <code class="highlighter-rouge">String.fromCharCode</code> gets you the relevant character
 itself.</p>
 
-    <pre><code>function itoa(num) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function itoa(num) {
     var cur     = 1;
     var sign    = (num &lt; 0)?-1:1;
     var str     = "";
@@ -291,20 +288,20 @@ itself.</p>
     }
     return str;
 }
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Reverse a string (in place?)</strong>:  Ah, strings.  How exciting.  Reversing
-a string is, of course, trivial in JavaScript (<code>.reverse()</code>, anyone?), but
+a string is, of course, trivial in JavaScript (<code class="highlighter-rouge">.reverse()</code>, anyone?), but
 that, of course, is probably not really the answer your interviewer is
-looking for.  &ldquo;Ha, ha.&rdquo;, she&rsquo;ll say, &ldquo;Now tell me how <code>.reverse()</code> works.&rdquo;</p>
+looking for.  “Ha, ha.”, she’ll say, “Now tell me how <code class="highlighter-rouge">.reverse()</code> works.”</p>
 
     <p>The critical piece of information you need here is the ability to get at
 particular characters within a string, in order.  Of secondary importance
 is enough understanding of the algorithm to know when to <em>stop</em> reversing,
 lest you inadvertently re-reverse the string before returning.</p>
 
-    <pre><code>function reverse_string(thestring) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function reverse_string(thestring) {
     var len     = thestring.length,
         last    = len-1,
         middle  = parseInt(len/2),
@@ -315,19 +312,19 @@ lest you inadvertently re-reverse the string before returning.</p>
     }
     return newStr.join('');
 }
-</code></pre>
+</code></pre></div>    </div>
 
-    <p>My initial pass at the solution didn&rsquo;t use the <code>newStr</code> buffer array, 
+    <p>My initial pass at the solution didn’t use the <code class="highlighter-rouge">newStr</code> buffer array, 
 instead opting for a temp variable to facilitate a direct swap between
-<code>thestring[i]</code> and <code>thestring[last-i]</code>, but it seems that the array
+<code class="highlighter-rouge">thestring[i]</code> and <code class="highlighter-rouge">thestring[last-i]</code>, but it seems that the array
 representation of a string in JavaScript is somehow distinct from the
 string itself.  I need to play around with this a little more, because I
-don&rsquo;t really understand that result (This is what happens when you spend
+don’t really understand that result (This is what happens when you spend
 your life using regular expressions to do every string manipulation you
 ever need).  In case you have some good ideas, here was my initial stab at
 things:</p>
 
-    <pre><code>function reverse_string(thestring) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function reverse_string(thestring) {
     var len     = thestring.length,
         last    = len-1,
         middle  = parseInt(len/2);
@@ -338,20 +335,20 @@ things:</p>
     }
     return thestring;
 }
-</code></pre>
+</code></pre></div>    </div>
   </li>
 </ol>
 
 <p>These questions are all pretty straightforward evaluations that would probably
-be appropriate for a phone interview.  I&rsquo;d expect questions in a real, live
+be appropriate for a phone interview.  I’d expect questions in a real, live
 technical interview to be a little deeper, and a little more impossible to 
-&ldquo;correctly&rdquo; solve off the top of your head.  I&rsquo;ll be sifting through a few of
+“correctly” solve off the top of your head.  I’ll be sifting through a few of
 the puzzles at <a href="http://www.techinterview.org/" title="techInterview - puzzles and interview questions">techInterview</a> in a valiant attempt to get my brain wrapped
-around itself in such a way as to make the &ldquo;Ah ha!&rdquo; moments for puzzles like 
-<a href="http://www.techinterview.org/puzzles/Switches.html" title="techInterview: 'Switches'">Switches</a>.  <a href="http://www.joelonsoftware.com/articles/fog0000000073.html" title="Joel Spolsky: 'The Guerrilla Guide to Interviewing'">Joel Spolsky&rsquo;s article I linked yesterday</a> also has good
-advice for the &ldquo;impossible questions&rdquo; interviewers seem to love.</p>
+around itself in such a way as to make the “Ah ha!” moments for puzzles like 
+<a href="http://www.techinterview.org/puzzles/Switches.html" title="techInterview: 'Switches'">Switches</a>.  <a href="http://www.joelonsoftware.com/articles/fog0000000073.html" title="Joel Spolsky: 'The Guerrilla Guide to Interviewing'">Joel Spolsky’s article I linked yesterday</a> also has good
+advice for the “impossible questions” interviewers seem to love.</p>
 
-<p>So.  How about you?  What are your &ldquo;critical&rdquo; interview questions, what
+<p>So.  How about you?  What are your “critical” interview questions, what
 information do they look for, and how would you answer them?</p>
 
 
@@ -374,7 +371,7 @@ information do they look for, and how would you answer them?</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

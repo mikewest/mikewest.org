@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,66 +58,66 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Compiling Varnish on a minimal JeOS System</h1>
-  <time class="published" pubdate datetime="Sat May 09 00:00:00 +0200 2009">
+  <time class="published" pubdate datetime="2009-05-09">
     Saturday, May 09, 2009
   </time>
 
-  <p>Varnish is an excellent-looking &ldquo;HTTP accelerator&rdquo;, designed specifically as a high-performance caching reverse-proxy to sit in front of your hard-working application servers, and relieve them of load.  It&rsquo;s a bit of a pain in the ass to install from source on JeOS, though.  Here&rsquo;s what I ended up doing:</p>
+  <p>Varnish is an excellent-looking “HTTP accelerator”, designed specifically as a high-performance caching reverse-proxy to sit in front of your hard-working application servers, and relieve them of load.  It’s a bit of a pain in the ass to install from source on JeOS, though.  Here’s what I ended up doing:</p>
 
 <ol>
   <li>
     <p>Install XSLTProc:</p>
 
-    <pre><code>sudo apt-get install xsltproc
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install xsltproc
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Install some helpful GNU tools:</p>
 
-    <pre><code>sudo apt-get install automake autoconf libtool libncurses5
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install automake autoconf libtool libncurses5
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Install <code>groff-base</code>.  If you don&rsquo;t do this, your compilation will fail because <a href="http://www.linuxcommand.org/man_pages/soelim1.html"><code>soelim</code></a> isn&rsquo;t available:</p>
+    <p>Install <code class="highlighter-rouge">groff-base</code>.  If you don’t do this, your compilation will fail because <a href="http://www.linuxcommand.org/man_pages/soelim1.html"><code class="highlighter-rouge">soelim</code></a> isn’t available:</p>
 
-    <pre><code>sudo apt-get install groff-base
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install groff-base
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Install Subversion:</p>
 
-    <pre><code>sudo apt-get install subversion
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install subversion
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Checkout the Varnish trunk:</p>
 
-    <pre><code>mkdir -p ~/src
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/src
 cd ~/src
 svn co http://varnish.projects.linpro.no/svn/trunk/varnish-cache
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Generate <code>configure</code> and makefiles:</p>
+    <p>Generate <code class="highlighter-rouge">configure</code> and makefiles:</p>
 
-    <pre><code>cd ~/src/varnish-cache
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/src/varnish-cache
 ./autogen.sh
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Configure, make, test (this is SVN trunk, after all), install.  This step (particularly the tests) will take a while, go make some tea:</p>
 
-    <pre><code>./configure &amp;&amp; make &amp;&amp; make check &amp;&amp; sudo make install
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./configure &amp;&amp; make &amp;&amp; make check &amp;&amp; sudo make install
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Tell JeOS where to look for Varnish&rsquo;s shared libraries.  I can&rsquo;t imagine why the installer doesn&rsquo;t do this, I&rsquo;ll assume for the moment that it&rsquo;s an artifact of building directly from SVN.  If you don&rsquo;t do this, you&rsquo;ll get errors like &ldquo;varnishd: error while loading shared libraries: libvarnish.so.1: cannot open shared object file: No such file or directory&rdquo;:</p>
+    <p>Tell JeOS where to look for Varnish’s shared libraries.  I can’t imagine why the installer doesn’t do this, I’ll assume for the moment that it’s an artifact of building directly from SVN.  If you don’t do this, you’ll get errors like “varnishd: error while loading shared libraries: libvarnish.so.1: cannot open shared object file: No such file or directory”:</p>
 
-    <pre><code>sudo ldconfig -n /usr/local/lib
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ldconfig -n /usr/local/lib
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Go read the <a href="http://varnish.projects.linpro.no/wiki/Introduction">Varnish introduction</a>.  That&rsquo;s what I&rsquo;m doing at the moment&hellip; it seems like a good next step.  :)</p>
+    <p>Go read the <a href="http://varnish.projects.linpro.no/wiki/Introduction">Varnish introduction</a>.  That’s what I’m doing at the moment… it seems like a good next step.  :)</p>
   </li>
 </ol>
 
@@ -172,7 +169,7 @@ svn co http://varnish.projects.linpro.no/svn/trunk/varnish-cache
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

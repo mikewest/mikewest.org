@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,103 +58,103 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Installing the W3C HTML Validator on JeOS</h1>
-  <time class="published" pubdate datetime="Sun May 03 00:00:00 +0200 2009">
+  <time class="published" pubdate datetime="2009-05-03">
     Sunday, May 03, 2009
   </time>
 
   <p>So.  W3C has quite decent <a href="http://validator.w3.org/docs/install.html">installation instructions</a> for the HTML
 validator, but it makes a few assumptions about a typical linux environment
-that don&rsquo;t actually hold true if you&rsquo;re running a stripped down JeOS distro in
+that don’t actually hold true if you’re running a stripped down JeOS distro in
 a virtual machine.</p>
 
-<p>Here&rsquo;s what I ended up doing to get the software working on my VM.  Hopefully
-it&rsquo;ll work for you too.  :)</p>
+<p>Here’s what I ended up doing to get the software working on my VM.  Hopefully
+it’ll work for you too.  :)</p>
 
 <p>Install Apache2:</p>
 
-<pre><code>sudo aptitude install apache2 apache2.2-common apache2-mpm-prefork apache2-utils libexpat1 ssl-cert
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo aptitude install apache2 apache2.2-common apache2-mpm-prefork apache2-utils libexpat1 ssl-cert
+</code></pre></div></div>
 
 <p>Turn on SSI:</p>
 
-<pre><code>sudo a2enmod include
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo a2enmod include
+</code></pre></div></div>
 
 <p>Install OpenSP SGML parser:</p>
 
-<pre><code>mkdir ~/src
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/src
 cd ~/src
 curl -O http://switch.dl.sourceforge.net/sourceforge/openjade/OpenSP-1.5.2.tar.gz
 tar xzvf ./OpenSP-1.5.2.tar.gz
 cd OpenSP-1.5.2
 ./configure --enable-http --disable-doc-build &amp;&amp; make &amp;&amp; sudo make install
-</code></pre>
+</code></pre></div></div>
 
 <p>Install perl dependencies:</p>
 
-<pre><code>sudo apt-get install libxml2-dev
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install libxml2-dev
 
 sudo perl -MCPAN -e shell
 ...
 install Bundle::W3C::Validator
 install SGML::Parser::OpenSP
-</code></pre>
+</code></pre></div></div>
 
 <p>Install cvs:</p>
 
-<pre><code>sudo apt-get install cvs
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install cvs
+</code></pre></div></div>
 
 <p>Checkout the validator code into `/usr/local/validator</p>
 
-<pre><code>$ cd /usr/local
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /usr/local
 $ sudo mkdir /usr/local/validator
 $ sudo chmod a+w /usr/local/validator
 $ export CVSROOT=":pserver:anonymous@dev.w3.org:/sources/public"
 $ cvs login
 CVS password: anonymous
 $ cvs get validator
-</code></pre>
+</code></pre></div></div>
 
 <p>Adjust the default configuration file a bit:</p>
 
 <ol>
   <li>
-    <p>Change the directory for the two <code>AliasMatch</code> lines at the top of the file.  For whatever reason, they&rsquo;re pointing to the wrong place.  The first ought point to <code>/usr/local/validator/httpd/cgi-bin/check</code>, the second to <code>/usr/local/validator/httpd/cgi-bin/sendfeedback.pl</code>.</p>
+    <p>Change the directory for the two <code class="highlighter-rouge">AliasMatch</code> lines at the top of the file.  For whatever reason, they’re pointing to the wrong place.  The first ought point to <code class="highlighter-rouge">/usr/local/validator/httpd/cgi-bin/check</code>, the second to <code class="highlighter-rouge">/usr/local/validator/httpd/cgi-bin/sendfeedback.pl</code>.</p>
 
-    <pre><code>AliasMatch ^/+w3c-validator/+check(/+referer)?$   /usr/local/validator/httpd/cgi-bin/check
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AliasMatch ^/+w3c-validator/+check(/+referer)?$   /usr/local/validator/httpd/cgi-bin/check
 AliasMatch ^/+w3c-validator/+feedback(\.html)?$ /usr/local/validator/httpd/cgi-bin/sendfeedback.pl
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Comment out the <code>&lt;Proxy&gt;</code> block at the bottom of the file.</p>
+    <p>Comment out the <code class="highlighter-rouge">&lt;Proxy&gt;</code> block at the bottom of the file.</p>
   </li>
 </ol>
 
-<p>Symlink the validator config into <code>/etc/w3c</code></p>
+<p>Symlink the validator config into <code class="highlighter-rouge">/etc/w3c</code></p>
 
-<pre><code>sudo ln -s /usr/local/validator/htdocs/config /etc/w3c
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ln -s /usr/local/validator/htdocs/config /etc/w3c
+</code></pre></div></div>
 
-<p>Symlink the configuration file from CVS to the <code>/etc/apache2/sites-available/</code> directory:</p>
+<p>Symlink the configuration file from CVS to the <code class="highlighter-rouge">/etc/apache2/sites-available/</code> directory:</p>
 
-<pre><code>sudo ln -s /usr/local/validator/httpd/conf/httpd.conf /etc/apache2/sites-available/
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ln -s /usr/local/validator/httpd/conf/httpd.conf /etc/apache2/sites-available/
+</code></pre></div></div>
 
 <p>Enable the new site:</p>
 
-<pre><code>sudo a2ensite validator
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo a2ensite validator
+</code></pre></div></div>
 
 <p>Reload the Apache config:</p>
 
-<pre><code>sudo /etc/init.d/apache2 reload
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo /etc/init.d/apache2 reload
+</code></pre></div></div>
 
 <p>Test the checker:</p>
 
-<pre><code>/usr/local/validator/httpd/cgi-bin/check uri=http://www.w3.org/
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/validator/httpd/cgi-bin/check uri=http://www.w3.org/
+</code></pre></div></div>
 
 <p>Win!</p>
 
@@ -200,7 +197,7 @@ AliasMatch ^/+w3c-validator/+feedback(\.html)?$ /usr/local/validator/httpd/cgi-b
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

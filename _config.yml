@@ -1,7 +1,7 @@
-destination:    ./_site
+destination:    ./docs
 lsi:            false
 markdown:       kramdown
 highlighter:    null
-permalink:      /:year/:month/:title
+permalink:      /:year/:month/:title/index
 tag_root:       /tags
 static_root:    "/static"

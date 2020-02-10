@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,31 +58,31 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Installing Textpattern 4.0.4 with Markdown</h1>
-  <time class="published" pubdate datetime="Sun Jan 14 00:00:00 +0100 2007">
+  <time class="published" pubdate datetime="2007-01-14">
     Sunday, January 14, 2007
   </time>
 
   <p><a href="http://www.textpattern.com/" title="Textpattern: A flexible, elegant, easy-to-use content management system for all kinds of websites, even weblogs.">Textpattern</a> is a brilliant blogging tool, one which seems completely
 dedicated to the task of putting words on a page.  It has a great plugin
-structure, and in in practically every respect <em>the</em> blogging tool I&rsquo;d
-recommend above all others.  </p>
+structure, and in in practically every respect <em>the</em> blogging tool I’d
+recommend above all others.</p>
 
-<p>The one place where it fails remarkably to exceed my expectations is it&rsquo;s
-single-minded dedication to Dean Allen&rsquo;s <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" title="Wikipedia: Textile (Markup Language)">Textile</a> format.  I don&rsquo;t
+<p>The one place where it fails remarkably to exceed my expectations is it’s
+single-minded dedication to Dean Allen’s <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" title="Wikipedia: Textile (Markup Language)">Textile</a> format.  I don’t
 particularly <em>like</em> Textile, you see.  I simply get too hung up on the
 formatting.  <a href="http://en.wikipedia.org/wiki/Markdown" title="Wikipedia: Markdown">Markdown</a> (in combination with <a href="http://daringfireball.net/projects/smartypants/" title="Smartypants">SmartyPants</a>), on the other
 hand, is a lightweight markup language I can really get behind.  It feels like
 it just gets out of my way, and lets me write without thinking about the 
 rendering framework.</p>
 
-<p>Happily, Michel Fortin&rsquo;s <a href="http://www.michelf.com/projects/php-markdown/extra/" title="PHP Markdown Extra">PHP port</a> of the language has the ingenious
+<p>Happily, Michel Fortin’s <a href="http://www.michelf.com/projects/php-markdown/extra/" title="PHP Markdown Extra">PHP port</a> of the language has the ingenious
 ability to <em>pretend</em> to be Textile, so it can serve as a drop-in replacement
-in programs like <a href="http://www.textpattern.com/" title="Textpattern: A flexible, elegant, easy-to-use content management system for all kinds of websites, even weblogs.">Textpattern</a>.  So if you&rsquo;d like to get a clean copy of
+in programs like <a href="http://www.textpattern.com/" title="Textpattern: A flexible, elegant, easy-to-use content management system for all kinds of websites, even weblogs.">Textpattern</a>.  So if you’d like to get a clean copy of
 Textpattern 4.0.4 running Markdown, just copy and paste the following
-commands.  You&rsquo;ll end up with a clean install in <code>~/src/</code>, ready for you to
+commands.  You’ll end up with a clean install in <code class="highlighter-rouge">~/src/</code>, ready for you to
 start playing with.</p>
 
-<pre><code>mkdir ~/src
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/src
 cd ~/src
 #
 #   GET PHP MARKDOWN
@@ -120,13 +117,13 @@ perl -pi.bak -e "$NICE" classTextile.php;
 #
 #    SUCCESS!
 #
-</code></pre>
+</code></pre></div></div>
 
-<p>That&rsquo;s it!  Enjoy!</p>
+<p>That’s it!  Enjoy!</p>
 
-<p><strong>UPDATE</strong>: <a href="http://carlo.zottmann.org/" title="Carlo Zottmann: tail -f carlo.log">Carlo</a> noticed that comments broke on my site after updating to Textpattern 4.0.4.  As it turns out, a new feature was added to Textile at some point between the Textpattern 4.0.3 and 4.0.3 releases, which hasn&rsquo;t yet made it&rsquo;s way into PHP Markdown Extra&rsquo;s Textile emulation mode.  I&rsquo;ve added a quick fix for it in the code here, and submitted a patch to <a href="http://www.michelf.com/" title="Michel Fortin">Michel Fortin</a> who maintains PHP Markdown.</p>
+<p><strong>UPDATE</strong>: <a href="http://carlo.zottmann.org/" title="Carlo Zottmann: tail -f carlo.log">Carlo</a> noticed that comments broke on my site after updating to Textpattern 4.0.4.  As it turns out, a new feature was added to Textile at some point between the Textpattern 4.0.3 and 4.0.3 releases, which hasn’t yet made it’s way into PHP Markdown Extra’s Textile emulation mode.  I’ve added a quick fix for it in the code here, and submitted a patch to <a href="http://www.michelf.com/" title="Michel Fortin">Michel Fortin</a> who maintains PHP Markdown.</p>
 
-<p>In short, Textile now supports a &ldquo;Restricted&rdquo; mode when submitting comments, which does some things differently than the normal Textile processing.  Links are automatically &ldquo;nofollow&rdquo;d, images are restricted, and block tags are limited to quotes and paragraphs.  It might be worth implementing something like that in Markdown, but for the moment, my &ldquo;fix&rdquo; simply calls the normal Markdown routine when <code>TextileRestricted</code> is called.  That&rsquo;s not perfect, but it&rsquo;s better than dying entirely with a fatal error.</p>
+<p>In short, Textile now supports a “Restricted” mode when submitting comments, which does some things differently than the normal Textile processing.  Links are automatically “nofollow”d, images are restricted, and block tags are limited to quotes and paragraphs.  It might be worth implementing something like that in Markdown, but for the moment, my “fix” simply calls the normal Markdown routine when <code class="highlighter-rouge">TextileRestricted</code> is called.  That’s not perfect, but it’s better than dying entirely with a fatal error.</p>
 
 
 
@@ -152,7 +149,7 @@ perl -pi.bak -e "$NICE" classTextile.php;
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

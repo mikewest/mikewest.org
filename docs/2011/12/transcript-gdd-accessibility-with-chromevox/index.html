@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,7 +58,7 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Making Your Web Apps Accessible Using HTML5 and ChromeVox</h1>
-  <time class="published" pubdate datetime="Fri Dec 16 00:00:00 +0100 2011">
+  <time class="published" pubdate datetime="2011-12-16">
     Friday, December 16, 2011
   </time>
 
@@ -72,14 +69,14 @@ introduction to screen readers, and to building accessible websites and
 applications. I think it was pretty successful, and I hope you enjoy it if you
 watch at home.</p>
 
-<p>I&rsquo;d highly recommend that, if you&rsquo;re at all interested in this stuff (and you
+<p>I’d highly recommend that, if you’re at all interested in this stuff (and you
 should be), you go out and <a href="http://goo.gl/pqKpN">install ChromeVox</a> to start playing around with
-how your sites sound. It&rsquo;s trivial to get up and running, and will start to
-give you a sense of what you&rsquo;re doing well, and what needs improvement. The
-team has done a brilliant job putting it together, and it&rsquo;s very much worth
+how your sites sound. It’s trivial to get up and running, and will start to
+give you a sense of what you’re doing well, and what needs improvement. The
+team has done a brilliant job putting it together, and it’s very much worth
 your time to experiment with.</p>
 
-<p>The slides are available at <a href="http://mkw.st/p/gdd11-berlin-a11y">mkw.st/p/gdd11-berlin-a11y</a> if you&rsquo;d like to
+<p>The slides are available at <a href="http://mkw.st/p/gdd11-berlin-a11y">mkw.st/p/gdd11-berlin-a11y</a> if you’d like to
 follow along at home, and here, without further adou, is the embed, followed
 by the transcript:</p>
 
@@ -89,28 +86,28 @@ by the transcript:</p>
 
 <h2 id="transcript">Transcript</h2>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> What I&rsquo;d like to discuss with you today is a topic that I
-think is incredibly important. It&rsquo;s not a topic that I think is very sexy, and
-it&rsquo;s something that often gets ignored when building applications. Even Google&rsquo;s
-applications. But I think it&rsquo;s really important to talk about accessibility.</p>
+<p><strong>MIKE WEST »</strong> What I’d like to discuss with you today is a topic that I
+think is incredibly important. It’s not a topic that I think is very sexy, and
+it’s something that often gets ignored when building applications. Even Google’s
+applications. But I think it’s really important to talk about accessibility.</p>
 
 <p>Making applications not only available to a wide variety of people, but usable
 by those same people.</p>
 
 <p>As a way of getting into this, I want you to think about the Google+ page. All
-of you have probably seen this. There&rsquo;s a button up in the top corner that says
-&ldquo;Add to Circles&rdquo; and the interaction model is the following. I take my mouse, I
-hover it over the &ldquo;Add to Circles&rdquo; button, and then something pops up. And at
-that point, I&rsquo;m able to select circles into which I can put one of my friends or
+of you have probably seen this. There’s a button up in the top corner that says
+“Add to Circles” and the interaction model is the following. I take my mouse, I
+hover it over the “Add to Circles” button, and then something pops up. And at
+that point, I’m able to select circles into which I can put one of my friends or
 one of my contacts. This works really, really well if I can use a mouse.</p>
 
-<p>All of you close your eyes. Now grab your mouse and hover&hellip; over the&hellip; That&rsquo;s
-kinda problematic, right? If I can&rsquo;t see the screen, how do I use my mouse to
+<p>All of you close your eyes. Now grab your mouse and hover… over the… That’s
+kinda problematic, right? If I can’t see the screen, how do I use my mouse to
 hover over anything on the screen? This mode of interaction, while very
-interactive and very rich, excludes a wide variety of people that either can&rsquo;t
-or don&rsquo;t want to use the mouse for some reason. And in fact, when we first
+interactive and very rich, excludes a wide variety of people that either can’t
+or don’t want to use the mouse for some reason. And in fact, when we first
 launched Plus, this was completely inaccessible. It was impossible to use the
-circle picker widget with anything other than a mouse. If you didn&rsquo;t have a
+circle picker widget with anything other than a mouse. If you didn’t have a
 mouse, you were simply out of luck.</p>
 
 <p>What I want to talk about today is how we can avoid that. How we can build
@@ -119,7 +116,7 @@ applications that are accessible and universally usable.</p>
 <p>There are a couple of types of accessibility, and the type that I really want to
 talk about today is users that use an assistive technology of some sort in order
 to access a website. These users could be blind, they might be completely unable
-to see the screen, in which case they&rsquo;re going to use something like a screen
+to see the screen, in which case they’re going to use something like a screen
 reader or braille reader in order to get the information provided to them in a
 form that they can access. They could be users with low vision, in this case they
 might use a magnifier or a lens of some sort in order to make objects on the
@@ -138,268 +135,268 @@ specifically for Chrome by the Chrome Accessibility Team. This uses the
 <a href="http://code.google.com/chrome/extensions/tts.html">text-to-speech API that Chrome provides</a> as an extension API. So anyone
 can write anything exactly like this, and actually all the code is open source.
 So you can take a look at it and see exactly how it works. This is completely
-free, you can download it. It&rsquo;s built directly into ChromeOS as the
+free, you can download it. It’s built directly into ChromeOS as the
 accessibility mechanism for ChromeOS, and you can download it for Chrome on any
-other platform. It&rsquo;ll work quite well, and in fact I&rsquo;ll demo it a little bit
+other platform. It’ll work quite well, and in fact I’ll demo it a little bit
 today.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Enter your name. Choose your favorite. Screen Reader Introduction
+<p><strong>CHROMEVOX »</strong> Enter your name. Choose your favorite. Screen Reader Introduction
 Heading Three.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> This is what ChromeVox sounds like. If none of you, if one of you
-hasn&rsquo;t used a screen reader before, this is what it sounds like: you get a very
+<p><strong>MIKE WEST »</strong> This is what ChromeVox sounds like. If none of you, if one of you
+hasn’t used a screen reader before, this is what it sounds like: you get a very
 mechanical tone.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> [Beep] Enter your name. Edit text.</p>
+<p><strong>CHROMEVOX »</strong> [Beep] Enter your name. Edit text.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> That reads off the thing you&rsquo;re currently focused on on the page,
+<p><strong>MIKE WEST »</strong> That reads off the thing you’re currently focused on on the page,
 and generally speaking will give you some meta-information about that. So when
-we go back up to the header, we&rsquo;ll hear:</p>
+we go back up to the header, we’ll hear:</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Screen reader introduction. Heading three.</p>
+<p><strong>CHROMEVOX »</strong> Screen reader introduction. Heading three.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> It tells you that it&rsquo;s a heading, and it tells you that it&rsquo;s a
+<p><strong>MIKE WEST »</strong> It tells you that it’s a heading, and it tells you that it’s a
 level three heading. What this tells you is that the semantics of your page are
 really critically important. If we jump down into the form:</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> [Beep] Enter your name. Edit text.</p>
+<p><strong>CHROMEVOX »</strong> [Beep] Enter your name. Edit text.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Here we read not only that you can type something into this field,
+<p><strong>MIKE WEST »</strong> Here we read not only that you can type something into this field,
 but we get a label for it as well. This gives you a really, kind of, a rich
 visual, er, mental image of what a visual user would see on this page.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> [Beep] Choose your favorite color. Red. List box one of ten.</p>
+<p><strong>CHROMEVOX »</strong> [Beep] Choose your favorite color. Red. List box one of ten.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> It&rsquo;s a list box. There are ten items. It gives you some semantics
+<p><strong>MIKE WEST »</strong> It’s a list box. There are ten items. It gives you some semantics
 along with it.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> [Beep] Submit. Button. Having trouble, click here for help. Link.</p>
+<p><strong>CHROMEVOX »</strong> [Beep] Submit. Button. Having trouble, click here for help. Link.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> So it tells you that there&rsquo;s a link on the page. And there are some
+<p><strong>MIKE WEST »</strong> So it tells you that there’s a link on the page. And there are some
 other functions so you can see where that link goes and a variety of other
-functionality. But that&rsquo;s the basics.</p>
+functionality. But that’s the basics.</p>
 
 <p>What I want to talk about today with that in mind are three things. First, I
-want to talk about what you do when you&rsquo;re starting from scratch. When you have
-complete control over the HTML, what&rsquo;s the best practice? What should you start
+want to talk about what you do when you’re starting from scratch. When you have
+complete control over the HTML, what’s the best practice? What should you start
 out with?</p>
 
 <p>Second, I want to talk about the case that most of us find ourselves in, where
-we have an application that isn&rsquo;t exactly semantic. It doesn&rsquo;t work quite as
-well as we&rsquo;d like it to in terms of the markup or in terms of the CSS, but we
-still want to make sure that it&rsquo;s accessible. How do we go about doing that?</p>
+we have an application that isn’t exactly semantic. It doesn’t work quite as
+well as we’d like it to in terms of the markup or in terms of the CSS, but we
+still want to make sure that it’s accessible. How do we go about doing that?</p>
 
-<p>And finally, I&rsquo;ll point you to some tools and resources that you can look at
-later on. There&rsquo;s a lot of information here. I&rsquo;m not going to touch even half of
+<p>And finally, I’ll point you to some tools and resources that you can look at
+later on. There’s a lot of information here. I’m not going to touch even half of
 what it takes to make a website accessible, but I am going to give you some
 pointers, and I hope that I give you a good basis.</p>
 
-<p>So let&rsquo;s start out.</p>
+<p>So let’s start out.</p>
 
-<p>What&rsquo;s really important to understand about Chrome, er, about screen readers in
+<p>What’s really important to understand about Chrome, er, about screen readers in
 general is that all they have to work with is the DOM. They have the document
 object model. This means that the semantics of your page are incredibly
 important, and the visual aspect of your page is incredibly unimportant. For
-instance, we can all see that this sentence here is &ldquo;The rain in Spain stays
-mainly on the plain.&rdquo; Let&rsquo;s see what ChromeVox thinks about it.</p>
+instance, we can all see that this sentence here is “The rain in Spain stays
+mainly on the plain.” Let’s see what ChromeVox thinks about it.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Example. Heading.  The plain in rain stays mainly in the Spain.</p>
+<p><strong>CHROMEVOX »</strong> Example. Heading.  The plain in rain stays mainly in the Spain.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> That&rsquo;s a bit odd. I wonder why that happened. If we look at the DOM
-that was used to create this, we see that what&rsquo;s happened is that we&rsquo;ve simply
+<p><strong>MIKE WEST »</strong> That’s a bit odd. I wonder why that happened. If we look at the DOM
+that was used to create this, we see that what’s happened is that we’ve simply
 used absolute positioning in order to move things around on the page so that
-they look like they&rsquo;re in a certain order. In the sentence it makes very little
+they look like they’re in a certain order. In the sentence it makes very little
 sense to do that, but in our applications we do this all the time. We take
 things from disparate parts of the DOM, and we jam them together visually
-because that makes sense, that&rsquo;s how they should be. But we didn&rsquo;t code it that
+because that makes sense, that’s how they should be. But we didn’t code it that
 way. In fact, we coded them at separate ends of the spectrum, and in that case,
 a screen reader user, or anyone who is only able to work with the DOM, is going
 to have a really hard time understanding your web page, and working with your
 web page.</p>
 
-<p>So it&rsquo;s important to understand a couple of things [CROSSTALK] about things when
-working with DOM, and when creating a website. What&rsquo;s important, first off, is
+<p>So it’s important to understand a couple of things [CROSSTALK] about things when
+working with DOM, and when creating a website. What’s important, first off, is
 to have logical sections of your page, and to order those sections in a way that
-makes sense for someone who&rsquo;s trying to use this application. In other words,
-the thing that&rsquo;s most important about your page should probably come near the
+makes sense for someone who’s trying to use this application. In other words,
+the thing that’s most important about your page should probably come near the
 top of the DOM. The things that are much less important should probably come
-near the bottom, even if it&rsquo;s easier for you in some way to put navigation links
-all the way at the top of the DOM, those probably aren&rsquo;t the things people are
+near the bottom, even if it’s easier for you in some way to put navigation links
+all the way at the top of the DOM, those probably aren’t the things people are
 most interested in, so you want to put them later on the page.</p>
 
-<p>It&rsquo;s also important to group the things on the page together that have any sort
+<p>It’s also important to group the things on the page together that have any sort
 of semantic relationship with each other. You can use any sort of HTML5 tag to
-do that, for example, the <code>section</code> tag.</p>
+do that, for example, the <code class="highlighter-rouge">section</code> tag.</p>
 
-<p>Last thing, yeah, it&rsquo;s important not to use tables. Tables are for layout. Or,
-not for layout. They are for data. If you&rsquo;re trying to set up something on your
-page with tables, then you&rsquo;re at the wrong conference in general. So, don&rsquo;t do
+<p>Last thing, yeah, it’s important not to use tables. Tables are for layout. Or,
+not for layout. They are for data. If you’re trying to set up something on your
+page with tables, then you’re at the wrong conference in general. So, don’t do
 that.</p>
 
-<p>Interactive controls. What&rsquo;s interesting about a lot of applications and a lot
+<p>Interactive controls. What’s interesting about a lot of applications and a lot
 of modern web applications that we see on the web today is that people are using
-<code>div</code> and <code>span</code> to mean absolutely everything. This is a really bad practice
+<code class="highlighter-rouge">div</code> and <code class="highlighter-rouge">span</code> to mean absolutely everything. This is a really bad practice
 for a wide variety of reasons. There are are elements that actually have
 semantics associated with them, and have interaction associated with them. For
-instance, if I have an <code>onclick</code> event on a <code>div</code>, I have to do a lot of work in
-order to make that replicate something like a <code>button</code>. If I just used the
-<code>button</code> element, I get a lot of that for free. I get some keyboard
-interactions. I&rsquo;ve ensured that it has the exact same semantics as a native
+instance, if I have an <code class="highlighter-rouge">onclick</code> event on a <code class="highlighter-rouge">div</code>, I have to do a lot of work in
+order to make that replicate something like a <code class="highlighter-rouge">button</code>. If I just used the
+<code class="highlighter-rouge">button</code> element, I get a lot of that for free. I get some keyboard
+interactions. I’ve ensured that it has the exact same semantics as a native
 button on a native web application, because the browser is doing the work for
-me. I don&rsquo;t have to go through and build all of this out myself, I can leverage
+me. I don’t have to go through and build all of this out myself, I can leverage
 the power of the browser, use the correct element, and in that case, get things
-like keyboard accessibility almost for free. This is just good practice, there&rsquo;s
+like keyboard accessibility almost for free. This is just good practice, there’s
 no reason not do this at all.</p>
 
-<p>The last thing here that&rsquo;s really important to note is that <code>div</code>s and <code>span</code>s
-are by default not focusable. If they&rsquo;re not focusable, they don&rsquo;t show up for a
-screen reader. It&rsquo;s just that simple. You need to make sure that anything that a
-person is interacting with can obtain focus on the page. I&rsquo;ll give you a quick
-example of why that&rsquo;s important. In a little bit.</p>
+<p>The last thing here that’s really important to note is that <code class="highlighter-rouge">div</code>s and <code class="highlighter-rouge">span</code>s
+are by default not focusable. If they’re not focusable, they don’t show up for a
+screen reader. It’s just that simple. You need to make sure that anything that a
+person is interacting with can obtain focus on the page. I’ll give you a quick
+example of why that’s important. In a little bit.</p>
 
 <p>So if we turn ChromeVox back on [CROSSTALK].</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Custom button. Live coding example. Heading three.</p>
+<p><strong>CHROMEVOX »</strong> Custom button. Live coding example. Heading three.</p>
 
 <p>Click on this button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> So, there&rsquo;s probably a button coming up. I&rsquo;ve just heard some text
-that said &ldquo;button&rdquo;, that&rsquo;s important. So let&rsquo;s jump to the next element on the
+<p><strong>MIKE WEST »</strong> So, there’s probably a button coming up. I’ve just heard some text
+that said “button”, that’s important. So let’s jump to the next element on the
 page.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Send.</p>
+<p><strong>CHROMEVOX »</strong> Send.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Send. Ok. Let&rsquo;s hit a button. Well, nothing seems to be happening.
-I wonder why that is. If I click on &ldquo;send&rdquo;, of course, I get an alert. Hrm.
-Something&rsquo;s going wrong here, what could it be?</p>
+<p><strong>MIKE WEST »</strong> Send. Ok. Let’s hit a button. Well, nothing seems to be happening.
+I wonder why that is. If I click on “send”, of course, I get an alert. Hrm.
+Something’s going wrong here, what could it be?</p>
 
-<p>The most important thing is to simply change this to a <code>button</code>.</p>
+<p>The most important thing is to simply change this to a <code class="highlighter-rouge">button</code>.</p>
 
 <p>If we change it to a button, and then refresh.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> [Beep] Send. Button.</p>
+<p><strong>CHROMEVOX »</strong> [Beep] Send. Button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Send, button. ChromeVox now recognizes this as a semantic element.
+<p><strong>MIKE WEST »</strong> Send, button. ChromeVox now recognizes this as a semantic element.
 If I hit enter again, I get the alert. In other words</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Send. Button.</p>
+<p><strong>CHROMEVOX »</strong> Send. Button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Enter will simulate a click, if the element is a button. The
-browser will do the work for you. If it wasn&rsquo;t a button, you would have to do
-things like <code>onkeydown</code>, and then, have an event handler for <code>onkeydown</code> in
+<p><strong>MIKE WEST »</strong> Enter will simulate a click, if the element is a button. The
+browser will do the work for you. If it wasn’t a button, you would have to do
+things like <code class="highlighter-rouge">onkeydown</code>, and then, have an event handler for <code class="highlighter-rouge">onkeydown</code> in
 order to make sure that you replicated all of the functionality that a browser
 would.</p>
 
-<p>This is something that you simply don&rsquo;t want to do on your own. You want
+<p>This is something that you simply don’t want to do on your own. You want
 to make sure that you use the right elements.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Labeling. Label your.</p>
+<p><strong>CHROMEVOX »</strong> Labeling. Label your.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> What&rsquo;s also important, specifically with regard to forms, is to
+<p><strong>MIKE WEST »</strong> What’s also important, specifically with regard to forms, is to
 make sure that every element on the page that users are going to interact with
-in some way has a label. This is incredibly important, and it&rsquo;s difficult to
-overemphasize how important this is. If you don&rsquo;t have labels, then you simply
+in some way has a label. This is incredibly important, and it’s difficult to
+overemphasize how important this is. If you don’t have labels, then you simply
 have text boxes on the page. A text box is completely meaningless without
-context. I know that I&rsquo;m supposed to enter some information into this text box,
+context. I know that I’m supposed to enter some information into this text box,
 but I have no idea what it is, and I have no idea why it might be important for
 my interaction with this application. If, on the other hand, I have a label, and
-the label syntax is absolutely trivial: You simply say &ldquo;label&rdquo;, and then use an
+the label syntax is absolutely trivial: You simply say “label”, and then use an
 ID in order to say what this thing is labeling. If I do that, then the screen
 reader will understand that there is a semantic relationship between the text
 and the element on the page. It will bind those together when it reads them out
 to me. In other words, I will get good semantic information about what this
-thing on the page is that I&rsquo;m meant to interact with.</p>
+thing on the page is that I’m meant to interact with.</p>
 
 <p>Again, and this should be really really basic, every image on your page should
-have an <code>alt</code> tag. There&rsquo;s no reason at all that an image shouldn&rsquo;t have an alt
+have an <code class="highlighter-rouge">alt</code> tag. There’s no reason at all that an image shouldn’t have an alt
 tag. There are two types, however, of images on your page. There are images that
 replicate information that is already available, in other words they are purely
 decorative. And there are images that are, in and of themselves, informative.</p>
 
-<p>For the former type, you should have a blank <code>alt</code> tag. If you have a blank
-<code>alt</code> tag, that means &ldquo;I&rsquo;ve thought about this. This image exists on the page,
-it&rsquo;s visually important, but it has absolutely no semantic meaning.&rdquo; In that
-case the screen reader will simply ignore it. A blank <code>alt</code> tag means &ldquo;ignore
-this image.&rdquo;</p>
+<p>For the former type, you should have a blank <code class="highlighter-rouge">alt</code> tag. If you have a blank
+<code class="highlighter-rouge">alt</code> tag, that means “I’ve thought about this. This image exists on the page,
+it’s visually important, but it has absolutely no semantic meaning.” In that
+case the screen reader will simply ignore it. A blank <code class="highlighter-rouge">alt</code> tag means “ignore
+this image.”</p>
 
-<p>A missing <code>alt</code> tag is, however, something completely different, and we&rsquo;ll look
+<p>A missing <code class="highlighter-rouge">alt</code> tag is, however, something completely different, and we’ll look
 at exactly what that does in a moment. For the normal use case, you have an
-image on the page that&rsquo;s informative in some way, you should have alt-text
-associated with that that says &ldquo;This image has some meaning, here&rsquo;s what it is.&rdquo;
-Otherwise, it&rsquo;s completely useless for a person who can&rsquo;t see the page.</p>
+image on the page that’s informative in some way, you should have alt-text
+associated with that that says “This image has some meaning, here’s what it is.”
+Otherwise, it’s completely useless for a person who can’t see the page.</p>
 
-<p>So, again, let&rsquo;s take a quick look at what a form sounds like when you don&rsquo;t do
+<p>So, again, let’s take a quick look at what a form sounds like when you don’t do
 things correctly.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Edit text.</p>
+<p><strong>CHROMEVOX »</strong> Edit text.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Edit text.</p>
+<p><strong>MIKE WEST »</strong> Edit text.</p>
 
-<p>There&rsquo;s nothing here. I know that there&rsquo;s a text box. I should probably type
+<p>There’s nothing here. I know that there’s a text box. I should probably type
 something, but I have no idea what it is.</p>
 
 <p>Oops.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Password. Edit text.</p>
+<p><strong>CHROMEVOX »</strong> Password. Edit text.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Password. Edit text. That&rsquo;s interesting. It doesn&rsquo;t really help me.
-I know that it&rsquo;s a password, and that&rsquo;s better, but it really doesn&rsquo;t help very
+<p><strong>MIKE WEST »</strong> Password. Edit text. That’s interesting. It doesn’t really help me.
+I know that it’s a password, and that’s better, but it really doesn’t help very
 much.</p>
 
-<p>Now let&rsquo;s look at the image. What&rsquo;s really interesting about this is that I have no
+<p>Now let’s look at the image. What’s really interesting about this is that I have no
 alt text here at all. What this means [CROSSTALK]. This means that the browser is
 going try to figure out something for me. And usually it does an absolutely
 miserable job.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Nine zero one d three n nine four t three. Image.</p>
+<p><strong>CHROMEVOX »</strong> Nine zero one d three n nine four t three. Image.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> So it reads the name of the image. Especially when you have these
+<p><strong>MIKE WEST »</strong> So it reads the name of the image. Especially when you have these
 sorts of big CMS systems that automatically generate images in a variety of
 sizes and a variety of contexts, the name of the image is never informative. But
-it&rsquo;s just common practice that a screen reader will try to give you any
+it’s just common practice that a screen reader will try to give you any
 information that it has. And in this case, the only information it has is the
-name of the image. This is really really bad behavior, and it&rsquo;s something that
+name of the image. This is really really bad behavior, and it’s something that
 you should avoid to whatever extent possible when building your own
 applications.</p>
 
-<p>Let&rsquo;s look at how we would solve this problem.</p>
+<p>Let’s look at how we would solve this problem.</p>
 
-<p>The first thing we would need to do is change these <code>span</code>s to <code>label</code>s.</p>
+<p>The first thing we would need to do is change these <code class="highlighter-rouge">span</code>s to <code class="highlighter-rouge">label</code>s.</p>
 
 <p>By doing so, we give each of the, each of the elements on the page, or each of
 the form elements, semantic information. We tell it that the first label is
 pointing to the first form element.</p>
 
-<p>I can&rsquo;t talk and type at the same time, as we&rsquo;re finding out. For user.</p>
+<p>I can’t talk and type at the same time, as we’re finding out. For user.</p>
 
-<p>I just can&rsquo;t type at all, I think is the problem.</p>
+<p>I just can’t type at all, I think is the problem.</p>
 
 <p>So.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> User name. Edit text.</p>
+<p><strong>CHROMEVOX »</strong> User name. Edit text.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> So this time, when I click on it, or if I&rsquo;d given it focus in some
+<p><strong>MIKE WEST »</strong> So this time, when I click on it, or if I’d given it focus in some
 other way it would have behaved the same, when I click on it, it not only reads
-out that it&rsquo;s an edit text box, it also tells me the label associated with it so
-that I know that here I&rsquo;m supposed to type my user name. That&rsquo;s excellent
+out that it’s an edit text box, it also tells me the label associated with it so
+that I know that here I’m supposed to type my user name. That’s excellent
 behavior.</p>
 
-<p>Now let&rsquo;s fix the image.</p>
+<p>Now let’s fix the image.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> User name. P I N. Password. Edit text. Golden Gate.</p>
+<p><strong>CHROMEVOX »</strong> User name. P I N. Password. Edit text. Golden Gate.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Excellent. So now I know that there is information associated with
-this image. In that case, I&rsquo;m actually able to use it to understand the page. So
-again, big lesson here: use an <code>alt</code> tag, use <code>label</code>s. Both of them are
-absolutely critically important, and really very basic. If you&rsquo;re not doing this
-already, you&rsquo;re doing the wrong thing.</p>
+<p><strong>MIKE WEST »</strong> Excellent. So now I know that there is information associated with
+this image. In that case, I’m actually able to use it to understand the page. So
+again, big lesson here: use an <code class="highlighter-rouge">alt</code> tag, use <code class="highlighter-rouge">label</code>s. Both of them are
+absolutely critically important, and really very basic. If you’re not doing this
+already, you’re doing the wrong thing.</p>
 
-<p>What we&rsquo;ve talked about and what we&rsquo;ve seen here is that focus is really
+<p>What we’ve talked about and what we’ve seen here is that focus is really
 important. You see a big outline on the page of what the focused element is. The
 focused element is exactly what the user is currently interacting with. If they
 have a mouse, they might be hovering over something completely different, or
-they might be clicking on things that can&rsquo;t accept focus. That simply isn&rsquo;t the
-case when you&rsquo;re dealing with someone who&rsquo;s using a screen reader. In this case,
+they might be clicking on things that can’t accept focus. That simply isn’t the
+case when you’re dealing with someone who’s using a screen reader. In this case,
 you need to make sure that you provide focus hooks within your application.</p>
 
 <p>First of all, so that the important elements the user is supposed to interact
@@ -407,103 +404,103 @@ with are focusable. And second, that you not only accept, um, you not only
 accept things like hover and, um, onkeydown and a variety of other things along
 those lines.</p>
 
-<p>What will become important later, what we&rsquo;ll see later on is that it&rsquo;s not only
+<p>What will become important later, what we’ll see later on is that it’s not only
 important to ensure that each element can be focused, but also important to
 manage focus on the page. If, for instance, I have a dialog box that pops up, I
-want to make sure that the focus stays within that dialog box if it&rsquo;s modal.</p>
+want to make sure that the focus stays within that dialog box if it’s modal.</p>
 
-<p>I&rsquo;ll show a quick example of how that might work.</p>
+<p>I’ll show a quick example of how that might work.</p>
 
-<p>So here I have &ldquo;Buy more printer ink&rdquo;. I get a modal dialog box. I see that it&rsquo;s
+<p>So here I have “Buy more printer ink”. I get a modal dialog box. I see that it’s
 modal because the screen has been darkened, so I have some sort of visual
 feedback that I should click on one of these two buttons before I do anything
-else. I&rsquo;ll click on that. Let&rsquo;s see how it sounds.</p>
+else. I’ll click on that. Let’s see how it sounds.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Popup dialog. [Beep] Buy more printer ink. Button.</p>
+<p><strong>CHROMEVOX »</strong> Popup dialog. [Beep] Buy more printer ink. Button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> So it&rsquo;s a button. That&rsquo;s good. I hit a button.</p>
+<p><strong>MIKE WEST »</strong> So it’s a button. That’s good. I hit a button.</p>
 
 <p>What happened?</p>
 
-<p>According to the screen reader, absolutely nothing, because the focus didn&rsquo;t
+<p>According to the screen reader, absolutely nothing, because the focus didn’t
 move. I hit enter, or I clicked on it, but the focus stayed on the button
 because nothing told the focus to move. What really needs to happen here,
 probably the best case scenario, is to move the focus programmatically to the
 first focusable element within the context of this dialog box.</p>
 
-<p>Let&rsquo;s see what we can do about that.</p>
+<p>Let’s see what we can do about that.</p>
 
 <p>Happily, moving focus around is incredibly trivial. You simply have to call
-<code>.focus()</code> on the correct element. Let&rsquo;s look at it again.</p>
+<code class="highlighter-rouge">.focus()</code> on the correct element. Let’s look at it again.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> O K. Button.</p>
+<p><strong>CHROMEVOX »</strong> O K. Button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> What we see here is that focus was automatically moved inside the
-context of this dialog box. That&rsquo;s great. However, there&rsquo;s another aspect that
+<p><strong>MIKE WEST »</strong> What we see here is that focus was automatically moved inside the
+context of this dialog box. That’s great. However, there’s another aspect that
 we need to think about. What happens when I click on one of these two buttons?
 What happens in that scenario, if I hit enter, focus is dropped on the floor. In
 other words, nothing on this page has focus anymore, which means the screen
-reader is going to start back up at the top of the page. That&rsquo;s really bad
+reader is going to start back up at the top of the page. That’s really bad
 experience.</p>
 
 <p>What we instead want to happen is to bring the user directly back to where they
 were when they activated this dialog box. We can do that relatively trivially.
-So here we see that the button is called &ldquo;confirm&rdquo;, so I can simply associate
+So here we see that the button is called “confirm”, so I can simply associate
 focus with confirm.</p>
 
 <p>If I refresh this:</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> O K. Button.</p>
+<p><strong>CHROMEVOX »</strong> O K. Button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Jumps me in.</p>
+<p><strong>MIKE WEST »</strong> Jumps me in.</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Buy more printer ink. Button.</p>
+<p><strong>CHROMEVOX »</strong> Buy more printer ink. Button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Jumps me back out. This is good experience. This means that I move
+<p><strong>MIKE WEST »</strong> Jumps me back out. This is good experience. This means that I move
 directly from the dialog, directly back onto the page where I was. I know where
-I am, I understand the context, and I&rsquo;m able to deal with that.</p>
+I am, I understand the context, and I’m able to deal with that.</p>
 
 <p>What we</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> O K. Button.</p>
+<p><strong>CHROMEVOX »</strong> O K. Button.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> What is problematic, however, is that if I keep hitting Tab, I can
-jump outside of this dialog box. Visually, I understand that I&rsquo;m not supposed to
-do that, the page is dark. However, that doesn&rsquo;t really work when dealing with a
+<p><strong>MIKE WEST »</strong> What is problematic, however, is that if I keep hitting Tab, I can
+jump outside of this dialog box. Visually, I understand that I’m not supposed to
+do that, the page is dark. However, that doesn’t really work when dealing with a
 screen reader. Instead, we need to manage focus for the user in order to show
 them that they should stay within this context. They need to make a decision,
-yes or no. That&rsquo;s the only time you should use a modal dialog.</p>
+yes or no. That’s the only time you should use a modal dialog.</p>
 
-<p>So how can we go about doing that &hellip; [CROSSTALK]</p>
+<p>So how can we go about doing that … [CROSSTALK]</p>
 
-<p><strong>CHROMEVOX&nbsp;&raquo;</strong> Buy more printer ink. Button. [CROSSTALK]</p>
+<p><strong>CHROMEVOX »</strong> Buy more printer ink. Button. [CROSSTALK]</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> &hellip; and type, so I will copy.</p>
+<p><strong>MIKE WEST »</strong> … and type, so I will copy.</p>
 
-<p>I am cheating, and it&rsquo;s awesome.</p>
+<p>I am cheating, and it’s awesome.</p>
 
 <p>There we go.</p>
 
-<p>So now, I&rsquo;m hitting tab, and trying to get out of the box. Shift-tab would bring
-me to the previous focus item. I&rsquo;m not able to. I&rsquo;ve thrown in some code that
-makes it possible for me to intercept <code>blur</code> events and <code>focus</code> events, and make
-sure that I&rsquo;m only focusing on one of the two items that should be focusable
+<p>So now, I’m hitting tab, and trying to get out of the box. Shift-tab would bring
+me to the previous focus item. I’m not able to. I’ve thrown in some code that
+makes it possible for me to intercept <code class="highlighter-rouge">blur</code> events and <code class="highlighter-rouge">focus</code> events, and make
+sure that I’m only focusing on one of the two items that should be focusable
 within the context that I currently find myself.</p>
 
-<p>This isn&rsquo;t that difficult, basically, I&rsquo;m really just adding event listeners and
+<p>This isn’t that difficult, basically, I’m really just adding event listeners and
 dealing with it.</p>
 
 <p>Um.</p>
 
 <p>And now Chrome is crashing. Ha ha.</p>
 
-<p>You know what&rsquo;s awesome? <a href="http://www.chromium.org/getting-involved/dev-channel">Dev version of Chrome</a>.</p>
+<p>You know what’s awesome? <a href="http://www.chromium.org/getting-involved/dev-channel">Dev version of Chrome</a>.</p>
 
 <p>I really recommend that you use the dev version of Chrome. I do not recommend
 that you demo with the dev version of Chrome because it causes small problems
 like this.</p>
 
-<p>Good times. Let&rsquo;s see if I can get out of this.</p>
+<p>Good times. Let’s see if I can get out of this.</p>
 
 <p>Regardless.</p>
 
@@ -515,50 +512,50 @@ like this.</p>
 
 <p>My good friend Force Quit. There we go, hey look at that.</p>
 
-<p>Now let&rsquo;s open this back up.</p>
+<p>Now let’s open this back up.</p>
 
 <p>So what you might not know about Chrome is that we have three different
 channels. Actually we have four, but three are important.</p>
 
-<p>We have a stable channel, that&rsquo;s what every user actually gets. And it is, as
+<p>We have a stable channel, that’s what every user actually gets. And it is, as
 the name implies, stable.</p>
 
 <p>We have a beta channel, the beta channel is a little bit less stable than
 stable. Stable gets built about every six weeks, beta gets built probably about
 every three weeks. Dev, on the other hand, is built on a weekly basis, sometimes
 more than weekly. More than weekly is actually awesome, because it shows you
-exactly what&rsquo;s happening on trunk. But. It&rsquo;s slightly problematic in that
-sometimes it&rsquo;s broken. Like now. Ha ha.</p>
+exactly what’s happening on trunk. But. It’s slightly problematic in that
+sometimes it’s broken. Like now. Ha ha.</p>
 
 <p>Anyway.</p>
 
-<p>The last thing I&rsquo;d point out when dealing with applications that you have
-complete control over are keyboard shortcuts. It&rsquo;s really quite useful to give
+<p>The last thing I’d point out when dealing with applications that you have
+complete control over are keyboard shortcuts. It’s really quite useful to give
 users the ability to control the application in a controlled way with a
-keyboard. For instance, if you go to GMail, you might not know that you&rsquo;re able
-to use Vim keybindings, so J and K, in order to jump between messages. You&rsquo;re
+keyboard. For instance, if you go to GMail, you might not know that you’re able
+to use Vim keybindings, so J and K, in order to jump between messages. You’re
 able to use keybindings in order to archive, and jump back to the inbox. It
 actually makes you much more efficient.</p>
 
 <p>For specific types of applications, keyboard shortcuts can be incredibly useful.
-There are three types that I list up here. I don&rsquo;t really think it&rsquo;s incredibly
-important to talk about them, and I&rsquo;m running out of time, so I&rsquo;ll move on.</p>
+There are three types that I list up here. I don’t really think it’s incredibly
+important to talk about them, and I’m running out of time, so I’ll move on.</p>
 
-<p>We&rsquo;ve talked about the ideal world. When you have complete control, you want to
+<p>We’ve talked about the ideal world. When you have complete control, you want to
 use semantic elements, and you want to make sure that you manage focus
 correctly, and that you only use those elements that kinda do all the work for
-you. That you use <code>button</code>s instead of <code>div</code>s and so on.</p>
+you. That you use <code class="highlighter-rouge">button</code>s instead of <code class="highlighter-rouge">div</code>s and so on.</p>
 
 <p>What we usually end up with, in the real world, is code that kinda looks like
-this. It&rsquo;s just a jumble of random crap thrown onto the page. You need to figure
+this. It’s just a jumble of random crap thrown onto the page. You need to figure
 out first what it is, and then you need to change it to do something useful and
 accessible.</p>
 
-<p>Generally this means that you&rsquo;re trying to build an interactive control that
-HTML simply doesn&rsquo;t provide for you. So if we look back to the circle picker
-that we looked at before, there&rsquo;s no native HTML widget that says &ldquo;When I hover
-over this thing, pop something up and do some sort of checkboxy goodness.&rdquo; That
-simply doesn&rsquo;t exist as part of HTML; It&rsquo;s something you need to build on your
+<p>Generally this means that you’re trying to build an interactive control that
+HTML simply doesn’t provide for you. So if we look back to the circle picker
+that we looked at before, there’s no native HTML widget that says “When I hover
+over this thing, pop something up and do some sort of checkboxy goodness.” That
+simply doesn’t exist as part of HTML; It’s something you need to build on your
 own.</p>
 
 <p>When we find ourselves in these sorts of situations, we need to figure out how
@@ -568,23 +565,23 @@ use is something new called ARIA.</p>
 <p>ARIA is part of the HTML5 specification, kinda, depending on who you ask, and it
 gives more semantic information, or it allows you to create semantic
 relationships first of all between elements on the page, but also to add
-semantics to an element like a <code>div</code> that, by itself, means absolutely nothing.</p>
+semantics to an element like a <code class="highlighter-rouge">div</code> that, by itself, means absolutely nothing.</p>
 
 <p>If we look at something like this, this is kinda what the widget looks like, you
 have two pieces. You have a button and a popup, and we need to figure out how to
-make those accessible. The HTML that we&rsquo;re stuck with for whatever reason looks
-like this. We&rsquo;ve got some <code>div</code>s, we&rsquo;ve got some <code>span</code>s. There&rsquo;s really nothing
+make those accessible. The HTML that we’re stuck with for whatever reason looks
+like this. We’ve got some <code class="highlighter-rouge">div</code>s, we’ve got some <code class="highlighter-rouge">span</code>s. There’s really nothing
 here that a user can actually do anything with, the screen reader.</p>
 
 <p>So what do we do about it?</p>
 
 <p>The first thing we need to do is to make sure that the elements that a user
-interacts with are focusable. <code>div</code>s, as I said before, by themselves are not
+interacts with are focusable. <code class="highlighter-rouge">div</code>s, as I said before, by themselves are not
 focusable. They simply get ignored by the screen reader, and instead it jumps to
 their content.</p>
 
-<p>What we can do, however, in order to make it focusable, is to add a <code>tabindex</code>.
-<code>tabindex</code> means, when you are tabbing through the page, when you&rsquo;re using the
+<p>What we can do, however, in order to make it focusable, is to add a <code class="highlighter-rouge">tabindex</code>.
+<code class="highlighter-rouge">tabindex</code> means, when you are tabbing through the page, when you’re using the
 tab key to jump between the focusable elements, first of all this element should
 be in the tab, uh, in the tab order, and second of all, perhaps it has a
 specific position.</p>
@@ -594,16 +591,16 @@ position. Instead, I set a tab order of zero, which means
 this element is focusable, and this element should appear wherever it appears in
 the DOM.</p>
 
-<p>A <code>tabindex</code> of -1 is also sometimes useful for specific scenarios. This means
-that if you&rsquo;re tabbing through the page, this element doesn&rsquo;t get focus, but if
-you&rsquo;re using a screen reader or if you&rsquo;re, if you want to programmatically
+<p>A <code class="highlighter-rouge">tabindex</code> of -1 is also sometimes useful for specific scenarios. This means
+that if you’re tabbing through the page, this element doesn’t get focus, but if
+you’re using a screen reader or if you’re, if you want to programmatically
 assign focus in some way, you can.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
 <p>Sorry?</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
 <p>Sure, we can talk about details and stuff later on.</p>
 
@@ -614,91 +611,91 @@ the keyboard is an incredibly important mechanism for interacting with a web
 page. You need to make sure that you support it. This means that your custom
 controls should respond to the keyboard in the same way that a native control
 does. This means, if for example, I tab over to a link on the page, and I hit
-enter, that link is going to be executed. I&rsquo;m going to jump to that link. If I&rsquo;m
-on a button and I hit enter, it&rsquo;s going to do something.</p>
+enter, that link is going to be executed. I’m going to jump to that link. If I’m
+on a button and I hit enter, it’s going to do something.</p>
 
-<p>I need to make sure that my custom elements do the exact same thing, and there&rsquo;s
+<p>I need to make sure that my custom elements do the exact same thing, and there’s
 a lot of work associated with this. I first of all need to figure out what the
 semantics are, and second I need to replicate those semantics within the context
 of my JavaScript.</p>
 
-<p>This is why it&rsquo;s better to simply use the correct to begin with, because then
-you avoid a lot of work. But if you can&rsquo;t avoid that work for whatever reason,
-you need to make sure that you deal with the <code>keydown</code> or the <code>keyup</code> event, or
-a <code>keypress</code> event, depending on the interaction that you want.</p>
+<p>This is why it’s better to simply use the correct to begin with, because then
+you avoid a lot of work. But if you can’t avoid that work for whatever reason,
+you need to make sure that you deal with the <code class="highlighter-rouge">keydown</code> or the <code class="highlighter-rouge">keyup</code> event, or
+a <code class="highlighter-rouge">keypress</code> event, depending on the interaction that you want.</p>
 
 <p>You need to make sure that you deal with things like enter and escape, in
 interesting, and, you know, normal ways, ways that a user would expect.</p>
 
-<p>The code for that might look something like this: you intercept the <code>keydown</code> or
-a <code>key</code> event of some sort, you look at the event, and then you look at the
-<code>keyCode</code>, and you need to figure out what the <code>keyCode</code> actually is. This is
+<p>The code for that might look something like this: you intercept the <code class="highlighter-rouge">keydown</code> or
+a <code class="highlighter-rouge">key</code> event of some sort, you look at the event, and then you look at the
+<code class="highlighter-rouge">keyCode</code>, and you need to figure out what the <code class="highlighter-rouge">keyCode</code> actually is. This is
 space, this is enter.</p>
 
-<p>It&rsquo;s generally better practice not to use magic numbers in your code, but
-instead to set up some sort of constants so that you actually read &ldquo;space&rdquo; or
-&ldquo;enter&rdquo;, but I didn&rsquo;t have space, so I did this.</p>
+<p>It’s generally better practice not to use magic numbers in your code, but
+instead to set up some sort of constants so that you actually read “space” or
+“enter”, but I didn’t have space, so I did this.</p>
 
 <p>Also important to note is that <a href="http://www.w3.org/TR/wai-aria-practices/#aria_ex">the W3C has a document that documents a couple
-of common keyboard patterns</a>. Things like &ldquo;Escape should cancel a
-dialog box.&rdquo; Things like that are documented relatively well, but the W3C, the
-only problem with that is that it&rsquo;s relatively Windows-specific. It&rsquo;s not the
+of common keyboard patterns</a>. Things like “Escape should cancel a
+dialog box.” Things like that are documented relatively well, but the W3C, the
+only problem with that is that it’s relatively Windows-specific. It’s not the
 case that all keyboard shortcuts are the same on all platforms. So, keep that
 in mind, and make sure that you are tuning your keyboard shortcuts to the
 platform that most of your users are actually using.</p>
 
 <p>If we look at the first part of this widget, I said it was in two parts, look at
 the button first. And this actually acts very much like a button, even though
-the user has to hover over it. That&rsquo;s not the usual button behavior, but the
+the user has to hover over it. That’s not the usual button behavior, but the
 conceptual behavior is very similar. I interact in some way with this thing, and
 then a modal dialog pops up, and I have to interact with that dialog.</p>
 
-<p>So here we&rsquo;re going to act as though this <code>div</code> is a <code>button</code>. We do that first
-of all by giving it <code>tabindex</code> such that I can tab to it on the page. This means
-that enter for instance, I&rsquo;ll be focused on it, I&rsquo;ll press enter, that will
-simulate a click, and I&rsquo;ll get some sort of interaction with this button.</p>
+<p>So here we’re going to act as though this <code class="highlighter-rouge">div</code> is a <code class="highlighter-rouge">button</code>. We do that first
+of all by giving it <code class="highlighter-rouge">tabindex</code> such that I can tab to it on the page. This means
+that enter for instance, I’ll be focused on it, I’ll press enter, that will
+simulate a click, and I’ll get some sort of interaction with this button.</p>
 
-<p>What we don&rsquo;t have, however, is the label semantic. What we instead have to do
-is to put text into the <code>div</code> such that it actually gets read out when the user
-focuses on this <code>div</code>. Again, there&rsquo;s no <code>label</code> that can be associated with
+<p>What we don’t have, however, is the label semantic. What we instead have to do
+is to put text into the <code class="highlighter-rouge">div</code> such that it actually gets read out when the user
+focuses on this <code class="highlighter-rouge">div</code>. Again, there’s no <code class="highlighter-rouge">label</code> that can be associated with
 anything other than an input element or select element or form element of some
-sort. That behavior simply doesn&rsquo;t exist. So you have to make sure that there&rsquo;s
-textual content in everything that you have on the page. Even if it&rsquo;s like a
-gear, because you&rsquo;re doing some sort of settings menu, you can&rsquo;t simply have a
-gear as like a background image. It&rsquo;s much much better to have a <code>div</code>, actually
-a <code>button</code>, but if you have to have a <code>div</code>, then make sure that <code>div</code> has
+sort. That behavior simply doesn’t exist. So you have to make sure that there’s
+textual content in everything that you have on the page. Even if it’s like a
+gear, because you’re doing some sort of settings menu, you can’t simply have a
+gear as like a background image. It’s much much better to have a <code class="highlighter-rouge">div</code>, actually
+a <code class="highlighter-rouge">button</code>, but if you have to have a <code class="highlighter-rouge">div</code>, then make sure that <code class="highlighter-rouge">div</code> has
 textual content so that a screen reader can actually read it.</p>
 
 <p>If we look at the dropdown that pops up when I hover over this thing, it acts
 much like a modal dialog, so a modal dialog is what we should emulate. We should
-make sure that when I&rsquo;m tabbing through, that I can&rsquo;t tab out of the dialog. I
+make sure that when I’m tabbing through, that I can’t tab out of the dialog. I
 have to make a decision here before I can interact with something else on the
-page. We should make sure that it&rsquo;s focusable, and we should make sure that the
+page. We should make sure that it’s focusable, and we should make sure that the
 elements in particular are focusable. If you look, there are checkboxes up
-there, um, it&rsquo;s a little bit light&hellip; but there are checkboxes up there. Those
-are implemented as <code>div</code>s, so we need to make sure that those also are
+there, um, it’s a little bit light… but there are checkboxes up there. Those
+are implemented as <code class="highlighter-rouge">div</code>s, so we need to make sure that those also are
 focusable, and that when I do something with them, they behave exactly like a
 checkbox would.</p>
 
 <p>What we can then layer on top of all of this backend work, so I do all of the
 event handling, I do all of the markup, what I can then do to add more semantics
-is to layer on ARIA. ARIA is a mechanism by which I can say that this <code>div</code> is
-not only a <code>div</code>, it actually has a role on the page. In this case it might be a
+is to layer on ARIA. ARIA is a mechanism by which I can say that this <code class="highlighter-rouge">div</code> is
+not only a <code class="highlighter-rouge">div</code>, it actually has a role on the page. In this case it might be a
 role of button. This means that when I use a screen reader, or anything that
-would extract semantic information from the page, it can look at this <code>div</code> and
-understand that this <code>div</code> is actually a <code>button</code>. This means that the screen
-reader would read &ldquo;Add to Circle. Button.&rdquo; and then the user would understand
-that they could interact in some way with this thing that they&rsquo;ve been presented
+would extract semantic information from the page, it can look at this <code class="highlighter-rouge">div</code> and
+understand that this <code class="highlighter-rouge">div</code> is actually a <code class="highlighter-rouge">button</code>. This means that the screen
+reader would read “Add to Circle. Button.” and then the user would understand
+that they could interact in some way with this thing that they’ve been presented
 with.</p>
 
-<p>What&rsquo;s important to note is that this isn&rsquo;t a panacea. This doesn&rsquo;t do the work
+<p>What’s important to note is that this isn’t a panacea. This doesn’t do the work
 for you of dealing with the keyboard or of making elements on the page
 focusable. It simply adds a semantic layer. You still have to do the work of
 intercepting keyboard events, and you still have to do the work of making sure
 that these elements are, um, potentially interactable.</p>
 
 <p>So, these are a couple of examples of ARIA roles that you can have. You can have
-a <code>button</code>, and this means that it is a button on the page. You can click on it
+a <code class="highlighter-rouge">button</code>, and this means that it is a button on the page. You can click on it
 or use the keyboard in order to interact with it. It invites interaction in that
 case. A menu item is another example, and search are, kinda, is a landmark on
 the page so a screen reader can give you some information about the semantics of
@@ -707,24 +704,24 @@ page. So there is a search widget somewhere, I can jump to that, potentially.
 There are sections of the page that have, are, that bind content together in an
 interesting way. I can jump to those.</p>
 
-<p>Screen readers, by and large, at the moment, don&rsquo;t support ARIA landmarks as
+<p>Screen readers, by and large, at the moment, don’t support ARIA landmarks as
 well as they could. What they generally support are headings. This means that if
 you have a good heading structure on your page, a screen reader user can easily
-jump from one heading to the next, and get a good understanding of what&rsquo;s on the
+jump from one heading to the next, and get a good understanding of what’s on the
 page. What will be happening in the future is that screen readers will have
-better support for ARIA landmarks, and then you&rsquo;ll be able to jump to specific
+better support for ARIA landmarks, and then you’ll be able to jump to specific
 landmarks on the page as well.</p>
 
-<p>This is already the case in some screen readers. But it&rsquo;s not really across the
-board quite yet. But it&rsquo;s something that we should start thinking about now, and
+<p>This is already the case in some screen readers. But it’s not really across the
+board quite yet. But it’s something that we should start thinking about now, and
 experimenting with now in things like ChromeVox, so that we can use them in the
 future when they become more ubiquitous.</p>
 
-<p>It&rsquo;s not only the case, however, that ARIA describes roles on the page. So it&rsquo;s
-not only the case that I can say &ldquo;It&rsquo;s a button.&rdquo; I can also say that this
+<p>It’s not only the case, however, that ARIA describes roles on the page. So it’s
+not only the case that I can say “It’s a button.” I can also say that this
 button, or that this checkbox, for instance, has been checked. This means that
-the <code>div</code> has a role of checkbox, it acts as through it was a checkbox, but it
-has properties associated with that. In this case, <code>aria-checked</code>. This allows
+the <code class="highlighter-rouge">div</code> has a role of checkbox, it acts as through it was a checkbox, but it
+has properties associated with that. In this case, <code class="highlighter-rouge">aria-checked</code>. This allows
 me to determine programmatically whether or not this item is in a checked state.
 So if the box should show a check mark or not. It also enables the screen reader
 then to read that out to me, so that when I hover, when I focus on this element
@@ -736,47 +733,47 @@ information about how the page is put together, and what state it current finds
 itself in, is incredibly useful.</p>
 
 <p>The last thing I note here is ARIA live region. A live region of the page. If
-you&rsquo;ve ever used Twitter, and probably most of you have, you know that when
-you&rsquo;re typing in your status message, there&rsquo;s a, there&rsquo;s a number next to it
-that counts down from 140. As you&rsquo;re typing, it tells you, you have, you know,
-20 characters left. It&rsquo;s really quite useful to mark this region as updating, as
-something that screen reader should pay attention to, even if I&rsquo;m not directly
-focused on it. This means, if I mark it as a &ldquo;live&rdquo; region, I can type a little
+you’ve ever used Twitter, and probably most of you have, you know that when
+you’re typing in your status message, there’s a, there’s a number next to it
+that counts down from 140. As you’re typing, it tells you, you have, you know,
+20 characters left. It’s really quite useful to mark this region as updating, as
+something that screen reader should pay attention to, even if I’m not directly
+focused on it. This means, if I mark it as a “live” region, I can type a little
 but, and then, in a lull, the screen reader can tell me that this thing on the
 page updated itself. So I type a little bit, I wait, the screen reader tells me
 I have 20 characters left.</p>
 
-<p><code>aria-live</code> is the attribute that allows the screen reader to understand that
-this piece of the page is going to update itself, and that it&rsquo;s important to pay
+<p><code class="highlighter-rouge">aria-live</code> is the attribute that allows the screen reader to understand that
+this piece of the page is going to update itself, and that it’s important to pay
 attention to.</p>
 
 <p>So, if we jump back to the add to circles widget, we could implement it
-something like this, where we have the <code>div</code> for the button, we tell the browser
-that it&rsquo;s a button, we tell the browser to make sure it&rsquo;s focusable by giving it
-a <code>tabindex</code> of 0, and we have some text inside of it such that, when I focus on
+something like this, where we have the <code class="highlighter-rouge">div</code> for the button, we tell the browser
+that it’s a button, we tell the browser to make sure it’s focusable by giving it
+a <code class="highlighter-rouge">tabindex</code> of 0, and we have some text inside of it such that, when I focus on
 it, the screen reader tells me something interesting.</p>
 
 <p>We can set up this thing here as a dialog, and the ARIA, the screen reader will
 tell me that this is a dialog that I need to interact with before I move
 further. We can make sure that these checkboxes are interactable by giving them
-<code>role</code> of checkbox, I didn&rsquo;t put a <code>tabindex</code> of 0 here. I should have. I need
-to. And I need to make sure that there&rsquo;s an <code>aria-checked</code> attribute in order to
+<code class="highlighter-rouge">role</code> of checkbox, I didn’t put a <code class="highlighter-rouge">tabindex</code> of 0 here. I should have. I need
+to. And I need to make sure that there’s an <code class="highlighter-rouge">aria-checked</code> attribute in order to
 tell me whether or not this is checked.</p>
 
 <p>So, at this point, I would just say that there are two tools that I think are
 really quite useful when testing your own applications for accessibility.</p>
 
-<p>The first is <a href="http://goo.gl/pqKpN">ChromeVox</a>. It&rsquo;s a completely free screen reader that&rsquo;s
+<p>The first is <a href="http://goo.gl/pqKpN">ChromeVox</a>. It’s a completely free screen reader that’s
 relatively easy to use for people who have never used a screen reader before.
-There&rsquo;s good documentation, it&rsquo;s an extension for Chrome, you can go to the
+There’s good documentation, it’s an extension for Chrome, you can go to the
 Chrome Web Store, download it, install it into Chrome on any platform, and it
 will read text to you.</p>
 
 <p>This gives you kind of a quick and dirty mechanism for testing the accessibility
-of your page. It&rsquo;s not going to be exactly like a blind user using your page,
+of your page. It’s not going to be exactly like a blind user using your page,
 because they use screen readers simply differently than I do, for instance. But
-it&rsquo;s a good sanity check. You can look at your page, make sure that things more
-or less work the way that you would expect them to when you&rsquo;re tabbing through.
+it’s a good sanity check. You can look at your page, make sure that things more
+or less work the way that you would expect them to when you’re tabbing through.
 That things are in the right order, that things are focusable.</p>
 
 <p>That is really useful information.</p>
@@ -784,182 +781,182 @@ That things are in the right order, that things are focusable.</p>
 <p><a href="https://chrome.google.com/webstore/detail/hlklboladblmgfpkenhlgbhoojdlfoao">ChromeShades</a> is an accessibility tool that basically turns off all CSS on your
 page, and makes it, makes it very obvious when you have a DOM that makes no
 sense. So if you look at your page, you read through it, and you have no idea
-what&rsquo;s going on, then you know that the styles that you&rsquo;ve made, that you&rsquo;ve
+what’s going on, then you know that the styles that you’ve made, that you’ve
 applied to your page, are more than presentation, they are in fact semantic. And
 you need to fix that. You need to make sure that the DOM that you present to a
 user is usable and semantic.</p>
 
-<p>Another screen reader that is quite useful is <a href="http://www.nvda-project.org/">NVDA</a>. NVDA is, I think it&rsquo;s
-Windows only, for Firefox. It&rsquo;s a really great screen reader. It&rsquo;s free, so if
-you just pop open a VM and start using it, it&rsquo;s really quite good. VoiceOver on
+<p>Another screen reader that is quite useful is <a href="http://www.nvda-project.org/">NVDA</a>. NVDA is, I think it’s
+Windows only, for Firefox. It’s a really great screen reader. It’s free, so if
+you just pop open a VM and start using it, it’s really quite good. VoiceOver on
 Mac is also quite good, but not quite as good, I think, as NVDA.</p>
 
 <p>There are a couple of libraries with accessibility support within their UI
 components. jQueryUI is doing quite a good job. GWT is getting there, Dojo has
 done an excellent job.</p>
 
-<p>At this point, I think I&rsquo;m running out of time, so I would ask if any of you
+<p>At this point, I think I’m running out of time, so I would ask if any of you
 have any questions.</p>
 
-<p>I&rsquo;ll pop up some final thoughts that you can read while you&rsquo;re asking.</p>
+<p>I’ll pop up some final thoughts that you can read while you’re asking.</p>
 
 <p>Yeah?</p>
 
 <h2 id="qa">Q&amp;A</h2>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> The question is whether ARIA is part of HTML5 or is a separate
-namespace. To be perfectly honest, I don&rsquo;t know. I know that there was a lot of
-argument about it. And honestly, I don&rsquo;t care, because it&rsquo;s supported in
-browsers, so whether it&rsquo;s part of HTML5 or a separate standard is kinda
+<p><strong>MIKE WEST »</strong> The question is whether ARIA is part of HTML5 or is a separate
+namespace. To be perfectly honest, I don’t know. I know that there was a lot of
+argument about it. And honestly, I don’t care, because it’s supported in
+browsers, so whether it’s part of HTML5 or a separate standard is kinda
 irrelevant. Browsers generally support it, screen readers generally support it,
 and it is the only mechanism by which you can add this sort of semantic layer to
 the page. So, I would suggest that you use it, regardless of what a standards
 body tells you.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> The role element, whether&hellip; I think the role element is in fact
-part of HTML5, that it validates if you go to <a href="http://validator.nu/">validator.nu</a>. Um, whether it&rsquo;s
-part of the spec or not, I don&rsquo;t know.</p>
+<p><strong>MIKE WEST »</strong> The role element, whether… I think the role element is in fact
+part of HTML5, that it validates if you go to <a href="http://validator.nu/">validator.nu</a>. Um, whether it’s
+part of the spec or not, I don’t know.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> What&rsquo;s the state of ARIA support?</p>
+<p><strong>AUDIENCE »</strong> What’s the state of ARIA support?</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> The question was what the state of ARIA support is. Modern browsers
+<p><strong>MIKE WEST »</strong> The question was what the state of ARIA support is. Modern browsers
 generally support ARIA, and generally make the information available to
 accessibility, uh, tools. So, I know Chrome, excuse me, Chrome is working on it.
 Chrome has relatively decent accessibility support now. If you look at the dev
-version of Chrome, it&rsquo;s relatively good. It exposes the sort of semantic
-information, like a role of button. That wasn&rsquo;t the case as of, like, Chrome 12
-and 13. We made a lot of effort in 14 and 15, and we&rsquo;ve made even more effort
+version of Chrome, it’s relatively good. It exposes the sort of semantic
+information, like a role of button. That wasn’t the case as of, like, Chrome 12
+and 13. We made a lot of effort in 14 and 15, and we’ve made even more effort
 since then. So Chrome is getting there.</p>
 
-<p>The support in Firefox has been better over time, they&rsquo;re generally doing quite
+<p>The support in Firefox has been better over time, they’re generally doing quite
 a good job of leading in terms of accessibility support within the browser, and
 the combination of Firefox and NVDA is quite excellent.</p>
 
-<p>So, we&rsquo;re getting there with Chrome. ChromeVox, I think, is a really good step
-in that direction. As I said, it&rsquo;s embedded into ChromeOS, so we&rsquo;re making sure
+<p>So, we’re getting there with Chrome. ChromeVox, I think, is a really good step
+in that direction. As I said, it’s embedded into ChromeOS, so we’re making sure
 that when we roll out new, new iterations of Chrome, that we add accessibility
 support.</p>
 
 <p>IE also has generally quite good accessibility support, or at least, it exposes
 all of the right things to the operating system layer. That said, IE6 and IE7
-don&rsquo;t understand ARIA at all. IE8 has a little bit of understanding, IE9 is
+don’t understand ARIA at all. IE8 has a little bit of understanding, IE9 is
 really starting to get there.</p>
 
 <p>So, I would say modern browsers have pretty good support for ARIA, and the
 support will only get better as time goes on.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> Is there any, um, is there any connection between accessibility
+<p><strong>AUDIENCE »</strong> Is there any, um, is there any connection between accessibility
 <em>[UNINTELLIGIBLE]</em>.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> So the question was, something along the lines of whether things
+<p><strong>MIKE WEST »</strong> So the question was, something along the lines of whether things
 like alt tags not being there can be validated by tools, or whether that could
-be part of HTML validation. Is that a correct&hellip;</p>
+be part of HTML validation. Is that a correct…</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> W3C. You want to have HTML5, HTML4, validate <em>[UNINTELLIGIBLE]</em>.</p>
+<p><strong>AUDIENCE »</strong> W3C. You want to have HTML5, HTML4, validate <em>[UNINTELLIGIBLE]</em>.</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> The question, ok, the question is whether <code>alt</code> can be associated
-in some way with valid HTML5 and valid HTML4. If you don&rsquo;t have an <code>alt</code> tag
+<p><strong>MIKE WEST »</strong> The question, ok, the question is whether <code class="highlighter-rouge">alt</code> can be associated
+in some way with valid HTML5 and valid HTML4. If you don’t have an <code class="highlighter-rouge">alt</code> tag
 then it would simply be invalid.</p>
 
-<p>I think that&rsquo;s unlikely to happen for a variety of reasons. What I would suggest
+<p>I think that’s unlikely to happen for a variety of reasons. What I would suggest
 is.</p>
 
-<p>I&rsquo;ll. You can tell me about it in a moment.</p>
+<p>I’ll. You can tell me about it in a moment.</p>
 
 <p>What I would suggest, before we get there, is that there are tools that will
 help you determine whether your page is accessible. None are really exceptional,
-it really requires some human interaction. But I wouldn&rsquo;t necessarily rely on a
-validation tool to tell me whether my site is accessible. That&rsquo;s kind of two
+it really requires some human interaction. But I wouldn’t necessarily rely on a
+validation tool to tell me whether my site is accessible. That’s kind of two
 separate questions entirely.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> There are, there are, well, accessible pages will validate. I mean,
-that&rsquo;s the case. If you use ARIA, and you use the new, validator.nu, it
+<p><strong>MIKE WEST »</strong> There are, there are, well, accessible pages will validate. I mean,
+that’s the case. If you use ARIA, and you use the new, validator.nu, it
 understands all the ARIA syntax, and will validate your page for you. It will
-also give you warnings for things like <code>alt</code> tags not existing.</p>
+also give you warnings for things like <code class="highlighter-rouge">alt</code> tags not existing.</p>
 
 <p>What I would suggest is that you look at things like <a href="http://www.w3.org/TR/WCAG/">WCAG</a>. There are documents
-that declare what it means to be accessible. I don&rsquo;t find them necessarily
+that declare what it means to be accessible. I don’t find them necessarily
 convincing, but they work really well for people like government who have to
-have a checklist of things that they go through to say &ldquo;this page is
-accessible.&rdquo;</p>
+have a checklist of things that they go through to say “this page is
+accessible.”</p>
 
 <p>I really think it requires human interaction and human testing, but there are
 tools out there that purport to tell you whether your page is accessible.</p>
 
 <p>Real quick, over here.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> I&rsquo;m told that images will not validate without <code>alt</code> tags. So, yay
+<p><strong>MIKE WEST »</strong> I’m told that images will not validate without <code class="highlighter-rouge">alt</code> tags. So, yay
 world.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> What about access keys? They seem to be gone?</p>
+<p><strong>AUDIENCE »</strong> What about access keys? They seem to be gone?</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> About access keys? I don&rsquo;t actually know if access keys are
+<p><strong>MIKE WEST »</strong> About access keys? I don’t actually know if access keys are
 supported in any browsers. Generally speaking, the support, as I understand it,
-wasn&rsquo;t very good, and everybody implemented it themselves anyway. My
+wasn’t very good, and everybody implemented it themselves anyway. My
 understanding is that the best thing for you to do is to build the keyboard
 support into your application that actually makes sense for your application.</p>
 
-<p>GMail doesn&rsquo;t use access keys. GMail does everything via JavaScript.</p>
+<p>GMail doesn’t use access keys. GMail does everything via JavaScript.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> Yeah. The comment is that nobody uses access keys anymore. I don&rsquo;t
+<p><strong>MIKE WEST »</strong> Yeah. The comment is that nobody uses access keys anymore. I don’t
 think anyone ever used access keys, or at least they they were never well
 supported.</p>
 
-<p>Ok, well. You did. So that&rsquo;s good.</p>
+<p>Ok, well. You did. So that’s good.</p>
 
 <p>I would suggest that you use JavaScript in order to script your page.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> I wouldn&rsquo;t say that it&rsquo;s more accessible to have access keys. To be
-perfectly honest, I don&rsquo;t know what the support is for access keys, for that
+<p><strong>MIKE WEST »</strong> I wouldn’t say that it’s more accessible to have access keys. To be
+perfectly honest, I don’t know what the support is for access keys, for that
 attribute.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> I&rsquo;m a strong advocate for accessibility, but my product manager not
+<p><strong>AUDIENCE »</strong> I’m a strong advocate for accessibility, but my product manager not
 so much. How can I push it to my product manager?</p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> So, the questions is how can a strong advocate for accessibility
+<p><strong>MIKE WEST »</strong> So, the questions is how can a strong advocate for accessibility
 convince business people that accessibility is important.</p>
 
 <p>This is a problem that everyone faces. Google faces it. You see some of the apps
-that we have aren&rsquo;t as accessible as they should be. We&rsquo;re really working to
-make them more accessible, but it hasn&rsquo;t always been a priority.</p>
+that we have aren’t as accessible as they should be. We’re really working to
+make them more accessible, but it hasn’t always been a priority.</p>
 
 <p>I think the single most important thing you can do is to look at your current
-user base. Generally speaking, the number of people who can&rsquo;t access a webpage
-is relatively low. There aren&rsquo;t an amazing number of disabled people in the
+user base. Generally speaking, the number of people who can’t access a webpage
+is relatively low. There aren’t an amazing number of disabled people in the
 world. It is a large number, not probably not large enough in and of itself to
 convince a business person that this is a really important group.</p>
 
-<p>What&rsquo;s more important are the PR benefits, or, not even benefits, but PR harm of
+<p>What’s more important are the PR benefits, or, not even benefits, but PR harm of
 people saying that they simply cannot use your website.</p>
 
-<p>It&rsquo;s good to look at past legal cases. If we were in the USA, I&rsquo;d say look at
+<p>It’s good to look at past legal cases. If we were in the USA, I’d say look at
 <a href="http://en.wikipedia.org/wiki/National_Federation_of_the_Blind_v._Target_Corporation">the Target case</a>, which was problematic for a variety of reasons. If
-you&rsquo;re in Israel, I&rsquo;m told that there is a law coming up that will enforce
+you’re in Israel, I’m told that there is a law coming up that will enforce
 accessibility in some way for sites that are used for certain groups of people.
-I know nothing about it, and I am not a lawyer, so everything I&rsquo;m saying is
+I know nothing about it, and I am not a lawyer, so everything I’m saying is
 probably wrong.</p>
 
 <p>I would suggest that you look at the laws in your country. Laws are usually a
-good way of convincing people that don&rsquo;t otherwise want to be convinced.</p>
+good way of convincing people that don’t otherwise want to be convinced.</p>
 
-<p>I think it&rsquo;s probably the worst argument, but it is an effective argument for
+<p>I think it’s probably the worst argument, but it is an effective argument for
 that type of person.</p>
 
-<p><strong>AUDIENCE&nbsp;&raquo;</strong> <em>[UNINTELLIGIBLE]</em></p>
+<p><strong>AUDIENCE »</strong> <em>[UNINTELLIGIBLE]</em></p>
 
-<p><strong>MIKE WEST&nbsp;&raquo;</strong> That&rsquo;s a bad thing.</p>
+<p><strong>MIKE WEST »</strong> That’s a bad thing.</p>
 
 <p>Anything else?</p>
 
@@ -1024,7 +1021,7 @@ that type of person.</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

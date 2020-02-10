@@ -333,6 +333,8 @@ section .published {
   position: absolute;
   right: 0;
   top: 8px;
+  width: auto;
+  margin: 0;
 }
 
 /******************************************************************************

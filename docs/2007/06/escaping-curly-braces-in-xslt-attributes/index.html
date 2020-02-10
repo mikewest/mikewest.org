@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,24 +58,24 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Escaping Curly Braces in XSLT Attributes</h1>
-  <time class="published" pubdate datetime="Fri Jun 15 00:00:00 +0200 2007">
+  <time class="published" pubdate datetime="2007-06-15">
     Friday, June 15, 2007
   </time>
 
   <p>For future reference:</p>
 
-<p>Curly braces in the attributes of XSLT document&rsquo;s elements are interpreted as XPATH expressions to be evaluated.  This, generally, is fine: I like shortcuts.  I don&rsquo;t, however, like them when they interfere with my ability to embed JavaScript hacks into a document.</p>
+<p>Curly braces in the attributes of XSLT document’s elements are interpreted as XPATH expressions to be evaluated.  This, generally, is fine: I like shortcuts.  I don’t, however, like them when they interfere with my ability to embed JavaScript hacks into a document.</p>
 
-<p>You may be thinking to yourself: &ldquo;Mike, you shouldn&rsquo;t embed JavaScript into an element&rsquo;s attributes!  That&rsquo;s simply idiotic!&rdquo;  You&rsquo;d be right, of course.  But assume for the moment that I had a good reason for doing it (in this particular case, the link simply doesn&rsquo;t work at all without JavaScript.  which is also bad.  but something I can&rsquo;t do anything about right now.  don&rsquo;t do this at home, kids.).  In that obscure case, I&rsquo;d need to remember to set the attribute via the magical <code>&lt;xsl:attribute&gt;</code> element.  </p>
+<p>You may be thinking to yourself: “Mike, you shouldn’t embed JavaScript into an element’s attributes!  That’s simply idiotic!”  You’d be right, of course.  But assume for the moment that I had a good reason for doing it (in this particular case, the link simply doesn’t work at all without JavaScript.  which is also bad.  but something I can’t do anything about right now.  don’t do this at home, kids.).  In that obscure case, I’d need to remember to set the attribute via the magical <code class="highlighter-rouge">&lt;xsl:attribute&gt;</code> element.</p>
 
-<pre><code>&lt;a&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a&gt;
     &lt;xsl:attribute name="href"&gt;
         http://curlyquotes.com/i/can/use/{/and/}/yay!/
     &lt;/xsl:attribute&gt;
 &lt;/a&gt;
-</code></pre>
+</code></pre></div></div>
 
-<p>Now you know.  And now I&rsquo;ll be able to look this up in a few weeks when I have no idea what my code&rsquo;s doing.  :)</p>
+<p>Now you know.  And now I’ll be able to look this up in a few weeks when I have no idea what my code’s doing.  :)</p>
 
 <p>Also: I hate XSLT.</p>
 
@@ -105,7 +102,7 @@
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,28 +58,28 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">DNS Made Easy is actually pretty easy</h1>
-  <time class="published" pubdate datetime="Sat Dec 15 00:00:00 +0100 2007">
+  <time class="published" pubdate datetime="2007-12-15">
     Saturday, December 15, 2007
   </time>
 
-  <p>In a spontaneous burst of productivity, spawned mostly by my complete and utter failure as a sysadmin, I moved my parent&rsquo;s email account off my server, and onto Google&rsquo;s <a href="http://www.google.com/a/org/" title="Google Apps">Apps for your Domain</a> platform.</p>
+  <p>In a spontaneous burst of productivity, spawned mostly by my complete and utter failure as a sysadmin, I moved my parent’s email account off my server, and onto Google’s <a href="http://www.google.com/a/org/" title="Google Apps">Apps for your Domain</a> platform.</p>
 
-<p>This finally gave me an excuse to move my DNS hosting to <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  The move turned out to be easier than I thought, and stunningly fast.  The dark times of multi-day propagation waiting-periods are (apparently) over: the whole process from account signup to complete and totally successful migration was about an hour.  I&rsquo;m thrilled.  This is the best hosting-related $15 I&rsquo;ve spent all year.</p>
+<p>This finally gave me an excuse to move my DNS hosting to <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  The move turned out to be easier than I thought, and stunningly fast.  The dark times of multi-day propagation waiting-periods are (apparently) over: the whole process from account signup to complete and totally successful migration was about an hour.  I’m thrilled.  This is the best hosting-related $15 I’ve spent all year.</p>
 
-<p>I&rsquo;ve moved my parent&rsquo;s domain over, as well as <code>mikewest.org</code>.  While moving the latter, I had a little fun setting up &ldquo;<a href="https://www.dnsmadeeasy.com/s0306/tuts/vanitydns.html" title="DNS Made Easy: Setting up your own Vanity DNS">Vanity DNS</a>.&rdquo;  I have <em>no</em> need for this feature whatsoever, and it&rsquo;ll probably cause me some pain in the future whenever the nameserver IP addresses change for whatever reason, but it satisfies my inner geek to see <code>ns0.mikewest.org</code> as the canonical name server for my domain:</p>
+<p>I’ve moved my parent’s domain over, as well as <code class="highlighter-rouge">mikewest.org</code>.  While moving the latter, I had a little fun setting up “<a href="https://www.dnsmadeeasy.com/s0306/tuts/vanitydns.html" title="DNS Made Easy: Setting up your own Vanity DNS">Vanity DNS</a>.”  I have <em>no</em> need for this feature whatsoever, and it’ll probably cause me some pain in the future whenever the nameserver IP addresses change for whatever reason, but it satisfies my inner geek to see <code class="highlighter-rouge">ns0.mikewest.org</code> as the canonical name server for my domain:</p>
 
 <p><img src="http://mikewest.org/images/5.png" /></p>
 
-<p>So, two thumbs up for <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  They&rsquo;re absolutely living up to their name&rsquo;s promise.</p>
+<p>So, two thumbs up for <a href="https://www.dnsmadeeasy.com/" title="DNS Made Easy">DNS Made Easy</a>.  They’re absolutely living up to their name’s promise.</p>
 
 <h2 id="potentially-useful-technical-note">Potentially Useful Technical Note</h2>
 
-<p>Relatedly, the <code>lookupd</code> command is gone in Leopard.  If you want to clear your DNS cache under 10.5, you need to use <code>dscacheutil</code>.  I&rsquo;ve added a quick alias to my <code>~/.bash_login</code> file, because I&rsquo;m sure I&rsquo;m going to forget this in about 10 minutes.</p>
+<p>Relatedly, the <code class="highlighter-rouge">lookupd</code> command is gone in Leopard.  If you want to clear your DNS cache under 10.5, you need to use <code class="highlighter-rouge">dscacheutil</code>.  I’ve added a quick alias to my <code class="highlighter-rouge">~/.bash_login</code> file, because I’m sure I’m going to forget this in about 10 minutes.</p>
 
-<pre><code>alias flushcache='sudo dscacheutil -flushcache';
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias flushcache='sudo dscacheutil -flushcache';
+</code></pre></div></div>
 
-<p>I&rsquo;d suggest you do the same, if you plan on mucking about with DNS settings, or editing your hosts file.</p>
+<p>I’d suggest you do the same, if you plan on mucking about with DNS settings, or editing your hosts file.</p>
 
 
 
@@ -112,7 +109,7 @@
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

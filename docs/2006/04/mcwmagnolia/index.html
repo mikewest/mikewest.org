@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,65 +58,67 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">mcw_ma_gnolia</h1>
-  <time class="published" pubdate datetime="Wed Apr 26 00:00:00 +0200 2006">
+  <time class="published" pubdate datetime="2006-04-26">
     Wednesday, April 26, 2006
   </time>
 
-  <p><code>mcw_ma_gnolia</code> is a TextPattern plugin that generates a customizable Ma.gnolia link roll for use on your website.  <a href="http://mikewest.org/file_download/8" title="`mcw_ma_gnolia` download">Download it now</a>, and start playing! </p>
+  <p><code class="highlighter-rouge">mcw_ma_gnolia</code> is a TextPattern plugin that generates a customizable Ma.gnolia link roll for use on your website.  <a href="http://mikewest.org/file_download/8" title="`mcw_ma_gnolia` download">Download it now</a>, and start playing!</p>
 
-<p><strong>Updated 17. June, 2006:</strong> <a href="http://mikewest.org/file_download/8" title="`mcw_ma_gnolia` download">Version <em>0.4</em></a> is out, tweaking the plugin to work with Ma.gnolia&rsquo;s new linkroll JavaScript.  This, of course, is a good reason to start working on something that actually uses the Ma.gnolia API instead of parsing through a linkroll JavaScript file.  I&rsquo;ll be starting on that soon.</p>
+<p><strong>Updated 17. June, 2006:</strong> <a href="http://mikewest.org/file_download/8" title="`mcw_ma_gnolia` download">Version <em>0.4</em></a> is out, tweaking the plugin to work with Ma.gnolia’s new linkroll JavaScript.  This, of course, is a good reason to start working on something that actually uses the Ma.gnolia API instead of parsing through a linkroll JavaScript file.  I’ll be starting on that soon.</p>
 
 <p><strong>Updated 26. April, 2006:</strong> Version <em>0.3</em> is out, adding the ability to filter the links in your linkroll by a specific tag, and changing the link retrieval mechanism so that it functions correctly on more servers.</p>
 
-<p><strong>Updated 25. April, 2006:</strong> Version <em>0.2</em> is out, and corrects a small bug with the <code>mcw_ma_gnolia_uri</code> tag.</p>
+<p><strong>Updated 25. April, 2006:</strong> Version <em>0.2</em> is out, and corrects a small bug with the <code class="highlighter-rouge">mcw_ma_gnolia_uri</code> tag.</p>
 
 <h2 id="what-is-it">What is it?</h2>
 
-<p><a href="http://ma.gnolia.com" title="ma.gnolia.com: a social bookmarking site">Ma.gnolia</a> is a social bookmarking site (somewhat like <a href="http://del.icio.us" title="del.icio.us: a social bookmarking site">del.icio.us</a>) that I use to keep track of interesting websites I come across.  It provides the built in ability to display your most recent bookmarks on your personal website (a &lsquo;link roll&rsquo;), but I don&rsquo;t like the mechanism it uses to make that happen.</p>
+<p><a href="http://ma.gnolia.com" title="ma.gnolia.com: a social bookmarking site">Ma.gnolia</a> is a social bookmarking site (somewhat like <a href="http://del.icio.us" title="del.icio.us: a social bookmarking site">del.icio.us</a>) that I use to keep track of interesting websites I come across.  It provides the built in ability to display your most recent bookmarks on your personal website (a ‘link roll’), but I don’t like the mechanism it uses to make that happen.</p>
 
-<p><a href="http://ma.gnolia.com" title="ma.gnolia.com: a social bookmarking site">Ma.gnolia</a> provides you with a JavaScript file that uses <code>document.write</code> to dump the link roll to your site.  This works, but it&rsquo;s not exactly accessible, nor is it very flexible.  <code>mcw_ma_gnolia</code> leverages this built-in mechanism to provide what I hope is an extremely flexible and accessible link roll without the use of client-side JavaScript.</p>
+<p><a href="http://ma.gnolia.com" title="ma.gnolia.com: a social bookmarking site">Ma.gnolia</a> provides you with a JavaScript file that uses <code class="highlighter-rouge">document.write</code> to dump the link roll to your site.  This works, but it’s not exactly accessible, nor is it very flexible.  <code class="highlighter-rouge">mcw_ma_gnolia</code> leverages this built-in mechanism to provide what I hope is an extremely flexible and accessible link roll without the use of client-side JavaScript.</p>
 
-<p>In a nutshell, the plugin downloads and caches the JavaScript file server-side on a quasi-hourly basis, extracts the link information, and makes the data available for you via a series of TextPattern tags that you can use in your <code>forms</code> and <code>pages</code>.</p>
+<p>In a nutshell, the plugin downloads and caches the JavaScript file server-side on a quasi-hourly basis, extracts the link information, and makes the data available for you via a series of TextPattern tags that you can use in your <code class="highlighter-rouge">forms</code> and <code class="highlighter-rouge">pages</code>.</p>
 
-<h2 id="how-do-i-use-mcwmagnolia-eg-quickstart">How Do I Use <code>mcw_ma_gnolia</code>? (e.g. quickstart)</h2>
+<h2 id="how-do-i-use-mcw_ma_gnolia-eg-quickstart">How Do I Use <code class="highlighter-rouge">mcw_ma_gnolia</code>? (e.g. quickstart)</h2>
 
-<p>Start by <a href="http://mikewest.org/file_download/8" title="`mcw_ma_gnolia` download">downloading the plugin</a> and installing it like you would any other.  Once you&rsquo;ve gotten the plugin installed, <code>edit</code> it, and enter your ma.gnolia username and the number of links you&rsquo;d like displayed into the public config section of the PHP code (should be lines 6 and 7 or so).  If you don&rsquo;t do this, you&rsquo;ll be seeing my links.  That&rsquo;s a fine way to test, but you&rsquo;ll probably want to make this change before you go live.</p>
+<p>Start by <a href="http://mikewest.org/file_download/8" title="`mcw_ma_gnolia` download">downloading the plugin</a> and installing it like you would any other.  Once you’ve gotten the plugin installed, <code class="highlighter-rouge">edit</code> it, and enter your ma.gnolia username and the number of links you’d like displayed into the public config section of the PHP code (should be lines 6 and 7 or so).  If you don’t do this, you’ll be seeing my links.  That’s a fine way to test, but you’ll probably want to make this change before you go live.</p>
 
-<p>Next, click on the <code>extensions</code> tab, and then on the <code>Ma.gnolia Linkroll</code> subtab.  Hitting this page will automatically create a <code>form</code> called <code>mcw_ma_gnolia</code>, and offer you the opportunity to force-update your cached ma.gnolia links.  Go ahead and hit that button now to speed things up later.</p>
+<p>Next, click on the <code class="highlighter-rouge">extensions</code> tab, and then on the <code class="highlighter-rouge">Ma.gnolia Linkroll</code> subtab.  Hitting this page will automatically create a <code class="highlighter-rouge">form</code> called <code class="highlighter-rouge">mcw_ma_gnolia</code>, and offer you the opportunity to force-update your cached ma.gnolia links.  Go ahead and hit that button now to speed things up later.</p>
 
-<p>Finally, edit a <code>page</code> to include the <code>&lt;txp:mcw_ma_gnolia /&gt;</code> tag.  Viola, ma.gnolia links on your page.  Astounding!</p>
+<p>Finally, edit a <code class="highlighter-rouge">page</code> to include the <code class="highlighter-rouge">&lt;txp:mcw_ma_gnolia /&gt;</code> tag.  Viola, ma.gnolia links on your page.  Astounding!</p>
 
 <h2 id="how-do-i-configure-the-output">How do I configure the output?</h2>
 
-<p>Excellent question.  Here&rsquo;s brief documentation of each of the tags this plugin enables:</p>
+<p>Excellent question.  Here’s brief documentation of each of the tags this plugin enables:</p>
 
 <ul>
   <li>
-    <p><code>txp:mcw_ma_gnolia</code> &ndash; The <code>mcw_ma_gnolia</code> tag is a <em>single tag</em> that gets
-replaced with the Link Roll.  It can be included on a <code>page</code> directly, or
-as part of a <code>form</code> that&rsquo;s displayed on a page.</p>
+    <p><code class="highlighter-rouge">txp:mcw_ma_gnolia</code> – The <code class="highlighter-rouge">mcw_ma_gnolia</code> tag is a <em>single tag</em> that gets
+replaced with the Link Roll.  It can be included on a <code class="highlighter-rouge">page</code> directly, or
+as part of a <code class="highlighter-rouge">form</code> that’s displayed on a page.</p>
 
-    <p>Attributes:  <br />
-*   <code>form</code> &ndash; this specifies the <code>form</code> to be used for each of the
-    displayed links.  Defaults to <code>mcw_ma_gnolia</code>.
-*   <code>wrap_tag</code> &ndash; specifies the block-level tag to wrap the links.
-    Defaults to <code>ul</code>.
-*   <code>class</code> &ndash; applies a CSS class to the block-level tag specified
-     in the <code>wrap_tag</code> attribute.</p>
+    <p>Attributes:</p>
+    <ul>
+      <li><code class="highlighter-rouge">form</code> – this specifies the <code class="highlighter-rouge">form</code> to be used for each of the
+displayed links.  Defaults to <code class="highlighter-rouge">mcw_ma_gnolia</code>.</li>
+      <li><code class="highlighter-rouge">wrap_tag</code> – specifies the block-level tag to wrap the links.
+Defaults to <code class="highlighter-rouge">ul</code>.</li>
+      <li><code class="highlighter-rouge">class</code> – applies a CSS class to the block-level tag specified
+ in the <code class="highlighter-rouge">wrap_tag</code> attribute.</li>
+    </ul>
   </li>
-  <li><code>txp:mcw_ma_gnolia_uri</code> &ndash; The <code>mcw_ma_gnolia_uri</code> tag is a <em>single tag</em>
-that gets replaced with a link&rsquo;s URI (the actual address of the link).</li>
-  <li><code>txp:mcw_ma_gnolia_link</code> &ndash; The <code>mcw_ma_gnolia_link</code> tag is a <em>single tag</em>
-that gets replaced with a link&rsquo;s ma.gnolia redirect (e.g. <code>http://ma.gnolia.com/bookmarks/bupuxeseq/dispatch</code>)</li>
-  <li><code>txp:mcw_ma_gnolia_title</code> &ndash; The <code>mcw_ma_gnolia_title</code> tag is a <em>single
-tag</em> that gets replaced with a link&rsquo;s title.</li>
-  <li><code>txp:mcw_ma_gnolia_desc</code> &ndash; The <code>mcw_ma_gnolia_desc</code> tag is a <em>single tag</em>
-that gets replaced with a link&rsquo;s description.</li>
+  <li><code class="highlighter-rouge">txp:mcw_ma_gnolia_uri</code> – The <code class="highlighter-rouge">mcw_ma_gnolia_uri</code> tag is a <em>single tag</em>
+that gets replaced with a link’s URI (the actual address of the link).</li>
+  <li><code class="highlighter-rouge">txp:mcw_ma_gnolia_link</code> – The <code class="highlighter-rouge">mcw_ma_gnolia_link</code> tag is a <em>single tag</em>
+that gets replaced with a link’s ma.gnolia redirect (e.g. <code class="highlighter-rouge">http://ma.gnolia.com/bookmarks/bupuxeseq/dispatch</code>)</li>
+  <li><code class="highlighter-rouge">txp:mcw_ma_gnolia_title</code> – The <code class="highlighter-rouge">mcw_ma_gnolia_title</code> tag is a <em>single
+tag</em> that gets replaced with a link’s title.</li>
+  <li><code class="highlighter-rouge">txp:mcw_ma_gnolia_desc</code> – The <code class="highlighter-rouge">mcw_ma_gnolia_desc</code> tag is a <em>single tag</em>
+that gets replaced with a link’s description.</li>
 </ul>
 
 <p>Example page:</p>
 
-<pre><code>Page: default
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Page: default
 
 ...
     &lt;div id='ma_gnolia_linkroll'&gt;
@@ -131,11 +130,11 @@ that gets replaced with a link&rsquo;s description.</li>
         /&gt;
     &lt;/div&gt;
 ...
-</code></pre>
+</code></pre></div></div>
 
 <p>Example form:</p>
 
-<pre><code>Form: mcw_ma_gnolia
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Form: mcw_ma_gnolia
 
 &lt;li&gt;
     &lt;a 
@@ -143,11 +142,11 @@ that gets replaced with a link&rsquo;s description.</li>
         title='&lt;txp:mcw_ma_gnolia_title /&gt;'
     &gt;&lt;txp:mcw_ma_gnolia_title /&gt;&lt;/a&gt; - &lt;txp:mcw_ma_gnolia_desc /&gt;
 &lt;/li&gt;
-</code></pre>
+</code></pre></div></div>
 
 <p>Would produce:</p>
 
-<pre><code>&lt;div id='ma_gnolia_linkroll'&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div id='ma_gnolia_linkroll'&gt;
     &lt;h2&gt;My Recent Bookmarks&lt;/h2&gt;
     &lt;ol class='ma_gnolia_list'&gt;
         &lt;li&gt;
@@ -165,7 +164,7 @@ that gets replaced with a link&rsquo;s description.</li>
         &lt;/li&gt;
     &lt;/ol&gt;
 &lt;/div&gt;
-</code></pre>
+</code></pre></div></div>
 
 <p>Nice, eh?</p>
 
@@ -189,7 +188,7 @@ that gets replaced with a link&rsquo;s description.</li>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

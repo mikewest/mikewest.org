@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,7 +58,7 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Event Handlers and Other Distractions</h1>
-  <time class="published" pubdate datetime="Mon Mar 14 00:00:00 +0100 2005">
+  <time class="published" pubdate datetime="2005-03-14">
     Monday, March 14, 2005
   </time>
 
@@ -71,9 +68,9 @@
 
 <p>An excellent example is the recent(ish) <a href="http://alistapart.com/articles/zebratables/">Zebra Tables</a> article on <a href="http://alistapart.com/">ALA</a>. This technique relies on a properly marked-up table of data, and enhances the presentation without adding irrelevant cruft to the actual code of the page. It can be made even more valuable by tacking on another article’s code: <a href="http://alistapart.com/articles/tableruler/">Table Rulers</a>. Combining these two techniques into a single function that gets called when your page loads means that you can have nicely styled tables without adding any additional markup in your source document. How would we go about doing this, you ask?</p>
 
-<p>Excellent question: Let’s look first at <a href="http://alistapart.com/articles/zebratables/">Zebra Tables</a>. How does it work? In broad strokes, it simply grabs a list of tables on your page, loops through all the rows of each table, and marks each row as “odd” or “even” based on it’s position in the table. Simple stylesheet rules for those classes finish out the process. It’s a sweet little marriage of the behavioral, semantic, and presentational layers. It can, I think, be improved upon. Let’s break striping out into it’s own function. We’ll pass the function a reference to a DOM object, and stripe all <code>tbody</code> elements we find under it:</p>
+<p>Excellent question: Let’s look first at <a href="http://alistapart.com/articles/zebratables/">Zebra Tables</a>. How does it work? In broad strokes, it simply grabs a list of tables on your page, loops through all the rows of each table, and marks each row as “odd” or “even” based on it’s position in the table. Simple stylesheet rules for those classes finish out the process. It’s a sweet little marriage of the behavioral, semantic, and presentational layers. It can, I think, be improved upon. Let’s break striping out into it’s own function. We’ll pass the function a reference to a DOM object, and stripe all <code class="highlighter-rouge">tbody</code> elements we find under it:</p>
 
-<pre><code>function stripeTable(table) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function stripeTable(table) {
     var tbodies = table.getElementsByTagName("tbody");
     for (i=0, numBodies=tbodies.length; i&lt;numBodies; i++) {
         var even    = false;
@@ -84,51 +81,51 @@
         }
     }
 }
-</code></pre>
+</code></pre></div></div>
 
 <p>Simple, eh? Using standard DOM methods, we’ve written a function that dramatically improves the readability of our data tables. But as it currently stands, we’d have to call this function for each table on our page:</p>
 
-<pre><code>stripeTable(document.getElementByID("table1"));
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stripeTable(document.getElementByID("table1"));
 stripeTable(document.getElementByID("table2"));
 ...
-</code></pre>
+</code></pre></div></div>
 
 <p>That doesn’t seem to make things easier at all. How could we improve the interface? We can do a number of things, in fact. The most obvious is to write a function that grabs all the tables on the page and loops through them, striping each in turn:</p>
 
-<pre><code>function stripeAllTables() {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function stripeAllTables() {
     var tables = document.getElementsByTagName("table");
     for (i = 0, numTables=tables.length; i&lt;numTables; i++) {
         stripeTable(tables[i]);
     }
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>But how do we set this up to run once we’ve decided that we’re done loading the page? How do we make that decision in the first place? JavaScript, luckily, makes this trivial. One of JavaScript’s most powerful concepts is an “event”. You’ve almost certainly used events before by setting up an onmouseover action for a link or an onclick action for a button. </p>
+<p>But how do we set this up to run once we’ve decided that we’re done loading the page? How do we make that decision in the first place? JavaScript, luckily, makes this trivial. One of JavaScript’s most powerful concepts is an “event”. You’ve almost certainly used events before by setting up an onmouseover action for a link or an onclick action for a button.</p>
 
-<pre><code>&lt;input type="button" onclick="someFunction();" value="A button am I!" /&gt;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;input type="button" onclick="someFunction();" value="A button am I!" /&gt;
+</code></pre></div></div>
 
 <p>We can use a similar technique to call our table striping function by adding an onload handler to the body element:</p>
 
-<pre><code>&lt;body onload="stripeAllTables();"&gt;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body onload="stripeAllTables();"&gt;
+</code></pre></div></div>
 
 <p>This works pretty well, but has a huge disadvantage. Several huge disadvantages, in fact.<br />
-First, it mixes the behavioral layer with the semantic layer. There’s nothing semantic about event handlers. They’re simply hooks that provide a level of functionality to particular user interfaces. Avoid this syntax for the same reasons that you’d want to avoid presentational tags like <code>B</code>, <code>I</code>, and <code>BLINK</code>. Second, it limits you to one action per event. Let’s say that striping tables wasn’t the only thing you wanted to do once the page was loaded. It’s not at all uncommon to have five or six different things going on, all of which need to be triggered once everything on the page is already in place. How could we squeeze all of those into the body element without being reduced to absurdities like:</p>
+First, it mixes the behavioral layer with the semantic layer. There’s nothing semantic about event handlers. They’re simply hooks that provide a level of functionality to particular user interfaces. Avoid this syntax for the same reasons that you’d want to avoid presentational tags like <code class="highlighter-rouge">B</code>, <code class="highlighter-rouge">I</code>, and <code class="highlighter-rouge">BLINK</code>. Second, it limits you to one action per event. Let’s say that striping tables wasn’t the only thing you wanted to do once the page was loaded. It’s not at all uncommon to have five or six different things going on, all of which need to be triggered once everything on the page is already in place. How could we squeeze all of those into the body element without being reduced to absurdities like:</p>
 
-<pre><code>&lt;body onload="
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;body onload="
               stripeAllTables();
               addTableRulers(); 
               jumpUpAndDown(); 
               doSomethingElse();
              "&gt;
-</code></pre>
+</code></pre></div></div>
 
 <p>That’s just ugly code, and it’s not at all in keeping with the strict separation of layers that we really want to keep in place. So how can we improve things?</p>
 
 <p>Simple: use standards. The DOM provides an event handling facility that should be used instead of embedding the event handling code inside your content. The usage (of course) differs a bit across browsers, but the following code seems pretty solid in my testing:</p>
 
-<pre><code>function handleEvent(obj, event, func) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function handleEvent(obj, event, func) {
     try {
         obj.addEventListener(event, func, false);
     } catch (e) {
@@ -140,16 +137,16 @@ First, it mixes the behavioral layer with the semantic layer. There’s nothing 
         }
     }
 } 
-</code></pre>
+</code></pre></div></div>
 
-<p>You pass the function three bits of information: the object which generates the event (in our example, this would be the <code>window</code> object), the event name (without the “on” prefix), and the function that should be called when the event happens.</p>
+<p>You pass the function three bits of information: the object which generates the event (in our example, this would be the <code class="highlighter-rouge">window</code> object), the event name (without the “on” prefix), and the function that should be called when the event happens.</p>
 
-<pre><code>handleEvent(window, "load", stripeAllTables);
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>handleEvent(window, "load", stripeAllTables);
+</code></pre></div></div>
 
 <p>This enables us to handle an arbitrary event with an arbitrary number of functions, each of which getting called in turn to enable some behavior. Let’s use this new knowledge to add the Table Ruler functionality into our striping function:</p>
 
-<pre><code>function stripeTable(table) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function stripeTable(table) {
     var tbodies = table.getElementsByTagName("tbody");
     for (i=0, numBodies=tbodies.length; i&lt;numBodies; i++) {
         var even    = false;
@@ -188,18 +185,18 @@ First, it mixes the behavioral layer with the semantic layer. There’s nothing 
         }
     }
 }
-</code></pre>
+</code></pre></div></div>
 
-<p>There’s some complex stuff in there, so let’s take it slowly. The big idea is to add a handler to the <code>mouseover</code> and <code>mouseout</code> events of each table’s row. When you mouseover the row, we want to set it’s <code>className</code> to “hoverClass”. When you mouseout, we want to remove that designation. This is pretty much the same technique used by the <a href="http://www.alistapart.com/articles/dropdowns/">Suckerfish dropdown menus</a>. We accomplish this goal by adding two event handlers to each row that we’ve striped: one handles mouseovers, the other mouseouts. So, how does it work? We’ll take a close look at the mouseout handler, since that’s the less complex of the two:</p>
+<p>There’s some complex stuff in there, so let’s take it slowly. The big idea is to add a handler to the <code class="highlighter-rouge">mouseover</code> and <code class="highlighter-rouge">mouseout</code> events of each table’s row. When you mouseover the row, we want to set it’s <code class="highlighter-rouge">className</code> to “hoverClass”. When you mouseout, we want to remove that designation. This is pretty much the same technique used by the <a href="http://www.alistapart.com/articles/dropdowns/">Suckerfish dropdown menus</a>. We accomplish this goal by adding two event handlers to each row that we’ve striped: one handles mouseovers, the other mouseouts. So, how does it work? We’ll take a close look at the mouseout handler, since that’s the less complex of the two:</p>
 
-<p>We call <code>handleEvent</code>, and pass it the row we’re currently looking at: <code>trs[j]</code>, the event we want to handle: <code>mouseout</code>, and then create an anonymous function that does the heavy lifting. Don’t worry too much about how functions get passed around in JavaScript, that’s a topic for another article. For the moment, just accept on blind faith that this sort of syntax works. Let’s look at that function in more detail:</p>
+<p>We call <code class="highlighter-rouge">handleEvent</code>, and pass it the row we’re currently looking at: <code class="highlighter-rouge">trs[j]</code>, the event we want to handle: <code class="highlighter-rouge">mouseout</code>, and then create an anonymous function that does the heavy lifting. Don’t worry too much about how functions get passed around in JavaScript, that’s a topic for another article. For the moment, just accept on blind faith that this sort of syntax works. Let’s look at that function in more detail:</p>
 
-<p>First, we declare a variable <code>self</code> and assign it the value of <code>this</code>. We do this because JavaScript sometimes has strange scoping issues with regard to <code>this</code>; it’s simply a good habit to get into.<br />
-Next, we check to see if there’s a <code>window.event</code> object. IE/Win handles events a little strangely: in this case, the event gets triggered on a table cell instead of a table row. <code>this</code> is therefore set to the incorrect object, and things don’t work like we want them to. So, we grab the <code>parentNode</code> instead. Finally, we remove any reference to <code>hoverClass</code> in the row’s <code>className</code>. That pretty much takes care of things.</p>
+<p>First, we declare a variable <code class="highlighter-rouge">self</code> and assign it the value of <code class="highlighter-rouge">this</code>. We do this because JavaScript sometimes has strange scoping issues with regard to <code class="highlighter-rouge">this</code>; it’s simply a good habit to get into.<br />
+Next, we check to see if there’s a <code class="highlighter-rouge">window.event</code> object. IE/Win handles events a little strangely: in this case, the event gets triggered on a table cell instead of a table row. <code class="highlighter-rouge">this</code> is therefore set to the incorrect object, and things don’t work like we want them to. So, we grab the <code class="highlighter-rouge">parentNode</code> instead. Finally, we remove any reference to <code class="highlighter-rouge">hoverClass</code> in the row’s <code class="highlighter-rouge">className</code>. That pretty much takes care of things.</p>
 
 <p>So there you have it. With a little simple code, we’ve managed to put together a framework in which to handle JavaScript events, and we’ve got a useful little demonstration of the framework’s power that combines the best of two <a href="http://alistapart.com/">ALA</a> articles. Isn’t this stuff neat?</p>
 
-<p>This code is wrapped up in <a href="/projects/files/EventHandler/javascriptEventHandlingExample.html">a nice little example</a>. Take a look, it&rsquo;s pretty great stuff.</p>
+<p>This code is wrapped up in <a href="/projects/files/EventHandler/javascriptEventHandlingExample.html">a nice little example</a>. Take a look, it’s pretty great stuff.</p>
 
 
 
@@ -221,7 +218,7 @@ Next, we check to see if there’s a <code>window.event</code> object. IE/Win ha
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

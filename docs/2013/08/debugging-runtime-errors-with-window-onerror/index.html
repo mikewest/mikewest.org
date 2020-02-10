@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,16 +58,16 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Debugging runtime errors with 'window.onerror' in Blink</h1>
-  <time class="published" pubdate datetime="Thu Aug 08 00:00:00 +0200 2013">
+  <time class="published" pubdate datetime="2013-08-08">
     Thursday, August 08, 2013
   </time>
 
-  <p>After working with Blink&rsquo;s implementation of <code>window.onerror</code> a little bit
-over the last week or so, I&rsquo;m somewhat amazed that anyone ever used it for
+  <p>After working with Blink’s implementation of <code class="highlighter-rouge">window.onerror</code> a little bit
+over the last week or so, I’m somewhat amazed that anyone ever used it for
 anything at all. For those of you to whom the API is news, the current
-implementation in Chrome&rsquo;s stable channel (28) looks a little bit like this:</p>
+implementation in Chrome’s stable channel (28) looks a little bit like this:</p>
 
-<pre><code>window.onerror = function (message, filename, lineno) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>window.onerror = function (message, filename, lineno) {
     // Do some centralized error reporting here, for example, by POSTing
     // the error message, filename, and line number to a collection
     // server for later processing.
@@ -81,31 +78,31 @@ implementation in Chrome&rsquo;s stable channel (28) looks a little bit like thi
 ...
 
 throw new Error('OMG!');
-</code></pre>
+</code></pre></div></div>
 
-<p>&lsquo;window.onerror&rsquo; acts something like a global try/catch block, allowing you
-to gracefully handle uncaught exceptions you didn&rsquo;t expect to see. This, in
+<p>‘window.onerror’ acts something like a global try/catch block, allowing you
+to gracefully handle uncaught exceptions you didn’t expect to see. This, in
 theory, is brilliant.</p>
 
 <p>Two issues have made it less than brilliant in practice:</p>
 
 <ol>
   <li>
-    <p>Unlike a local try/catch block, the <code>window.onerror</code> handler doesn&rsquo;t have
+    <p>Unlike a local try/catch block, the <code class="highlighter-rouge">window.onerror</code> handler doesn’t have
 direct access to the exception object, and is executed in the global
 context rather than locally where the error occurred. That means that
-developers don&rsquo;t have access to a call stack, and can&rsquo;t build a call stack
-themselves by walking up the chain of a method&rsquo;s callers.</p>
+developers don’t have access to a call stack, and can’t build a call stack
+themselves by walking up the chain of a method’s callers.</p>
   </li>
   <li>
     <p>Browsers go to great lengths to sanitize the data provided to the handler
 in order to prevent unintentional data leakage from cross-origin scripts.
-If you host your JavaScript on a CDN (as you ought), you&rsquo;ll get &ldquo;Script
-error.&rdquo;, &ldquo;&rdquo;, and 0 in the above handler. That&rsquo;s not particularly helpful.</p>
+If you host your JavaScript on a CDN (as you ought), you’ll get “Script
+error.”, “”, and 0 in the above handler. That’s not particularly helpful.</p>
   </li>
 </ol>
 
-<p>There are a few other concerns, but those are the big two. I&rsquo;m happy to say
+<p>There are a few other concerns, but those are the big two. I’m happy to say
 that recent patches have addressed many of the concerns in Blink.</p>
 
 <ol>
@@ -113,65 +110,65 @@ that recent patches have addressed many of the concerns in Blink.</p>
     <p>Christophe Dumez <a href="http://crbug.com/264197">added the column number to the handler</a>.</p>
   </li>
   <li>
-    <p>After a lot of back-and-forth, Hixie <a href="http://html5.org/r/8086">added an &lsquo;error&rsquo; parameter to the
-<code>onerror</code> handler in the WHATWG spec</a>. This, as you might imagine,
-contains the exception that was thrown, just as you&rsquo;d get in a <code>catch</code>
+    <p>After a lot of back-and-forth, Hixie <a href="http://html5.org/r/8086">added an ‘error’ parameter to the
+<code class="highlighter-rouge">onerror</code> handler in the WHATWG spec</a>. This, as you might imagine,
+contains the exception that was thrown, just as you’d get in a <code class="highlighter-rouge">catch</code>
 block. The <a href="http://crbug.com/147127">Blink implementation landed last week</a>, which means that you
 can now access the stack trace in your handler via something like the
 following:</p>
 
-    <pre><code>window.onerror = function (message, filename, lineno, colno, error) {
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>window.onerror = function (message, filename, lineno, colno, error) {
     console.log("This is a stack trace! Wow! --&gt; %s", error.stack);
 };
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Blink <a href="http://crbug.com/159566">now follows</a> Mozilla&rsquo;s and WebKit&rsquo;s practice of enabling full
+    <p>Blink <a href="http://crbug.com/159566">now follows</a> Mozilla’s and WebKit’s practice of enabling full
 detail in exceptions generated from cross-origin scripts that are served
 with proper access-control headers and attributes. If you add a
-<code>crossorigin</code> attribute to a <code>script</code> tag, and serve that script with an
-<code>Access-Control-Allow-Origin</code> header that allows access to the document
-loading the script, then you&rsquo;ll be given unsanitized data in your error
+<code class="highlighter-rouge">crossorigin</code> attribute to a <code class="highlighter-rouge">script</code> tag, and serve that script with an
+<code class="highlighter-rouge">Access-Control-Allow-Origin</code> header that allows access to the document
+loading the script, then you’ll be given unsanitized data in your error
 handlers. That might look something like this:</p>
 
-    <pre><code>&lt;script crossorigin="anonymous" src="http://cdn.example.com/script.js"&gt;&lt;/script&gt;
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script crossorigin="anonymous" src="http://cdn.example.com/script.js"&gt;&lt;/script&gt;
+</code></pre></div>    </div>
 
-    <p>Note that this is a bit tricky: you&rsquo;ll need to make quite sure that your
-server is properly configured. If a script has a <code>crossorigin</code> attribute
-but the server doesn&rsquo;t send appropriate CORS headers, the script load
+    <p>Note that this is a bit tricky: you’ll need to make quite sure that your
+server is properly configured. If a script has a <code class="highlighter-rouge">crossorigin</code> attribute
+but the server doesn’t send appropriate CORS headers, the script load
 will fail miserably.</p>
   </li>
   <li>
     <p><a href="https://code.google.com/p/v8/issues/detail?id=2822">Stringification of custom errors is (slightly) improved</a> for the case
 where an Error object is directly set as the prototype of your custom
-error. Handlebars, for instance, created a <code>Handlebars.Exception</code> object
+error. Handlebars, for instance, created a <code class="highlighter-rouge">Handlebars.Exception</code> object
 with code like this:</p>
 
-    <pre><code>Handlebars.Exception.prototype = new Error();
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Handlebars.Exception.prototype = new Error();
+</code></pre></div>    </div>
 
-    <p>V8 didn&rsquo;t support that very well in <code>window.onerror</code>: the stringification
-looked something like <code>[object Object]</code>, which wasn&rsquo;t particularly useful
-for anyone. Now you&rsquo;ll get the expected message, as long as you haven&rsquo;t
-overridden the <code>toString</code> method.</p>
+    <p>V8 didn’t support that very well in <code class="highlighter-rouge">window.onerror</code>: the stringification
+looked something like <code class="highlighter-rouge">[object Object]</code>, which wasn’t particularly useful
+for anyone. Now you’ll get the expected message, as long as you haven’t
+overridden the <code class="highlighter-rouge">toString</code> method.</p>
   </li>
   <li>
-    <p>I&rsquo;m still knee-deep in the Worker implementation, which is a bit of mess
+    <p>I’m still knee-deep in the Worker implementation, which is a bit of mess
 really. I expect to <a href="http://crbug.com/269538">fix the sanitization</a> shortly, and I think it
-shouldn&rsquo;t be too difficult to <a href="http://crbug.com/270005">add the <code>error</code> property to the Worker&rsquo;s
-<code>onerror</code> handler</a>.</p>
+shouldn’t be too difficult to <a href="http://crbug.com/270005">add the <code class="highlighter-rouge">error</code> property to the Worker’s
+<code class="highlighter-rouge">onerror</code> handler</a>.</p>
   </li>
 </ol>
 
 <p>I think this set of changes will make centralized error reporting a bit more
-realisticly possible in the near future. I&rsquo;d love for you folks to start
+realisticly possible in the near future. I’d love for you folks to start
 banging on these initial implementations now so that I can fix bugs and clean
 up edge-cases now, before these start rolling into Stable. When you see a bug
 please do file it at <a href="http://crbug.com/new">http://crbug.com/new</a>, and ping me the bug ID
-(<a href="https://google.com/+MikeWest">+Mike West</a>, <a href="https://twitter.com/mikewest">@mikewest</a>, or <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#109;&#107;&#119;&#115;&#116;&#064;&#099;&#104;&#114;&#111;&#109;&#105;&#117;&#109;&#046;&#111;&#114;&#103;">&#109;&#107;&#119;&#115;&#116;&#064;&#099;&#104;&#114;&#111;&#109;&#105;&#117;&#109;&#046;&#111;&#114;&#103;</a>).</p>
+(<a href="https://google.com/+MikeWest">+Mike West</a>, <a href="https://twitter.com/mikewest">@mikewest</a>, or <a href="mailto:mkwst@chromium.org">mkwst@chromium.org</a>).</p>
 
-<p>Enjoy Blink&rsquo;s newly more-usable error reporting!</p>
+<p>Enjoy Blink’s newly more-usable error reporting!</p>
 
 
 
@@ -213,7 +210,7 @@ please do file it at <a href="http://crbug.com/new">http://crbug.com/new</a>, an
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

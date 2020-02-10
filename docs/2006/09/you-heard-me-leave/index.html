@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,15 +58,15 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">You heard me: `leave`!</h1>
-  <time class="published" pubdate datetime="Sat Sep 23 00:00:00 +0200 2006">
+  <time class="published" pubdate datetime="2006-09-23">
     Saturday, September 23, 2006
   </time>
 
-  <p>Normally, I&rsquo;d foist this off into a sidebar link, but this discovery deserves a little more: it&rsquo;s that brilliant.</p>
+  <p>Normally, I’d foist this off into a sidebar link, but this discovery deserves a little more: it’s that brilliant.</p>
 
-<p>I was reading <a href="http://www-128.ibm.com/developerworks/aix/library/au-productivitytips.html?ca=dgr-lnxw07UNIX-Office-Tips#listing4">UNIX productivity tips</a>, and ran across the single greatest time-management command I&rsquo;ve seen.  Running <a href="http://www.hmug.org/man/1/leave.php" title="man: leave"><code>leave</code></a> asks &ldquo;When do you have to leave?&rdquo;  You enter a time in HHMM format, and <code>leave</code> then pings you 5 minutes before, reminding you that you wanted to leave.  Then it pings you the minute before.  Then it pings you every minute until you either log out, or kill the <code>leave</code> process.  This is brilliant stuff!</p>
+<p>I was reading <a href="http://www-128.ibm.com/developerworks/aix/library/au-productivitytips.html?ca=dgr-lnxw07UNIX-Office-Tips#listing4">UNIX productivity tips</a>, and ran across the single greatest time-management command I’ve seen.  Running <a href="http://www.hmug.org/man/1/leave.php" title="man: leave"><code class="highlighter-rouge">leave</code></a> asks “When do you have to leave?”  You enter a time in HHMM format, and <code class="highlighter-rouge">leave</code> then pings you 5 minutes before, reminding you that you wanted to leave.  Then it pings you the minute before.  Then it pings you every minute until you either log out, or kill the <code class="highlighter-rouge">leave</code> process.  This is brilliant stuff!</p>
 
-<pre><code>$ leave
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ leave
 When do you have to leave? 1830
 Alarm set for Fri Aug  4 18:30. (pid 1735)
 $ date +"Time now: %l:%M%p"
@@ -78,11 +75,11 @@ Time now: 6:24PM
 $
 &lt;system bell rings&gt;
 You have to leave in 5 minutes.
-</code></pre>
+</code></pre></div></div>
 
-<p>The best part?  It&rsquo;s built into OS X.  Thank God for BSD, eh?  :)  The <a href="http://www-128.ibm.com/developerworks/aix/library/au-productivitytips.html?ca=dgr-lnxw07UNIX-Office-Tips#listing4">productivity tips article</a> is worth reading anyway, if only for gems like sorting your command-line history by command, by popularity:</p>
+<p>The best part?  It’s built into OS X.  Thank God for BSD, eh?  :)  The <a href="http://www-128.ibm.com/developerworks/aix/library/au-productivitytips.html?ca=dgr-lnxw07UNIX-Office-Tips#listing4">productivity tips article</a> is worth reading anyway, if only for gems like sorting your command-line history by command, by popularity:</p>
 
-<pre><code>$ history|awk '{print $2}'|awk 'BEGIN {FS="|"} {print $1}'|sort|uniq -c|sort -r
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ history|awk '{print $2}'|awk 'BEGIN {FS="|"} {print $1}'|sort|uniq -c|sort -r
     103 svn
     100 cd
      75 ls
@@ -92,7 +89,7 @@ You have to leave in 5 minutes.
       1 chmod
       1 ack
 $
-</code></pre>
+</code></pre></div></div>
 
 <p>Neat, eh?</p>
 
@@ -116,7 +113,7 @@ $
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

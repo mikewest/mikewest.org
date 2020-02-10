@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,19 +58,19 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Benchmarking Your Site with `http_load`</h1>
-  <time class="published" pubdate datetime="Sun Jan 28 00:00:00 +0100 2007">
+  <time class="published" pubdate datetime="2007-01-28">
     Sunday, January 28, 2007
   </time>
 
-  <p><a href="http://www.acme.com/software/http_load/"><code>http_load</code></a> is a stunningly useful HTTP benchmarking utility that gives you a rough idea of how many hits per second a server is capable of serving.  You simply tell it what pages to grab, and how many &ldquo;clients&rdquo; it should run in parallel; it gives you back useful information about the average fetches per second and the average, minimum, and maximum response times.  It&rsquo;s no substitute for a solid profiler to dig into the hows and whys of your application&rsquo;s performance, but it&rsquo;s great at telling you when you&rsquo;re &ldquo;good enough&rdquo; to launch.</p>
+  <p><a href="http://www.acme.com/software/http_load/"><code class="highlighter-rouge">http_load</code></a> is a stunningly useful HTTP benchmarking utility that gives you a rough idea of how many hits per second a server is capable of serving.  You simply tell it what pages to grab, and how many “clients” it should run in parallel; it gives you back useful information about the average fetches per second and the average, minimum, and maximum response times.  It’s no substitute for a solid profiler to dig into the hows and whys of your application’s performance, but it’s great at telling you when you’re “good enough” to launch.</p>
 
-<h2 id="installing-httpload-on-os-x">Installing <code>http_load</code> on OS X</h2>
+<h2 id="installing-http_load-on-os-x">Installing <code class="highlighter-rouge">http_load</code> on OS X</h2>
 
-<p>Installation is not tough, it&rsquo;s the typical <code>make</code>, then <code>make install</code> process that you&rsquo;ll use just about any time you install a *nix application from source.  It even defaults to <code>/usr/local/bin</code>, perfect.</p>
+<p>Installation is not tough, it’s the typical <code class="highlighter-rouge">make</code>, then <code class="highlighter-rouge">make install</code> process that you’ll use just about any time you install a *nix application from source.  It even defaults to <code class="highlighter-rouge">/usr/local/bin</code>, perfect.</p>
 
 <p>So, here we go:</p>
 
-<pre><code>mkdir ~/http_load_src
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/http_load_src
 cd ~/http_load_src
 curl -O http://www.acme.com/software/http_load/http_load-12mar2006.tar.gz
 tar -xzvf ./http_load-12mar2006.tar.gz
@@ -82,72 +79,72 @@ make
 sudo make install
 cd ~
 rm -rf ~/http_load_src
-</code></pre>
+</code></pre></div></div>
 
-<p>You&rsquo;ll end up with the application installed at <code>/usr/local/bin/http_load</code>, and if you&rsquo;ve <a href="http://hivelogic.com/narrative/articles/using_usr_local" title="Using /usr/local">set your <code>PATH</code> to include <code>/usr/local</code></a>, then you&rsquo;re good to go.</p>
+<p>You’ll end up with the application installed at <code class="highlighter-rouge">/usr/local/bin/http_load</code>, and if you’ve <a href="http://hivelogic.com/narrative/articles/using_usr_local" title="Using /usr/local">set your <code class="highlighter-rouge">PATH</code> to include <code class="highlighter-rouge">/usr/local</code></a>, then you’re good to go.</p>
 
-<h2 id="using-httpload-to-benchmark-your-site">Using <code>http_load</code> to Benchmark Your Site</h2>
+<h2 id="using-http_load-to-benchmark-your-site">Using <code class="highlighter-rouge">http_load</code> to Benchmark Your Site</h2>
 
-<p>Once installed, using <code>http_load</code> for quick benchmarking is really quite straightforward.  You call the program, tell it how many requests to make concurrently, and how long to run (either in number of seconds, or total fetches), and finally pass in a file full of URLs to request.</p>
+<p>Once installed, using <code class="highlighter-rouge">http_load</code> for quick benchmarking is really quite straightforward.  You call the program, tell it how many requests to make concurrently, and how long to run (either in number of seconds, or total fetches), and finally pass in a file full of URLs to request.</p>
 
 <p>To see how many requests your server can take care of over a 5 second period, run:</p>
 
-<pre><code>http_load -parallel 10 -seconds 5 ./omg_its_full_of_urls.txt
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http_load -parallel 10 -seconds 5 ./omg_its_full_of_urls.txt
+</code></pre></div></div>
 
-<p>You&rsquo;ll get back a response that looks something like:</p>
+<p>You’ll get back a response that looks something like:</p>
 
-<pre><code>3587 fetches, 10 max parallel, 6.97698e+06 bytes, in 5.00052 seconds
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3587 fetches, 10 max parallel, 6.97698e+06 bytes, in 5.00052 seconds
 1945.07 mean bytes/connection
 717.325 fetches/sec, 1.39525e+06 bytes/sec
 msecs/connect: 0.674328 mean, 20.771 max, 0.045 min
 msecs/first-response: 12.4517 mean, 389.405 max, 1.978 min
 HTTP response codes:
   code 200 -- 3587
-</code></pre>
+</code></pre></div></div>
 
-<p>The numbers you&rsquo;ll want to look at in more detail are &ldquo;fetches/sec&rdquo; and &ldquo;msecs/first-response&rdquo;.  These are critical in terms of really understanding what your site is doing.</p>
+<p>The numbers you’ll want to look at in more detail are “fetches/sec” and “msecs/first-response”.  These are critical in terms of really understanding what your site is doing.</p>
 
-<p>It&rsquo;s important to note the difference between &ldquo;benchmarking&rdquo; and &ldquo;profiling&rdquo;.  What we&rsquo;re doing here with <code>http_load</code> is the former: we&rsquo;re getting a feel for a specific page&rsquo;s overall performance.  We know that it serves X pages per second, and generally takes about Y milliseconds to response.  What we don&rsquo;t know yet is <strong>why</strong> either of these is the case.  You&rsquo;ll have to dig in more detail into your PHP code and server configuration to determine <em>what to tweak</em> to bring up your site&rsquo;s performance to an acceptable level.  <code>http_load</code> doesn&rsquo;t, and can&rsquo;t, do that for you.  </p>
+<p>It’s important to note the difference between “benchmarking” and “profiling”.  What we’re doing here with <code class="highlighter-rouge">http_load</code> is the former: we’re getting a feel for a specific page’s overall performance.  We know that it serves X pages per second, and generally takes about Y milliseconds to response.  What we don’t know yet is <strong>why</strong> either of these is the case.  You’ll have to dig in more detail into your PHP code and server configuration to determine <em>what to tweak</em> to bring up your site’s performance to an acceptable level.  <code class="highlighter-rouge">http_load</code> doesn’t, and can’t, do that for you.</p>
 
 <h2 id="a-tip-for-shell-scripters">A Tip for Shell Scripters</h2>
 
-<p>Generally speaking, I&rsquo;m only testing one URL at a time to determine the performance of a specific script on a site.  For this case, creating a file with a single URL inside is a little annoying, so I whipped up a quick bash script to make it happen for me.  Add the following function to your <code>.bash_profile</code>, and you can simply type &ldquo;httpload [url] [clients] [seconds]&rdquo; to run a quick benchmark.</p>
+<p>Generally speaking, I’m only testing one URL at a time to determine the performance of a specific script on a site.  For this case, creating a file with a single URL inside is a little annoying, so I whipped up a quick bash script to make it happen for me.  Add the following function to your <code class="highlighter-rouge">.bash_profile</code>, and you can simply type “httpload [url] [clients] [seconds]” to run a quick benchmark.</p>
 
-<pre><code>httpload() {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>httpload() {
     STAMP=`date +"%s"`;
     echo "http://$1" &gt; /var/tmp/$STAMP.http_load_temp_file
     http_load -parallel $2 -seconds $3 /var/tmp/$STAMP.http_load_temp_file
     rm -f /var/tmp/$STAMP.http_load_temp_file
 }
-</code></pre>
+</code></pre></div></div>
 
 <p>Hooray for bash scripting!</p>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
 
-<p>It looks like Leopard introduces some quirks to the process.  If you&rsquo;re getting an error like:</p>
+<p>It looks like Leopard introduces some quirks to the process.  If you’re getting an error like:</p>
 
-<pre><code>rm -f /usr/local/bin/http_load
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm -f /usr/local/bin/http_load
 cp http_load /usr/local/bin
 rm -f /usr/local/man/man1/http_load.1
 cp http_load.1 /usr/local/man/man1
 cp: /usr/local/man/man1: No such file or directory
 make: *** [install] Error 1
-</code></pre>
+</code></pre></div></div>
 
 <p>Then do the following to fix up the problem:</p>
 
-<pre><code>sudo rm /usr/local/bin
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rm /usr/local/bin
 sudo mkdir -p /usr/local/bin/
 sudo mkdir -p /usr/local/share/man/man1/
 sudo ln -s /usr/local/share/man/ /usr/local/man
 make clean
 make
 sudo make install
-</code></pre>
+</code></pre></div></div>
 
-<p>In a nutshell, Leopard doesn&rsquo;t come with a <code>/usr/local/bin</code> directory, and seems to have moved the location of local manual pages from <code>/usr/local/man/</code> to /usr/local/share/man/`.  The commands above will create the binary and manual page directories you&rsquo;ll need, and sets up a <a href="http://arstechnica.com/reviews/os/mac-os-x-10-5.ars/14#symlinks-and-hard-links">symlink</a> mapping the old directory structure to the new one.</p>
+<p>In a nutshell, Leopard doesn’t come with a <code class="highlighter-rouge">/usr/local/bin</code> directory, and seems to have moved the location of local manual pages from <code class="highlighter-rouge">/usr/local/man/</code> to /usr/local/share/man/`.  The commands above will create the binary and manual page directories you’ll need, and sets up a <a href="http://arstechnica.com/reviews/os/mac-os-x-10-5.ars/14#symlinks-and-hard-links">symlink</a> mapping the old directory structure to the new one.</p>
 
 <p>Magic!</p>
 
@@ -171,7 +168,7 @@ sudo make install
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

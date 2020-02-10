@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,60 +58,60 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Serverless SVN Repositories</h1>
-  <time class="published" pubdate datetime="Thu Sep 28 00:00:00 +0200 2006">
+  <time class="published" pubdate datetime="2006-09-28">
     Thursday, September 28, 2006
   </time>
 
-  <p>A little known fact about Subversion is that you don&rsquo;t need a special server to get running.  You can actually host Subversion repositories locally on your own computer, or on any remote machine you&rsquo;ve got SSH access into.</p>
+  <p>A little known fact about Subversion is that you don’t need a special server to get running.  You can actually host Subversion repositories locally on your own computer, or on any remote machine you’ve got SSH access into.</p>
 
 <h2 id="localhosting">Localhosting</h2>
 
-<p>You can easily create a local repository on your machine with the <code>svnadmin</code> command.  To set up a repository in my home directory, I&rsquo;d just drop to the command line, and type:</p>
+<p>You can easily create a local repository on your machine with the <code class="highlighter-rouge">svnadmin</code> command.  To set up a repository in my home directory, I’d just drop to the command line, and type:</p>
 
-<pre><code>svnadmin create ~/new_repository
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svnadmin create ~/new_repository
+</code></pre></div></div>
 
-<p>That would create the <code>new_repository</code> directory under my home, and initialize it for use as an SVN repository.  From there, you can reference it via the <code>file</code> protocol, and use it just like any other repository:</p>
+<p>That would create the <code class="highlighter-rouge">new_repository</code> directory under my home, and initialize it for use as an SVN repository.  From there, you can reference it via the <code class="highlighter-rouge">file</code> protocol, and use it just like any other repository:</p>
 
-<pre><code>svn import ./my_project file:///Users/mwest/new_repository
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn import ./my_project file:///Users/mwest/new_repository
+</code></pre></div></div>
 
 <p>Easy!</p>
 
 <h2 id="remotehosting">Remotehosting</h2>
 
-<p>If you don&rsquo;t have a dedicated SVN server, or a <a href="http://textdrive.com/" title="TextDrive">decent web host</a>, you can gain some of the advantages of a remote repository by creating a local repository, and then uploading it to a server where you have SSH access.  This trick works wonderfully on services like <a href="http://strongspace.com/">Strongspace</a> where you have nothing more than SSH access, with no opportunity to log in and run <code>svnadmin</code>.  </p>
+<p>If you don’t have a dedicated SVN server, or a <a href="http://textdrive.com/" title="TextDrive">decent web host</a>, you can gain some of the advantages of a remote repository by creating a local repository, and then uploading it to a server where you have SSH access.  This trick works wonderfully on services like <a href="http://strongspace.com/">Strongspace</a> where you have nothing more than SSH access, with no opportunity to log in and run <code class="highlighter-rouge">svnadmin</code>.</p>
 
-<p>To set up a repository on such a server, I&rsquo;d create it locally, just like before:</p>
+<p>To set up a repository on such a server, I’d create it locally, just like before:</p>
 
-<pre><code>svnadmin create ~/temp
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svnadmin create ~/temp
+</code></pre></div></div>
 
-<p>Instead of using it locally with the <code>file:///</code> protocol, we&rsquo;ll <em>upload</em> it to our remote server using <code>scp</code> (or whatever file transfer mechanism makes sense to you):</p>
+<p>Instead of using it locally with the <code class="highlighter-rouge">file:///</code> protocol, we’ll <em>upload</em> it to our remote server using <code class="highlighter-rouge">scp</code> (or whatever file transfer mechanism makes sense to you):</p>
 
-<pre><code>scp -r ~/temp me@my.server.com:/path/to/repository
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r ~/temp me@my.server.com:/path/to/repository
+</code></pre></div></div>
 
-<p>Now, the initialized repository is up waiting for us on the remote server.  We can&rsquo;t use the <code>file</code> protocol to get to it anymore, since it isn&rsquo;t part of our local filesystem.  Instead, there&rsquo;s a special protocol for using SVN over an SSH connection: <code>svn+ssh</code>.  To run the same import command from above on the remote server, we&rsquo;d type:</p>
+<p>Now, the initialized repository is up waiting for us on the remote server.  We can’t use the <code class="highlighter-rouge">file</code> protocol to get to it anymore, since it isn’t part of our local filesystem.  Instead, there’s a special protocol for using SVN over an SSH connection: <code class="highlighter-rouge">svn+ssh</code>.  To run the same import command from above on the remote server, we’d type:</p>
 
-<pre><code>svn import ./my_project svn+ssh://me@my.server.com/path/to/repository
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn import ./my_project svn+ssh://me@my.server.com/path/to/repository
+</code></pre></div></div>
 
 <p>And there you go.  Easy, straightforward SVN access without any server setup whatsoever.</p>
 
-<p>You lose a little bit of functionality, and it feels a little duct-taped together, but it&rsquo;s a great first-step into the world of SVN, and you can easily migrate to a &ldquo;real&rdquo; SVN server when you&rsquo;re ready to use the additional features that enables.</p>
+<p>You lose a little bit of functionality, and it feels a little duct-taped together, but it’s a great first-step into the world of SVN, and you can easily migrate to a “real” SVN server when you’re ready to use the additional features that enables.</p>
 
 <h2 id="resources">Resources</h2>
 
 <ul>
   <li>
     <p><a href="http://andrewho.co.uk/" title="Andrew Ho">Andrew Ho</a> pointed this technique out on the Strongspace forums, I
-hadn&rsquo;t thought about it at all before his post.</p>
+hadn’t thought about it at all before his post.</p>
   </li>
   <li>
-    <p>If you&rsquo;re not interested in typing in a password every time (and who is),
+    <p>If you’re not interested in typing in a password every time (and who is),
 follow the instructions under the <a href="http://blog.invisible.ch/2005/10/06/back-up/" title="Back Up">Set up key based login</a> section of
-this post.  And be sure to read the rest anyway, it&rsquo;s excellent
+this post.  And be sure to read the rest anyway, it’s excellent
 information about backing up your system.  You <em>do</em> back up, right?</p>
   </li>
 </ul>
@@ -143,7 +140,7 @@ information about backing up your system.  You <em>do</em> back up, right?</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

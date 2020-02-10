@@ -10,22 +10,19 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
 
-<meta http-equiv="description" content="AngularJS has recently implemented support for Content Security Policy that  restricts the use of `eval()`, `new Function()`, and other such text-to-JS conduits. This is a huge win, as CSP is one of the best protections modern browsers provide against XSS attacks. However, Angular's implementation reveals a need for feature detection that the spec currently doesn't address. This is my proposal for such an API.">
+<meta http-equiv="description" content="AngularJS has recently implemented support for Content Security Policy that restricts the use of `eval()`, `new Function()`, and other such text-to-JS conduits. This is a huge win, as CSP is one of the best protections modern browsers provide against XSS attacks. However, Angular's implementation reveals a need for feature detection that the spec currently doesn't address. This is my proposal for such an API.">
 
 
   </head>
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,70 +58,70 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Content Security Policy: Feature Detection</h1>
-  <time class="published" pubdate datetime="Wed May 02 00:00:00 +0200 2012">
+  <time class="published" pubdate datetime="2012-05-02">
     Wednesday, May 02, 2012
   </time>
 
-  <p><a href="http://angularjs.org/">AngularJS</a>&rsquo;s <a href="https://groups.google.com/forum/?fromgroups#!topic/angular/NUT9q_fjMJQ">latest release candidate</a> is the first
-framework I&rsquo;ve seen that cleanly supports a <a href="https://mikewest.org/2011/10/content-security-policy-a-primer">content security policy</a>
-that restricts usage of <code>eval()</code>, <code>new Function()</code>, and the like. I&rsquo;m thrilled
-to see this happening, and it&rsquo;s a testament to the priority that the Angular
+  <p><a href="http://angularjs.org/">AngularJS</a>’s <a href="https://groups.google.com/forum/?fromgroups#!topic/angular/NUT9q_fjMJQ">latest release candidate</a> is the first
+framework I’ve seen that cleanly supports a <a href="https://mikewest.org/2011/10/content-security-policy-a-primer">content security policy</a>
+that restricts usage of <code class="highlighter-rouge">eval()</code>, <code class="highlighter-rouge">new Function()</code>, and the like. I’m thrilled
+to see this happening, and it’s a testament to the priority that the Angular
 developers place on security. CSP is quite simply one the best XSS-protection
 mechanisms available to developers these days in modern browsers. The more
 frameworks that hop on board, the faster sites can start adopting CSP, and
-the safer we&rsquo;ll all be on the net.</p>
+the safer we’ll all be on the net.</p>
 
-<p>All that said, the implementation isn&rsquo;t as complete as it could be. Angular
+<p>All that said, the implementation isn’t as complete as it could be. Angular
 requires that the developer manually opt into CSP-friendly mode via the
-<a href="http://docs.angularjs.org/api/angular.module.ng.$compileProvider.directive.ngCsp"><code>ng-csp</code></a> directive. This is error-prone at best, and introduces
+<a href="http://docs.angularjs.org/api/angular.module.ng.$compileProvider.directive.ngCsp"><code class="highlighter-rouge">ng-csp</code></a> directive. This is error-prone at best, and introduces
 complexity that would be better hidden away inside the framework. The Angular
 developers recognize this shortfall, and are <a href="https://twitter.com/#!/IgorMinar/status/197329318249111552">explicitly requesting</a>
 some sort of feature detection API that would allow frameworks to query the
 currently active policy to determine its boundaries, and fork their
 implementation accordingly.</p>
 
-<p>This does seem like a great addition to the spec; I&rsquo;d suggest the following
+<p>This does seem like a great addition to the spec; I’d suggest the following
 implementation:</p>
 
-<p>Add <code>document.[prefix]contentSecurityPolicy</code> as an object that exists in
+<p>Add <code class="highlighter-rouge">document.[prefix]contentSecurityPolicy</code> as an object that exists in
 browsers that support CSP. This would enable trivial feature detection of CSP
 as a whole, which would enable frameworks to make intelligent decisions about
 how to proceed through the following use cases:</p>
 
 <ol>
   <li>
-    <p>Is a policy enabled? If not, perhaps I’d like to set one via <code>meta</code>
+    <p>Is a policy enabled? If not, perhaps I’d like to set one via <code class="highlighter-rouge">meta</code>
 injection.</p>
 
-    <p><code>document.contentSecurityPolicy.active</code> is a boolean property: <code>true</code> if
-a policy is set, <code>false</code> otherwise.</p>
+    <p><code class="highlighter-rouge">document.contentSecurityPolicy.active</code> is a boolean property: <code class="highlighter-rouge">true</code> if
+a policy is set, <code class="highlighter-rouge">false</code> otherwise.</p>
   </li>
   <li>
-    <p>Can I execute <code>eval()</code> or use <code>new Function()</code>?</p>
+    <p>Can I execute <code class="highlighter-rouge">eval()</code> or use <code class="highlighter-rouge">new Function()</code>?</p>
 
-    <p><code>document.contentSecurityPolicy.isWhitelisted('script-src', 'unsafe-eval')</code>
-returns <code>true</code> if <code>unsafe-eval</code> has been defined for the <code>script-src</code>
+    <p><code class="highlighter-rouge">document.contentSecurityPolicy.isWhitelisted('script-src', 'unsafe-eval')</code>
+returns <code class="highlighter-rouge">true</code> if <code class="highlighter-rouge">unsafe-eval</code> has been defined for the <code class="highlighter-rouge">script-src</code>
 directive.</p>
   </li>
   <li>
-    <p>Can I embed a <code>data:</code> image or frame?</p>
+    <p>Can I embed a <code class="highlighter-rouge">data:</code> image or frame?</p>
 
-    <p><code>document.contentSecurityPolicy.isWhitelisted('image-src', 'data:')</code> and
-<code>document.contentSecurityPolicy.isWhitelisted('frame-src', 'data:')</code></p>
+    <p><code class="highlighter-rouge">document.contentSecurityPolicy.isWhitelisted('image-src', 'data:')</code> and
+<code class="highlighter-rouge">document.contentSecurityPolicy.isWhitelisted('frame-src', 'data:')</code></p>
   </li>
   <li>
     <p>Can I include Google Analytics?</p>
 
-    <p><code>document.contentSecurityPolicy.isWhitelisted('script-src', 'https://ssl.google-analytics.com')</code>
-(Note that <code>isWhitelisted</code> should do the hard work of dealing with
-wildcards. This example should return <code>true</code> if <code>*.google-analytics.com</code>
+    <p><code class="highlighter-rouge">document.contentSecurityPolicy.isWhitelisted('script-src', 'https://ssl.google-analytics.com')</code>
+(Note that <code class="highlighter-rouge">isWhitelisted</code> should do the hard work of dealing with
+wildcards. This example should return <code class="highlighter-rouge">true</code> if <code class="highlighter-rouge">*.google-analytics.com</code>
 is whitelisted.)</p>
   </li>
   <li>
     <p>Are reports being sent? If so, where are they going?</p>
 
-    <p>The <code>document.contentSecurityPolicy.reportUri</code> property is either
-<code>undefined</code> if no <code>report-uri</code> directive is set, and a URI if the
+    <p>The <code class="highlighter-rouge">document.contentSecurityPolicy.reportUri</code> property is either
+<code class="highlighter-rouge">undefined</code> if no <code class="highlighter-rouge">report-uri</code> directive is set, and a URI if the
 directive is set.</p>
   </li>
 </ol>
@@ -179,7 +176,7 @@ walking through this with me.</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

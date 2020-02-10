@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,71 +58,71 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Subversion Post-Commit Hooks 101</h1>
-  <time class="published" pubdate datetime="Mon Jun 12 00:00:00 +0200 2006">
+  <time class="published" pubdate datetime="2006-06-12">
     Monday, June 12, 2006
   </time>
 
-  <p>The &ldquo;Hello World!&rdquo; of Subversion <code>post-commit</code> hooks is the use of <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code>SVNnotify</code></a> to send e-mails out to a project team every time a new revision is committed to the repository.</p>
+  <p>The “Hello World!” of Subversion <code class="highlighter-rouge">post-commit</code> hooks is the use of <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code class="highlighter-rouge">SVNnotify</code></a> to send e-mails out to a project team every time a new revision is committed to the repository.</p>
 
 <p>This is easier than it sounds:</p>
 
 <ol>
   <li>
-    <p>Make sure <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code>svnnotify</code></a> is installed on your system.  I&rsquo;ll
+    <p>Make sure <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code class="highlighter-rouge">svnnotify</code></a> is installed on your system.  I’ll
 leave that as an exercise for the reader.</p>
   </li>
   <li>
-    <p>Navigate to your repository&rsquo;s <code>hooks</code> directory.  This is almost always a
-directory cleverly named &ldquo;hooks&rdquo; right inside the top level of your
+    <p>Navigate to your repository’s <code class="highlighter-rouge">hooks</code> directory.  This is almost always a
+directory cleverly named “hooks” right inside the top level of your
 repository:</p>
 
-    <pre><code>cd /Users/mwest/svn/my_repository/hooks/
-</code></pre>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /Users/mwest/svn/my_repository/hooks/
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>Create a new file called <code>post-commit</code>, and make it executable by the
-<code>www</code> user.</p>
+    <p>Create a new file called <code class="highlighter-rouge">post-commit</code>, and make it executable by the
+<code class="highlighter-rouge">www</code> user.</p>
 
-    <pre><code>touch ./post-commit
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch ./post-commit
 chmod 755 ./post-commit
-</code></pre>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Open up the file you just created, and add the following bit of code:</p>
 
-    <pre><code>#!/bin/sh
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
 
-REPOS="$1"
-REV="$2"
+<span class="nv">REPOS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nv">REV</span><span class="o">=</span><span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
 
-/usr/local/bin/svnnotify                    \
-    --repos-path    "$REPOS"                \
-    --revision      "$REV"                  \
-    --subject-cx                            \
-    --with-diff                             \
-    --handler       HTML::ColorDiff         \
-    --to            &lt;your e-mail address&gt;   \
-    --from          &lt;from e-mail address&gt;
-</code></pre>
+/usr/local/bin/svnnotify                    <span class="se">\</span>
+    <span class="nt">--repos-path</span>    <span class="s2">"</span><span class="nv">$REPOS</span><span class="s2">"</span>                <span class="se">\</span>
+    <span class="nt">--revision</span>      <span class="s2">"</span><span class="nv">$REV</span><span class="s2">"</span>                  <span class="se">\</span>
+    <span class="nt">--subject-cx</span>                            <span class="se">\</span>
+    <span class="nt">--with-diff</span>                             <span class="se">\</span>
+    <span class="nt">--handler</span>       HTML::ColorDiff         <span class="se">\</span>
+    <span class="nt">--to</span>            &lt;your e-mail address&gt;   <span class="se">\</span>
+    <span class="nt">--from</span>          &lt;from e-mail address&gt;
+</code></pre></div>    </div>
 
-    <p>It&rsquo;s all pretty straightforward, so let&rsquo;s take it line by line:</p>
+    <p>It’s all pretty straightforward, so let’s take it line by line:</p>
 
     <ul>
       <li>
-        <p>The first line is the so-called <a href="http://en.wikipedia.org/wiki/Shebang_(Unix)" title="Wikipedia: 'Shebang'"><code>shebang</code></a> that tells
+        <p>The first line is the so-called <a href="http://en.wikipedia.org/wiki/Shebang_(Unix)" title="Wikipedia: 'Shebang'"><code class="highlighter-rouge">shebang</code></a> that tells
 the system that the file is a shell script that ought be executed.</p>
       </li>
       <li>
         <p>Next, we set two variables based on the information that
-Subversion passes into the script when it&rsquo;s called.  The
-<code>post-commit</code> hook gets two bits of data: the path to the
+Subversion passes into the script when it’s called.  The
+<code class="highlighter-rouge">post-commit</code> hook gets two bits of data: the path to the
 repository, and the new revision number that the commit created.</p>
       </li>
       <li>
-        <p>Finally, we call <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code>svnnotify</code></a> to actually generate and
+        <p>Finally, we call <a href="http://search.cpan.org/dist/SVN-Notify/bin/svnnotify" title="SVNnotify on CPAN"><code class="highlighter-rouge">svnnotify</code></a> to actually generate and
 send a nicely formatted e-mail using the repository path and
 revision number that we gathered earlier.  Make sure to put your
-e-mail address (or list&rsquo;s address) in the last two lines!</p>
+e-mail address (or list’s address) in the last two lines!</p>
       </li>
     </ul>
   </li>
@@ -140,7 +137,7 @@ e-mail address (or list&rsquo;s address) in the last two lines!</p>
   </li>
 </ol>
 
-<p>For further reading on the nine hooks provided by Subversion, visit <a href="http://svnbook.red-bean.com/nightly/en/svn.reposadmin.create.html#svn.reposadmin.create.hooks" title="Version Control with Subversion: Hook Scripts">the &ldquo;Hook Scripts&rdquo; section</a> of <a href="http://svnbook.red-bean.com/nightly/en/index.html" title="Version Control with Subversion">Version Control with Subversion</a>.</p>
+<p>For further reading on the nine hooks provided by Subversion, visit <a href="http://svnbook.red-bean.com/nightly/en/svn.reposadmin.create.html#svn.reposadmin.create.hooks" title="Version Control with Subversion: Hook Scripts">the “Hook Scripts” section</a> of <a href="http://svnbook.red-bean.com/nightly/en/index.html" title="Version Control with Subversion">Version Control with Subversion</a>.</p>
 
 
 
@@ -166,7 +163,7 @@ e-mail address (or list&rsquo;s address) in the last two lines!</p>
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!

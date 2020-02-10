@@ -10,17 +10,14 @@
             Mike West
         
     </title>
-    <!-- Twitter! -->
-<meta property="twitter:account_id" content="4503599627436107" />
-
-<!-- Prefetch DNS -->
+    <!-- Prefetch DNS -->
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//ssl.google-analytics.com">
 
-<link rel="stylesheet" href="https://mikewest.org/static/20111231/style.css" type="text/css">
-<script src="https://mikewest.org/static/20111231/behavior.js"></script>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script src="/static/behavior.js"></script>
 
-<link rel="alternate" type="application/atom+xml" href="http://feeds.mikewest.org/just_posts" title="Feed (articles only)">
+<link rel="alternate" type="application/atom+xml" href="/rss/index.xml" title="Feed (articles only)">
 
 <meta name="viewport" content="width=820">
 
@@ -34,23 +31,23 @@
   <p>
     <a href="/" class="fn" rel="home">Mike West</a>
     <span>
-      works and plays on the internet. Currently working as a Developer
-      Advocate on Google's Chrome team in Munich, he helps develop websites
-      and applications that (on good days) delight and inform. Drop me an
+      works and plays on the internet. Currently working as a software
+      engineer on Google's Chrome team in Munich, he tries to make the web
+      platform marginally less insecure than it generally is. Drop him an
       email at
     </span>
     <a href="mailto:mike@mikewest.org"
        title="Drop me an email."
        class="email icon">mike@mikewest.org</a>
     <span>
-      follow me on
+      follow him on
     </span>
     <a href="http://twitter.com/mikewest"
       rel="me"
       title="Follow me on Twitter"
       class="twitter icon">Twitter</a>
     <span>
-      or circle me on
+      or circle him on
     </span>
     <a href="https://plus.google.com/104437754419996754779/"
        rel="me"
@@ -61,33 +58,33 @@
 
     <article class="hentry" role="main">
   <h1 class="entry-title">Now I have a colourful `bash` prompt</h1>
-  <time class="published" pubdate datetime="Mon Dec 10 00:00:00 +0100 2007">
+  <time class="published" pubdate datetime="2007-12-10">
     Monday, December 10, 2007
   </time>
 
-  <p>After seeing <a href="http://adrianocastro.net/about/">Adriano Castro&rsquo;s</a> presentation last week on <a href="http://sourceforge.net/projects/rthree" title="R3: A neat looking templating system, full of support for l10n, i18n, and many other letters and numbers.">R3</a>, I was inspired both to play a little bit with R3 itself (cool!), and just as importantly, to finally taking a few minutes to customize my bash prompt.  His brightly coloured prompt was full of information and life, mine not; I&rsquo;d just done an entire presentation on <a href="/archive/presentation-love-the-terminal" title="Mike West: 'Love the Terminal'">loving the terminal</a>, so this deficit was particularly shameful.</p>
+  <p>After seeing <a href="http://adrianocastro.net/about/">Adriano Castro’s</a> presentation last week on <a href="http://sourceforge.net/projects/rthree" title="R3: A neat looking templating system, full of support for l10n, i18n, and many other letters and numbers.">R3</a>, I was inspired both to play a little bit with R3 itself (cool!), and just as importantly, to finally taking a few minutes to customize my bash prompt.  His brightly coloured prompt was full of information and life, mine not; I’d just done an entire presentation on <a href="/archive/presentation-love-the-terminal" title="Mike West: 'Love the Terminal'">loving the terminal</a>, so this deficit was particularly shameful.</p>
 
 <p>So, I spent a few minutes this evening toying around with things, and ended up with this:</p>
 
 <p><img src="http://mikewest.org/images/4.png" alt="My newly colourful and lively Terminal window." height="267" width="575" /></p>
 
-<p>Ah, lovely; it&rsquo;s <em>really</em> simple to do for yourself.</p>
+<p>Ah, lovely; it’s <em>really</em> simple to do for yourself.</p>
 
-<h2 id="heres-how-it-works">Here&rsquo;s how it works</h2>
+<h2 id="heres-how-it-works">Here’s how it works</h2>
 
-<p>The terminal prompt is controlled via the <code>PS1</code> environment variable in <code>bash</code>.  You simply need to construct a particular string, and assign it to that variable by adding a line to your <code>.bash_login</code> file like the following:</p>
+<p>The terminal prompt is controlled via the <code class="highlighter-rouge">PS1</code> environment variable in <code class="highlighter-rouge">bash</code>.  You simply need to construct a particular string, and assign it to that variable by adding a line to your <code class="highlighter-rouge">.bash_login</code> file like the following:</p>
 
-<pre><code>export PS1="&lt;your formatting string goes here&gt;"
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PS1="&lt;your formatting string goes here&gt;"
+</code></pre></div></div>
 
 <p>This prompt in particular is:</p>
 
-<pre><code>export PS1="\[\033]2;\u@\h\a[\[\033[37;44;1m\]\t\[\033[0m\]] \[\033[32m\]\w\[\033[0m\] \$ \[\033[0m\]"
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PS1="\[\033]2;\u@\h\a[\[\033[37;44;1m\]\t\[\033[0m\]] \[\033[32m\]\w\[\033[0m\] \$ \[\033[0m\]"
+</code></pre></div></div>
 
 <p>This breaks down into:</p>
 
-<pre><code>\[\033]2;\u@\h\a                    #    which writes the `user@host` string
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\[\033]2;\u@\h\a                    #    which writes the `user@host` string
                                     #    into the terminal window's title bar
                 
 [\[\033[37;44;1m\]\t\[\033[0m\]]    #    which writes (in white-on-blue)
@@ -101,13 +98,13 @@
 \$                                    #    which writes "$" if I'm logged in as
                                     #    a normal user, and "#" if I'm logged
                                     #    in as `root`.
-</code></pre>
+</code></pre></div></div>
 
-<p>To build your own, I&rsquo;d suggest taking a look at <a href="http://www.ibm.com/developerworks/linux/library/l-tip-prompt/" title="Tip: Prompt Magic">Daniel Robbins&rsquo; &ldquo;Prompt Magic&rdquo; article on IBM developerWorks</a>.  It&rsquo;s a well put-together article that walks you through the whole, terrifically geeky process.</p>
+<p>To build your own, I’d suggest taking a look at <a href="http://www.ibm.com/developerworks/linux/library/l-tip-prompt/" title="Tip: Prompt Magic">Daniel Robbins’ “Prompt Magic” article on IBM developerWorks</a>.  It’s a well put-together article that walks you through the whole, terrifically geeky process.</p>
 
 <h2 id="update">Update</h2>
 
-<p>If you happen to have some strange text-wrapping problems, <a href="http://mikewest.org/archive/solving-strange-text-wrapping-problems-in-bash" title="Mike West: 'Solving strange text wrapping problems in `bash`'">I might have a solution for you</a>.  In a nutshell, end your prompt with a colour code, and use <code>\033</code> instead of <code>\e</code>.  I&rsquo;ve updated this page accordingly; see <a href="http://mikewest.org/archive/solving-strange-text-wrapping-problems-in-bash" title="Mike West: 'Solving strange text wrapping problems in `bash`'">&ldquo;Solving strange text wrapping problems in bash&rdquo;</a> for more details.</p>
+<p>If you happen to have some strange text-wrapping problems, <a href="http://mikewest.org/archive/solving-strange-text-wrapping-problems-in-bash" title="Mike West: 'Solving strange text wrapping problems in `bash`'">I might have a solution for you</a>.  In a nutshell, end your prompt with a colour code, and use <code class="highlighter-rouge">\033</code> instead of <code class="highlighter-rouge">\e</code>.  I’ve updated this page accordingly; see <a href="http://mikewest.org/archive/solving-strange-text-wrapping-problems-in-bash" title="Mike West: 'Solving strange text wrapping problems in `bash`'">“Solving strange text wrapping problems in bash”</a> for more details.</p>
 
 
 
@@ -129,7 +126,7 @@
 </article>
 
     <small>
-  Copyright &copy;2011 <a href="/is">Mike West</a>: With notable exceptions,
+  Copyright &copy;2017 <a href="/is">Mike West</a>: With notable exceptions,
   this site's content is
   <a href="/license" rel="license">available for non-commercial reuse</a>.
   Enjoy!
